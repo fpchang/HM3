@@ -1,0 +1,199 @@
+{
+	"pages": [
+		
+
+	{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom",
+				"mp-alipay": {
+					"transparentTitle": "always",
+					"titlePenetrate": "YES"
+				},
+				"enablePullDownRefresh": true
+			}
+		},{
+			"path" : "pages/home/home",
+			"style" : 
+			{
+				"navigationBarTitleText" : "12345"
+			}
+		},{
+			"path" : "pages/permission/setPermission/setPermission",
+			"style" :
+			{
+				"navigationBarTitleText" : ""
+			}
+		},	{
+			"path": "pages/scenicSpot/showScenicSpot/showScenicSpot",
+			"style": {
+				"navigationBarTitleText": "景点价格"
+			}
+		},
+		{
+			"path": "pages/catering/orderDishes/orderDishes",
+			"style": {				
+				"navigationBarTitleText": "定餐服务"
+			}
+		},	
+		
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/order/createOrder/createOrder",
+			"style": {
+				"navigationBarTitleText": "创建订单"
+			}
+		},
+		{
+			"path": "pages/hotelManage/createRoomType/createRoomType",
+			"style": {
+				"navigationBarTitleText": "创建房型"
+			}
+		},
+		
+		{
+			"path": "pages/hotelManage/addEmployee/addEmployee",
+			"style": {
+				"navigationBarTitleText": "添加员工"
+			}
+		},
+		{
+			"path": "pages/scenicSpot/addScenicSpot/addScenicSpot",
+			"style": {
+				"navigationBarTitleText": "新增景点"
+			}
+		},
+		{
+			"path": "pages/scenicSpot/addSencicSpotDetail/addSencicSpotDetail",
+			"style": {
+				"navigationBarTitleText": "新增景点价目"
+			}
+		},
+		{
+			"path": "pages/hotelManage/createHotel/createHotel",
+			"style": {
+				"navigationBarTitleText": "新增酒店"
+			}
+		},
+		{
+			"path": "pages/catering/addMenuType/addMenuType",
+			"style": {
+				"navigationBarTitleText": "新增菜单分类"
+			}
+		},
+		{
+			"path": "pages/catering/addMenuDetail/addMenuDetail",
+			"style": {
+				"navigationBarTitleText": "新增菜单详情"
+			}
+		},
+		
+		{
+			"path": "pages/common/success",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "操作成功"
+			}
+		},
+		{
+			"path" : "pages/mine/feedback/feedback",
+			"style" : 
+			{
+				"navigationBarTitleText" : "建议与反馈"
+			}
+		},
+		{
+			"path" : "pages/hotelManage/hotelList/hotelList",
+			"style" : 
+			{
+				"navigationBarTitleText" : "酒店管理"
+			}
+		}
+		
+	,{
+    "path": "uni_modules/uni-pay/pages/success/success",
+    "style": {
+        "backgroundColor": "#F8F8F8",
+        "navigationBarTitleText": "支付成功"
+    }
+}
+,{
+    "path": "uni_modules/uni-pay/pages/ad-interactive-webview/ad-interactive-webview",
+    "style": {
+        "backgroundColor": "#F8F8F8",
+        "navigationBarTitleText": "ad"
+    }
+}
+,{
+    "path": "uni_modules/uni-pay/pages/pay-desk/pay-desk",
+    "style": {
+        "backgroundColor": "#F8F8F8",
+        "navigationBarTitleText": "收银台"
+    }
+}
+,{
+    "path": "pages/hm-role-permission/add",
+    "style": {
+        "navigationBarTitleText": "新增"
+    }
+}
+,{
+    "path": "pages/hm-role-permission/edit",
+    "style": {
+        "navigationBarTitleText": "编辑"
+    }
+}
+,{
+    "path": "pages/hm-role-permission/list",
+    "style": {
+        "navigationBarTitleText": "列表"
+    }
+}
+,{
+    "path": "pages/hm-role-permission/detail",
+    "style": {
+        "navigationBarTitleText": "详情"
+    }
+}
+
+],
+	"tabBar": {
+		"color": "#1d1d1f",
+		"selectedColor": "#0071e3",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/img/home-black.png",
+				"selectedIconPath": "static/img/home-blue.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"iconPath": "static/img/mine-black.png",
+				"selectedIconPath": "static/img/mine-blue.png",
+				"text": "我的"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	"uniIdRouter": {}
+}

@@ -1,0 +1,1 @@
+{"license":"Apache-2.0","devDependencies":{},"author":"userTrack Harmony Developer","name":"@taobao-ohos/utdid_sdk","description":"@taobao-ohos/utdid_sdk: 适用于鸿蒙设备获取utdid的sdk包","main":"./src/main/ets/Index.ets","version":"1.0.9","dependencies":{},"metadata":{"sourceRoots":["./src/main"]}}

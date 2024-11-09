@@ -1,0 +1,6 @@
+string page_show 0x01000000
+media captcha_back 0x01000001
+media captcha_reload 0x01000002
+media captcha_slide 0x01000003
+media nearx_bs 0x01000004
+profile main_pages 0x01000005

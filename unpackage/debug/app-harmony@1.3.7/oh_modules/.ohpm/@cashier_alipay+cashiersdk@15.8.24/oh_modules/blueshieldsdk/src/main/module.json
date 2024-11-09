@@ -1,0 +1,21 @@
+{
+	"app": {
+		"bundleName": "com.example.apsecdemo",
+		"versionCode": 1000000,
+		"versionName": "1.0.0",
+		"minAPIVersion": 50000012,
+		"targetAPIVersion": 50000012,
+		"apiReleaseType": "Canary1",
+		"compileSdkVersion": "5.0.0.13",
+		"compileSdkType": "HarmonyOS",
+		"bundleType": "app"
+	},
+	"module": {
+		"name": "blueshieldsdk",
+		"type": "har",
+		"deviceTypes": [
+			"default"
+		],
+		"installationFree": false
+	}
+}

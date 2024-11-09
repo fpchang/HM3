@@ -1,0 +1,41 @@
+/** 标识数据传输是否gzip 特别注意，http header大小写经过传输可能变化，匹配的时候忽略大小写 */
+import { BizContext } from '../context/BizContext';
+import { JSONObject } from '../utils/Utils';
+import { Letter } from './model/Letter';
+import { HashMap } from '@kit.ArkTS';
+export declare const HTTP_HEADER_MSP_GZIP = "msp-gzip";
+export declare const HTTP_HEADER_MSP_PARAM = "Msp-Param";
+export declare const HTTP_HEADER_OPERATION_TYPE = "Operation-Type";
+export declare const HTTP_HEADER_CONTENT_TYPE = "content-type";
+export declare const HTTP_HEADER_VERSION = "Version";
+export declare const HTTP_HEADER_APPID = "AppId";
+export declare const HTTP_HEADER_DESMODE = "des-mode";
+export declare const HTTP_HEADER_CONTENT_TYPE_H = "Content-Type";
+export declare const HTTP_HEADER_ACCEPT_CHARSET = "Accept-Charset";
+export declare const HTTP_HEADER_CONNECTION = "Connection";
+export declare const HTTP_HEADER_KEEP_ALIVE = "Keep-Alive";
+export declare const HTTP_HEADER_UTDID = "utdId";
+export declare const HTTP_HEADER_LOG_HEADER = "logHeader";
+export declare const HTTP_HEADER_BIZ_CODE = "bizCode";
+export declare const HTTP_HEADER_PRODUCT_ID = "productId";
+export declare const HTTP_HEADER_PRODUCT_VERSION = "productVersion";
+export declare const HTTP_HEADER_CONTENT_ENCODING = "Content-Encoding";
+export declare const HTTP_HEADER_USER_AGENT = "User-Agent";
+export declare abstract class NetworkTask {
+    isUpGzip: boolean;
+    isEncrypt: boolean;
+    buildHeaders(z43: boolean, a44: string): Map<string, string>;
+    abstract buildAction(): JSONObject;
+    abstract isWifiMocked(): boolean;
+    abstract getName(): string;
+    needStatic(): boolean;
+    getApiVersion(): string;
+    buildEnvelop(w43: BizContext): string;
+    buildEnvelopInner(t43: BizContext, u43: Map<string, string>, v43: HashMap<string, string>): string;
+    static buildAction(x43: string, y43: string): JSONObject;
+    buildBody(q43: BizContext, r43: string, s43: JSONObject): string;
+    request(o43: BizContext, p43: string): Promise<Letter | null>;
+    requestWithUrl(l43: BizContext, m43: string, n43: string): Promise<Letter | null>;
+    doRequest(h43: BizContext, i43: string, j43: string, k43: boolean): Promise<Letter | null>;
+    updatePublicKey(g43: string): boolean;
+}
