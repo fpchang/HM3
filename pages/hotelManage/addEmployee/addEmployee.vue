@@ -1,7 +1,9 @@
 <template>
   <view>
-    <scroll-view :scroll-y="true" :scroll-x="false" class="scroll-view" style="">
+    <scroll-view :scroll-y="true" :scroll-x="false" class="scroll-view">
+      <view class="container"> 
 			<addEmployeeComponent @closePopup="closePopup" :type="type" :em="em" v-if="em"></addEmployeeComponent>
+      </view>
 		</scroll-view>
   </view>
 </template>
@@ -58,10 +60,13 @@ export default{
 }
 </script>
 
-<style>
+<style lang="scss">
 .scroll-view {
-	padding: 20px 15px;
-	box-sizing: border-box;
-	height:100vh;
+	.container{
+    padding: 20px 15px;
+  }
+  
+  box-sizing: border-box;
+  height:100vh;
 }
 </style>

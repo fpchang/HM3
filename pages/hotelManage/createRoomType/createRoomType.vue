@@ -6,12 +6,14 @@
       class="scroll-view"
       style=""
     >
+    <view class="container"> 
       <createRoomTypeComponent
         @closePopup="closePopup"
         :type="type"
         :rt="targetObj"
         v-if="targetObj"
       ></createRoomTypeComponent>
+      </view>
     </scroll-view>
   </view>
 </template>
@@ -49,10 +51,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .scroll-view {
-  padding: 20px 15px;
+  .container{
+    padding: 20px 15px;
+  }
+  
   box-sizing: border-box;
-  height: calc(100vh - 44px);
+  height:100vh;
 }
 </style>

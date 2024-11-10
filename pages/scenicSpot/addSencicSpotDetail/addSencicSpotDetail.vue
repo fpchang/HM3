@@ -1,13 +1,14 @@
 <template>
 	<view>
 		<scroll-view :scroll-y="true" :scroll-x="false" class="scroll-view" style="">
-
+			<view class="container"> 
 			<addScenicSpotDetailComponent
 			v-if="targetObj"
 			@closePopup="closePopup"
 			:type="type"
 			:targetObj="targetObj"
 		  ></addScenicSpotDetailComponent>
+		  </view>
 		</scroll-view>
 	</view>
 </template>
@@ -47,9 +48,12 @@ import addScenicSpotDetailComponent from '../components/addScenicSpotDetailCompo
 	}
 </script>
 
-<style>
+<style lang="scss">
 .scroll-view {
-	padding: 20px 15px;
+	.container{
+		padding: 20px 15px;
+	}
+	
 	box-sizing: border-box;
 	height:100vh;
 }

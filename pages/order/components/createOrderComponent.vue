@@ -17,7 +17,6 @@
           v-model="orderForm.dateRangeArray"
           rangeSeparator="/"
           :start="startDate"
-          end="2025/12/22"
           type="daterange"
           return-type="timestamp"
           @change="initValidRoomTypeData"
@@ -33,7 +32,7 @@
              <text style="padding:0 10px">至</text>
              <text style="flex:1;text-align:center">{{orderForm.dateRangeArray[1]|| "截止日期"}}</text> 
             </view>
-          
+            <uv-calendar ref="calendars" mode="range" @close="dateClose" @confirm="dateConfim" style="z-index:9999"></uv-calendar>
         </view>
        
       </uni-forms-item>
@@ -118,7 +117,7 @@
         ></uv-button>
       </uni-forms-item>
     </uni-forms>
-    <uv-calendar :show="dateSelectShow" mode="range" @close="dateClose" @confirm="dateConfim" style="z-index:9999"></uv-calendar>
+    
   </view>
 </template>
 
@@ -247,11 +246,18 @@ export default {
   methods: {
     showDateSelect(){
       this.dateSelectShow=true;
+      this.$refs.calendars.open();
     },
     dateClose(){
       this.dateSelectShow=false;
+      //this.$refs.calendars.close();
+    },
+    dateConfimEvent(obj){
+      console.log(obj,"11111")
+      this.dateConfim(obj.range.data);
     },
     dateConfim(timeRange){
+      console.log(timeRange);
       const startDate = timeRange[0].replaceAll("-","/");
       const endDate = timeRange[1].replaceAll("-","/");
       this.orderForm.dateRangeArray=[startDate,endDate];

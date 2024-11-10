@@ -273,7 +273,7 @@
 				return this.$store.state.permissionStore.permissionList;
 			},
 			dataHasRead() {
-				return this.hotelList.length && this.hotel_id;
+				return this.hotelList&&this.hotelList.length && this.hotel_id;
 			},
 			hotelListFormat() {
 				return this.hotelList.map((item) => {

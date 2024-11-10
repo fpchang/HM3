@@ -1,13 +1,14 @@
 <template>
 	<view>
 		<scroll-view :scroll-y="true" :scroll-x="false" class="scroll-view" style="">
-
+			<view class="container"> 
 			<addMenuDetailComponent
 			v-if="targetObj"
 			@closePopup="closePopup"
 			:type="type"
 			:targetObj="targetObj"
 		  ></addMenuDetailComponent>
+		  </view>
 		</scroll-view>
 	</view>
 </template>

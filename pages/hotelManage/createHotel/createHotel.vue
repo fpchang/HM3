@@ -6,12 +6,14 @@
       class="scroll-view"
       style=""
     >
+    <view class="container"> 
       <createHotelComponent
         v-if="targetObj"
 		:targetObj="targetObj"
 		:type="type"
         @closePopup="closePopup"
       ></createHotelComponent>
+      </view>
     </scroll-view>
   </view>
 </template>
@@ -49,10 +51,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .scroll-view {
-  padding: 20px 15px;
+  .container{
+    padding: 20px 15px;
+  }
+  
   box-sizing: border-box;
-  height: 100vh;
+  height:100vh;
 }
 </style>
