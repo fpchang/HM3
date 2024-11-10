@@ -29,7 +29,7 @@
 					<uni-td>{{item.hotelName}}</uni-td>
 					<uni-td>{{item.hotelAdress}}</uni-td>
 					<uni-td>{{item.belong}}</uni-td>
-					<uni-td>{{item.curRole | roleFormat}}</uni-td>
+					<uni-td>{{roleFormat(item.curRole)}}</uni-td>
 					<uni-td align="center">
 						<view class="uni-group" style="justify-content:space-around">
 						  <text v-if="item.curRole=='administrator'" class="edit-text-btn-style" @click="editHotel(item)">修改</text>
@@ -143,6 +143,14 @@ import  {DB} from '../../../api/DB';
 			}
 		},
 		methods:{
+			roleFormat(val){
+				const p= {
+					administrator:"超级管理员",
+					manager:"管理员",
+					normal:"员工"
+				}
+				return p[val]
+			},
 			editHotel(targetObj){
 				if(targetObj.curRole!="administrator"){
 					this.$alert.alertNoPermisson();
