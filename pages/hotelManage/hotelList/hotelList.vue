@@ -42,7 +42,7 @@
 			</uni-table>
 		</view>
 		<view class="mobile-show-style" style="max-width: 450px;" v-if="!isPcShow">
-			<uni-collapse v-model="accordionVal" :accordion="true">
+			<uni-collapse v-model="accordionVal">
 				<uni-collapse-item v-for="item of hotelList">
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.hotelName " type="circle">
