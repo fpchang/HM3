@@ -253,7 +253,6 @@ export default {
       //this.$refs.calendars.close();
     },
     dateConfimEvent(obj){
-      console.log(obj,"11111")
       this.dateConfim(obj.range.data);
     },
     dateConfim(timeRange){

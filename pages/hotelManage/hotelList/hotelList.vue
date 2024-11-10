@@ -55,7 +55,10 @@
 								<view class="list-item-c"><text class="stitle">地址：</text><text>{{item.hotelAdress}}</text></view>
 							</view>
 							<view class="list-item">
-								<view class="list-item-c"><text class="stitle">简介：</text><text>{{item.hotelIntroduction}}</text></view>
+								<view class="list-item-c"><text class="stitle">店主：</text><text>{{item.belong}}</text></view>
+							</view>
+							<view class="list-item">
+								<view class="list-item-c"><text class="stitle">角色：</text><text>{{roleFormat(item.curRole)}}</text></view>
 							</view>
 							<view class="list-item" style="justify-content: flex-end;">
 

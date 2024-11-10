@@ -39,7 +39,7 @@
         <uni-tr v-for="item of employeeList">
           <uni-td>{{ item.phone }}</uni-td>
           <uni-td>{{ item.employee_name }}</uni-td>
-          <uni-td>{{ item.role | roleFormat }}</uni-td>
+          <uni-td>{{ roleFormat(item.role) }}</uni-td>
           <uni-td align="center">
             <view class="uni-group" style="justify-content:space-around">
               <text  class="edit-text-btn-style" @click="editEmployee(item)">修改</text>
@@ -78,7 +78,7 @@
             >
               <template v-slot:right>
                 <text style="font-weight: bold">{{
-                  item.role | roleFormat
+                  roleFormat(item.role)
                 }}</text>
               </template>
             </uni-section>
