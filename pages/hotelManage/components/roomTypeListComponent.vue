@@ -75,7 +75,7 @@
 							<view class="list-item">
 								<view class="list-item-c">
 									<view style="width:80px;"><text class="stitle">房间号：</text></view>
-									<view style="flex:1"><text v-for="i of sortRoomList(item.roomList)"">【{{i}}】</text></view>
+									<view style="flex:1"><text v-for="i of sortRoomList(item.roomList)">【{{i}}】</text></view>
 								
 								</view>
 								
