@@ -8,7 +8,7 @@
 
 <script>
 import addEmployeeComponent from "../components/addEmployeeComponent"
-export default({
+export default{
   components: {
     addEmployeeComponent
   },
@@ -55,7 +55,7 @@ export default({
   // onPageScroll(event) {},
   // 页面处理函数--用户点击右上角分享
   // onShareAppMessage(options) {},
-}) 
+}
 </script>
 
 <style>

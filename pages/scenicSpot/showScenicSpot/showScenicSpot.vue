@@ -21,7 +21,7 @@
 	import scenicSpotShowCardComponent from './scenicSpotShowCardComponent.vue';
 	import {ScenicSpotService} from '../../../services/ScenicSpotService';
 	import  {HotelService} from '../../../services/HotelService';
-	export default ({
+	export default {
 		name: "showscenicSpotList",
 		components: {
 			scenicSpotShowCardComponent
@@ -134,7 +134,7 @@
 		deactivated() {},
 		// 组件周期函数--监听组件销毁之前
 		beforeDestroy() {},
-	})
+	}
 </script>
 
 <style scoped lang="scss">

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import PermissionService from "../../../services/PermissionService";
+import {PermissionService} from "../../../services/PermissionService";
 	export default {
 		data() {
 			return {

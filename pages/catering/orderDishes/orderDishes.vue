@@ -138,10 +138,10 @@
 <script>
 	import  {HotelService} from '../../../services/HotelService';
 	import  {MenuService} from '../../../services/MenuService';
-	import leeLinkage from '../../../components/StarLee-linkage/linkage';
+	//import leeLinkage from '../../../components/StarLee-linkage/linkage';
 	export default {
 		components: {
-			leeLinkage
+			
 		},
 		onInit(params) {
 			console.log("params", params);

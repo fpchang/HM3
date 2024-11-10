@@ -25,7 +25,7 @@
 </template>
 
 <script>
-export default({
+export default{
   components: {},
   data() {
     return {
@@ -87,7 +87,7 @@ export default({
   // onPageScroll(event) {},
   // 页面处理函数--用户点击右上角分享
   // onShareAppMessage(options) {},
-}) 
+}
 </script>
 
 <style lang="scss"> 

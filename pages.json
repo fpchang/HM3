@@ -143,30 +143,7 @@
         "navigationBarTitleText": "收银台"
     }
 }
-,{
-    "path": "pages/hm-role-permission/add",
-    "style": {
-        "navigationBarTitleText": "新增"
-    }
-}
-,{
-    "path": "pages/hm-role-permission/edit",
-    "style": {
-        "navigationBarTitleText": "编辑"
-    }
-}
-,{
-    "path": "pages/hm-role-permission/list",
-    "style": {
-        "navigationBarTitleText": "列表"
-    }
-}
-,{
-    "path": "pages/hm-role-permission/detail",
-    "style": {
-        "navigationBarTitleText": "详情"
-    }
-}
+
 
 ],
 	"tabBar": {
