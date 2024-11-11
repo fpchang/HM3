@@ -121,6 +121,14 @@
 				</view>
 			</view>
 		</uni-popup>
+		<uni-popup ref="popupFeedback" background-color="transprant">
+			<view class="popup-content">
+				<view class="create-order-title-style">意见与反馈</view>
+				<view class="comContent">
+					<feedback></feedback>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -134,10 +142,9 @@
 	import menuListComponent from "../catering/components/menuListComponent.vue";
 	import scenicSpotListComponent from "../scenicSpot/components/scenicSpotListComponent";
 	import mine from "../mine/mine";
+	import feedback from "@/pages/mine/feedback/feedback";
 	 import  {AccountService} from "../../services/AccountService";
 	 import hotelList from "../hotelManage/hotelList/hotelList";
-	// import $store from '@/store/store';
-	// import { ref, computed }  from "vue";
 	import  {DB} from "../../api/DB";
 	export default {
 		components: {
@@ -150,7 +157,8 @@
 			menuListComponent,
 			scenicSpotListComponent,
 			hotelList,
-			mine
+			mine,
+			feedback
 		},
 
 		data() {
@@ -176,6 +184,14 @@
 		onLoad(e) {},
 		created() {
 			console.log("index create....>>>", uni.getSystemInfoSync());
+			uni.$on("showPopupPivot",(popup,eventType)=>{//popup开发枢纽，0 关闭，1打开
+				console.log("开关枢纽",arguments)
+				if(eventType==1){
+					this.$refs[popup].open();
+					return;
+				}
+				this.$refs[popup].close();
+			})
 			this.vaildToken(() => {
 				this.initData();
 			});
@@ -418,7 +434,11 @@
 				this.showDrawer = true;
 				this.$refs.showLeft.open();
 			},
+			//pc端右侧面板
 			openRightPanal() {
+				uni.$once("closeRightDrawer",()=>{
+					this.$refs.showRight.close();
+				});
 				this.$refs.showRight.open();
 			},
 			closeDrawerEvent() {

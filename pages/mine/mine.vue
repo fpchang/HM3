@@ -62,14 +62,7 @@
 		<view class="flex-center"> 
 			<text style="padding:10px;color:#ececec">浙ICP备2024130639号</text>
 		</view>
-		<uni-popup ref="popupFeedback" background-color="transprant">
-			<view class="popup-content">
-				<view class="create-order-title-style">意见与反馈</view>
-				<view class="comContent">
-					<feedback></feedback>
-				</view>
-			</view>
-		</uni-popup>
+		
 		<uni-popup ref="nameDialog" type="dialog">
 			<uni-popup-dialog ref="inputClose" before-close  mode="input" title="更改名称" value=""
 				placeholder="请输入名称" @close="closeNameUpdate" @confirm="submitNameUpdate"></uni-popup-dialog>
@@ -180,7 +173,8 @@
 						break;
 					case "feedback":
 						if (this.isPcShow) {
-							this.$refs.popupFeedback.open()
+							uni.$emit("closeRightDrawer");
+							uni.$emit("showPopupPivot","popupFeedback",1);
 							break;
 						}
 						const a = {
@@ -192,6 +186,7 @@
 						break;
 
 				}
+				
 			},
 			async loginOut() {
 				console.log("loginout")

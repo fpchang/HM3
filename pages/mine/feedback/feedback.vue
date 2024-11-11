@@ -86,6 +86,7 @@
 			uni.hideLoading();
 			this.submitLoading = false;
 			console.log("意见反馈添加成功");
+			
 			uni.navigateBack();
 		  } catch (error) {
 			console.error("添加意见反馈失败");
