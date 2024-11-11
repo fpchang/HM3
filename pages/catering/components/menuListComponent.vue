@@ -58,6 +58,7 @@
 	import menuOrderCardComponent from "./menuOrderCardComponent.vue";
 	import addMenuTypeComponent from "./addMenuTypeComponent.vue";
 	import  {MenuService} from "../../../services/MenuService";
+	import {alert} from "@/alert";
 	export default {
 		name: "menuList",
 		components: {
@@ -188,7 +189,7 @@
 						"MENU_CREATE"
 					)
 				) {
-					this.$alert.alertNoPermisson();
+					alert.alertNoPermisson();
 					return;
 				}
 				this.type = 0;
@@ -207,7 +208,7 @@
 						"MENU_UPDATE"
 					)
 				) {
-					this.$alert.alertNoPermisson();
+					alert.alertNoPermisson();
 					return;
 				}
 				this.type = 1;

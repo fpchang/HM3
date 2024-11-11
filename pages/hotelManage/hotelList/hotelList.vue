@@ -112,6 +112,7 @@
 import createHotelComponent from '../components/createHotelComponent';
 import  {HotelService} from "../../../services/HotelService";
 import  {DB} from '../../../api/DB';
+import {alert} from "@/alert";
 	export default {
 		components:{
 			createHotelComponent
@@ -156,11 +157,11 @@ import  {DB} from '../../../api/DB';
 			},
 			editHotel(targetObj){
 				if(targetObj.curRole!="administrator"){
-					this.$alert.alertNoPermisson();
+					alert.alertNoPermisson();
 					return;
 				}
 				if(!this.$store.state.permissionStore.permissionList.includes('HOTEL_UPDATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
 				this.type=1;
@@ -177,7 +178,7 @@ import  {DB} from '../../../api/DB';
 			},
 			addHotel(){
 				// if(!this.$store.state.permissionStore.permissionList.includes('HOTEL_CREATE')){
-				// 	 this.$alert.alertNoPermisson();
+				// 	 alert.alertNoPermisson();
 				// 	return;
 				// }
 				this.type=0;
@@ -191,11 +192,11 @@ import  {DB} from '../../../api/DB';
 			},
 			async deleteHotel(targetObj){
 				if(targetObj.curRole!="administrator"){
-					this.$alert.alertNoPermisson();
+					alert.alertNoPermisson();
 					return;
 				}
 				if(!this.$store.state.permissionStore.permissionList.includes('HOTEL_DELETE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
 				const conf = await uni.showModal({

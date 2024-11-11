@@ -149,6 +149,7 @@
 <script>
 import addScenicSpotDetailComponent from "./addScenicSpotDetailComponent";
 import {ScenicSpotService} from "../../../services/ScenicSpotService";
+import {alert} from "@/alert";
 export default {
   name: "scenicSpotCardComponent",
   props: {
@@ -202,7 +203,7 @@ export default {
     },
     addScenicSpotDetail() {
       if(!this.$store.state.permissionStore.permissionList.includes('SCENICSPOT_PRICE__UPDATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       this.type = 0;
@@ -219,7 +220,7 @@ export default {
     },
     editScenicSportPrice(item) {
       if(!this.$store.state.permissionStore.permissionList.includes('SCENICSPOT_PRICE__UPDATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       this.type = 1;
@@ -236,7 +237,7 @@ export default {
     },
     async deleteScenicSportPrice(item) {
       if(!this.$store.state.permissionStore.permissionList.includes('SCENICSPOT_PRICE__UPDATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       console.log(item);
@@ -270,7 +271,7 @@ export default {
     },
     async deleteScenicSpot() {
       if(!this.$store.state.permissionStore.permissionList.includes('SCENICSPOT_DELETE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       if (!this.scenicSpot_id) {

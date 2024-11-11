@@ -39,7 +39,7 @@ import {AccountService} from "./services/AccountService";
 			 initData(){
 				if(uni.getSystemInfoSync().deviceType=='pc' ||uni.getWindowInfo().windowWidth>740){
 					console.log("隐藏bar.....");
-					uni.hideTabBar();					
+					//uni.hideTabBar();					
 					this.globalData.isPcShow=true;
 					this.$store.commit("setPcShow",true);
 					this.$store.commit("updateUser");

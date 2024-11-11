@@ -18,7 +18,7 @@
           
         </uni-forms-item>
         <uni-forms-item >
-          <button type="primary" class="submit-btn"  :disabled="submitDisabled" @click="submit":loading="submitLoading">登录</button>
+          <button  :class="['submit-btn',submitDisabled?'submit-btn-disabled':'']"  :disabled="submitDisabled" @click="submit":loading="submitLoading">登录</button>
         </uni-forms-item>
       </uni-forms>
       <view style="height: 80px"></view>
@@ -199,10 +199,15 @@ export default {
 }
 
 .submit-btn{
-  background-color:#3c9cff;
+  background:#06c;
   border-radius: 22.5px;
-  color: #fff;
+  color: #fff!important;
   cursor: pointer;
+  
+}
+.submit-btn-disabled{
+  background:#0066cc78!important;
+  color: #eee!important;
 }
 .sms-btn {
   border-radius: 22.5px;

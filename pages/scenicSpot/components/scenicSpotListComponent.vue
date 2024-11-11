@@ -27,17 +27,18 @@
 				</view>
 			</view>
 		</view>
-		<uni-popup ref="popupScenicSpot" background-color="transprant">
-			<view class="popup-content">
-				<view class="create-order-title-style">{{type==1?"修改景点":"创建景点"}}</view>
-				<view class="comContent">
-					<addScenicSpotComponent @closePopup="closePopup" :type="type" :targetObj="targetObj">
-					</addScenicSpotComponent>
-				</view>
-
-			</view>
-		</uni-popup>
+	
 	</block>
+	<uni-popup ref="popupScenicSpot" background-color="transprant">
+		<view class="popup-content">
+			<view class="create-order-title-style">{{type==1?"修改景点":"创建景点"}}</view>
+			<view class="comContent">
+				<addScenicSpotComponent @closePopup="closePopup" :type="type" :targetObj="targetObj">
+				</addScenicSpotComponent>
+			</view>
+
+		</view>
+	</uni-popup>
 	</view>
 </template>
 
@@ -45,6 +46,7 @@
 	import scenicSpotCardComponent from "./scenicSpotCardComponent.vue";
 	import addScenicSpotComponent from "./addScenicSpotComponent.vue";
 	import  {HotelService} from '../../../services/HotelService';
+	import {alert} from "@/alert";
 	export default {
 		name: "scenicSpotList",
 		components: {
@@ -149,7 +151,7 @@
 			},
 			addScenicSpot(item = {}) {
 				if (!this.$store.state.permissionStore.permissionList.includes('SCENICSPOT_CREATE')) {
-					this.$alert.alertNoPermisson();
+					alert.alertNoPermisson();
 					return;
 				}
 				this.type = 0;
@@ -165,7 +167,7 @@
 			},
 			editScenicSpot(item = {}) {
 				if (!this.$store.state.permissionStore.permissionList.includes('SCENICSPOT_UPDATE')) {
-					this.$alert.alertNoPermisson();
+					alert.alertNoPermisson();
 					return;
 				}
 				this.type = 1;

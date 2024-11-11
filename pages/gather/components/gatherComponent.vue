@@ -197,23 +197,16 @@
 			console.log('gatherComponent Show')
 		},
 		 created() {
-			// this.getOrderListByCheckInToday();
-			// this.getOrderListToday();
-			//this.getOrderDishesToday();
+
 			
 		},
 	
 		methods: {
 			async initData() {
-				if (!this.hotel_id) {
-					return;
-				}
+				console.log("init data gather")
 				await this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
 				await this.$store.dispatch("getOrderListToday", this.hotel_id);
 				await this.$store.dispatch("getOrderDishesToday", this.hotel_id);
-
-
-
 			},
 			dayNum(params) {
 				return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24))
@@ -225,17 +218,6 @@
 					num += item.count;
 				})
 				return num
-			},
-			//获取今日入住
-			async getOrderListByCheckInToday() {
-				// try {
-				//   const res = await OrderService.getOrderListByCheckIn(this.hotel_id,new Date());
-				//   console.log("today checkin ",res.data);
-				//  this.dataList[0].list=res.data;
-				//  this.dataList[0].numCount=res.data.length;
-				// } catch (error) {
-
-				// }
 			},
 			//今日住客
 			async getOrderListToday() {

@@ -145,6 +145,7 @@
 import addEmployeeComponent from "./addEmployeeComponent";
 import  {DB} from "../../../api/DB";
 import  {HotelService} from "../../../services/HotelService";
+import {alert} from "@/alert";
 export default {
   components: {
     addEmployeeComponent,
@@ -207,7 +208,7 @@ export default {
     },
     editEmployee(em) {
       if(!this.$store.state.permissionStore.permissionList.includes('EMPLOYEE_UPDATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       this.emObj = em;
@@ -225,7 +226,7 @@ export default {
     },
     addEmployee() {
       if(!this.$store.state.permissionStore.permissionList.includes('EMPLOYEE_CREATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       this.type = 0;
@@ -240,7 +241,7 @@ export default {
     },
     async deleteEmployee(em) {
       if(!this.$store.state.permissionStore.permissionList.includes('EMPLOYEE_DELETE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       const conf = await uni.showModal({

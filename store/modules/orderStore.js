@@ -26,18 +26,18 @@ export default{
         	//获取当天开始的订单
 		 getOrderListTodayAfter(context,hotel_id) {
 			return OrderService.getOrderListTodayAfter(hotel_id).then(res=>{
-				context.commit("updateOrderListTodayAfter", res.data);
+				context.commit("updateOrderListTodayAfter", res.result.data);
 			})
 		},
 		//今日办理入住的客户
-		getOrderListByCheckInToday(context,hotel_id){
-			return OrderService.getOrderListByCheckIn(hotel_id,new Date()).then(res=>{
-				context.commit("updateOrderListByCheckInToday",res.data);
-			})	
+		async getOrderListByCheckInToday(context,hotel_id){
+			const res = await OrderService.getOrderListByCheckIn(hotel_id,new Date());
+			context.commit("updateOrderListByCheckInToday",res.result.data);
+			return res;	
 		  },
 		  getOrderListToday(context,hotel_id){			
 			 return OrderService.getOrderListToday(hotel_id).then(res=>{
-				context.commit("updateOrderListToday",res.data);
+				context.commit("updateOrderListToday",res.result.data);
 			 })
 			}
     }

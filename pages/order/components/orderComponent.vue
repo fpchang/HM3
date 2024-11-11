@@ -80,6 +80,7 @@ import orderChildCalendarList from './orderChildCalendarList';
 	import orderChildTableList from './orderChildTableList';
 	import createOrderComponent from './createOrderComponent';
 	import orderChildList from './orderChildList.vue';
+	import {alert} from "@/alert";
 	export default {
 		components: {
     	CreateOrder,
@@ -166,7 +167,7 @@ import orderChildCalendarList from './orderChildCalendarList';
 			},
 			createOrderEvent() {
 				if(!this.$store.state.permissionStore.permissionList.includes('ORDER_CREATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
 				if (!this.$store.state.isPcShow) {

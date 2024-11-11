@@ -326,7 +326,10 @@ export default {
       };
       try {
         await OrderService.addOrder(obj);
-        await this.$store.dispatch("getOrderListTodayAfter",this.hotel_id);
+         this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
+				 this.$store.dispatch("getOrderListToday", this.hotel_id);
+				 this.$store.dispatch("getOrderDishesToday", this.hotel_id);
+         this.$store.dispatch("getOrderListTodayAfter",this.hotel_id);
         this.submitLoading = false;
         uni.hideLoading();
         this.$emit("closePopup");

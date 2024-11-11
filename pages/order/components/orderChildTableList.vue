@@ -80,6 +80,7 @@
 <script>
 	import  {DB} from '../../../api/DB';
 	import  {OrderService} from '../../../services/OrderService.js';
+	import {alert} from "@/alert";
 	export default {
 		data() {
 			return {
@@ -160,7 +161,7 @@
 			},
 			async deleteOrder(item) {
 				if(!this.permissionList.includes('ORDER_DELETE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}			
 				let order_id = item._id;

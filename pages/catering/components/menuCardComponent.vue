@@ -107,6 +107,7 @@
 <script>
 import addMenuDetailComponent from "./addMenuDetailComponent";
 import  {MenuService} from "../../../services/MenuService";
+import {alert} from "@/alert";
 export default {
   name: "menuCardComponent",
   props: {
@@ -163,7 +164,7 @@ created(){
     },
     addMenuDetail() {
       if(!this.$store.state.permissionStore.permissionList.includes('MENU_UPDATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       this.type = 0;
@@ -180,7 +181,7 @@ created(){
     },
     editMenuDetail(item) {
       if(!this.$store.state.permissionStore.permissionList.includes('MENU_UPDATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       this.type = 1;
@@ -197,7 +198,7 @@ created(){
     },
     async deleteMenuDetail(item) {
       if(!this.$store.state.permissionStore.permissionList.includes('MENU_DELETE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
       if (!this.menuType_id) {
@@ -238,7 +239,7 @@ created(){
     // },
     async deleteMenuType() {
       if (!this.$store.state.permissionStore.permissionList.includes('MENU_DELETE')) {
-					this.$alert.alertNoPermisson();
+					alert.alertNoPermisson();
 					return;
 				}
         console.log(this.menuType_id,this.menuItem)

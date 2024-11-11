@@ -77,6 +77,7 @@
 
 <script>
 	import  {OrderService} from "../../../services/OrderService";
+	import {alert} from "@/alert";
 	export default {
 		data() {
 			return {
@@ -115,7 +116,7 @@
 			},
 			async deleteOrder(item) {
 				if(!this.$store.state.permissionStore.permissionList.includes('ORDER_DELETE')){
-					this.$alert.alertNoPermisson();
+					alert.alertNoPermisson();
 					return;
 				}
 				let _id = item._id;

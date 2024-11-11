@@ -119,7 +119,8 @@
 </template>
 
 <script>
-import createRoomTypeComponent from './createRoomTypeComponent.vue';
+import createRoomTypeComponent from './createRoomTypeComponent';
+import {alert} from "@/alert";
 import  {DB} from '../../../api/DB';
 	export default {
 		components:{
@@ -162,7 +163,7 @@ import  {DB} from '../../../api/DB';
 			},
 			editRoomType(rt){
 				if(!this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_UPDATE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
 				this.type=1;
@@ -191,7 +192,7 @@ import  {DB} from '../../../api/DB';
 			},
 			async deleteRoomType(rt){
 				if(!this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_DELETE')){
-					 this.$alert.alertNoPermisson();
+					 alert.alertNoPermisson();
 					return;
 				}
 				const conf = await uni.showModal({

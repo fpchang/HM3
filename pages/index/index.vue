@@ -117,7 +117,7 @@
 			<view class="popup-content">
 				<view class="create-order-title-style">创建酒店</view>
 				<view class="comContent">
-					<!-- <createHotelComponent @closePopup="closePopup"></createHotelComponent> -->
+					 <createHotelComponent @closePopup="closePopup"></createHotelComponent>
 				</view>
 			</view>
 		</uni-popup>
