@@ -1,6 +1,6 @@
 <template>
   <view>
-    <uni-forms ref="baseForm" :modelValue="orderForm">
+    <uni-forms ref="baseForm" :modelValue="orderForm" label-width="80px">
       <uni-forms-item label="来源">
         <view class="form-item-content-container">
         <uni-data-checkbox

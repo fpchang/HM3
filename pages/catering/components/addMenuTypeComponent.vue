@@ -10,11 +10,13 @@
 			<uni-forms-item label="备注" name="mark">
 				<uni-easyinput v-model="menuTypeForm.mark" type="textarea" />
 			</uni-forms-item>
-
+			<uni-forms-item>
+				<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
+				:loading="submitLoading"></uv-button>
+			</uni-forms-item>
 
 		</uni-forms>
-		<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
-			:loading="submitLoading"></uv-button>
+		
 	</view>
 </template>
 

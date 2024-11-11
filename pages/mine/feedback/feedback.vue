@@ -1,6 +1,6 @@
 <template>
 	<view class="feedback">
-	  <uni-forms ref="feedbackRef" :modelValue="feedbackForm" :rules="feedbackRules" label-width="120px">
+	  <uni-forms ref="feedbackRef" :modelValue="feedbackForm" :rules="feedbackRules" >
   
 		<uni-forms-item label="标题"   required name="title" >
 		  <uni-easyinput  v-model="feedbackForm.title"  placeholder="请输入标题" />
@@ -8,9 +8,13 @@
 		<uni-forms-item label="内容" name="content" required>
 		  <uni-easyinput  v-model="feedbackForm.content" type="textarea" placeholder="请输入反馈内容" />
 		</uni-forms-item> 
-	  </uni-forms>
-	  <uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
+
+		<uni-forms-item>
+			<uv-button type="success"  text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
 		:loading="submitLoading"></uv-button>
+		 </uni-forms-item>
+	  </uni-forms>
+	  
 	</view>
   </template>
   
