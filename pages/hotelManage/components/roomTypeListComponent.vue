@@ -89,7 +89,7 @@
 									<button class="uni-button" size="mini" type="primary"
 										@click="editRoomType(item)">修改</button>
 									<button class="uni-button" size="mini" type="warn"
-										@click="deleteRoomType(item)" :loading="true">删除</button>
+										@click="deleteRoomType(item)" :loading="submitLoading">删除</button>
 										<!-- <uv-icon name="edit-pen-fill" color="#06c" labelColor="#06c" size="22" label="修改"
 									labelPos="bottom" labelSize="12px" @click="editRoomType(item)"></uv-icon>
 							<uv-icon name="trash-fill" color="#e64340" labelColor="#e64340" size="22" label="删除"
@@ -191,6 +191,9 @@ import  {DB} from '../../../api/DB';
 				})
 			},
 			async deleteRoomType(rt){
+				if(this.submitLoading){
+					return;
+				}
 				if(!this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_DELETE')){
 					 alert.alertNoPermisson();
 					return;

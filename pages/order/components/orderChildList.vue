@@ -9,8 +9,8 @@
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.userName " :sub-title="formatDateTitle(item)">
 							<template v-slot:right>
-								<text>{{item.roomTypeArray.length}}间-</text>
-								<text>{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}天</text>
+								<text style="font-weight: bold;">{{item.roomTypeArray.length}}间-</text>
+								<text style="font-weight: bold;">{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}天</text>
 							</template>
 						</uni-section>
 					</template>
@@ -176,6 +176,7 @@
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
+					font-size: $uni-font-size-base;
 				}
 			}
 		}
