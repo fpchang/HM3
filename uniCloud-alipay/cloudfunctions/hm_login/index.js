@@ -27,7 +27,8 @@ exports.main = async (event, context) => {
 		}
 		
 		try{
-			const userRes = await dbJQL.collection('hm-user').where(`phone=='${phone}'`).get();			
+			const userRes = await dbJQL.collection('hm-user').where(`phone=='${phone}'`).get();	
+					console.log("MMMMuser",userRes)
 			if(userRes.data.length>0){				
 				const user  = userRes.data[0];
 				//更新token
@@ -46,10 +47,10 @@ exports.main = async (event, context) => {
 				data:{userInfo:getUser(phone,newToken)}
 			})
 			return {code:0,msg:"",data:{token:newToken}};
-		}catch(e){
-			console.error(e);
-			return {code:40002,msg:"登录失败"}
-		}
+		 }catch(e){
+		 	console.error(e);
+		 	return {code:40002,msg:"登录失败"}
+		 }
 	
 	
 	

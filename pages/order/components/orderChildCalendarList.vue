@@ -1,51 +1,57 @@
 <template>
-	<view style="display: flex;">
+	<view> 
 		<block v-if="noData">
 			<noData text_content="当前无订单数据"></noData>
 		</block>
-		<block v-if="!noData">
-		<view class="left-table-style">
-			<view class="th-style"><text>房间号</text></view>
-			<view class="td-style" v-for="item in roomType">
-				<text>
-					{{item.name}}
-				</text>
-			</view>
-		</view>
-		<view class="checkInTable-style" style="flex: 1;">
-			<scroll-view class="checkIntable-content-scroll" :scroll-y="false" :scroll-x="true">
-				<view class="checkIntable-content">
-					<view class="checkIntable-h-list">
-						<view class=" th-style checkIntable-h-list-h" style="background-color: #f4f4f4;"
-							v-for="item in orderDateRangeFormat">
-							<view style="display: flex;flex-direction: column;">
-								<text>{{item.de}}</text>
-								<text>{{item.dy}}</text>
-							</view>
-
-						</view>
+		<block v-if="!noData"> 
+			<view style="display: flex;">
+	
+		
+				<view class="left-table-style">
+					<view class="th-style"><text>房间号</text></view>
+					<view class="td-style" v-for="item in roomType">
+						<text>
+							{{item.name}}
+						</text>
 					</view>
-					<view class="checkIntable-h-list" v-for="it in checkInOrderListFormat">
-						 <view class="checkIntable-h-list-h td-style"
-							v-for="i in it" @click="showDetail(i)">
-								<view v-for="is in i.orderList" class="tx-content">
-									<text  class="tx">{{is.userName?is.userName:''}}</text>
-								</view>
-								<view v-if="i.orderList.length>4"> 
-									<text class="tx">...</text>
-								</view> 
-							<uni-badge  :text="i.count" style="position: absolute; top:2px;right:2px"/>							
-						</view>
-					</view>
-
 				</view>
-			</scroll-view>
-			<view class="checkIntable-h-head" style="flex-direction: column;">
-
+				<view class="checkInTable-style" style="flex: 1;">
+					<scroll-view class="checkIntable-content-scroll" :scroll-y="false" :scroll-x="true">
+						<view class="checkIntable-content">
+							<view class="checkIntable-h-list">
+								<view class=" th-style checkIntable-h-list-h" style="background-color: #f4f4f4;"
+									v-for="item in orderDateRangeFormat">
+									<view style="display: flex;flex-direction: column;">
+										<text>{{item.de}}</text>
+										<text>{{item.dy}}</text>
+									</view>
+		
+								</view>
+							</view>
+							<view class="checkIntable-h-list" v-for="it in checkInOrderListFormat">
+								 <view class="checkIntable-h-list-h td-style"
+									v-for="i in it" @click="showDetail(i)">
+										<view v-for="is in i.orderList" class="tx-content">
+											<text  class="tx">{{is.userName?is.userName:''}}</text>
+										</view>
+										<view v-if="i.orderList.length>4"> 
+											<text class="tx">...</text>
+										</view> 
+									<uni-badge  :text="i.count" style="position: absolute; top:2px;right:2px"/>							
+								</view>
+							</view>
+		
+						</view>
+					</scroll-view>
+					<view class="checkIntable-h-head" style="flex-direction: column;">
+		
+					</view>
+				</view>
+		
 			</view>
-		</view>
-	</block>
+		</block>
 	</view>
+
 </template>
 
 <script>
