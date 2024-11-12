@@ -38,7 +38,7 @@ export default {
       userForm: {
         tk: uni.getStorageSync("tk") || "",
         smsCode: "",
-        phone: "13122905834",
+        phone: "",
       },
       rules: {
         phone: [
