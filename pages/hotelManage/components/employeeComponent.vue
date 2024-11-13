@@ -198,7 +198,7 @@ export default {
       //uni.showLoading();
       HotelService.getEmployeeList(this.hotel_id)
         .then((res) => {
-          this.$store.commit("updateEmployeeList", res.data);
+          this.$store.commit("updateEmployeeList", res.result.data);
           uni.hideLoading();
         })
         .catch((err) => {

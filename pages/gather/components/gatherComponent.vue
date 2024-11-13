@@ -1,7 +1,6 @@
 <template>
 	<view class="gather">
 		<!-- <uni-section class="mb-10" title="待办" type="line"></uni-section> -->
-
 		<view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view class="card" v-for="(item,index) of dataList" :style="{width:`${cardWidth}px`}">
@@ -144,9 +143,10 @@
 				}
 			},
 			viewWidth() {
-				let viewWidth = uni.getWindowInfo().windowWidth || uni.getWindowInfo().screenWidth;
-				let scrollWidth = this.isPc ? 20 : 0;
-				return viewWidth + this.widthTemp - this.widthTemp - scrollWidth;
+				// let viewWidth = uni.getWindowInfo().windowWidth || uni.getWindowInfo().screenWidth;
+				// let scrollWidth = this.isPc ? 20 : 0;
+				// return viewWidth + this.widthTemp - this.widthTemp - scrollWidth;
+				return this.$store.state.viewWidth + this.widthTemp - this.widthTemp;
 			},
 
 			cardWidth() {
@@ -249,7 +249,7 @@
 						mealDate: new Date().Format("yyyy-MM-dd")
 					}
 					const res = await MenuService.getOrderDishesListByCondition(w);
-					console.log("today getOrderDishesToday ", res.data);
+					console.log("today getOrderDishesToday ", res.result.data);
 					// this.todayCheckInOrderList = res.data;
 					this.dataList[2].list = res.data;
 				} catch (error) {

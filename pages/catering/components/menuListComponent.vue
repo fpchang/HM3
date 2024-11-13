@@ -12,7 +12,7 @@
 				<uv-icon name="plus-circle-fill" color="#000" size="22" label="添加菜单" labelPos="bottom" labelSize="12px"
 					@click="addMenuType"></uv-icon>
 				<button class="clearBtn" :plain="true" open-type="share" @click="shareWx">
-					<uv-icon name="share-fill" color="#000" size="22" label="分享至微信" labelPos="bottom"
+					<uv-icon name="share-fill" color="#000" size="22" label="分享至客户" labelPos="bottom"
 						labelSize="12px"></uv-icon>
 				</button>
 			</view>
@@ -126,9 +126,7 @@
 				}
 			},
 			viewWidth() {
-				let viewWidth = uni.getWindowInfo().windowWidth || uni.getWindowInfo().screenWidth;
-				let scrollWidth = this.isPc ? 20 : 0;
-				return viewWidth + this.widthTemp - this.widthTemp - scrollWidth;
+				return this.$store.state.viewWidth + this.widthTemp - this.widthTemp;
 			},
 
 			cardWidth() {

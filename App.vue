@@ -37,19 +37,14 @@ import {AccountService} from "./services/AccountService";
 				}
 			},
 			 initData(){
-				let flag  = uni.getSystemInfoSync().deviceType=='pc' ||uni.getSystemInfoSync().screenWidth>740; 
-				// #ifdef MP-WEIXIN ||APP-PLUS ||H5
-				flag = uni.getSystemInfoSync().deviceType=='pc' ||uni.getWindowInfo().windowWidth>740; 
+				const sys =uni.getSystemInfoSync(); 
+				let flag  = sys['deviceType']=='pc' ||sys['windowWidth']>740; 
+				// #ifdef MP-WEIXIN ||APP-PLUS
+				flag = sys['deviceType']=='pc' ||uni.getWindowInfo().windowWidth>740; 
 				// #endif
-
-				if(flag){
-					console.log("隐藏bar.....");
-					//uni.hideTabBar();					
-					this.globalData.isPcShow=true;
-					this.$store.commit("setPcShow",true);
-					this.$store.commit("updateUser");
-				}
-			
+				this.$store.commit("setPcShow",flag);					
+				this.$store.commit("updateUser");
+				this.$store.dispatch("initViewWidth");
 				
 				
 			},

@@ -37,21 +37,21 @@ export default{
      
     },
 	//当日餐饮订单
-	 getOrderDishesToday(context,hotel_id){
+	 async getOrderDishesToday(context,hotel_id){
 		
 		  let w ={
 			hotel_id:hotel_id,
 			mealDate: new Date().Format("yyyy-MM-dd")
 		  }
-		  return MenuService.getOrderDishesListByCondition(w).then(res=>{
-			context.commit("updateOrderDishesToday",res.data)
-		  })
+		  const res = await MenuService.getOrderDishesListByCondition(w);
+		context.commit("updateOrderDishesToday",res.result.data)
+		  return res;
 		},
 		//已下订的餐饮订单
 		async getOrderDishesList(context,hotel_id) {
 				const res = await MenuService.getOrderDishesList(hotel_id);
 				console.log("orderdishes",res)
-				context.commit("updateOrderDishesList",res.data);
+				context.commit("updateOrderDishesList",res.result.data);
 				return res;		
 		}
 

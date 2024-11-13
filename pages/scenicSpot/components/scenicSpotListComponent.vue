@@ -5,7 +5,7 @@
 				<uv-icon name="plus-circle-fill" color="#000" size="22" label="添加景点" labelPos="bottom" labelSize="12px"
 					@click="addScenicSpot"></uv-icon>
 				<button class="clearBtn" @click="shareWx" :plain="true" open-type="share" v-if="scenicSpotList.length">
-					<uv-icon name="share-fill" color="#000" size="22" label="分享至微信" labelPos="bottom"
+					<uv-icon name="share-fill" color="#000" size="22" label="分享至客户" labelPos="bottom"
 						labelSize="12px"></uv-icon>
 				</button>
 
@@ -84,9 +84,7 @@
 				}
 			},
 			viewWidth() {
-				let viewWidth = uni.getWindowInfo().windowWidth || uni.getWindowInfo().screenWidth;
-				let scrollWidth = this.isPc ? 20 : 0;
-				return viewWidth + this.widthTemp - this.widthTemp - scrollWidth;
+				return this.$store.state.viewWidth + this.widthTemp - this.widthTemp;
 			},
 
 			cardWidth() {

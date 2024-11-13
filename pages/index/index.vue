@@ -300,9 +300,10 @@
 				});
 			},
 			navTopHeight() {
-				// #ifdef MP-WEIXIN
+				// #ifdef MP
 				return "70px"
-				// #endif				
+				// #endif	
+				
 				return this.isPcShow? "0px" : "70px"
 			},
 

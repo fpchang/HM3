@@ -13,6 +13,7 @@ const store = createStore({
 	},
 	state: { //存放状态
 		"config":null,//配置信息
+		"viewWidth":null,//可视宽度
 		"shareObj":{},
 		"baseDatahasLoad":false,//基本数据准备完毕
 		"topHeight":110,
@@ -27,6 +28,9 @@ const store = createStore({
 	},
 
 	mutations: {
+		setViewWidth(state,w){
+			state.viewWidth = w;
+		},
 		setConfig(state,obj){
 			state.config = obj;
 		},
@@ -93,6 +97,18 @@ const store = createStore({
 		}
 	},
 	actions:{
+		initViewWidth(context){
+			const sys =uni.getSystemInfoSync(); 
+			let isPc = sys['deviceType'] == "pc"
+			let w = sys['windowWidth'];
+			// #ifdef MP-WEIXIN ||APP-PLUS
+			w = uni.getWindowInfo().windowWidth;
+			isPc =uni.getDeviceInfo()['deviceType'] == "pc" ;
+			// #endif
+			let scrollWidth =isPc ? 20 : 0;
+			let val = w - scrollWidth;
+			context.commit("setViewWidth",val);
+		},
 		getUser(context){
 			return new Promise( (resolve,reject)=>{
 				 AccountService.getuserByToken().then(res=>{					

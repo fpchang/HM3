@@ -17,16 +17,7 @@ class DBConnect{
   
   }
   getCollectionGroupBy(dbName,w={},groupBy="_id asc"){
-    return new Promise((resolve,reject)=>{
-      if(!dbName){
-       reject("dbName is invalid")
-      }
-     
-      this.db.collection(dbName).where(w).orderBy(groupBy).get().then(res=>{
-        resolve(res.result)
-      }).catch(err=>{
-      })
-    })
+    return this.db.collection(dbName).where(w).orderBy(groupBy).get();
   }
   insertData(dbName,r={}){
     if(!dbName){

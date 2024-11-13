@@ -54,9 +54,7 @@
       }
     },
     viewWidth() {
-      let viewWidth =uni.getWindowInfo().windowWidth || uni.getWindowInfo().screenWidth;
-	  let scrollWidth = this.isPc()?20:0;
-      return viewWidth + this.widthTemp - this.widthTemp - scrollWidth;
+		return this.$store.state.viewWidth + this.widthTemp - this.widthTemp;
     },
 
 			cardWidth() {

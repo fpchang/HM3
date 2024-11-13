@@ -24,7 +24,9 @@ class OrderServiceClass{
 	    let startTime = new Date(new Date().Format("yyyy/MM/dd 14:00:00")).getTime();
         const s0 =  `hotel_id=='${hotel_id}'&&orderStatus!=10`
         const s1 = `${startTime}>=checkInStartDateTimeStamp&&${startTime}<checkInEndDateTimeStamp`;
+       
 	    let jql = `${s0}&&${s1}`;
+        console.log(">>>>>>>>>>>>>>>",jql)
 	    return this.DB.getCollection("hm-order", jql);
 	}
     /**
