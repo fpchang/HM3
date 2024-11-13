@@ -153,7 +153,7 @@
 				try {
 					const res = await OrderService.getOrderListByCondition(this.hotel_id,date[0],date[1]);
 					console.log("res",res);
-					this.checkInOrderList = res.reslut.data||[];			
+					this.checkInOrderList = res.result.data||[];			
 				} catch (error) {
 					console.error("获取订单列表失败",error);
 				}

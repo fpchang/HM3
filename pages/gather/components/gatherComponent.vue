@@ -219,44 +219,7 @@
 				})
 				return num
 			},
-			//今日住客
-			async getOrderListToday() {
-				try {
-					const res = await OrderService.getOrderListToday(this.hotel_id);
-					// this.todayCheckInOrderList = res.data;
-					if (res.data.length < 1) {
-						return;
-					}
-					let numCount = 0;
-					res.data.map(item => {
-						let num = 0;
-						item.roomTypeArray.map(it => {
-							num += it.count;
-						});
-						numCount += num;
-					})
-					this.dataList[1].list = res.data;
-					this.dataList[1].numCount = numCount;
-				} catch (error) {
-					console.error(error)
-				}
-			},
-			//获取今日定餐
-			async getOrderDishesToday() {
-				try {
-					let w = {
-						hotel_id: this.hotel_id,
-						mealDate: new Date().Format("yyyy-MM-dd")
-					}
-					const res = await MenuService.getOrderDishesListByCondition(w);
-					console.log("today getOrderDishesToday ", res.result.data);
-					// this.todayCheckInOrderList = res.data;
-					this.dataList[2].list = res.data;
-				} catch (error) {
-
-				}
-				await OrderService.getOrderListByCheckIn(this.hotel_id, new Date());
-			},
+	
 			toImage() {
 				this.$refs?.chart.toImageFile({
 					/**
