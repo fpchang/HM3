@@ -104,7 +104,11 @@
         "usingComponents" : true
     },
     "mp-toutiao" : {
-        "usingComponents" : true
+        "usingComponents" : true,
+        "appid" : "tt2b365d8bb403f7fe01",
+        "setting" : {
+            "es6" : true
+        }
     },
     "uniStatistics" : {
         "enable" : false

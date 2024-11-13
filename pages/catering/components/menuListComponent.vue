@@ -294,6 +294,12 @@
 </script>
 
 <style scoped lang="scss">
+button {
+	border: none !important;
+	}
+  button::after{
+	border:none!important;
+  }
 	.card-container {
 		display: flex;
 		flex-wrap: wrap;

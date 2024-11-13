@@ -182,4 +182,10 @@ $font-color-control-hover:rgb(1, 85, 169);
 	color: $font-color-control;
 	font-size: $uni-font-size-base;
   }
+  button {
+	border: none !important;
+	}
+  button::after{
+	border:none!important;
+  }
 
