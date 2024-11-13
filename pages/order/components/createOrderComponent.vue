@@ -58,6 +58,7 @@
               <view
                 ><uni-number-box
                   v-model="item.selectCount"
+                  min="1"
                   :max="item.remainCount"
                   :disabled="!item.checked || noSelectDate"
                   @change="numChange()"

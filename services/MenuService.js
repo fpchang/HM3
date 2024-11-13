@@ -77,9 +77,14 @@ class MenuServiceClass{
     getOrderDishesListByCondition(w={}){
         return DB.getCollectionGroupBy("hm-orderDishes",w,"mealDateTimestamp asc")
     }
-    /**已下订单列表 */
-    getOrderDishesList(hotel_id){
-        return DB.getCollectionGroupBy("hm-orderDishes",{hotel_id},"mealDateTimestamp asc")
+     /**已下订单列表 今天及以后 */
+     getOrderDishesList(hotel_id){
+        const db = uniCloud.database();
+        let w ={
+            hotel_id:hotel_id,
+            mealDateTimestamp:db.command.gt( new Date(new Date().getTime() - 1000*60*60*24).getTime())
+        }
+        return DB.getCollectionGroupBy("hm-orderDishes",w,"mealDateTimestamp asc")
     }
     /**删除已下订单列表 */
     removeOrderDishes(_id){

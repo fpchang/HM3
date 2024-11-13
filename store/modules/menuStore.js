@@ -6,7 +6,8 @@ import {MenuService} from '../../services/MenuService';
 //Vuex.Store 构造器选项
 export default{
 	state: { //存放状态
-		menuList:[],
+		menuList:null,
+		orderDishesList:null,//未来餐饮订单
 		orderDishesToday:[] //今日预定的餐饮订单
 	},
 
@@ -14,6 +15,9 @@ export default{
 		//调用 this.$store.commit('updateHotelList',[])
 		updateMenuList(state, list=[]) {
 			state.menuList = list;
+		},
+		updateOrderDishesList(state, list=[]){
+			state.orderDishesList = list;
 		},
 		updateOrderDishesToday(state,list=[]){
 			state.orderDishesToday = list;
@@ -32,6 +36,7 @@ export default{
 		})
      
     },
+	//当日餐饮订单
 	 getOrderDishesToday(context,hotel_id){
 		
 		  let w ={
@@ -41,6 +46,13 @@ export default{
 		  return MenuService.getOrderDishesListByCondition(w).then(res=>{
 			context.commit("updateOrderDishesToday",res.data)
 		  })
+		},
+		//已下订的餐饮订单
+		async getOrderDishesList(context,hotel_id) {
+				const res = await MenuService.getOrderDishesList(hotel_id);
+				console.log("orderdishes",res)
+				context.commit("updateOrderDishesList",res.data);
+				return res;		
 		}
 
   }

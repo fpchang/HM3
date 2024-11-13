@@ -384,6 +384,11 @@
 					this.isLoading=false;
 					uni.hideLoading();
 					this.$store.dispatch("getOrderDishesToday",this.hotel_id);
+					if(getCurrentPages().length>1){
+						await this.$store.dispatch("getOrderDishesList",this.hotel_id);
+						uni.navigateBack();
+						return;
+					}
 					uni.reLaunch({
 						url:`/pages/common/success?hotel=${JSON.stringify(this.hotel)}`,
 					});

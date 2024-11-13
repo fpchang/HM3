@@ -81,8 +81,7 @@
 				],
 				widthTemp: 0,
 				type: 0,
-				targetObj: {},
-				orderDishesList: null,
+				targetObj: {}
 			};
 		},
 		computed: {
@@ -95,6 +94,9 @@
 			hotelName() {
 				let tar = this.hotelList.find((item) => item._id == this.hotel_id);
 				return tar.hotelName;
+			},
+			orderDishesList(){
+				return this.$store.state.menuStore.orderDishesList;
 			},
 			menuList() {
 				return this.$store.state.menuStore.menuList;
@@ -153,7 +155,6 @@
 			},
 			tabRadioVal(nval) {
 				if (nval == 1) {
-					console.log("aaaa", this.$store);
 					this.$store.dispatch("getMenuList", this.hotel_id);
 					return;
 				}
@@ -177,7 +178,6 @@
 						url: `/pages/catering/orderDishes/orderDishes?hotel_id=${this.hotel_id}`,
 					});
 				} catch (error) {
-					console.error(error);
 					uni.navigateTo({
 						url: `/pages/catering/orderDishes/orderDishes?hotel_id=${this.hotel_id}`,
 					});
@@ -238,7 +238,6 @@
 					data: href,
 					showToast: false,
 					success: function() {
-						console.log("success");
 						uni.showToast({
 							title: "相关链接已复制",
 							icon: "success",
@@ -270,30 +269,18 @@
 				// #endif
 			},
 			async getOrderDishesList() {
-				if(!this.hotel_id){
-					return;
-				}
-				try {
-					//uni.showLoading();
-					const res = await MenuService.getOrderDishesList(this.hotel_id);
-					console.log("orderdishes",res)
-					this.orderDishesList = res.data;
-					uni.hideLoading();
-				} catch (error) {
-					console.log(error);
-					uni.hideLoading();
-				}
+				await this.$store.dispatch("getOrderDishesList",this.hotel_id);
 			},
 		},
 
 		// 组件周期函数--监听组件挂载完毕
 		mounted() {
-			this.getOrderDishesList();
 			if (window) {
 				window.onresize = () => {
 					this.widthTemp = Math.random(10);
 				};
 			}
+			this.getOrderDishesList();
 		},
 		// 组件周期函数--监听组件数据更新之前
 		beforeUpdate() {},

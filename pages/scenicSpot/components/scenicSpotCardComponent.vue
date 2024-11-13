@@ -12,7 +12,7 @@
           name="plus-circle-fill"
           color="#000"
           size="22"
-          label="添加"
+          label="票价"
           labelPos="bottom"
           labelSize="12px"
           @click="addScenicSpotDetail"
