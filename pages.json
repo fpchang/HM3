@@ -5,11 +5,7 @@
 	{
 			"path": "pages/index/index",
 			"style": {
-				"navigationStyle": "custom",
-				"mp-alipay": {
-					"transparentTitle": "always",
-					"titlePenetrate": "YES"
-				},
+				
 				"enablePullDownRefresh": true
 			}
 		},{

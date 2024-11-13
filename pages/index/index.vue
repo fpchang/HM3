@@ -7,7 +7,7 @@
 		<block v-if="!noData">
 			<view class="top-container">
 				<view class="scroll-content">
-					<view :style="{height:navTopHeight}"></view>
+					<!-- <view :style="{height:navTopHeight}"></view> -->
 					<view :class="['top-area', isSticky? 'sticky-style':'']">
 						<view class="title-area" :style="{opacity: opacityVal}">
 
@@ -204,6 +204,9 @@
 			if(this.$store.state.isPcShow){
 				uni.hideTabBar();
 			}
+			if(this.isPcShow){
+					document.getElementsByTagName('uni-page-head')[0].style.display = 'none';	
+				}
 		},
 		onShareAppMessage(res) {
 			if (res.from != 'button') { // 来自页面内分享按钮
@@ -300,11 +303,12 @@
 				});
 			},
 			navTopHeight() {
-				// #ifdef MP
-				return "70px"
+				// #ifdef MP-WEIXIN
+				//return "70px"
 				// #endif	
 				
-				return this.isPcShow? "0px" : "70px"
+				//return this.isPcShow? "0px" : "70px";
+				return "0px"
 			},
 
 			disHeightVal() {
