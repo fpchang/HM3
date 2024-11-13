@@ -99,7 +99,7 @@
                 >
               </view>
               <view class="list-item" style="justify-content: flex-end">
-                <view class="list-item-c" style="width: 130px">
+                <view class="list-item-c" style="width: 150px">
                   <button
                     class="uni-button"
                     size="mini"

@@ -4,8 +4,8 @@ import {AccountService} from "./services/AccountService";
 		onLaunch: async function(ob) {
 			console.log("参数信息",ob)
 			console.log('App Launch XXXXXXXXXX',uni.getSystemInfoSync());
-			console.log("111",uni.getSystemInfoSync().deviceType)
-			console.log("222",uni.getDeviceInfo().deviceType)
+			// console.log("111",uni.getSystemInfoSync().deviceType)
+			// console.log("222",uni.getDeviceInfo().deviceType)
 			try {
 				let {hotel_id} = ob.query;
 			if(hotel_id){
@@ -37,7 +37,12 @@ import {AccountService} from "./services/AccountService";
 				}
 			},
 			 initData(){
-				if(uni.getSystemInfoSync().deviceType=='pc' ||uni.getWindowInfo().windowWidth>740){
+				let flag  = uni.getSystemInfoSync().deviceType=='pc' ||uni.getSystemInfoSync().screenWidth>740; 
+				// #ifdef MP-WEIXIN ||APP-PLUS ||H5
+				flag = uni.getSystemInfoSync().deviceType=='pc' ||uni.getWindowInfo().windowWidth>740; 
+				// #endif
+
+				if(flag){
 					console.log("隐藏bar.....");
 					//uni.hideTabBar();					
 					this.globalData.isPcShow=true;
