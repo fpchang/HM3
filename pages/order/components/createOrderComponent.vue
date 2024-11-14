@@ -12,19 +12,18 @@
       </view>
       </uni-forms-item>
       <uni-forms-item label="日期时间">
-        <view class="form-item-content-container" v-if="!isIOS"> 
+        <!-- <view class="form-item-content-container" v-if="!isIOS">  -->
            <uni-datetime-picker
           v-model="orderForm.dateRangeArray"
           rangeSeparator="/"
-          :start="startDate"
           type="daterange"
           return-type="timestamp"
           @change="initValidRoomTypeData"
           :clear-icon="false"
           style="z-index: 9999;"
         /> 
-        </view>
-       
+        <!-- </view> -->
+<!--        
          <view class="form-item-content-container" v-if="isIOS">
           <view class="calendar-container" @click="showDateSelect">
              <uni-icons type="calendar" size="22" color="#60626680"></uni-icons>
@@ -32,9 +31,9 @@
              <text style="padding:0 10px">至</text>
              <text style="flex:1;text-align:center">{{orderForm.dateRangeArray[1]|| "截止日期"}}</text> 
             </view>
-            <uv-calendar ref="calendars" mode="range" @close="dateClose" @confirm="dateConfim" style="z-index:9999"></uv-calendar>
+            <uv-calendar ref="calendars" mode="range" @close="dateClose" @confirm="dateConfim" style="z-index:999"></uv-calendar>
         </view>
-       
+        -->
       </uni-forms-item>
       <uni-forms-item label="房型" required>
         <!-- <uni-data-checkbox v-model="orderForm.roomTypeArray" mode="list"  multiple :localdata="roomTypeListFormat">1111</uni-data-checkbox> -->
@@ -355,7 +354,6 @@ export default {
 
 <style lang="scss">
 .form-item-content-container{
-  height: 100%;
   display: flex;
   align-items: center;
 }

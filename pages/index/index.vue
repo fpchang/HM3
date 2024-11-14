@@ -80,7 +80,7 @@
 		<uni-drawer ref="showLeft" mode="left" :width="320">
 			<view class="left-container">
 				<view style="flex:1;min-height:330px">
-					<view style="height:70px" v-if="!isPc"></view>
+					<!-- <view style="height:70px" v-if="!isPc"></view> -->
 					<uni-section title="酒店列表" type="line"></uni-section>
 					<view class="card-panal">
 						<view class="card">
@@ -105,7 +105,7 @@
 		<uni-drawer ref="showRight" mode="right" :width="475">
 			<view class="right-container">
 				<view style="box-sizing:border-box">
-					<view style="height:70px" v-if="!isPc"></view>
+					<!-- <view style="height:70px" v-if="!isPc"></view> -->
 					<mine></mine>
 				</view>
 
@@ -204,9 +204,12 @@
 			if(this.$store.state.isPcShow){
 				uni.hideTabBar();
 			}
-			if(this.isPcShow){
-					document.getElementsByTagName('uni-page-head')[0].style.display = 'none';	
-				}
+			//if(this.isPcShow){
+			// #ifdef H5
+				document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
+			// #endif
+						
+			//	}
 		},
 		onShareAppMessage(res) {
 			if (res.from != 'button') { // 来自页面内分享按钮
@@ -312,7 +315,7 @@
 			},
 
 			disHeightVal() {
-				return "110px";
+				return "90px";
 			},
 			scrollHeight() {
 				return `calc(100vh - ${this.disHeightVal} - ${this.navTopHeight} )`;
@@ -525,14 +528,14 @@
 	.scroll-content {}
 
 	.scroll-content .top-area {
-		height: 110px;
+		height: 90px;
 		box-sizing: border-box;
 		z-index: 999;
 		background-color: #fff;
 
 		.title-area {
 			position: relative;
-			height: 50px;
+			height: 40px;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
@@ -576,7 +579,7 @@
 
 		.navbar {
 			width: 100%;
-			height: 60px;
+			height: 50px;
 			display: flex;
 			justify-content: center;
 			align-items: center;

@@ -1,6 +1,6 @@
 <template>
 	<view class="feedback">
-	  <uni-forms ref="feedbackRef" :modelValue="feedbackForm" :rules="feedbackRules" >
+	  <uni-forms ref="feedbackRef" :modelValue="feedbackForm" :rules="feedbackRules" label-width="80px" >
   
 		<uni-forms-item label="标题"   required name="title" >
 		  <uni-easyinput  v-model="feedbackForm.title"  placeholder="请输入标题" />

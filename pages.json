@@ -43,7 +43,7 @@
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationStyle": "custom"
+				
 			}
 		},
 		{

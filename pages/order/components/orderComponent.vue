@@ -60,7 +60,7 @@
 
 		</view>
 		<uni-popup ref="popup" background-color="transprant">
-			<view class="popup-content" style="max-width:1000px;width:740px">
+			<view class="popup-content">
 				<view class="create-order-title-style">创建订单</view>
 				<view class="comContent">
 					

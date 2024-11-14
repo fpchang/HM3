@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<scroll-view :scroll-y="true" style="height:100vh"> 
-			<view class="header-title" style=""><text>【{{hotel.hotelName}}】景点票价</text></view>
+			<!-- <view class="header-title" style=""><text>【{{hotel.hotelName}}】景点票价</text></view> -->
 			<view style="display: flex;justify-content:center">
 				<view class="card-container" :style="{width:`${cardContainerWidth}px`}">
 					<view class="card" v-for="item of scenicSpotList" :style="{width:`${cardWidth}px`}">
@@ -104,6 +104,9 @@
 				}
 				const hotelRes = await HotelService.getHotelInfoById(this.hotel_id);
 				this.hotel = hotelRes.result.data[0];
+				uni.setNavigationBarTitle({
+        			title:`【${this.hotel.hotelName}】景点价格` ,
+      				});
 				await this.$store.dispatch("getScenicSpotList",this.hotel_id);
 			
 		

@@ -1,7 +1,7 @@
 <template>
 	<view class="orderDishes-container">
 		
-		<view class="header-title" style=""><text>【{{hotel.hotelName ||'--' }}】用餐预定</text></view>
+		<!-- <view class="header-title" style=""><text>【{{hotel.hotelName ||'--' }}】用餐预定</text></view> -->
 		<!-- <uni-card :is-shadow="false">
 			<text class="uni-body">这是一个基础卡片示例，内容较少，此示例展示了一个没有任何属性不带阴影的卡片。</text>
 		</uni-card> -->
@@ -153,7 +153,7 @@
 		created(params) {
 			
 		},
-		mounted(){
+		mounted(){			
 			this.getData();
 		},
 		onShow() {
@@ -303,6 +303,9 @@
 					console.log("菜单列表", res)
 					this.hotel = hotelRes.result.data[0];
 					this.menuList = this.getMenuListFormat(res.result.data);
+					uni.setNavigationBarTitle({
+        			title:`【${this.hotel.hotelName}】定餐服务` ,
+      				});
 					uni.hideLoading();
 				} catch (error) {
 					console.error(error);
@@ -459,13 +462,13 @@
 
 
 	.menu-panal {
-		height: calc(100vh - 55px - 205px - 60px);
+		height: calc(100vh  - 205px - 60px);
 		display: flex;
 
 		.leftMenu {
 			max-width: 120px;
 			min-width: 100px;
-			height: calc(100vh - 55px - 205px - 60px);
+			height: calc(100vh  - 205px - 60px);
 
 			.menuType-item {
 				height: 60px;

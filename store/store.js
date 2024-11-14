@@ -16,7 +16,7 @@ const store = createStore({
 		"viewWidth":null,//可视宽度
 		"shareObj":{},
 		"baseDatahasLoad":false,//基本数据准备完毕
-		"topHeight":110,
+		"topHeight":90,
 		"tabHeight":44,
 		"isPcShow": false,
 		"user": "",
