@@ -90,12 +90,12 @@
 			return {
 				avatar: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png',
 				menuList: [
-					// {
-					// 	key: "faq",
-					// 	unicode: "\ue8cc",
-					// 	title: "使用说明",
-					// 	showArrow: true
-					// },
+					{
+						key: "instructions",
+						unicode: "\ue8cc",
+						title: "使用说明",
+						showArrow: true
+					},
 					
 					{
 						key: "feedback",
@@ -168,6 +168,16 @@
 			},
 			menuEvent(key) {
 				switch (key) {
+					case "instructions":
+					if (this.isPcShow) {
+							uni.$emit("closeRightDrawer");
+							uni.$emit("showPopupPivot","popupInstructions",1);
+							break;
+						}
+						uni.navigateTo({
+							url: `/pages/mine/instructions/instructions`
+						});
+					break;
 					case "loginOut":
 						this.loginOut();
 						break;
@@ -176,9 +186,6 @@
 							uni.$emit("closeRightDrawer");
 							uni.$emit("showPopupPivot","popupFeedback",1);
 							break;
-						}
-						const a = {
-							name: 111
 						}
 						uni.navigateTo({
 							url: `/pages/mine/feedback/feedback`

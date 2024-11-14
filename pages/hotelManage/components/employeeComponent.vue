@@ -109,6 +109,7 @@
                     修改
                   </button>
                   <button
+                    v-if="item.role!='administrator'"
                     class="uni-button"
                     size="mini"
                     type="warn"
@@ -198,6 +199,7 @@ export default {
       //uni.showLoading();
       HotelService.getEmployeeList(this.hotel_id)
         .then((res) => {
+          console.log("员工列表",res)
           this.$store.commit("updateEmployeeList", res.result.data);
           uni.hideLoading();
         })

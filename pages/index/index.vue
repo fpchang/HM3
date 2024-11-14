@@ -129,6 +129,14 @@
 				</view>
 			</view>
 		</uni-popup>
+		<uni-popup ref="popupInstructions" background-color="transprant">
+			<view class="popup-content">
+				<view class="create-order-title-style">使用说明</view>
+				<view class="comContent">
+					<intructions></intructions>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -143,6 +151,7 @@
 	import scenicSpotListComponent from "../scenicSpot/components/scenicSpotListComponent";
 	import mine from "../mine/mine";
 	import feedback from "@/pages/mine/feedback/feedback";
+	import intructions from "@/pages/mine/instructions/instructions";
 	 import  {AccountService} from "../../services/AccountService";
 	 import hotelList from "../hotelManage/hotelList/hotelList";
 	import  {DB} from "../../api/DB";
@@ -158,7 +167,8 @@
 			scenicSpotListComponent,
 			hotelList,
 			mine,
-			feedback
+			feedback,
+			intructions
 		},
 
 		data() {
@@ -469,7 +479,6 @@
 				//	this.isSticky = (scrollTop >= 60 ? true : false);
 			},
 			swiperContentEvent(e) {
-				console.log("1111111111111",e)
 				this.currentTab_index = e.detail.current;
 
 			},
