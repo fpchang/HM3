@@ -26,53 +26,54 @@
 			</view>
 		</view>
 		<view style="height: 10px;"></view>
-		<uni-table border stripe emptyText="暂无更多数据" style="flex:1">
-			<!-- 表头行 -->
-			<uni-tr>
-				
-				<uni-th align="center">订单来源</uni-th>
-				<uni-th align="center">入住日期</uni-th>
-				<uni-th align="center">截止日期</uni-th>
-				<uni-th align="center">姓名</uni-th>
-				<uni-th align="center">房型</uni-th>
-				<uni-th align="center">联系电话</uni-th>
-				<uni-th align="center">创建人</uni-th>
-				<uni-th align="center">天数</uni-th>
-				<!-- <uni-th align="center">定餐</uni-th> -->
-				<uni-th align="center">操作</uni-th>
-			</uni-tr>
-			<!-- 表格数据行 -->
-			<uni-tr v-for="item of fitlerUserNameOrderList">
-				
-				<uni-td>{{item.orderSouce_Zn}}</uni-td>
-				<uni-td>{{item.checkInStartDate}} <uni-tag size="mini" :circle="true" v-if="showNewTag(item.createTime)"
-						style="margin-left: 5px;" text="New" type="success" /></uni-td>
-				<uni-td>{{item.checkInEndDate}}</uni-td>
-				<uni-td>{{item.userName}}</uni-td>
-				<uni-td>
-					<text v-for="it of item.roomTypeArray">【{{it.name}}】* <text
-							:class="[it.count>1?'strongText':'']">{{it.count}}</text></text>
-				</uni-td>
-
-				<uni-td>{{item.phone}}</uni-td>
-				<uni-td>{{item.createrPhone}}【{{ item.createrName }}】</uni-td>
-				<uni-td>
-					<text
-						style="color: red;font-weight: bold;letter-spacing: 3px;">{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}</text><text>晚</text></uni-td>
-				<uni-td>
-
-					<view class="uni-group" v-if="item.checkInEndDateTimeStamp > new Date().getTime()">
-						<!-- <button class="uni-button" size="mini" type="primary">修改</button> -->
-						<!-- <button  class="uni-button" size="mini" type="warn" @click="deleteOrder(item)">撤销</button> -->
-						<!-- <uv-icon name="trash-fill" color="#e64340" labelColor="#e64340" size="22" label="撤销"
-						labelPos="bottom" labelSize="12px" @click="deleteOrder(item)"></uv-icon> -->
-						<text  class="edit-text-btn-style" @click="deleteOrder(item)">撤销</text>
-					</view>
-				</uni-td>
-			</uni-tr>
-
-
-		</uni-table>
+			<uni-table border stripe emptyText="暂无更多数据" style="flex:1">
+				<!-- 表头行 -->
+				<uni-tr>
+					
+					<uni-th align="center">订单来源</uni-th>
+					<uni-th align="center">入住日期</uni-th>
+					<uni-th align="center">截止日期</uni-th>
+					<uni-th align="center">姓名</uni-th>
+					<uni-th align="center">房型</uni-th>
+					<uni-th align="center">联系电话</uni-th>
+					<uni-th align="center">创建人</uni-th>
+					<uni-th align="center">天数</uni-th>
+					<!-- <uni-th align="center">定餐</uni-th> -->
+					<uni-th align="center">操作</uni-th>
+				</uni-tr>
+				<!-- 表格数据行 -->
+				<uni-tr v-for="item of fitlerUserNameOrderList">
+					
+					<uni-td>{{item.orderSouce_Zn}}</uni-td>
+					<uni-td>{{item.checkInStartDate}} <uni-tag size="mini" :circle="true" v-if="showNewTag(item.createTime)"
+							style="margin-left: 5px;" text="New" type="success" /></uni-td>
+					<uni-td>{{item.checkInEndDate}}</uni-td>
+					<uni-td>{{item.userName}}</uni-td>
+					<uni-td>
+						<text v-for="it of item.roomTypeArray">【{{it.name}}】* <text
+								:class="[it.count>1?'strongText':'']">{{it.count}}</text></text>
+					</uni-td>
+	
+					<uni-td>{{item.phone}}</uni-td>
+					<uni-td>{{item.createrPhone}}【{{ item.createrName }}】</uni-td>
+					<uni-td>
+						<text
+							style="color: red;font-weight: bold;letter-spacing: 3px;">{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}</text><text>晚</text></uni-td>
+					<uni-td>
+	
+						<view class="uni-group" v-if="item.checkInEndDateTimeStamp > new Date().getTime()">
+							<!-- <button class="uni-button" size="mini" type="primary">修改</button> -->
+							<!-- <button  class="uni-button" size="mini" type="warn" @click="deleteOrder(item)">撤销</button> -->
+							<!-- <uv-icon name="trash-fill" color="#e64340" labelColor="#e64340" size="22" label="撤销"
+							labelPos="bottom" labelSize="12px" @click="deleteOrder(item)"></uv-icon> -->
+							<text  class="edit-text-btn-style" @click="deleteOrder(item)">撤销</text>
+						</view>
+					</uni-td>
+				</uni-tr>
+	
+	
+			</uni-table>
+		
 	</view>
 
 </template>

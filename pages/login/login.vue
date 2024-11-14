@@ -78,9 +78,17 @@ export default {
   watch:{
   
   },
-  onload() {},
+  onLoad() {
+	  console.log("login onload>>>>");
+    uni.hideHomeButton();
+  },
+  onShow(){
+    console.log("login onShow>>>>");
+	  
+  },
   created(){
     console.log("login created>>>>");
+    
   },
   methods: {
     sendSmsSuccess(time = 30){

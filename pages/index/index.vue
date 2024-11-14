@@ -40,7 +40,7 @@
 					</view>
 				</view>
 			</view>
-			<swiper :style="{height: scrollHeight}" :current="currentTab_index" @change="swiperContentEvent">
+			<swiper :style="{height: scrollHeight}" :current="currentTab_index" @change="swiperContentEvent"  >
 				<swiper-item v-for="item in tabList">
 
 					<scroll-view class="swiper-container-scroll" :scroll-y="true" :scroll-x="false"
@@ -469,6 +469,7 @@
 				//	this.isSticky = (scrollTop >= 60 ? true : false);
 			},
 			swiperContentEvent(e) {
+				console.log("1111111111111",e)
 				this.currentTab_index = e.detail.current;
 
 			},
