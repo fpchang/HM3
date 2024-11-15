@@ -19,19 +19,47 @@
         </uni-forms-item>
         <uni-forms-item >
           <button  :class="['submit-btn',submitDisabled?'submit-btn-disabled':'']"  :disabled="submitDisabled" @click="submit":loading="submitLoading">登录</button>
+        </uni-forms-item> <uni-forms-item >
+         <view class="up">
+          <uni-icons :type="isAgree?'checkbox-filled':'circle'" @click="agreeEvent" size="20" color="#06c"></uni-icons> <text>我已阅读并同意<text class="edit-text-btn-style ct" @click="openUserAgreement">《用户协议》</text>和<text class="edit-text-btn-style ct" @click="openUserPrivacyPolicy">《隐私政策》</text></text>
+        </view>
         </uni-forms-item>
       </uni-forms>
+      
       <view style="height: 80px"></view>
     </view>
+    <uni-popup ref="popupUserAgreement" background-color="transprant">
+			<view class="popup-content">
+				<view class="create-order-title-style">用户协议</view>
+				<view class="comContent">
+					<userAgreement></userAgreement>
+				</view>
+			</view>
+		</uni-popup>
+    <uni-popup ref="popupPrivacyPolicy" background-color="transprant">
+			<view class="popup-content">
+				<view class="create-order-title-style">隐私政策</view>
+				<view class="comContent">
+					<privacyPolicy></privacyPolicy>
+				</view>
+			</view>
+		</uni-popup>
   </view>
 </template>
 
 <script>
 import{DB} from "../../api/DB";
 import {AccountService} from "../../services/AccountService";
+import userAgreement from "../common/userAgreement/userAgreement";
+import privacyPolicy from "../common/privacyPolicy/privacyPolicy";
 export default {
+  components:{
+    userAgreement,
+    privacyPolicy
+  },
   data() {
     return {
+      isAgree:false,
       submitLoading: false,
       canGetCode:true,
       tips: "获取验证码",
@@ -91,6 +119,21 @@ export default {
     
   },
   methods: {
+    agreeEvent(){
+      this.isAgree = !this.isAgree;
+    },
+    openUserAgreement(){
+      uni.navigateTo({
+        url:'/pages/common/userAgreement/userAgreement'
+
+      })
+    },
+    openUserPrivacyPolicy(){
+      uni.navigateTo({
+        url:'/pages/common/privacyPolicy/privacyPolicy'
+
+      })
+    },
     sendSmsSuccess(time = 30){
       let t = time;
        this.tips=`${t}S`;
@@ -136,6 +179,13 @@ export default {
      
     },
     submit() {
+      if(!this.isAgree){
+        uni.showToast({
+          title:"请先阅读并同意协议",
+          icon:"none"
+        })
+        return;
+      }
       this.$refs.userForm
         .validate()
         .then(async (res) => {
@@ -189,7 +239,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .input-area{
   width: 298px;
   background-color: #eee;
@@ -254,6 +304,16 @@ export default {
       font-size: 16px;
       color: #aaa;
     }
+  }
+}
+.up{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  .ct{
+    font-size:12px;
+    cursor:pointer
   }
 }
 </style>

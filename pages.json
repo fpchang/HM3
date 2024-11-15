@@ -1,6 +1,6 @@
 {
 	"pages": [
-		
+	
 
 	{
 			"path": "pages/index/index",
@@ -144,6 +144,20 @@
 	"style" : 
 	{
 		"navigationBarTitleText" : ""
+	}
+},
+{
+	"path" : "pages/common/privacyPolicy/privacyPolicy",
+	"style" : 
+	{
+		"navigationBarTitleText" : "隐私政策"
+	}
+},
+{
+	"path" : "pages/common/userAgreement/userAgreement",
+	"style" : 
+	{
+		"navigationBarTitleText" : "用户协议"
 	}
 }
 

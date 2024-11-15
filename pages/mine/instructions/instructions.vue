@@ -5,7 +5,8 @@
 				<view class="t1">地址</view><view>http://hm.hotelsys.fun</view><view class="control" @click="copyEvent('http://hm.hotelsys.fun')">复制</view>
 			</view>
 		</uni-section>
-		<uni-section class="mb-10" title="App" type="line"  padding="0 0 5px 10px">
+		<view style="padding:20px">APP等其它平台正在陆续上架中....</view>
+		<!-- <uni-section class="mb-10" title="App" type="line"  padding="0 0 5px 10px">
 			<view class="list-item">
 				<view class="t1">IOS</view><view>http://hm.hotelsys.fun</view><view class="control">复制</view>
 			</view>
@@ -22,7 +23,7 @@
 			<view class="list-item">
 				<view class="t1">地址</view><view>http://hm.hotelsys.fun</view><view class="control">复制</view>
 			</view>
-		</uni-section>
+		</uni-section> -->
 	</view>
 </template>
 
