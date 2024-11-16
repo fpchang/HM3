@@ -67,6 +67,7 @@
 			<uni-popup-dialog ref="inputClose" before-close  mode="input" title="更改名称" value=""
 				placeholder="请输入名称" @close="closeNameUpdate" @confirm="submitNameUpdate"></uni-popup-dialog>
 		</uni-popup>
+		<uni-pay ref="pay"></uni-pay>
 		<!-- <uni-popup ref="popupfeedbackCreate" background-color="transprant">
 			<view class="popup-content">
 			  <view class="create-order-title-style">反馈与建议</view>
@@ -210,7 +211,6 @@
 				this.$store.dispatch("loginOut");
 			},
 			vipRecharge() {
-				return;
 				let options = {
 					total_fee: 1, // 支付金额，单位分 100 = 1元
 					type: "recharge", // 支付回调类型

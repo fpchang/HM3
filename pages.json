@@ -1,5 +1,13 @@
 {
 	"pages": [
+		
+		{
+			"path" : "pages/payTest/payTest",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
 	
 
 	{
