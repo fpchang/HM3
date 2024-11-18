@@ -4,6 +4,7 @@
     "version" : "0.0",
     "configurations" : [
         {
+<<<<<<< HEAD
             "default" : {
                 "launchtype" : "local"
             },
@@ -21,6 +22,34 @@
                 "launchtype" : "local"
             },
             "type" : "uniCloud"
+=======
+        	"app-plus" : 
+        	{
+        		"launchtype" : "local"
+        	},
+        	"default" : 
+        	{
+        		"launchtype" : "local"
+        	},
+        	"h5" : 
+        	{
+        		"launchtype" : "remote"
+        	},
+        	"mp-toutiao" : 
+        	{
+        		"launchtype" : "local"
+        	},
+        	"mp-weixin" : 
+        	{
+        		"launchtype" : "local"
+        	},
+        	"provider" : "alipay",
+        	"quickapp-webview-huawei" : 
+        	{
+        		"launchtype" : "local"
+        	},
+        	"type" : "uniCloud"
+>>>>>>> 08a42bae12fde011e886cbac9192aa2dd6b0c833
         }
     ]
 }
