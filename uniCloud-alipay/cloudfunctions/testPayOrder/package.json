@@ -1,8 +1,6 @@
 {
   "name": "testPayOrder",
-  "dependencies": {
-    "uni-pay": "file:../../../uni_modules/uni-pay/uniCloud/cloudfunctions/common/uni-pay"
-  },
+  "dependencies": {},
   "extensions": {
     "uni-cloud-jql": {}
   }

@@ -1,5 +1,5 @@
 {
-  "name": "hm_getPayOrder",
+  "name": "rechargeSucess",
   "dependencies": {},
   "extensions": {
     "uni-cloud-jql": {}

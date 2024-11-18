@@ -38,7 +38,7 @@
 		// 监听 - 页面每次【加载时】执行(如：前进)
 		onLoad(options = {}) {
 			options = JSON.parse(decodeURI(options.options));
-			//console.log('options: ', options)
+			console.log('-------options: ', options)
 			this.options = options;
 		},
 		// 监听 - 页面【首次渲染完成时】执行。注意如果渲染速度快，会在页面进入动画完成前触发

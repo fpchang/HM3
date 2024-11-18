@@ -22,8 +22,8 @@
 
 				</view>
 				<view>
-					<view class="flex-between vip-style" style="padding:12px 8px 0 0" @click="vipRecharge">
-						<view><uni-icons type="vip-filled" color="gold"></uni-icons>
+					<view class="flex-between vip-style" style="padding:12px 8px 0 0"  @click="menuEvent('recharge')">
+						<view ><uni-icons type="vip-filled" color="gold"></uni-icons>
 							<text >订阅期：<text style="color:gold">{{ vipDate(user.vipEndDateStamp)}}</text></text>
 						</view>
 
@@ -68,24 +68,25 @@
 				placeholder="请输入名称" @close="closeNameUpdate" @confirm="submitNameUpdate"></uni-popup-dialog>
 		</uni-popup>
 		<uni-pay ref="pay"></uni-pay>
-		<!-- <uni-popup ref="popupfeedbackCreate" background-color="transprant">
+		<uni-popup ref="popupRecharge" background-color="#fff" type="bottom">
 			<view class="popup-content">
-			  <view class="create-order-title-style">反馈与建议</view>
-			  <view class="comContent">
-				
-			  </view>
+				<view class="create-order-title-style">充值中心</view>
+				<view class="comContent">
+					<recharge></recharge>
+				</view>
 			</view>
-		  </uni-popup>  -->
+		</uni-popup>
 	</view>
 </template>
 
 <script>
-
+	import recharge from "@/pages/mine/recharge/rechargeComponent";
 	import feedback from "./feedback/feedback";
 	import  {AccountService} from "../../services/AccountService";
 	export default {
 		components: {
-			feedback
+			feedback,
+			recharge
 		},
 		data() {
 			return {
@@ -126,6 +127,9 @@
 			}
 		},
 		onShow() {
+		},
+		created() {
+			
 		},
 		methods: {
 			login() {
@@ -192,6 +196,17 @@
 							url: `/pages/mine/feedback/feedback`
 						});
 						break;
+					case "recharge":
+						if (this.isPcShow) {
+							uni.$emit("closeRightDrawer");
+							uni.$emit("showPopupPivot","popupRecharge",1);
+							break;
+						}
+						// uni.navigateTo({
+						// 	url: `/pages/mine/recharge/recharge`
+						// });
+						this.$refs.popupRecharge.open();
+						break;
 
 				}
 				
@@ -210,19 +225,8 @@
 				}
 				this.$store.dispatch("loginOut");
 			},
-			vipRecharge() {
-				let options = {
-					total_fee: 1, // 支付金额，单位分 100 = 1元
-					type: "recharge", // 支付回调类型
-					order_no: "20221027011000101001010", // 业务系统订单号
-					//out_trade_no: "2022102701100010100101001", // 插件支付单号
-					description: "vip订阅充值", // 支付描述
-				};
-				let optionsStr = encodeURI(JSON.stringify(options));
-				uni.navigateTo({
-					url: `/uni_modules/uni-pay/pages/pay-desk/pay-desk?options=${optionsStr}`
-				});
-			}
+		
+		
 		}
 	}
 </script>

@@ -1,13 +1,7 @@
 {
 	"pages": [
 		
-		{
-			"path" : "pages/payTest/payTest",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
-			}
-		},
+	
 	
 
 	{
@@ -15,6 +9,12 @@
 			"style": {
 				
 				"enablePullDownRefresh": true
+			}
+		},	{
+			"path" : "pages/payTest/payTest",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
 			}
 		},{
 			"path" : "pages/home/home",
@@ -166,6 +166,13 @@
 	"style" : 
 	{
 		"navigationBarTitleText" : "用户协议"
+	}
+},
+{
+	"path" : "pages/mine/recharge/recharge",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
 	}
 }
 

@@ -21,6 +21,12 @@ class AccountServiceClass{
   updateUserName(_id,userName){
     return DB.update("hm-user",_id,{userName});
   }
+  getRechargeConfig(){
+	   return DB.getCollection("hm-rechargeConfig",{status:true});
+  }
+  createRechargeOrder(rechargeConfig_id){
+	  return DB.callFunction("hm_createRechargeOrder",{rechargeConfig_id});
+  }
 }
 //module.exports =new AccountService();
 export var AccountService=new AccountServiceClass();

@@ -129,6 +129,14 @@
 				</view>
 			</view>
 		</uni-popup>
+		<uni-popup ref="popupRecharge" background-color="transprant">
+			<view class="popup-content">
+				<view class="create-order-title-style">充值中心</view>
+				<view class="comContent">
+					<recharge></recharge>
+				</view>
+			</view>
+		</uni-popup>
 		<uni-popup ref="popupInstructions" background-color="transprant">
 			<view class="popup-content">
 				<view class="create-order-title-style">使用说明</view>
@@ -151,6 +159,7 @@
 	import scenicSpotListComponent from "../scenicSpot/components/scenicSpotListComponent";
 	import mine from "../mine/mine";
 	import feedback from "@/pages/mine/feedback/feedback";
+	import recharge from "@/pages/mine/recharge/rechargeComponent";
 	import intructions from "@/pages/mine/instructions/instructions";
 	 import  {AccountService} from "../../services/AccountService";
 	 import hotelList from "../hotelManage/hotelList/hotelList";
@@ -168,6 +177,7 @@
 			hotelList,
 			mine,
 			feedback,
+			recharge,
 			intructions
 		},
 

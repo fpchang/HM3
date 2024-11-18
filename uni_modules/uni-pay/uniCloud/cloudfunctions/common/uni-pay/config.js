@@ -19,27 +19,27 @@ module.exports = {
 			"mchId": "1699379322", // 商户id
 			"key": "VPpHKpisQvahiXPCvbHbUL88rv12IfpB", // v2的api key
 			"pfx": fs.readFileSync(__dirname + '/wxpay/apiclient_cert.p12'), // v2需要用到的证书
-			"v3Key": "", // v3的api key
+			"v3Key": "f5alu9uHFeoVgLeKoVKXzcPGog7PHIZ6", // v3的api key
 			"appCertPath": path.join(__dirname, 'wxpay/apiclient_cert.pem'), // v3需要用到的证书
 			"appPrivateKeyPath": path.join(__dirname, 'wxpay/apiclient_key.pem'), // v3需要用到的证书
 			"version": 2, // 启用支付的版本 2代表v2版本 3 代表v3版本
 		},
 		// 微信 - APP支付
-		"app": {
-			"appId": "", // app开放平台下的应用的appid
-			"secret": "58ddb3617f26ed6bdd4b4117046ae7a8", // app开放平台下的应用的secret
-			"mchId": "1699379322", // 商户id
-			"key": "VPpHKpisQvahiXPCvbHbUL88rv12IfpB", // v2的api key
-			"pfx": fs.readFileSync(__dirname + '/wxpay/apiclient_cert.p12'), // v2需要用到的证书
-			"v3Key": "", // v3的api key
-			"appCertPath": path.join(__dirname, 'wxpay/apiclient_cert.pem'), // v3需要用到的证书
-			"appPrivateKeyPath": path.join(__dirname, 'wxpay/apiclient_key.pem'), // v3需要用到的证书
-			"version": 2, // 启用支付的版本 2代表v2版本 3 代表v3版本
-		},
+		// "app": {
+		// 	"appId": "", // app开放平台下的应用的appid
+		// 	"secret": "", // app开放平台下的应用的secret
+		// 	"mchId": "1699379322", // 商户id
+		// 	"key": "VPpHKpisQvahiXPCvbHbUL88rv12IfpB", // v2的api key
+		// 	"pfx": fs.readFileSync(__dirname + '/wxpay/apiclient_cert.p12'), // v2需要用到的证书
+		// 	"v3Key": "", // v3的api key
+		// 	"appCertPath": path.join(__dirname, 'wxpay/apiclient_cert.pem'), // v3需要用到的证书
+		// 	"appPrivateKeyPath": path.join(__dirname, 'wxpay/apiclient_key.pem'), // v3需要用到的证书
+		// 	"version": 2, // 启用支付的版本 2代表v2版本 3 代表v3版本
+		// },
 		// 微信 - 扫码支付
 		"native": {
 			"appId": "wx1e656e3fd064719a", // 可以是小程序或公众号或app开放平台下的应用的任意一个appid
-			"secret": "", // secret
+			"secret": "58ddb3617f26ed6bdd4b4117046ae7a8", // secret
 			"mchId": "1699379322", // 商户id
 			"key": "VPpHKpisQvahiXPCvbHbUL88rv12IfpB", // v2的api key
 			"pfx": fs.readFileSync(__dirname + '/wxpay/apiclient_cert.p12'), // v2需要用到的证书
@@ -49,17 +49,17 @@ module.exports = {
 			"version": 2, // 启用支付的版本 2代表v2版本 3 代表v3版本
 		},
 		// 微信 - 公众号支付
-		"jsapi": {
-			"appId": "", // 公众号的appid
-			"secret": "", // 公众号的secret
-			"mchId": "", // 商户id
-			"key": "", // v2的api key
-			"pfx": fs.readFileSync(__dirname + '/wxpay/apiclient_cert.p12'), // v2需要用到的证书
-			"v3Key": "", // v3的api key
-			"appCertPath": path.join(__dirname, 'wxpay/apiclient_cert.pem'), // v3需要用到的证书
-			"appPrivateKeyPath": path.join(__dirname, 'wxpay/apiclient_key.pem'), // v3需要用到的证书
-			"version": 2, // 启用支付的版本 2代表v2版本 3 代表v3版本
-		},
+		// "jsapi": {
+		// 	"appId": "", // 公众号的appid
+		// 	"secret": "", // 公众号的secret
+		// 	"mchId": "", // 商户id
+		// 	"key": "", // v2的api key
+		// 	"pfx": fs.readFileSync(__dirname + '/wxpay/apiclient_cert.p12'), // v2需要用到的证书
+		// 	"v3Key": "", // v3的api key
+		// 	"appCertPath": path.join(__dirname, 'wxpay/apiclient_cert.pem'), // v3需要用到的证书
+		// 	"appPrivateKeyPath": path.join(__dirname, 'wxpay/apiclient_key.pem'), // v3需要用到的证书
+		// 	"version": 2, // 启用支付的版本 2代表v2版本 3 代表v3版本
+		// },
 		// 微信 - 手机外部浏览器H5支付
 		"mweb": {
 			"appId": "wx1e656e3fd064719a", // 可以是小程序或公众号或app开放平台下的应用的任意一个appid

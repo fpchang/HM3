@@ -1,6 +1,6 @@
 'use strict';
 module.exports = async (obj) => {
-	let user_order_success = true;
+	let user_order_success = false;
 	let { data = {} } = obj;
 	let {
 		order_no,
@@ -16,5 +16,9 @@ module.exports = async (obj) => {
 
 	// 此处写你自己的支付成功逻辑结束-----------------------------------------------------------
 	// user_order_success =  true 代表你自己的逻辑处理成功 返回 false 代表你自己的处理逻辑失败。
-	return data;
+	await uniCloud.callFunction({
+	  	name:"rechargeSucess",
+		data:data})
+	user_order_success = true;
+	return user_order_success;
 };
