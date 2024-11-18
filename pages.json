@@ -1,13 +1,7 @@
 {
 	"pages": [
 		
-		{
-			"path" : "pages/payTest/payTest",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
-			}
-		},
+		
 	
 
 	{
@@ -15,6 +9,13 @@
 			"style": {
 				
 				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path" : "pages/payTest/payTest",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
 			}
 		},{
 			"path" : "pages/home/home",

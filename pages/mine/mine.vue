@@ -214,11 +214,12 @@
 				let options = {
 					total_fee: 1, // 支付金额，单位分 100 = 1元
 					type: "recharge", // 支付回调类型
-					order_no: "20221027011000101001010", // 业务系统订单号
+					order_no:`test`+Date.now(), // 业务系统订单号
 					//out_trade_no: "2022102701100010100101001", // 插件支付单号
 					description: "vip订阅充值", // 支付描述
 				};
 				let optionsStr = encodeURI(JSON.stringify(options));
+				console.log(333,options);
 				uni.navigateTo({
 					url: `/uni_modules/uni-pay/pages/pay-desk/pay-desk?options=${optionsStr}`
 				});
