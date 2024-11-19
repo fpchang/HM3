@@ -197,6 +197,7 @@
 						});
 						break;
 					case "recharge":
+						return;
 						if (this.isPcShow) {
 							uni.$emit("closeRightDrawer");
 							uni.$emit("showPopupPivot","popupRecharge",1);
