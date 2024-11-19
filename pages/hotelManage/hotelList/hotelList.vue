@@ -138,8 +138,8 @@ import {alert} from "@/alert";
 			}
 		},
 		async created() {
-			console.log("hotellist is created")
-			
+			console.log("hotellist is created");
+			uni.hideLoading();
 		},
 		watch:{
 			hotel_id(){

@@ -207,6 +207,7 @@
 				await this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
 				await this.$store.dispatch("getOrderListToday", this.hotel_id);
 				await this.$store.dispatch("getOrderDishesToday", this.hotel_id);
+				uni.hideLoading();
 			},
 			dayNum(params) {
 				return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24))

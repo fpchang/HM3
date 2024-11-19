@@ -216,6 +216,7 @@ export default {
       });
     },
     dateRangeArrayFormat() {
+  
       let startTime = new Date(
         new Date(this.orderForm.dateRangeArray[0]).Format("yyyy/MM/dd") +
           " 14:00:00"
@@ -224,6 +225,9 @@ export default {
         new Date(this.orderForm.dateRangeArray[1]).Format("yyyy/MM/dd") +
           " 12:00:00"
       ).getTime();
+      if(this.orderForm.dateRangeArray[0]==this.orderForm.dateRangeArray[1]){
+        endTime = endTime+1000*60*60*24;
+      }
       return [startTime, endTime];
     },
 
@@ -265,6 +269,7 @@ export default {
     },
     //初始化可用的房型
     initValidRoomTypeData(e) {
+      console.log(this.orderForm)
       uni.showLoading();
       let startTime = this.dateRangeArrayFormat[0],
         endTime = this.dateRangeArrayFormat[1];
@@ -303,6 +308,7 @@ export default {
       //uni.showLoading();
       this.submitLoading = true;
       let dateRange = this.dateRangeArrayFormat;
+      console.log(this.dateRangeArrayFormat)
       let sourceObj = this.source.find(
         (item) => item.value == this.orderForm.orderSource
       );

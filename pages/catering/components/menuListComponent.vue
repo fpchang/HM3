@@ -268,6 +268,7 @@
 			},
 			async getOrderDishesList() {
 				await this.$store.dispatch("getOrderDishesList",this.hotel_id);
+				uni.hideLoading();
 			},
 		},
 

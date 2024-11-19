@@ -127,20 +127,7 @@ const store = createStore({
 		 async getHotelList(context){	
 			const res = await HotelService.getHotelList();
 			context.commit('updateHotelList', res.result);
-			console.log("3333333333",res)
-			return res;
-			// alert(1)
-			// return new Promise((resolve,reject)=>{
-			// 	 HotelService.getHotelList().then(res=>{
-			// 		console.log("当前用户酒店列表",res);
-			// 		context.commit('updateHotelList', res.result);
-			// 		resolve(res);
-			// 	}).catch(e=>{
-			// 		reject(e)
-			// 	})
-			// })		
-			
-			
+			return res;							
 		},
 		 getRoomType(context){
 				return  HotelService.getRoomType(context.state.hotel_id).then(res=>{

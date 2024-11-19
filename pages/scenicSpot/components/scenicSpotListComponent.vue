@@ -106,6 +106,7 @@
 		},
 		async created() {
 			await this.$store.dispatch("getScenicSpotList", this.hotel_id);
+			uni.hideLoading();
 		},
 		methods: {
 			shareWx() {

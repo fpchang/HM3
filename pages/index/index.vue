@@ -270,9 +270,10 @@
 		onPullDownRefresh() {
 			console.log("index veu refrush");
 			this.vaildToken(() => {
-				this.initData();
-			});
+				this.clickTab({index:this.currentTab_index});
 			uni.stopPullDownRefresh();
+			});
+			
 		},
 		computed: {
 			isPcShow() {
@@ -476,6 +477,7 @@
 			clickTab(e) {
 				if (this.currentTab_index == e.index) {
 					//只触发刷新
+					uni.showLoading();
 					this.tabList[e.index].time = new Date().getTime();
 					return;
 				}

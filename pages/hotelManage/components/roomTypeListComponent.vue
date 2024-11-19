@@ -148,6 +148,7 @@ import  {DB} from '../../../api/DB';
 		},
 		async created() {
 			await  this.$store.dispatch("getRoomType");
+			uni.hideLoading();
 			
 		},
 		watch:{
