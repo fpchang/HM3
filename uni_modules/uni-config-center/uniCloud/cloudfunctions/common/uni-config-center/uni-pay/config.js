@@ -6,7 +6,7 @@ module.exports = {
 		// 测试环境服务空间-支付回调地址
 		"env-00jxh1m2dpmq": "https://env-00jxh1m2dpmq.dev-hz.cloudbasefunction.cn/uni-pay-co",
 		// 线上环境服务空间-支付回调地址（如果只有一个服务空间，则只需要配置线上环境服务空间即可）
-		"env-00jxhfhjd231": "https://env-00jxhfhjd231.dev-hz.cloudbasefunction.cn/uni-pay-co",
+		//"env-00jxhfhjd231": "https://env-00jxhfhjd231.dev-hz.cloudbasefunction.cn/uni-pay-co",
 	},
 	"notifyKey": "5FB2CD73C7B53918728417C50762E6D45FB2CD73C7B53918728417C50762E6D45", // 跨云函数通信时的加密密钥，建议手动改下，不要使用默认的密钥，长度保持在64位以上即可
 	// 微信支付相关

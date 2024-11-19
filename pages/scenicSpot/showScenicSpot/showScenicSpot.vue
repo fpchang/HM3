@@ -37,7 +37,7 @@
 			}
 		},
 		onLoad() {
-   		 uni.hideHomeButton();
+   		// uni.hideHomeButton();
   		},
 		computed: {
 			hotel_id() {

@@ -147,7 +147,7 @@
 			console.log("params", params);
 		},
 		onLoad(params) {
-			uni.hideHomeButton();
+			//uni.hideHomeButton();
 
 		},
 		created(params) {
