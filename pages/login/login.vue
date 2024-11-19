@@ -24,6 +24,7 @@
           <uni-icons :type="isAgree?'checkbox-filled':'circle'" @click="agreeEvent" size="20" color="#06c"></uni-icons> <text>我已阅读并同意<text class="edit-text-btn-style ct" @click="openUserAgreement">《用户协议》</text>和<text class="edit-text-btn-style ct" @click="openUserPrivacyPolicy">《隐私政策》</text></text>
         </view>
         </uni-forms-item>
+        <!-- <uni-forms-item > <button open-type="getPhoneNumber" @getphonenumber="decryptPhoneNumber">微信登录</button></uni-forms-item> -->
       </uni-forms>
       
       <view style="height: 80px"></view>
@@ -112,13 +113,18 @@ export default {
   },
   onShow(){
     console.log("login onShow>>>>");
-	  
+	  // #ifdef H5
+				document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
+			// #endif
   },
   created(){
     console.log("login created>>>>");
     
   },
   methods: {
+    decryptPhoneNumber(e){
+      console.log(e)
+    },
     agreeEvent(){
       this.isAgree = !this.isAgree;
     },
