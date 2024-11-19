@@ -96,6 +96,9 @@
 			hotel_id(){
 				return this.$store.state.hotel_id;
 			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
+			},
 			roomTypeList(){
 				return this.$store.state.roomTypeList;
 			},
@@ -125,6 +128,17 @@
 		watch:{
 			hotel_id(newval,oldval){
 				this.getOrderListByCondition();
+			},
+			async partialRefreshComName(val){
+				//下拉刷新
+				if(val=='orderComponent'){
+					console.log("局部刷新 orderComponent")
+					await  this.getOrderListByCondition();
+					console.log("刷新完成");
+					this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
 			}
 		},
 		async created() {
@@ -148,16 +162,17 @@
 				 //uni.showLoading();
 				 if(!this.hotel_id){
 					return;
-				 }
-				 console.log(1111)
+				 }				 
 				 let date = this.selectCondition.dateRangeArray;
 				try {
 					const res = await OrderService.getOrderListByCondition(this.hotel_id,date[0],date[1]);
 					console.log("res",res);
-					this.checkInOrderList = res.result.data||[];			
+					this.checkInOrderList = res.result.data||[];
+								
 				} catch (error) {
 					console.error("获取订单列表失败",error);
 				}
+				console.log("获取订单列表完成");
 				uni.hideLoading();
 			},
 			async deleteOrder(item) {

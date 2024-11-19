@@ -130,11 +130,17 @@ import {alert} from "@/alert";
 			isPcShow(){
 				return this.$store.state.isPcShow;
 			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
+			},
 			hotel_id(){
 				return this.$store.state.hotel_id
 			},
 			hotelList() {
 				return this.$store.state.hotelList;
+			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
 			}
 		},
 		async created() {
@@ -144,7 +150,19 @@ import {alert} from "@/alert";
 		watch:{
 			hotel_id(){
 				// this.$store.dispatch("getRoomType");
+			},
+			  async partialRefreshComName(val){
+				//下拉刷新
+				if(val=='hotelList'){
+					console.log("局部刷新 employeeComponent")
+					await this.$store.dispatch("getHotelList");
+        			console.log("刷新完成");
+					this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
 			}
+  
 		},
 		methods:{
 			roleFormat(val){

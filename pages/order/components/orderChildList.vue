@@ -99,11 +99,27 @@
 			hotel_id(){
 				return this.$store.state.hotel_id;
 			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
+			},
 			checkInOrderList(){
 				return this.$store.state.orderStore.orderListTodayAfter ||[];
 			},
 			noData(){
 				return this.checkInOrderList&&this.checkInOrderList.length<1;
+			}
+		},
+		watch:{
+			async partialRefreshComName(val){
+				//下拉刷新
+				if(val=='orderComponent'){
+					console.log("局部刷新 orderComponent")
+					await this.$store.dispatch("getOrderListTodayAfter",this.hotel_id);
+					console.log("刷新完成");
+					this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
 			}
 		},
 		methods: {

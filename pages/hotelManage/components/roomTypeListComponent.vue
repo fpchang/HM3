@@ -142,6 +142,9 @@ import  {DB} from '../../../api/DB';
 			hotel_id(){
 				return this.$store.state.hotel_id
 			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
+			},
 			roomType() {
 				return this.$store.state.roomType;
 			}
@@ -153,8 +156,19 @@ import  {DB} from '../../../api/DB';
 		},
 		watch:{
 			hotel_id(){
-				console.log(4444)
 				 this.$store.dispatch("getRoomType");
+			},
+			async partialRefreshComName(val){
+				//下拉刷新
+				console.log(val)
+				if(val=='roomTypeListComponent'){
+					console.log("局部刷新 roomTypeListComponent")
+					await this.$store.dispatch("getRoomType");
+					console.log("刷新完成");
+					this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
 			}
 		},
 		methods:{

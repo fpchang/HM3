@@ -146,12 +146,11 @@
 		onInit(params) {
 			console.log("params", params);
 		},
-		onload(params) {
-			
+		onLoad(params) {
+			uni.hideHomeButton();
 
 		},
 		created(params) {
-			
 		},
 		mounted(){			
 			this.getData();

@@ -46,15 +46,12 @@
 					<scroll-view class="swiper-container-scroll" :scroll-y="true" :scroll-x="false"
 						show-scrollbar="false" :scroll-top="0" :style="{height: scrollHeight}">
 						<view v-if="dataHasRead">
-							<!-- <share_app_to_weechat v-if="item.ComponentName=='share_app_to_weechat'">
-							</share_app_to_weechat> -->
 							<gatherComponent :key="item.time" :createTime="item.time" :disHeightVal="disHeightVal"
 								v-if="item.ComponentName=='gatherComponent'">
 							</gatherComponent>
 							<orderComponent :key="item.time" :createTime="item.time" :disHeightVal="disHeightVal"
 								v-if="item.ComponentName=='orderComponent'">
-							</orderComponent>
-							
+							</orderComponent>							
 							<hotelSetComponent :key="item.time" :createTime="item.time" :disHeightVal="disHeightVal"
 								v-if="item.ComponentName=='hotelSetComponent'">
 							</hotelSetComponent>
@@ -271,7 +268,6 @@
 			console.log("index veu refrush");
 			this.vaildToken(() => {
 				this.clickTab({index:this.currentTab_index});
-			uni.stopPullDownRefresh();
 			});
 			
 		},
@@ -394,28 +390,28 @@
 					return;
 				}
 				let arr = [{
-						index: 0,
+						//index: 0,
 						name: "关注",
 						time: 0,
 						permission: "MENU_GATHER",
 						ComponentName: "gatherComponent",
 					},
 					{
-						index: 1,
+						//index: 1,
 						name: "订房管理",
 						time: 0,
 						permission: "MENU_ORDER",
 						ComponentName: "orderComponent",
 					},
 					{
-						index: 2,
+						//index: 2,
 						name: "合作景点",
 						time: 0,
 						permission: "MENU_SCENICSPOT",
 						ComponentName: "scenicSpotListComponent",
 					},
 					{
-						index: 3,
+						//index: 3,
 						name: "订餐",
 						time: 0,
 						permission: "MENU_CATERING",
@@ -423,20 +419,20 @@
 					},
 
 					{
-						index: 4,
+						//index: 4,
 						name: "房型管理",
 						time: 0,
 						permission: "MENU_ROOMTYPE",
 						ComponentName: "roomTypeListComponent",
 					},
 					{
-						index: 5,
+						//index: 5,
 						name: "人员管理",
 						time: 0,
 						permission: "MENU_EMPLOYEE",
 						ComponentName: "employeeComponent",
 					}, {
-						index: 7,
+						//index: 7,
 						name: "酒店管理",
 						time: 0,
 						permission: "MENU_HOTELMANAGE",
@@ -475,10 +471,15 @@
 				this.$refs.showLeft.close()
 			},
 			clickTab(e) {
+				
 				if (this.currentTab_index == e.index) {
 					//只触发刷新
+					if(this.$store.state.partialRefreshComName){
+						console.log("正在执行刷新中，，，")
+						return;
+					}
 					uni.showLoading();
-					this.tabList[e.index].time = new Date().getTime();
+					this.$store.commit("setPartialRefreshComName",this.tabList[e.index].ComponentName);
 					return;
 				}
 				this.currentTab_index = e.index;

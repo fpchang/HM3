@@ -166,6 +166,9 @@ export default {
     hotel_id() {
       return this.$store.state.hotel_id;
     },
+    partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
+			},
     hotel() {
       return this.$store.state.hotelList.find(
         (item) => item._id == this.hotel_id
@@ -184,6 +187,17 @@ export default {
     hotel_id() {
       this.getEmployeeList();
     },
+    async partialRefreshComName(val){
+				//下拉刷新
+				if(val=='employeeComponent'){
+					console.log("局部刷新 employeeComponent")
+				await this.getEmployeeList();
+        console.log("刷新完成");
+        this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
+			}
   },
   methods: {
     roleFormat(key){
@@ -195,18 +209,19 @@ export default {
      return  m[key]
     },
     sortRoomList(list) {},
-    getEmployeeList() {
+    async getEmployeeList() {
       //uni.showLoading();
-      HotelService.getEmployeeList(this.hotel_id)
-        .then((res) => {
+      try {
+          const res =  await  HotelService.getEmployeeList(this.hotel_id);
           console.log("员工列表",res)
           this.$store.commit("updateEmployeeList", res.result.data);
-          uni.hideLoading();
-        })
-        .catch((err) => {
-          console.error(err);
-          uni.hideLoading();
-        });
+      } catch (error) {
+        console.error(error)
+        uni.hideLoading();
+      }
+          
+          
+         
     },
     editEmployee(em) {
       if(!this.$store.state.permissionStore.permissionList.includes('EMPLOYEE_UPDATE')){

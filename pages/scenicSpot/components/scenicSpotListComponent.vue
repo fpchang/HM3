@@ -70,6 +70,9 @@
 			scenicSpotList() {
 				return this.$store.state.scenicSpotStore.scenicSpotList ||[];
 			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
+			},
 			noData(){
 				return this.scenicSpotList.length<1;
 			},
@@ -191,6 +194,17 @@
 		watch: {
 			async hotel_id() {
 				await this.$store.dispatch("getScenicSpotList", this.hotel_id);
+			},
+			async partialRefreshComName(val){
+				//下拉刷新
+				if(val=='scenicSpotListComponent'){
+					console.log("局部刷新 scenicSpotListComponent")
+					await this.$store.dispatch("getScenicSpotList", this.hotel_id);
+					console.log("刷新完成");
+					this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
 			}
 		},
 

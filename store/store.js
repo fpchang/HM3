@@ -14,6 +14,7 @@ const store = createStore({
 	state: { //存放状态
 		"config":null,//配置信息
 		"viewWidth":null,//可视宽度
+		"partialRefreshComName":"",//局部刷新组件值
 		"shareObj":{},
 		"baseDatahasLoad":false,//基本数据准备完毕
 		"topHeight":90,
@@ -28,6 +29,9 @@ const store = createStore({
 	},
 
 	mutations: {
+		setPartialRefreshComName(state,comName){
+			state.partialRefreshComName=comName;		
+		},
 		setViewWidth(state,w){
 			state.viewWidth = w;
 		},
@@ -129,11 +133,12 @@ const store = createStore({
 			context.commit('updateHotelList', res.result);
 			return res;							
 		},
-		 getRoomType(context){
-				return  HotelService.getRoomType(context.state.hotel_id).then(res=>{
-					let obj = res.result.data.length?res.result.data:[];
-					context.commit("updateRoomType",obj);
-				})
+		 async getRoomType(context){
+				const res = await  HotelService.getRoomType(context.state.hotel_id);
+				console.log("房型列表",res);
+				let obj = res.result.data.length?res.result.data:[];
+				context.commit("updateRoomType",obj);
+				return res;
 			 	
 		},
 		errorEvent(context,error){

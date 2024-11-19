@@ -58,7 +58,7 @@
 			gatherCardComponent
 		},
 		props: {
-
+			
 		},
 		data() {
 			return {
@@ -87,6 +87,9 @@
 			},
 			user() {
 				return this.$store.state.user;
+			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
 			},
 			//今日办理入住的订单
 			orderListByCheckInToday() {
@@ -168,6 +171,18 @@
 
 		},
 		watch: {
+			async partialRefreshComName(val){
+				//下拉刷新
+				if(val=='gatherComponent'){
+					console.log("局部刷新 gather")
+					await this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
+					await this.$store.dispatch("getOrderListToday", this.hotel_id);
+					await this.$store.dispatch("getOrderDishesToday", this.hotel_id);
+					this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
+			},
 			hotel_id() {
 				this.initData();
 			}
@@ -197,17 +212,17 @@
 			console.log('gatherComponent Show')
 		},
 		 created() {
-
+			console.log("gathercomponent created;;;;");
 			
 		},
 	
-		methods: {
+		methods: {			
 			async initData() {
 				console.log("init data gather")
 				await this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
 				await this.$store.dispatch("getOrderListToday", this.hotel_id);
 				await this.$store.dispatch("getOrderDishesToday", this.hotel_id);
-				uni.hideLoading();
+				
 			},
 			dayNum(params) {
 				return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24))

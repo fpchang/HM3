@@ -91,6 +91,9 @@
 			hotelList() {
 				return this.$store.state.hotelList;
 			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
+			},
 			hotelName() {
 				let tar = this.hotelList.find((item) => item._id == this.hotel_id);
 				return tar.hotelName;
@@ -158,6 +161,23 @@
 				}
 				this.getOrderDishesList();
 			},
+			async partialRefreshComName(val){
+				//下拉刷新
+				if(val=='menuListComponent'){
+					console.log("局部刷新 menuListComponent")
+					
+					if (this.tabRadioVal == 1) {
+						await this.$store.dispatch("getMenuList", this.hotel_id);
+						
+					}else{
+						await this.$store.dispatch("getOrderDishesList",this.hotel_id);
+					}
+					console.log("刷新完成");
+					this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
+			}
 		},
 		created() {
 			

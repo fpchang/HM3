@@ -83,6 +83,9 @@ import  {OrderService} from '../../../services/OrderService';
 			checkInOrderList(){
 				return this.$store.state.orderStore.orderListTodayAfter ||[];
 			},
+			partialRefreshComName(){
+				return this.$store.state.partialRefreshComName;
+			},
 			noData(){
 				return this.checkInOrderList.length<1;
 			},
@@ -159,6 +162,17 @@ import  {OrderService} from '../../../services/OrderService';
 		watch:{
 			hotel_id(newval,oldval){
 				this.$store.dispatch("getOrderListTodayAfter",this.hotel_id);
+			},
+			async partialRefreshComName(val){
+				//下拉刷新
+				if(val=='orderComponent'){
+					console.log("局部刷新 orderComponent")
+					await this.$store.dispatch("getOrderListTodayAfter",this.hotel_id);
+					console.log("刷新完成");
+					this.$store.commit("setPartialRefreshComName","");
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}				
 			}
 		},
 		methods: {

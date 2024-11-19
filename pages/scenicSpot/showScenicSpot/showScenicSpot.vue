@@ -36,6 +36,9 @@
 
 			}
 		},
+		onLoad() {
+   		 uni.hideHomeButton();
+  		},
 		computed: {
 			hotel_id() {
 				return this.$store.state.hotel_id;
