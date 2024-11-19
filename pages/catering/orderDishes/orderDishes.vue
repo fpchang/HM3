@@ -144,13 +144,19 @@
 			
 		},
 		onInit(params) {
-			console.log("params", params);
+			console.log("onInit params", params);
 		},
 		onLoad(params) {
-			//uni.hideHomeButton();
+			console.log("onLoad params", params);
+			try {
+				this.hotel_id = params['hotel_id']
+			} catch (error) {
+				
+			}
 
 		},
 		created(params) {
+			console.log("created params", params);
 		},
 		mounted(){			
 			this.getData();
@@ -168,6 +174,7 @@
 		data() {
 			return {
 				isLoading:false,
+				hotel_id:null,
 				hotel: {hotelName:""},
 				activeLeft: 0,
 				toMenuDetail_id: 'it0',
@@ -229,9 +236,9 @@
 			}
 		},
 		computed: {
-			hotel_id() {
-				return this.$store.state.hotel_id;
-			},
+			// hotel_id() {
+			// 	return this.$store.state.hotel_id;
+			// },
 			isPcShow(){
 				return this.$store.state.isPcShow;
 			},

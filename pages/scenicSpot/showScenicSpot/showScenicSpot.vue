@@ -29,6 +29,7 @@
 		props: {},
 		data() {
 			return {
+				hotel_id:null,
 				widthTemp: 0,
 				type: 0,
 				targetObj: {},
@@ -36,13 +37,19 @@
 
 			}
 		},
-		onLoad() {
-   		// uni.hideHomeButton();
-  		},
+		onLoad(params) {
+			console.log("onLoad params", params);
+			try {
+				this.hotel_id = params['hotel_id']
+			} catch (error) {
+				
+			}
+
+		},
 		computed: {
-			hotel_id() {
-				return this.$store.state.hotel_id;
-			},
+			// hotel_id() {
+			// 	return this.$store.state.hotel_id;
+			// },
 			scenicSpotList(){
 				return this.$store.state.scenicSpotStore.scenicSpotList;
 			},
@@ -79,7 +86,6 @@
 		},
 		watch: {
 			hotel_id(){
-				console.error("vvvvv")
 				this.initData();
 			}
 			},
