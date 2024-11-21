@@ -131,6 +131,11 @@
 		created() {
 			
 		},
+		async onPullDownRefresh() {
+			console.log("mine  refrush");
+			await this.$store.dispatch("getUser");
+			uni.stopPullDownRefresh();			
+		},
 		methods: {
 			login() {
 				uni.navigateTo({
@@ -197,7 +202,6 @@
 						});
 						break;
 					case "recharge":
-						return;
 						if (this.isPcShow) {
 							uni.$emit("closeRightDrawer");
 							uni.$emit("showPopupPivot","popupRecharge",1);

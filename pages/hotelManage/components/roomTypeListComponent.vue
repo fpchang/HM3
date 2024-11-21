@@ -24,6 +24,7 @@
 					<uni-th align="center" width="120px">房型名称</uni-th>
 					<uni-th align="center" width="80px">数量</uni-th>
 					<uni-th align="center">房间号</uni-th>
+					<uni-th align="center" width="120px">房型图片</uni-th>
 					<uni-th align="center" width="180px">操作</uni-th>
 				</uni-tr>
 				<!-- 表格数据行 -->
@@ -42,6 +43,7 @@
 						
 						
 					</uni-td>
+					<uni-td><text class="edit-text-btn-style" @click="showRoomTypeImages">查看</text></uni-td>
 					<uni-td align="center">
 						<view class="uni-group" style="justify-content:space-around">
 							<!-- <button class="uni-button" size="mini" type="primary" @click="editRoomType(item)">修改</button> -->
@@ -106,13 +108,17 @@
 		<uni-popup ref="popupCreateRoomType" background-color="transprant">
 			<view class="popup-content">
 				<view class="create-order-title-style">{{type==1?"修改房型":"创建房型"}}</view>
-				<view class="comContent">
-					
-					 <createRoomTypeComponent @closePopup="closePopup" :type="type" :rt="rt"></createRoomTypeComponent> 
-				
-
+				<view class="comContent">					
+					 <createRoomTypeComponent @closePopup="closePopup" :type="type" :rt="rt"></createRoomTypeComponent> 				
 				</view>
-
+			</view>
+		</uni-popup>
+		<uni-popup ref="popupRoomTypeImages" background-color="transprant">
+			<view class="popup-content" >
+				<view class="create-order-title-style">房型图片</view>
+				<view class="comContent">					
+					 <roomTypeImagesComponent @closePopup="closePopup" :type="type" :rt="rt"></roomTypeImagesComponent> 				
+				</view>
 			</view>
 		</uni-popup>
 	</view>
@@ -120,11 +126,13 @@
 
 <script>
 import createRoomTypeComponent from './createRoomTypeComponent';
+import roomTypeImagesComponent from "./roomTypeImagesComponent"
 import {alert} from "@/alert";
 import  {DB} from '../../../api/DB';
 	export default {
 		components:{
-			createRoomTypeComponent
+			createRoomTypeComponent,
+			roomTypeImagesComponent
 		},
 		data() {
 			return {
@@ -245,8 +253,13 @@ import  {DB} from '../../../api/DB';
 					})
 				
 			},
+			showRoomTypeImages(){
+				this.$refs.popupRoomTypeImages.open();
+			},
 			closePopup(){
 				this.$refs.popupCreateRoomType.close();
+				this.$refs.popupRoomTypeImages.close();
+				
 			}
 			// getRoomTypeList(){
 			// 	return uniCloud.callFunction({

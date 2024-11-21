@@ -12,28 +12,33 @@
       </view>
       </uni-forms-item>
       <uni-forms-item label="日期时间">
-        <!-- <view class="form-item-content-container" v-if="!isIOS">  -->
-           <uni-datetime-picker
-          v-model="orderForm.dateRangeArray"
-          rangeSeparator="/"
-          type="daterange"
-          return-type="timestamp"
-          @change="initValidRoomTypeData"
-          :clear-icon="false"
-          style="z-index: 9999;"
-        /> 
-        <!-- </view> -->
-<!--        
-         <view class="form-item-content-container" v-if="isIOS">
-          <view class="calendar-container" @click="showDateSelect">
-             <uni-icons type="calendar" size="22" color="#60626680"></uni-icons>
-             <text style="flex:1;text-align:center">{{orderForm.dateRangeArray[0] || "开始日期"}}</text> 
-             <text style="padding:0 10px">至</text>
-             <text style="flex:1;text-align:center">{{orderForm.dateRangeArray[1]|| "截止日期"}}</text> 
-            </view>
-            <uv-calendar ref="calendars" mode="range" @close="dateClose" @confirm="dateConfim" style="z-index:999"></uv-calendar>
-        </view>
-        -->
+        <block v-if="isH5"> 
+        
+            <uni-datetime-picker
+           v-model="orderForm.dateRangeArray"
+           rangeSeparator="/"
+           type="daterange"
+           return-type="timestamp"
+           @change="initValidRoomTypeData"
+           :clear-icon="false"
+           style="z-index: 9999;"
+         /> 
+        
+        </block>
+   
+        <block v-if="!isH5"> 
+          <view class="form-item-content-container" >
+            <view class="calendar-container" @click="showDateSelect">
+               <uni-icons type="calendar" size="22" color="#60626680"></uni-icons>
+               <text style="flex:1;text-align:center">{{orderForm.dateRangeArray[0] || "开始日期"}}</text> 
+               <text style="padding:0 10px">至</text>
+               <text style="flex:1;text-align:center">{{orderForm.dateRangeArray[1]|| "截止日期"}}</text> 
+              </view>
+              <uv-calendar ref="calendars" mode="range" @close="dateClose" @confirm="dateConfim" style="z-index:999"></uv-calendar>
+          </view>
+        </block>
+      
+        
       </uni-forms-item>
       <uni-forms-item label="房型" required>
         <!-- <uni-data-checkbox v-model="orderForm.roomTypeArray" mode="list"  multiple :localdata="roomTypeListFormat">1111</uni-data-checkbox> -->
@@ -69,6 +74,7 @@
       <uni-forms-item label="客户名" required>
         <uni-easyinput
           v-model="orderForm.userName"
+          trim="all"
           placeholder="请输入用户名"
         />
       </uni-forms-item>
@@ -197,6 +203,12 @@ export default {
     isIOS(){
       return  uni.getSystemInfoSync().osName=='ios'|| uni.getDeviceInfo().platform=='ios';
     },
+    isH5(){
+     // #ifdef  H5
+        return true;
+     //#endif
+      return false;
+    },
     hotel_id() {
       return this.$store.state.hotel_id;
     },
@@ -243,7 +255,7 @@ export default {
       let condition =
         this.orderForm.dateRangeArray.length < 1 ||
         this.roomTypeArray.length < 1 ||
-        (this.orderForm.userName == "" && this.orderForm.phone == "");
+        (this.orderForm.userName.trim() == "" && this.orderForm.phone.trim() == "");
       return condition;
     },
   },

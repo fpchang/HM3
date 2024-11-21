@@ -113,19 +113,14 @@ const store = createStore({
 			let val = w - scrollWidth;
 			context.commit("setViewWidth",val);
 		},
-		getUser(context){
-			return new Promise( (resolve,reject)=>{
-				 AccountService.getuserByToken().then(res=>{					
-					if(res.result.data[0]){
-						uni.setStorageSync("user",res.result.data[0]);
-						context.commit("setUser",res.result.data[0]);
-						
-					}
-					resolve()
-				}).catch(e=>{
-					reject(e)
-				})
-			})
+		async getUser(context){
+			const res = await  AccountService.getuserByToken();
+			if(res.result.data[0]){
+				uni.setStorageSync("user",res.result.data[0]);
+				context.commit("setUser",res.result.data[0]);
+				
+			}
+			return res;
 			
 		},
 		 async getHotelList(context){	

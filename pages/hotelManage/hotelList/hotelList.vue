@@ -178,10 +178,10 @@ import {alert} from "@/alert";
 					alert.alertNoPermisson();
 					return;
 				}
-				if(!this.$store.state.permissionStore.permissionList.includes('HOTEL_UPDATE')){
-					 alert.alertNoPermisson();
-					return;
-				}
+				// if(!this.$store.state.permissionStore.permissionList.includes('HOTEL_UPDATE')){
+				// 	 alert.alertNoPermisson();
+				// 	return;
+				// }
 				this.type=1;
 				this.targetObj =targetObj;
 				if(this.$store.state.isPcShow){
@@ -213,10 +213,10 @@ import {alert} from "@/alert";
 					alert.alertNoPermisson();
 					return;
 				}
-				if(!this.$store.state.permissionStore.permissionList.includes('HOTEL_DELETE')){
-					 alert.alertNoPermisson();
-					return;
-				}
+				// if(!this.$store.state.permissionStore.permissionList.includes('HOTEL_DELETE')){
+				// 	 alert.alertNoPermisson();
+				// 	return;
+				// }
 				const conf = await uni.showModal({
 					title: '确认删除此酒店',
 					content: '删除后将无法恢复,确认删除吗?',

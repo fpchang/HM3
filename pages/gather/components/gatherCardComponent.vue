@@ -6,10 +6,7 @@
       >
       <view
         style="flex: 1; display: flex; justify-content: flex-end; gap: 15px"
-      >
-      
-      
-        
+      >                 
       </view>
     </view>
     <slot name="content"></slot>

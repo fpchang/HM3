@@ -41,7 +41,8 @@
 		{
 			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
 			}
 		},
 		
@@ -167,6 +168,13 @@
 },
 {
 	"path" : "pages/mine/recharge/recharge",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
+},
+{
+	"path" : "pages/hotelManage/roomTypeImages/roomTypeImages",
 	"style" : 
 	{
 		"navigationBarTitleText" : ""
