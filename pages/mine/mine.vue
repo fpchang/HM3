@@ -18,8 +18,6 @@
 						<text style="padding:4px 8px">{{user.phone}}</text>
 
 					</view>
-
-
 				</view>
 				<view>
 					<view class="flex-between vip-style" style="padding:12px 8px 0 0"  @click="menuEvent('recharge')">
@@ -147,7 +145,7 @@
 				if(!d){
 					return '--';
 				}
-				return new Date(d).Format("yyyy-MM-dd");
+				return new Date(Number(d)).Format("yyyy-MM-dd");
 			},
 			closeNameUpdate(){
 				this.$refs.nameDialog.close()

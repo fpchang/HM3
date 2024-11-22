@@ -12,21 +12,18 @@
       </view>
       </uni-forms-item>
       <uni-forms-item label="日期时间">
-        <block v-if="isH5"> 
-        
-            <uni-datetime-picker
+        <block v-if="isPcShow">        
+          <uni-datetime-picker
            v-model="orderForm.dateRangeArray"
            rangeSeparator="/"
            type="daterange"
            return-type="timestamp"
-           @change="initValidRoomTypeData"
+           @change="dateConfim"
            :clear-icon="false"
            style="z-index: 9999;"
-         /> 
-        
+         />        
         </block>
-   
-        <block v-if="!isH5"> 
+        <block v-if="!isPcShow"> 
           <view class="form-item-content-container" >
             <view class="calendar-container" @click="showDateSelect">
                <uni-icons type="calendar" size="22" color="#60626680"></uni-icons>
@@ -34,7 +31,7 @@
                <text style="padding:0 10px">至</text>
                <text style="flex:1;text-align:center">{{orderForm.dateRangeArray[1]|| "截止日期"}}</text> 
               </view>
-              <uv-calendar ref="calendars" mode="range" @close="dateClose" @confirm="dateConfim" style="z-index:999"></uv-calendar>
+              <uv-calendars ref="calendars" mode="range" :startDate="startDate" @close="dateClose" @confirm="dateConfimEvent"  style="z-index:999"></uv-calendars>
           </view>
         </block>
       
@@ -178,11 +175,11 @@ export default {
         }
         
       ],
-      startDate:new Date().getTime(),
+      startDate:new Date().Format("yyyy-MM-dd"),
       remainRoomTypeList: [],
       orderForm: {
         orderSource: 0,
-        dateRangeArray: [],
+        dateRangeArray:[],// [new Date().getTime(),new Date().getTime()+1000*60*60*24],
         userName: "",
         // checkInStartDateTimeStamp: 1724824800000,
         // checkInEndDateTimeStamp: 1724904000000,
@@ -198,8 +195,13 @@ export default {
       },
     };
   },
-  created() {},
+  created() {
+   // this.initValidRoomTypeData();
+  },
   computed: {
+    isPcShow(){
+    return this.$store.state.isPcShow
+  },
     isIOS(){
       return  uni.getSystemInfoSync().osName=='ios'|| uni.getDeviceInfo().platform=='ios';
     },
@@ -271,17 +273,20 @@ export default {
     dateConfimEvent(obj){
       this.dateConfim(obj.range.data);
     },
-    dateConfim(timeRange){
-      console.log(timeRange);
-      const startDate = timeRange[0].replaceAll("-","/");
-      const endDate = timeRange[1].replaceAll("-","/");
-      this.orderForm.dateRangeArray=[startDate,endDate];
-      this.dateSelectShow=false;
+    dateConfim(e){
+      console.log(e);
+      let range=e;
+      if(e[0] == e[1]){
+        this.remainRoomTypeList=[];
+        uni.showToast({title:"开始日期与结束日期不能相同",icon:"none"});
+        return;
+      }
+      this.orderForm.dateRangeArray=e;
       this.initValidRoomTypeData();
     },
     //初始化可用的房型
     initValidRoomTypeData(e) {
-      console.log(this.orderForm)
+      console.log(e)
       uni.showLoading();
       let startTime = this.dateRangeArrayFormat[0],
         endTime = this.dateRangeArrayFormat[1];
