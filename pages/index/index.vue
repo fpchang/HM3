@@ -217,13 +217,18 @@
 		},
 		onShow() {
 			console.log("index onshow");
-			this.vaildToken();
+			//this.vaildToken();
 			if(this.$store.state.isPcShow){
 				uni.hideTabBar();
 			}
 			//if(this.isPcShow){
 			// #ifdef H5
+			try {
 				document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
+			} catch (error) {
+				
+			}
+				
 			// #endif
 						
 			//	}

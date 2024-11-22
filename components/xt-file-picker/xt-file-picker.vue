@@ -1,6 +1,6 @@
 <template>
   <view m-container>
-    <view class="title-container">
+    <view class="title-container" v-if="showTitle">
       <text class="text-style">最多可选9张图片</text>
       <text class="text-style">{{selectImageList.length}}/{{max}}</text>
     </view>
@@ -11,10 +11,10 @@
                       <view class="progress-container" v-if="item.uploadStatus==0&&item.percentCompleted>0">
                         <progress :percent="item.percentCompleted" border-radius="12" stroke-width="20" activeColor="orange" :show-info="false"></progress>
                       </view>
-                      <view class="delete-container" >
+                      <view class="delete-container" v-if="!disabled">
                         <uni-icons  type="trash" size="50" @click="deleteFile(index)" color="#fff"></uni-icons>
                       </view>
-                      <view class="reUpdate-container" @click="upload" v-if="1||item.uploadStatus==2">
+                      <view class="reUpdate-container" @click="upload" v-if="item.uploadStatus==2">
                         <view class="c" style=""> 
                           <uni-icons  type="reload" size="50" color="#fff"></uni-icons>
                           <view><text style="color:#fff">上传失败，重新上传</text></view>
@@ -23,7 +23,7 @@
                       </view>
                     </view>
                 </view>
-                <view class="m-list-item" v-if="selectImageList.length<max">
+                <view class="m-list-item" v-if="!disabled&&selectImageList.length<max">
                   <view class="im-cont flex-center" @click="chooseImages">
                     <uni-icons type="plusempty" size="70" color='#f1f1f1'></uni-icons>
                   </view>
@@ -38,7 +38,19 @@
 export default{
   name: "xt-file-picker",
   props: {
+    showTitle:{
+      type:Boolean,
+      default:false
+    },
     imagesList:Array,
+    max:{
+      type:Number,
+      default:9
+    },
+    disabled:{
+      type:Boolean,
+      default:false
+    },
     autoUpload:{
       type:Boolean,
       default:true,
@@ -52,10 +64,8 @@ export default{
     return {
       uploadComplement:true,
      // autoUpload:false,
-      max:9,
-      
-      selectImageList:[],
-      testurl:"https://env-00jxh1m2dpmq.normal.cloudstatic.cn/HM/roomType/66f4d677e4ec9dbeca1f8ff9/1732115861465app108.png.jpg"
+           
+      selectImageList:[]
     }
   },
   computed: {},
@@ -114,7 +124,7 @@ export default{
           task.push(new Promise((resolve,reject)=>{
             uniCloud.uploadFile({
                 filePath: item.filePath,
-                cloudPath: `${this.cloudPath}${new Date().getTime()}${item.fileName}`,
+                cloudPath: `/HM/images${this.cloudPath}${new Date().getTime()}${item.fileName}`,
                 onUploadProgress: function(progressEvent) {
                   item.percentCompleted = Math.round(
                     (progressEvent.loaded * 100) / progressEvent.total
@@ -164,6 +174,10 @@ export default{
 		        fileList
 	    });
       return res;
+      },
+     isUploading(){
+       let list= this.selectImageList.filter(item=>{return item.uploadStatus==0});//上传中
+       return list.length?true:false;
       }
   },
   watch: {},

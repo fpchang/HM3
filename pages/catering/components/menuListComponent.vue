@@ -22,7 +22,7 @@
 			@Event_one="addMenuType"></noData>
 		</block>
 		<block v-if="!noDataObj.val">
-		<view style="display: flex; justify-content: center">
+		<!-- <view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view v-if="tabRadioVal==0" class="card" v-for="item of orderDishesList"
 					:style="{width: `${cardWidth}px`}">
@@ -37,7 +37,18 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
+		<xt-panal-list :dataList="orderDishesList" v-if="tabRadioVal==0">
+			<template v-for="(item,index) of orderDishesList" v-slot:["card"+index]>
+				<menuOrderCardComponent :orderDishesItem="item" @getOrderDishesList="getOrderDishesList">
+				</menuOrderCardComponent>
+			</template>
+		</xt-panal-list>
+		<xt-panal-list :dataList="menuList" v-if="tabRadioVal==1">
+			<template v-for="(item,index) of menuList" v-slot:["card"+index]>
+				<menuCardComponent :menuItem="item" @editMenuType="editMenuType"></menuCardComponent>
+			</template>
+		</xt-panal-list>
 	</block>
 		<uni-popup ref="popupMenuType" background-color="transprant">
 			<view class="popup-content">
@@ -54,17 +65,19 @@
 </template>
 
 <script>
-	import menuCardComponent from "./menuCardComponent.vue";
+import menuCardComponent from "./menuCardComponent.vue";
 	import menuOrderCardComponent from "./menuOrderCardComponent.vue";
 	import addMenuTypeComponent from "./addMenuTypeComponent.vue";
 	import  {MenuService} from "../../../services/MenuService";
 	import {alert} from "@/alert";
+import XtPanalList from '../../../components/xt-panal-list/xt-panal-list.vue';
 	export default {
 		name: "menuList",
 		components: {
 			menuCardComponent,
 			addMenuTypeComponent,
 			menuOrderCardComponent,
+XtPanalList,
 		},
 		props: {},
 		data() {

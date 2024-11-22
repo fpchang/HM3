@@ -24,7 +24,6 @@
 					<uni-th align="center" width="120px">房型名称</uni-th>
 					<uni-th align="center" width="80px">数量</uni-th>
 					<uni-th align="center">房间号</uni-th>
-					<uni-th align="center" width="120px">房型图片</uni-th>
 					<uni-th align="center" width="180px">操作</uni-th>
 				</uni-tr>
 				<!-- 表格数据行 -->
@@ -39,19 +38,10 @@
 									<text v-for="it of sortRoomList(item.roomList)">【{{it}}】</text>
 								</view>
 							</uni-collapse-item>
-							</uni-collapse>
-						
-						
+							</uni-collapse>												
 					</uni-td>
-					<uni-td><text class="edit-text-btn-style" @click="showRoomTypeImages">查看</text></uni-td>
 					<uni-td align="center">
 						<view class="uni-group" style="justify-content:space-around">
-							<!-- <button class="uni-button" size="mini" type="primary" @click="editRoomType(item)">修改</button> -->
-							<!-- <button class="uni-button" size="mini" type="warn" @click="deleteRoomType(item)" :loading="submitLoading">删除</button> -->
-							<!-- <uv-icon name="trash-fill" color="#06c" labelColor="#06c" size="22" label="修改"
-									labelPos="bottom" labelSize="12px" @click="editRoomType(item)"></uv-icon>
-							<uv-icon name="trash-fill" color="#e64340" labelColor="#e64340" size="22" label="删除"
-							labelPos="bottom" labelSize="12px" @click="deleteRoomType(item)"></uv-icon> -->
 							  <text class="edit-text-btn-style" @click="editRoomType(item)">修改</text>
             				  <text class="edit-text-btn-style" @click="deleteRoomType(item)">删除</text>
 						</view>
@@ -62,17 +52,20 @@
 			</uni-table>
 		</view>
 		<view class="mobile-show-style" style="max-width: 450px;" v-if="!isPcShow">
-			<uni-collapse v-model="accordionVal">
+			<uni-collapse v-model="accordionVal" accordion>
 				<uni-collapse-item v-for="item of roomType">
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.name " type="circle">
 							<template v-slot:right>
 								<text style="font-weight: bold;">{{item.count}}间</text>
-
+								
 							</template>
 						</uni-section>
 					</template>
-					<view class="col-content">
+					<view class="col-content"> 
+						<createRoomTypeComponent  type="2" :rt="item"></createRoomTypeComponent>
+					</view>
+					<!-- <view class="col-content">
 						<view class="list">
 							<view class="list-item">
 								<view class="list-item-c">
@@ -92,15 +85,14 @@
 										@click="editRoomType(item)">修改</button>
 									<button class="uni-button" size="mini" type="warn"
 										@click="deleteRoomType(item)" :loading="submitLoading">删除</button>
-										<!-- <uv-icon name="edit-pen-fill" color="#06c" labelColor="#06c" size="22" label="修改"
-									labelPos="bottom" labelSize="12px" @click="editRoomType(item)"></uv-icon>
-							<uv-icon name="trash-fill" color="#e64340" labelColor="#e64340" size="22" label="删除"
-							labelPos="bottom" labelSize="12px" @click="deleteRoomType(item)"></uv-icon> -->
 								</view>
+							</view>
+							<view  class="list-item">								
+								<xt-file-picker  :disabled="true" :key="new Date().getTime()"  :imagesList="item.imagesList"></xt-file-picker>
 							</view>
 						</view>
 
-					</view>
+					</view> -->
 				</uni-collapse-item>
 
 			</uni-collapse>
@@ -126,20 +118,18 @@
 
 <script>
 import createRoomTypeComponent from './createRoomTypeComponent';
-import roomTypeImagesComponent from "./roomTypeImagesComponent"
 import {alert} from "@/alert";
 import  {DB} from '../../../api/DB';
 	export default {
 		components:{
-			createRoomTypeComponent,
-			roomTypeImagesComponent
+			createRoomTypeComponent
 		},
 		data() {
 			return {
 				type:0,
 				rt:{},
 				submitLoading: false,
-				accordionVal: '0',
+				accordionVal: null,
 				
 			}
 		},
@@ -195,10 +185,10 @@ import  {DB} from '../../../api/DB';
 					this.$refs.popupCreateRoomType.open();
 					return;
 				}
-					
-				
+				console.log("转换前1：",rt)	
+				console.log("转换前2：",JSON.stringify(this.rt))
 				uni.navigateTo({
-					url:`/pages/hotelManage/createRoomType/createRoomType?type=${this.type}&&rt=${JSON.stringify(this.rt)}`
+					url:`/pages/hotelManage/createRoomType/createRoomType?type=${this.type}&&rt=${encodeURIComponent(JSON.stringify(this.rt))}`
 				})
 			},
 			addRoomType(){

@@ -24,7 +24,7 @@ const store = createStore({
 		"hotelList": null,
 		"employeeList":[],
 		"hotel_id": "",
-		"roomType":{}
+		"roomType":[]
 		
 	},
 
@@ -66,8 +66,8 @@ const store = createStore({
 		updateEmployeeList(state, list) {
 			state.employeeList = list;			
 		},
-		updateRoomType(state, obj) {
-			state.roomType = obj;
+		updateRoomType(state, list) {
+			state.roomType = list;
 		},
 	
 		updateScenicSpot(state, list) {
@@ -131,8 +131,8 @@ const store = createStore({
 		 async getRoomType(context){
 				const res = await  HotelService.getRoomType(context.state.hotel_id);
 				console.log("房型列表",res);
-				let obj = res.result.data.length?res.result.data:[];
-				context.commit("updateRoomType",obj);
+				//let obj = res.result.data.length?res.result.data:[];
+				context.commit("updateRoomType",res.result.data);
 				return res;
 			 	
 		},

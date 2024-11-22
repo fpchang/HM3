@@ -3,11 +3,11 @@
         <uni-forms ref="roomTypeRef" :modelValue="roomTypeForm" :rules="roomTypeRules" label-width="90px">
 
             <uni-forms-item label="房型名称" required name="name">
-                <uni-easyinput v-model="roomTypeForm.name" placeholder="请输入房型名称" :disabled="type==2"/>
+                <uni-easyinput v-model="roomTypeForm.name" placeholder="请输入房型名称" />
             </uni-forms-item>
             <uni-forms-item label="房型数量" name="count">
                 <view>
-                    <uv-number-box :min="1" integer v-model="roomTypeForm.count" :disabled="type==2">
+                    <uv-number-box :min="1" integer v-model="roomTypeForm.count">
                         <input slot="input" style="width: 100px;text-align: center;" class="input"
                             v-model="roomTypeForm.count"></input>
                     </uv-number-box>
@@ -22,7 +22,7 @@
 			</view>
 		<view>
 			<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
-            :loading="submitLoading" v-if="type!=2"></uv-button>
+            :loading="submitLoading"></uv-button>
 		</view>
         </uni-forms>
         
@@ -31,9 +31,9 @@
 
 <script>
 import  {DB} from "../../../api/DB.js";
-import XtFilePicker from '../../../components/xt-file-picker/xt-file-picker.vue';
-import uniFormsItem from '../../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue';
-import UniSection from '../../../uni_modules/uni-section/components/uni-section/uni-section.vue';
+import XtFilePicker from '../../../components/xt-file-picker/xt-file-picker.vue.jsx';
+import uniFormsItem from '../../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue.jsx';
+import UniSection from '../../../uni_modules/uni-section/components/uni-section/uni-section.vue.jsx';
 export default {
   components: { uniFormsItem, XtFilePicker, UniSection },
 		props:{

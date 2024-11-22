@@ -34,11 +34,13 @@ export default {
     console.log("参数传递", obj);
     try {
       this.type = obj.type;
-      this.targetObj = JSON.parse(obj.rt);
+      this.targetObj = JSON.parse(decodeURIComponent(obj.rt));
+      console.log("参数转换", this.targetObj)
       uni.setNavigationBarTitle({
         title: obj.type == "1" ? "修改房型" : "创建房型",
       });
     } catch (error) {
+      console.error(error);
       this.type = 0;
       this.targetObj={}
     }
