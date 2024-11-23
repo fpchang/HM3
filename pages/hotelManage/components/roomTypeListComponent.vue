@@ -52,7 +52,16 @@
 			</uni-table>
 		</view>
 		<view class="mobile-show-style" style="max-width: 450px;" v-if="!isPcShow">
-			<uni-collapse v-model="accordionVal" accordion>
+			<xt-panal-list :dataList="roomType">
+				<template v-for="(item,index) of roomType" v-slot:["card"+index]>
+					<xt-panal-card :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)">
+						<template v-slot:titleRight>
+							<uni-badge class="uni-badge-left-margin" :text="item.count" />
+						</template>
+					</xt-panal-card>
+				</template>
+			</xt-panal-list>
+			<!-- <uni-collapse v-model="accordionVal" accordion>
 				<uni-collapse-item v-for="item of roomType">
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.name " type="circle">
@@ -62,10 +71,7 @@
 							</template>
 						</uni-section>
 					</template>
-					<view class="col-content"> 
-						<createRoomTypeComponent  type="2" :rt="item"></createRoomTypeComponent>
-					</view>
-					<!-- <view class="col-content">
+					 <view class="col-content">
 						<view class="list">
 							<view class="list-item">
 								<view class="list-item-c">
@@ -92,10 +98,10 @@
 							</view>
 						</view>
 
-					</view> -->
+					</view>
 				</uni-collapse-item>
 
-			</uni-collapse>
+			</uni-collapse> -->
 		</view>
 		<uni-popup ref="popupCreateRoomType" background-color="transprant">
 			<view class="popup-content">
@@ -242,6 +248,17 @@ import  {DB} from '../../../api/DB';
 						});
 					})
 				
+			},
+			viewDetail(rt){
+				this.type=2;
+				this.rt =rt;
+				if(this.$store.state.isPcShow){
+					this.$refs.popupCreateRoomType.open();
+					return;
+				}
+				uni.navigateTo({
+					url:`/pages/hotelManage/createRoomType/createRoomType?type=${this.type}&&rt=${encodeURIComponent(JSON.stringify(this.rt))}`
+				})
 			},
 			showRoomTypeImages(){
 				this.$refs.popupRoomTypeImages.open();

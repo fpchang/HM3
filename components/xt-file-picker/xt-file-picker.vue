@@ -176,7 +176,9 @@ export default{
       return res;
       },
      isUploading(){
+      
        let list= this.selectImageList.filter(item=>{return item.uploadStatus==0});//上传中
+       console.log("调用状态",list)
        return list.length?true:false;
       }
   },
@@ -215,11 +217,10 @@ export default{
   .m-list-item {
     display: flex;
     flex-direction: column;
-    width: 187.5px;
-    height: 187.5px;
-    padding: 10px;
+    width: 175px;
+    height: 175px;
     box-sizing: border-box;
-   
+    padding:10px 5px;
 
     .im-cont {
       border:1px solid rgb(238, 238, 238);
@@ -230,8 +231,8 @@ export default{
       align-items: center;
       position: relative;
       .imgStyle{
-        width: 165px;
-        height: 165px;
+        width: 100%;
+        height:100%;
       }
       .progress-container{
         width: 100%;

@@ -34,7 +34,8 @@ export default{
     try {
       this.type= obj.type;
       this.em = JSON.parse(obj.em);
-      uni.setNavigationBarTitle({title:obj.type=="1"?"修改员工信息":"新增员工",})
+      let titleArray=["新增员工","修改员工信息","员工详情"];
+      uni.setNavigationBarTitle({title:titleArray[obj.type]})
     } catch (error) {
       this.type=0;
       this.em={}

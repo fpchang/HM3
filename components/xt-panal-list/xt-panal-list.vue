@@ -92,7 +92,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   min-width: 370px;
-
   .card {
     min-width: 370px;
     max-width: 450px;
@@ -103,7 +102,6 @@ export default {
       height: 100%;
       box-sizing: border-box;
       background: #fff;
-      padding: 10px 20px;
       box-shadow: 0 0 4px 4px #e4e0e0;
       border-radius: 8px;
     }

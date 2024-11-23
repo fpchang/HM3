@@ -36,13 +36,12 @@ export default {
       this.type = obj.type;
       this.targetObj = JSON.parse(decodeURIComponent(obj.rt));
       console.log("参数转换", this.targetObj)
-      uni.setNavigationBarTitle({
-        title: obj.type == "1" ? "修改房型" : "创建房型",
-      });
+      const titleArray=["创建房型","修改房型","房型详情"];
+      uni.setNavigationBarTitle({title:titleArray[obj.type]})
     } catch (error) {
-      console.error(error);
+     // console.error(error);
       this.type = 0;
-      this.targetObj={}
+      this.targetObj = {};
     }
   },
   methods: {

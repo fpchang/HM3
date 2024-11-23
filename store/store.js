@@ -148,6 +148,7 @@ const store = createStore({
 			
 		},
 		loginOut(context){
+			console.log("退出登录");
 			uni.clearStorageSync();
 			context.commit("setUser",{});
 			context.commit("setHotelId","");

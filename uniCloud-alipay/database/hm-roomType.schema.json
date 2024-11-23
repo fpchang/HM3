@@ -36,10 +36,30 @@
 			"description": "房间列表",
 			"bsonType": "array"
 		},
+		"firstImages":{
+			"description": "首图",
+			"bsonType": "string"
+		},
 		"imagesList":{
-			"description": "房间列表",
+			"description": "图片列表",
 			"bsonType": "array",
 			"defaultValue":[]
+		},
+		"guestNumber":{
+			"description": "入住人数量",
+			"bsonType": "int",
+			"minimum": 1,
+			"defaultValue": 1
+		},
+		"bedList":{
+			"description": "床位",
+			"bsonType": "array",
+			"defaultValue":[]
+		},
+		"disposableToiletries":{
+			"description": "洗漱用品",
+			"bsonType": "bool",
+			"defaultValue":false
 		},
 		"dataStatus": {
 			"description": "数据是否有效",

@@ -359,6 +359,7 @@
 			async vaildToken(callback) {
 				try {
 					if (!uni.getStorageSync('hm_token')) {
+						console.log("没有hm_token");
 						this.$store.dispatch("loginOut");
 						return;
 					}
