@@ -1,9 +1,9 @@
 <template>
   <view class="xt-panal-card">
-    <view style="padding-bottom:5px">
+    <view style="padding:5px 0">
       <view class="header-style">
 
-        <view style="flex: 1; display: flex; justify-content: flex-end; gap: 15px;padding:5px 10px">
+        <view v-if="showControl" style="flex: 1; display: flex; justify-content: flex-end; gap: 15px;padding:5px 10px">
           <uv-icon 
           v-if="control_add"
           name="plus-circle-fill"
@@ -48,8 +48,8 @@
         </view>
       </view>
       <view class="title-area"> 
-        <view class="logo-style">
-          <image style="width:100%;height:100%" mode="aspectFit" src="https://env-00jxh1m2dpmq.normal.cloudstatic.cn/HM/images/roomType/66f4d677e4ec9dbeca1f8ff9/1732281140539app108.png" />
+        <view class="logo-style" v-if="logoUrl">
+          <image style="width:100%;height:100%" mode="aspectFit" :src="logoUrl" />
         </view>
         <view class="tit-style">          
           <view class="title-c">
@@ -70,9 +70,17 @@
 export default{
   name: "xt-panal-card",
   props: {
+    showControl:{
+      type:Boolean,
+      default:true,
+    },
+    logoUrl:{
+      type:String,
+      default:""
+    },
     title:{
       type:String,
-      default:"亲子房+山景+阳台+影音（86寸TV+独立音箱）》"
+      default:""//"亲子房+山景+阳台+影音（86寸TV+独立音箱）》"
     },
     subtitle:{
       type:String,
@@ -159,6 +167,8 @@ export default{
   .logo-style{
     width: 60px;
     height: 93px;
+    border:1px solid #eee;
+    box-sizing: border-box;
   }
   .tit-style {
     flex:1;

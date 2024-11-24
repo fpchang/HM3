@@ -10,11 +10,21 @@ class OrderServiceClass{
         return this.DB.callFunction("hm_addOrder",{orderObj});
     }
 	/**
-	 *  今天办理入住订单
+	 *  办理入住订单
+     * st 日期
 	 */
 	getOrderListByCheckIn(hotel_id,st) {
 	    let startTime = new Date(new Date(st).Format("yyyy/MM/dd 14:00:00")).getTime();
 	    let jql = `hotel_id=='${hotel_id}'&&orderStatus!=10&&checkInStartDateTimeStamp==${startTime}`;
+	    return this.DB.getCollection("hm-order", jql);
+	}
+    	/**
+	 *  退房订单
+     * ed 日期
+	 */
+	getOrderListByCheckOut(hotel_id,ed=new Date()) {
+	    let endTime = new Date(new Date(ed).Format("yyyy/MM/dd 12:00:00")).getTime();
+	    let jql = `hotel_id=='${hotel_id}'&&orderStatus!=10&&checkInEndDateTimeStamp==${endTime}`;
 	    return this.DB.getCollection("hm-order", jql);
 	}
     /**
@@ -26,7 +36,17 @@ class OrderServiceClass{
         const s1 = `${startTime}>=checkInStartDateTimeStamp&&${startTime}<checkInEndDateTimeStamp`;
        
 	    let jql = `${s0}&&${s1}`;
-        console.log(">>>>>>>>>>>>>>>",jql)
+	    return this.DB.getCollection("hm-order", jql);
+	}
+      /**
+	 *  特定日期住客订单
+	 */
+	getOrderListByDate(hotel_id,date=new Date()) {
+	    let startTime = new Date(new Date(date).Format("yyyy/MM/dd 14:00:00")).getTime();
+        const s0 =  `hotel_id=='${hotel_id}'&&orderStatus!=10`
+        const s1 = `${startTime}>=checkInStartDateTimeStamp&&${startTime}<checkInEndDateTimeStamp`;
+       
+	    let jql = `${s0}&&${s1}`;
 	    return this.DB.getCollection("hm-order", jql);
 	}
     /**

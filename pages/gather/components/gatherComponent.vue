@@ -1,7 +1,43 @@
 <template>
 	<view class="gather">
-		<!-- <uni-section class="mb-10" title="待办" type="line"></uni-section> -->
-		<view style="display: flex; justify-content: center">
+		<xt-panal-list :dataList="[1]">
+				
+			<!-- #ifdef MP -->
+			<view v-for="(item,index) of dataList" slot="card{{index}}">
+				<xt-panal-card  :title="item.title" :showControl="false">
+						 <view slot=titleRight>
+							<uni-badge class="uni-badge-left-margin" :text="34" />
+					   </view>
+					</xt-panal-card>
+			  </view>
+			<!-- #endif -->
+			  <!-- #ifdef H5 || APP-PLUS -->
+			   <template v-for="(items,indexs) of [1]" v-slot:[`card${indexs}`]>
+				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
+				<uv-grid :border="true" v-if="GatgerTab_index==0">					
+					<uv-grid-item v-for="(item,index) in showDataListToday" :key="index">
+						<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column" > 
+							<text style="font-weight:bold">{{item.numCount}}</text>
+							<text style="color:#a1a1a1">{{item.title}}</text>
+						</view>
+						
+					</uv-grid-item>
+				</uv-grid>
+				<uv-grid :border="true" v-if="GatgerTab_index==1">					
+					<uv-grid-item v-for="(item,index) in showDataListTommorow" :key="index">
+						<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column" > 
+							<text style="font-weight:bold">{{item.numCount}}</text>
+							<text style="color:#a1a1a1">{{item.title}}</text>
+						</view>
+						
+					</uv-grid-item>
+				</uv-grid>
+				</template>
+			 <!-- #endif -->
+		  
+			  {{ roomType }}
+	  </xt-panal-list>
+		 <!-- <view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view class="card" v-for="(item,index) of dataList" :style="{width:`${cardWidth}px`}">
 					<view class="card-item">
@@ -13,8 +49,7 @@
 										<view class="c-list-item" v-for="it of item.list">
 											<text>{{it.userName}}</text>
 											<view>
-												<text
-													style="color: red;font-weight: bold;letter-spacing: 3px;">{{dayNum([it.checkInStartDateTimeStamp,it.checkInEndDateTimeStamp])}}</text><text>晚</text>
+												<text style="color: red;font-weight: bold;letter-spacing: 3px;">{{dayNum([it.checkInStartDateTimeStamp,it.checkInEndDateTimeStamp])}}</text><text>晚</text>
 											</view>
 										</view>
 									</view>
@@ -45,7 +80,7 @@
 				</view>
 
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -53,9 +88,11 @@
 	import gatherCardComponent from './gatherCardComponent.vue';
 	import  {OrderService} from '../../../services/OrderService';
 	import  {MenuService} from '../../../services/MenuService';
+import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 	export default {
 		components: {
-			gatherCardComponent
+			gatherCardComponent,
+			XtSubsection
 		},
 		props: {
 			
@@ -63,6 +100,7 @@
 		data() {
 			return {
 				widthTemp: 0,
+				GatgerTab_index:0,
 				todayCheckInOrderList: [],
 				chartList: [{
 					title: "一个月内入住率",
@@ -75,6 +113,7 @@
 				}],
 				image: "",
 				option: {}
+			
 			}
 		},
 
@@ -84,6 +123,9 @@
 			},
 			hotelList() {
 				return this.$store.state.hotelList;
+			},
+			roomType(){
+				return this.$store.state.roomType;
 			},
 			user() {
 				return this.$store.state.user;
@@ -95,6 +137,18 @@
 			orderListByCheckInToday() {
 				return this.$store.state.orderStore.orderListByCheckInToday;
 			},
+			//今日退房订单
+			orderListByCheckOutToday(){
+				return this.$store.state.orderStore.orderListByCheckOutToday;
+			},
+			//明日办理入住的订单
+			orderListByCheckInTommorow() {
+				return this.$store.state.orderStore.orderListByCheckInTommorow;
+			},
+			//明日退房订单
+			orderListByCheckOutTommorow(){
+				return this.$store.state.orderStore.orderListByCheckOutTommorow;
+			},
 			orderListByCheckInToday_format() {
 				return {
 					title: "今日办理入住",
@@ -105,6 +159,10 @@
 			//今日住客订单
 			orderListToday() {
 				return this.$store.state.orderStore.orderListToday;
+			},
+			//今日住客订单
+			orderListTommorow() {
+				return this.$store.state.orderStore.orderListTommorow;
 			},
 			orderListToday_format() {
 				let numCount = 0;
@@ -167,6 +225,51 @@
 			},
 			isPcShow() {
 				return this.$store.state.isPcShow;
+			},
+			roomTypeCount(){
+				let count = 0;
+				this.roomType.map(item=>{
+					count+=item.count;
+				})
+				return count;
+			},
+			//今日信息
+			showDataListToday(){
+				const c1 = this.getRoomCountFromOrderList(this.orderListByCheckInToday);
+				const c2 = this.getRoomCountFromOrderList(this.orderListByCheckOutToday);
+				const c3=this.getRoomCountFromOrderList(this.orderListToday);
+				return  [{
+					numCount: c1,
+					title: '入住'
+				}, {
+					numCount: c2,
+					title: '退房'
+				}, {
+					numCount: c3,
+					title: '在住'
+				}, {
+					numCount: this.roomTypeCount - c3,
+					title: '空房'
+				}]
+			},
+			//明日信息
+			showDataListTommorow(){
+				const c1 = this.getRoomCountFromOrderList(this.orderListByCheckInTommorow);
+				const c2 = this.getRoomCountFromOrderList(this.orderListByCheckOutTommorow);
+				const c3 = this.getRoomCountFromOrderList(this.orderListTommorow);
+				return  [{
+					numCount: c1,
+					title: '入住'
+				}, {
+					numCount: c2,
+					title: '退房'
+				}, {
+					numCount:c3,
+					title: '在住'
+				}, {
+					numCount: this.roomTypeCount - c3,
+					title: '空房'
+				}]
 			}
 
 		},
@@ -216,12 +319,17 @@
 			
 		},
 	
-		methods: {			
+		methods: {	
+			changeGatgerTab(index){
+				this.GatgerTab_index=index;
+			},		
 			async initData() {
 				console.log("init data gather")
-				await this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
-				await this.$store.dispatch("getOrderListToday", this.hotel_id);
-				await this.$store.dispatch("getOrderDishesToday", this.hotel_id);
+				// await this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
+				// await this.$store.dispatch("getOrderListToday", this.hotel_id);
+				// await this.$store.dispatch("getOrderDishesToday", this.hotel_id);
+				this.$store.dispatch("getGatherEvent",this.hotel_id);
+				console.log("result___++",this)
 				
 			},
 			dayNum(params) {
@@ -235,26 +343,24 @@
 				})
 				return num
 			},
-	
-			toImage() {
-				this.$refs?.chart.toImageFile({
-					/**
-					 * tempFilePath 图片路径, H5导出也是base64
-					 * base64 图片base64
-					 */
-					success: ({
-						tempFilePath,
-						base64
-					}) => {
-						this.image = base64;
-					}
+			//订单列表中计算有多少房间
+			getRoomCountFromOrderList(orderList){
+				let numCount = 0;
+				orderList.map(item => {
+					let num = 0;
+					item.roomTypeArray.map(it => {
+						num += it.count;
+					});
+					numCount += num;
 				})
+				return numCount;
 			}
+	
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.gather {}
 
 	.card-container {

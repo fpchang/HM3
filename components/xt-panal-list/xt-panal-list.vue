@@ -2,10 +2,15 @@
   <view class="xt-panal-list">
     <view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
-				<view class="card" v-for="(item,index) of dataList"
-					:style="{width: `${cardWidth}px`}">
+
+				<view class="card" v-for="(item,index) of dataList" :style="{width: `${cardWidth}px`}">
 					<view class="card-item">
-						<slot :name="'card'+index"></slot>
+             <!-- #ifdef MP -->
+             <slot name="card{{index}}"></slot>
+            <!-- #endif -->
+						<!-- #ifdef H5 || APP-PLUS -->
+            <slot :name="`card${index}`"></slot>
+             <!-- #endif -->
 					</view>
 				</view>
 			</view>
@@ -62,7 +67,8 @@ export default {
 			},
 
 		},
-  methods: {},
+  methods: {
+  },
   watch: {},
 
   // 组件周期函数--监听组件挂载完毕
@@ -72,7 +78,6 @@ export default {
 					this.widthTemp = Math.random(10);
 				};
 			}
-			this.getOrderDishesList();
 		},
   // 组件周期函数--监听组件数据更新之前
   beforeUpdate() {},
@@ -102,8 +107,9 @@ export default {
       height: 100%;
       box-sizing: border-box;
       background: #fff;
-      box-shadow: 0 0 4px 4px #e4e0e0;
-      border-radius: 8px;
+     /* box-shadow: 0 0 4px 4px #e4e0e0;*/
+      border-radius: 10px;
+      box-shadow: 2px 4px 12px #00000014;
     }
   }
 }

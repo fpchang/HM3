@@ -17,7 +17,7 @@
 			 ></uv-icon>
 		   </view>
 		   </view>
-		<view v-if="isPcShow">
+		<view v-if="false&&isPcShow">
 			<uni-table border stripe emptyText="暂无更多数据">
 				<!-- 表头行 -->
 				<uni-tr>
@@ -51,15 +51,29 @@
 
 			</uni-table>
 		</view>
-		<view class="mobile-show-style" style="max-width: 450px;" v-if="!isPcShow">
+		<view class="mobile-show-style">
 			<xt-panal-list :dataList="roomType">
-				<template v-for="(item,index) of roomType" v-slot:["card"+index]>
-					<xt-panal-card :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)">
-						<template v-slot:titleRight>
-							<uni-badge class="uni-badge-left-margin" :text="item.count" />
-						</template>
-					</xt-panal-card>
-				</template>
+				
+				  <!-- #ifdef MP -->
+				  <view v-for="(item,index) of roomType" slot="card{{index}}">
+					  <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)">
+					  		 <view slot=titleRight>
+					  			<uni-badge class="uni-badge-left-margin" :text="item.count" />
+							 </view>
+					  	</xt-panal-card>
+					</view>
+				  <!-- #endif -->
+					<!-- #ifdef H5 || APP-PLUS -->
+					 <template v-for="(item,index) of roomType" v-slot:[`card${index}`]>
+						 <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)">
+						 		<template v-slot:titleRight>
+						 			<uni-badge class="uni-badge-left-margin" :text="item.count" />
+						 		</template>
+						 	</xt-panal-card>
+						 </template>
+				   <!-- #endif -->
+				
+					
 			</xt-panal-list>
 			<!-- <uni-collapse v-model="accordionVal" accordion>
 				<uni-collapse-item v-for="item of roomType">

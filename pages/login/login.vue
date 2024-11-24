@@ -212,7 +212,7 @@ export default {
           const {token} = res.result.data;
           uni.setStorageSync("hm_token", token);
                this.getUserInfo();
-          this.submitLoading=false;
+       
           } catch (error) {
             console.log("登录失败",error);
             this.submitLoading=false;
@@ -237,6 +237,7 @@ export default {
       console.log("更新userInfo", userRes, userRes.result.data[0]);
       uni.setStorageSync("user", userRes.result.data[0]);
       this.$store.commit("setUser", userRes.result.data[0]);
+      this.submitLoading=false;
       uni.reLaunch({
         url: "/pages/index/index",
       });
