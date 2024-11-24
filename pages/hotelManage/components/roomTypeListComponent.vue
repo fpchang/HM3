@@ -56,7 +56,7 @@
 				
 				  <!-- #ifdef MP -->
 				  <view v-for="(item,index) of roomType" slot="card{{index}}">
-					  <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)">
+					  <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)" :subtitle="getSubtitle(item)">
 					  		 <view slot=titleRight>
 					  			<uni-badge class="uni-badge-left-margin" :text="item.count" />
 							 </view>
@@ -65,7 +65,7 @@
 				  <!-- #endif -->
 					<!-- #ifdef H5 || APP-PLUS -->
 					 <template v-for="(item,index) of roomType" v-slot:[`card${index}`]>
-						 <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)">
+						 <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)" :subtitle="getSubtitle(item)">
 						 		<template v-slot:titleRight>
 						 			<uni-badge class="uni-badge-left-margin" :text="item.count" />
 						 		</template>
@@ -190,6 +190,17 @@ import  {DB} from '../../../api/DB';
 			}
 		},
 		methods:{
+			getSubtitle(item){
+				let bedList = item.bedList;
+				let str="";
+				bedList&&bedList.map(item=>{
+					let s= item.count>1?`*${item.count}`:""
+					str+=`${item.name}床${s}、`;
+				})
+				str = str.substring(0, str.length - 1);
+				return `【${str}】【${item.guestNumber||2}人】【60㎡】`
+				
+			},
 			sortRoomList(list){
 				let newList = list.filter(item=>{return item})
 				return newList.sort();

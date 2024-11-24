@@ -4,11 +4,19 @@
             <uni-forms-item label="房型名称" required name="name">
                 <uni-easyinput v-model="roomTypeForm.name" placeholder="请输入房型名称" :disabled="type==2"/>
             </uni-forms-item>
-            <uni-forms-item label="房型数量" name="count">
+            <uni-forms-item label="房间数量" name="count">
                 <view>
                     <uv-number-box :min="1" integer v-model="roomTypeForm.count" :disabled="type==2">
                         <input slot="input" style="width: 100px;text-align: center;" class="input"
                             v-model="roomTypeForm.count"></input>
+                    </uv-number-box>
+                </view>
+            </uni-forms-item>
+			<uni-forms-item label="面积" name="area">
+                <view>
+                    <uv-number-box :min="1" integer v-model="roomTypeForm.area" :disabled="type==2">
+                        <input slot="input" style="width: 100px;text-align: center;" class="input"
+                            v-model="roomTypeForm.area"></input>
                     </uv-number-box>
                 </view>
             </uni-forms-item>
@@ -37,15 +45,39 @@
 					</checkbox-group>
 				</view>
 			</uni-forms-item>
+			<!-- <uni-forms-item label="是否有窗" name="isWindow">
+
+				 <view style="display:flex;align-items:center;height:100%"> 
+				  <radio-group @change="radioEvent('isWindow')">
+					<radio value="1" :checked="roomTypeForm.isWindow" /><text style="padding-right:10px">是</text>
+					<radio value="0" :checked="!roomTypeForm.isWindow" /><text style="padding-right:10px">否</text>
+				  </radio-group>
+				 </view>				
+			  </uni-forms-item> -->
+			  <uni-forms-item label="有阳台" name="isBalcony">
+				 <view style="display:flex;align-items:center;height:100%"> 
+				  <radio-group @change="radioEvent('isBalcony')">
+					<radio value="1" :checked="roomTypeForm.isBalcony" :disabled="type==2"/><text style="padding-right:10px">是</text>
+					<radio value="0" :checked="!roomTypeForm.isBalcony" :disabled="type==2"/><text style="padding-right:10px">否</text>
+				  </radio-group>
+				 </view>				
+			  </uni-forms-item>
+			  <uni-forms-item label="有浴缸" name="isBathtub">
+				 <view style="display:flex;align-items:center;height:100%"> 
+				  <radio-group @change="radioEvent('isBathtub')">
+					<radio value="1" :checked="roomTypeForm.isBathtub" :disabled="type==2"/><text style="padding-right:10px">是</text>
+					<radio value="0" :checked="!roomTypeForm.isBathtub" :disabled="type==2"/><text style="padding-right:10px" >否</text>
+				  </radio-group>
+				 </view>				
+			  </uni-forms-item>
 			<uni-forms-item label="洗漱用品" name="isOffer">
 				<!-- <checkbox @change="isOfferChange()" :checked="menuDetailForm.isOffer" />正常供应 -->
 				 <view style="display:flex;align-items:center;height:100%"> 
-				  <radio-group @change="isDisposableToiletries">
-					<radio value="1" :checked="roomTypeForm.disposableToiletries" /><text style="padding-right:10px">是</text>
-					<radio value="0" :checked="!roomTypeForm.disposableToiletries" /><text style="padding-right:10px">否</text>
+				  <radio-group @change="radioEvent('disposableToiletries')">
+					<radio value="1" :checked="roomTypeForm.disposableToiletries" :disabled="type==2"/><text style="padding-right:10px">是</text>
+					<radio value="0" :checked="!roomTypeForm.disposableToiletries" :disabled="type==2"/><text style="padding-right:10px">否</text>
 				  </radio-group>
-				 </view>
-				
+				 </view>				
 			  </uni-forms-item>
 			<view>
 				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
@@ -81,6 +113,10 @@ export default {
 				roomTypeForm: this.type!=0?{
                     "count": this.rt.count,
                     "name": this.rt.name,
+					"area":this.rt.area,
+					"isBathtub":this.rt.isBathtub,
+					"isBalcony":this.rt.isBalcony,
+					"isWindow":this.rt.isWindow,
 					"guestNumber":this.rt.guestNumber,
 					"firstImages":this.rt.firstImages||"",
 					"imagesList": this.rt.imagesList||[],
@@ -90,6 +126,10 @@ export default {
 				}: {
                     "count": 1,
                     "name": "",
+					"area":15,
+					"isWindow":true,
+					"isBathtub":false,
+					"isBalcony":true,
 					"guestNumber":2,
 					"firstImages":"",
 					"imagesList":[],
@@ -124,7 +164,11 @@ export default {
 								}
 							}
 						],
-					}
+					},
+					bedList:[{
+								required: true,
+								errorMessage: '请选择床位',
+							}]
 				}
 
 
@@ -173,9 +217,15 @@ export default {
 				this.bedTypeList[i].checked=e.detail.value.includes(this.bedTypeList[i].name)
 			}			
 			},
-			isDisposableToiletries(){
-				this.roomTypeForm.disposableToiletries=!this.roomTypeForm.disposableToiletries;
+			radioEvent(key){
+				this.roomTypeForm[key]=!this.roomTypeForm[key];
 			},
+			// isWindowEvent(){
+			// 	this.roomTypeForm.isWindow=!this.roomTypeForm.isWindow;
+			// },
+			// isDisposableToiletries(){
+			// 	this.roomTypeForm.disposableToiletries=!this.roomTypeForm.disposableToiletries;
+			// },
 			uploadSuccessFirst(list){
 				this.roomTypeForm.firstImages=list[0];
 			},
@@ -189,6 +239,10 @@ export default {
 			submitForm() {
 				if(this.$refs.uploadImagesRef1.isUploading()||this.$refs.uploadImagesRef2.isUploading()){
 					uni.showToast({title:"有图片正在上传中，请稍候...",icon:"error"});
+					return;
+				}
+				if(this.bedTypeListFomat.length<1){
+					uni.showToast({title:"请选择床位",icon:"none"});
 					return;
 				}
 				this.roomTypeForm.hotel_id=this.hotel_id;

@@ -28,6 +28,12 @@
 			"minimum": 1,
 			"defaultValue": 1
 		},
+		"area": {
+			"description": "面积",
+			"bsonType": "int",
+			"minimum": 1,
+			"defaultValue": 20
+		},
 		"name": {
 			"description": "房型名称",
 			"bsonType": "string"
@@ -38,7 +44,8 @@
 		},
 		"firstImages":{
 			"description": "首图",
-			"bsonType": "string"
+			"bsonType": "string",
+			"defaultValue":"https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png"
 		},
 		"imagesList":{
 			"description": "图片列表",
@@ -50,6 +57,21 @@
 			"bsonType": "int",
 			"minimum": 1,
 			"defaultValue": 1
+		},
+		"isWindow":{
+			"description": "是否有窗",
+			"bsonType": "bool",
+			"defaultValue":true
+		},
+		"isBathtub":{
+			"description": "是否有浴缸",
+			"bsonType": "bool",
+			"defaultValue":false
+		},
+		"isBalcony":{
+			"description": "是否有阳台",
+			"bsonType": "bool",
+			"defaultValue":true
 		},
 		"bedList":{
 			"description": "床位",

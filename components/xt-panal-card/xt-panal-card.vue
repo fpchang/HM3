@@ -48,8 +48,8 @@
         </view>
       </view>
       <view class="title-area"> 
-        <view class="logo-style" v-if="logoUrl">
-          <image style="width:100%;height:100%" mode="aspectFit" :src="logoUrl" />
+        <view class="logo-style" v-if="showLogo">
+          <image style="width:100%;height:100%" mode="aspectFit" :src="logoUrl||defaultLogoUrl" />
         </view>
         <view class="tit-style">          
           <view class="title-c">
@@ -74,9 +74,13 @@ export default{
       type:Boolean,
       default:true,
     },
+    showLogo:{
+      type:Boolean,
+      default:true
+    },
     logoUrl:{
       type:String,
-      default:""
+      default:"https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png"
     },
     title:{
       type:String,
@@ -121,7 +125,9 @@ export default{
 
   },
   data() {
-    return {}
+    return {
+      defaultLogoUrl:"https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png"
+    }
   },
   computed: {},
   methods: {
@@ -141,7 +147,9 @@ export default{
   watch: {},
 
   // 组件周期函数--监听组件挂载完毕
-  mounted() {},
+  mounted() {
+   
+  },
   // 组件周期函数--监听组件数据更新之前
   beforeUpdate() {},
   // 组件周期函数--监听组件数据更新之后
