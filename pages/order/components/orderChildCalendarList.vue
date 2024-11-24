@@ -218,6 +218,7 @@ import  {OrderService} from '../../../services/OrderService';
 		flex-direction: column;
 		box-sizing: border-box;
 		border-right: 1px solid #eee;
+		color:$label-normal;
 	}
 
 	.th-style {
@@ -229,6 +230,8 @@ import  {OrderService} from '../../../services/OrderService';
 		font-size: $uni-font-size-base;
 		justify-content: center;
 		letter-spacing: 2px;
+		border-right: 1px solid #eee;
+		box-sizing: border-box;
 	}
 
 	.td-style {

@@ -8,7 +8,8 @@ export default{
 	state: { //存放状态
 		menuList:null,
 		orderDishesList:null,//未来餐饮订单
-		orderDishesToday:[] //今日预定的餐饮订单
+		orderDishesToday:[], //今日预定的餐饮订单
+		orderDishesTommorow:[] //明日预定的餐饮订单
 	},
 
 	mutations: {
@@ -21,9 +22,17 @@ export default{
 		},
 		updateOrderDishesToday(state,list=[]){
 			state.orderDishesToday = list;
+		},
+		updateOrderDishesTommorow(state,list=[]){
+			state.orderDishesTommorow = list;
 		}
 	},
   actions:{
+	async getMenuEvent(context,hotel_id){
+		const s1 = 	context.dispatch("getOrderDishesToday",hotel_id);
+		const s2=	context.dispatch("getOrderDishesTommorow",hotel_id);
+	return Promise.all([s1,s2]);
+	},
      getMenuList(context,hotel_id){
 		return new Promise((resolve,reject)=>{
 			MenuService.getMenuList(hotel_id).then(res=>{
@@ -44,13 +53,26 @@ export default{
 			mealDate: new Date().Format("yyyy-MM-dd")
 		  }
 		  const res = await MenuService.getOrderDishesListByCondition(w);
-		context.commit("updateOrderDishesToday",res.result.data)
+		  console.log("当日餐饮订单",res)
+			context.commit("updateOrderDishesToday",res.result.data)
 		  return res;
 		},
+		//明日餐饮订单
+		async getOrderDishesTommorow(context,hotel_id){
+		
+			let w ={
+			  hotel_id:hotel_id,
+			  mealDate: new Date(new Date().getTime()+1000*60*60*24).Format("yyyy-MM-dd")
+			}
+			const res = await MenuService.getOrderDishesListByCondition(w);
+			console.log("明日餐饮订单",res)
+		  	context.commit("updateOrderDishesTommorow",res.result.data)
+			return res;
+		  },
 		//已下订的餐饮订单
 		async getOrderDishesList(context,hotel_id) {
 				const res = await MenuService.getOrderDishesList(hotel_id);
-				console.log("orderdishes",res)
+				console.log("请求orderdishes",res)
 				context.commit("updateOrderDishesList",res.result.data);
 				return res;		
 		}

@@ -306,10 +306,7 @@
 				try {
 					await OrderService.addOrder(obj);
 					console.log("添加成功");
-					this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
-					this.$store.dispatch("getOrderListToday", this.hotel_id);
-					this.$store.dispatch("getOrderDishesToday", this.hotel_id);
-					this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
+					this.$store.dispatch("getGatherEvent", this.hotel_id);
 
 					this.submitLoading = false;
 					uni.hideLoading();

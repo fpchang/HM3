@@ -392,7 +392,7 @@
 					const res =	await MenuService.addOrderDishes(orderDishesObj);
 					this.isLoading=false;
 					uni.hideLoading();
-					this.$store.dispatch("getOrderDishesToday",this.hotel_id);
+					this.$store.dispatch("getMenuEvent",this.hotel_id);
 					if(getCurrentPages().length>1){
 						await this.$store.dispatch("getOrderDishesList",this.hotel_id);
 						uni.navigateBack();

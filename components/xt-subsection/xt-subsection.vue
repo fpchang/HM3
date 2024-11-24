@@ -66,7 +66,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    color:#b3b3b3;
+    color:#a1a1a1;
+    font-weight: bold;
 
   }
   .sub-item-active{

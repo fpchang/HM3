@@ -1,43 +1,65 @@
 <template>
 	<view class="gather">
-		<xt-panal-list :dataList="[1]">
-				
+		<xt-panal-list :dataList="[{}]">
+
 			<!-- #ifdef MP -->
-			<view v-for="(item,index) of dataList" slot="card{{index}}">
-				<xt-panal-card  :title="item.title" :showControl="false">
-						 <view slot=titleRight>
-							<uni-badge class="uni-badge-left-margin" :text="34" />
-					   </view>
-					</xt-panal-card>
-			  </view>
-			<!-- #endif -->
-			  <!-- #ifdef H5 || APP-PLUS -->
-			   <template v-for="(items,indexs) of [1]" v-slot:[`card${indexs}`]>
+			<view v-for="(item,index) of [{}]" slot="card{{index}}">
 				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
-				<uv-grid :border="true" v-if="GatgerTab_index==0">					
+				<view> 
+					<uv-grid :border="true" v-if="GatgerTab_index==0">
+						<uv-grid-item v-for="(it,ind) in showDataListToday">
+							<view
+								style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
+								<text style="font-weight:bold">{{it.numCount}}</text>
+								<text style="color:#a1a1a1">{{it.title}}</text>
+							</view>
+	
+						</uv-grid-item>
+					</uv-grid>
+					<uv-grid :border="true" v-if="GatgerTab_index==1">
+						<uv-grid-item v-for="(it,ind) in showDataListTommorow">
+							<view
+								style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
+								<text style="font-weight:bold">{{it.numCount}}</text>
+								<text style="color:#a1a1a1">{{it.title}}</text>
+							</view>
+	
+						</uv-grid-item>
+					</uv-grid>
+				</view>
+				
+			</view>
+			<!-- #endif -->
+			<!-- #ifdef H5 || APP-PLUS -->
+			<template v-for="(items,indexs) of [1]" v-slot:[`card${indexs}`]>
+
+				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
+				<view> 
+				<uv-grid :border="true" v-if="GatgerTab_index==0">
 					<uv-grid-item v-for="(item,index) in showDataListToday" :key="index">
-						<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column" > 
+						<view
+							style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
 							<text style="font-weight:bold">{{item.numCount}}</text>
 							<text style="color:#a1a1a1">{{item.title}}</text>
 						</view>
-						
+
 					</uv-grid-item>
 				</uv-grid>
-				<uv-grid :border="true" v-if="GatgerTab_index==1">					
+				<uv-grid :border="true" v-if="GatgerTab_index==1">
 					<uv-grid-item v-for="(item,index) in showDataListTommorow" :key="index">
-						<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column" > 
+						<view
+							style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
 							<text style="font-weight:bold">{{item.numCount}}</text>
 							<text style="color:#a1a1a1">{{item.title}}</text>
 						</view>
-						
+
 					</uv-grid-item>
 				</uv-grid>
-				</template>
-			 <!-- #endif -->
-		  
-			  {{ roomType }}
-	  </xt-panal-list>
-		 <!-- <view style="display: flex; justify-content: center">
+			</view> 
+			</template>
+			<!-- #endif -->
+		</xt-panal-list>
+		<!-- <view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view class="card" v-for="(item,index) of dataList" :style="{width:`${cardWidth}px`}">
 					<view class="card-item">
@@ -86,21 +108,26 @@
 
 <script>
 	import gatherCardComponent from './gatherCardComponent.vue';
-	import  {OrderService} from '../../../services/OrderService';
-	import  {MenuService} from '../../../services/MenuService';
-import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
+	import {
+		OrderService
+	} from '../../../services/OrderService';
+	import {
+		MenuService
+	} from '../../../services/MenuService';
+	import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 	export default {
 		components: {
 			gatherCardComponent,
 			XtSubsection
 		},
 		props: {
-			
+
 		},
 		data() {
 			return {
+				testlist:[{}],
 				widthTemp: 0,
-				GatgerTab_index:0,
+				GatgerTab_index: 0,
 				todayCheckInOrderList: [],
 				chartList: [{
 					title: "一个月内入住率",
@@ -113,7 +140,7 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 				}],
 				image: "",
 				option: {}
-			
+
 			}
 		},
 
@@ -124,13 +151,13 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 			hotelList() {
 				return this.$store.state.hotelList;
 			},
-			roomType(){
+			roomType() {
 				return this.$store.state.roomType;
 			},
 			user() {
 				return this.$store.state.user;
 			},
-			partialRefreshComName(){
+			partialRefreshComName() {
 				return this.$store.state.partialRefreshComName;
 			},
 			//今日办理入住的订单
@@ -138,7 +165,7 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 				return this.$store.state.orderStore.orderListByCheckInToday;
 			},
 			//今日退房订单
-			orderListByCheckOutToday(){
+			orderListByCheckOutToday() {
 				return this.$store.state.orderStore.orderListByCheckOutToday;
 			},
 			//明日办理入住的订单
@@ -146,7 +173,7 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 				return this.$store.state.orderStore.orderListByCheckInTommorow;
 			},
 			//明日退房订单
-			orderListByCheckOutTommorow(){
+			orderListByCheckOutTommorow() {
 				return this.$store.state.orderStore.orderListByCheckOutTommorow;
 			},
 			orderListByCheckInToday_format() {
@@ -182,6 +209,10 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 			//今日餐饮订单
 			orderDishesToday() {
 				return this.$store.state.menuStore.orderDishesToday;
+			},
+			//明日餐饮订单
+			orderDishesTommorow() {
+				return this.$store.state.menuStore.orderDishesTommorow;
 			},
 			orderDishesToday_format() {
 				return {
@@ -226,19 +257,19 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 			isPcShow() {
 				return this.$store.state.isPcShow;
 			},
-			roomTypeCount(){
+			roomTypeCount() {
 				let count = 0;
-				this.roomType.map(item=>{
-					count+=item.count;
+				this.roomType.map(item => {
+					count += item.count;
 				})
 				return count;
 			},
 			//今日信息
-			showDataListToday(){
+			showDataListToday() {
 				const c1 = this.getRoomCountFromOrderList(this.orderListByCheckInToday);
 				const c2 = this.getRoomCountFromOrderList(this.orderListByCheckOutToday);
-				const c3=this.getRoomCountFromOrderList(this.orderListToday);
-				return  [{
+				const c3 = this.getRoomCountFromOrderList(this.orderListToday);
+				return [{
 					numCount: c1,
 					title: '入住'
 				}, {
@@ -250,41 +281,47 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 				}, {
 					numCount: this.roomTypeCount - c3,
 					title: '空房'
+				}, {
+					numCount: this.orderDishesToday.length,
+					title: '餐单'
 				}]
 			},
 			//明日信息
-			showDataListTommorow(){
+			showDataListTommorow() {
 				const c1 = this.getRoomCountFromOrderList(this.orderListByCheckInTommorow);
 				const c2 = this.getRoomCountFromOrderList(this.orderListByCheckOutTommorow);
 				const c3 = this.getRoomCountFromOrderList(this.orderListTommorow);
-				return  [{
+				return [{
 					numCount: c1,
 					title: '入住'
 				}, {
 					numCount: c2,
 					title: '退房'
 				}, {
-					numCount:c3,
+					numCount: c3,
 					title: '在住'
 				}, {
 					numCount: this.roomTypeCount - c3,
 					title: '空房'
+				}, {
+					numCount: this.orderDishesTommorow.length,
+					title: '餐单'
 				}]
 			}
 
 		},
 		watch: {
-			async partialRefreshComName(val){
+			async partialRefreshComName(val) {
 				//下拉刷新
-				if(val=='gatherComponent'){
+				if (val == 'gatherComponent') {
 					console.log("局部刷新 gather")
-					await this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
-					await this.$store.dispatch("getOrderListToday", this.hotel_id);
-					await this.$store.dispatch("getOrderDishesToday", this.hotel_id);
-					this.$store.commit("setPartialRefreshComName","");
+					await this.$store.dispatch("getGatherEvent", this.hotel_id);
+					await this.$store.dispatch("getMenuEvent",this.hotel_id);
+					this.$store.commit("setPartialRefreshComName", "");
+					console.log("局部刷新完成")
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
-				}				
+				}
 			},
 			hotel_id() {
 				this.initData();
@@ -292,7 +329,7 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 		},
 
 		mounted() {
-			
+
 			this.option = {
 				grid: {
 					right: 20
@@ -314,23 +351,21 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 		onLoad: function() {
 			console.log('gatherComponent Show')
 		},
-		 created() {
+		created() {
 			console.log("gathercomponent created;;;;");
-			
+
 		},
-	
-		methods: {	
-			changeGatgerTab(index){
-				this.GatgerTab_index=index;
-			},		
+
+		methods: {
+			changeGatgerTab(index) {
+				this.GatgerTab_index = index;
+			},
 			async initData() {
 				console.log("init data gather")
-				// await this.$store.dispatch("getOrderListByCheckInToday", this.hotel_id);
-				// await this.$store.dispatch("getOrderListToday", this.hotel_id);
-				// await this.$store.dispatch("getOrderDishesToday", this.hotel_id);
-				this.$store.dispatch("getGatherEvent",this.hotel_id);
-				console.log("result___++",this)
-				
+				this.$store.dispatch("getGatherEvent", this.hotel_id);
+				this.$store.dispatch("getMenuEvent",this.hotel_id);
+
+
 			},
 			dayNum(params) {
 				return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24))
@@ -344,7 +379,7 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 				return num
 			},
 			//订单列表中计算有多少房间
-			getRoomCountFromOrderList(orderList){
+			getRoomCountFromOrderList(orderList) {
 				let numCount = 0;
 				orderList.map(item => {
 					let num = 0;
@@ -355,7 +390,7 @@ import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 				})
 				return numCount;
 			}
-	
+
 		}
 	}
 </script>

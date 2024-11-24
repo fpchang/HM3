@@ -42,17 +42,16 @@ export default{
 
     },
     actions:{
-		 getGatherEvent(context,hotel_id){
-			context.dispatch("getOrderListByCheckInToday",hotel_id);//今日办理入住的客户
-			context.dispatch("getOrderListByCheckOutToday",hotel_id);//今天退房订单
+		 async getGatherEvent(context,hotel_id){
+		const s1=	context.dispatch("getOrderListByCheckInToday",hotel_id);//今日办理入住的客户
+		const s2=	context.dispatch("getOrderListByCheckOutToday",hotel_id);//今天退房订单
 
-			context.dispatch("getOrderListByCheckOutTommorow",hotel_id);//明天退房订单
-			context.dispatch("getOrderListByCheckInTommorow",hotel_id);//明日办理入住的客户
+		const s3=	context.dispatch("getOrderListByCheckOutTommorow",hotel_id);//明天退房订单
+		const s4=	context.dispatch("getOrderListByCheckInTommorow",hotel_id);//明日办理入住的客户
 
-			context.dispatch("getOrderListToday",hotel_id);	//今日订单
-			context.dispatch("getOrderListTommorow",hotel_id);//明日订单
-
-
+		const s5=	context.dispatch("getOrderListToday",hotel_id);	//今日订单
+		const s6=	context.dispatch("getOrderListTommorow",hotel_id);//明日订单
+			return	Promise.all([s1,s2,s3,s4,s5,s6]);
 		},
         	//获取当天开始的订单
 		 async getOrderListTodayAfter(context,hotel_id) {
