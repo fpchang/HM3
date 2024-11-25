@@ -6,7 +6,29 @@
 			<view v-for="(item,index) of [{}]" slot="card{{index}}">
 				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
 				<view> 
-					<uv-grid :border="true" v-if="GatgerTab_index==0">
+					<uni-grid :column="3" :highlight="true" @change="change" :showBorder="false" v-if="GatgerTab_index==0">
+						<uni-grid-item v-for="(it,ind) in showDataListToday" :index="index" :key="index">
+							<view class=" flex-center" style="background-color: #fff;flex:1">
+								<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column"> 
+									<text style="font-weight:bold">{{it.numCount}}</text>
+								<text style="color:#a1a1a1">{{it.title}}</text>
+								</view>
+								
+							</view>
+						</uni-grid-item>
+					</uni-grid>
+					<uni-grid :column="3" :highlight="true" @change="change" :showBorder="false" v-if="GatgerTab_index==1">
+						<uni-grid-item v-for="(it,ind) in showDataListTommorow" :index="index" :key="index">
+							<view class=" flex-center" style="background-color: #fff;flex:1">
+								<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column"> 
+									<text style="font-weight:bold">{{it.numCount}}</text>
+								<text style="color:#a1a1a1">{{it.title}}</text>
+								</view>
+								
+							</view>
+						</uni-grid-item>
+					</uni-grid>
+					<!-- <uv-grid :border="true" v-if="GatgerTab_index==0">
 						<uv-grid-item v-for="(it,ind) in showDataListToday">
 							<view
 								style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
@@ -25,7 +47,7 @@
 							</view>
 	
 						</uv-grid-item>
-					</uv-grid>
+					</uv-grid> -->
 				</view>
 				
 			</view>
@@ -35,26 +57,28 @@
 
 				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
 				<view> 
-				<uv-grid :border="true" v-if="GatgerTab_index==0">
-					<uv-grid-item v-for="(item,index) in showDataListToday" :key="index">
-						<view
-							style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
-							<text style="font-weight:bold">{{item.numCount}}</text>
-							<text style="color:#a1a1a1">{{item.title}}</text>
-						</view>
-
-					</uv-grid-item>
-				</uv-grid>
-				<uv-grid :border="true" v-if="GatgerTab_index==1">
-					<uv-grid-item v-for="(item,index) in showDataListTommorow" :key="index">
-						<view
-							style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
-							<text style="font-weight:bold">{{item.numCount}}</text>
-							<text style="color:#a1a1a1">{{item.title}}</text>
-						</view>
-
-					</uv-grid-item>
-				</uv-grid>
+					<uni-grid :column="3" :highlight="true" @change="change" :showBorder="false" v-if="GatgerTab_index==0">
+						<uni-grid-item v-for="(it,ind) in showDataListToday" :index="index" :key="index">
+							<view class=" flex-center" style="background-color: #fff;flex:1">
+								<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column"> 
+									<text style="font-weight:bold">{{it.numCount}}</text>
+								<text style="color:#a1a1a1">{{it.title}}</text>
+								</view>
+								
+							</view>
+						</uni-grid-item>
+					</uni-grid>
+					<uni-grid :column="3" :highlight="true" @change="change" :showBorder="false" v-if="GatgerTab_index==1">
+						<uni-grid-item v-for="(it,ind) in showDataListTommorow" :index="index" :key="index">
+							<view class=" flex-center" style="background-color: #fff;flex:1">
+								<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column"> 
+									<text style="font-weight:bold">{{it.numCount}}</text>
+								<text style="color:#a1a1a1">{{it.title}}</text>
+								</view>
+								
+							</view>
+						</uni-grid-item>
+					</uni-grid>
 			</view> 
 			</template>
 			<!-- #endif -->
@@ -279,7 +303,7 @@
 					numCount: c3,
 					title: '在住'
 				}, {
-					numCount: this.roomTypeCount - c3,
+					numCount:Math.max( this.roomTypeCount - c3,0),
 					title: '空房'
 				}, {
 					numCount: this.orderDishesToday.length,
@@ -301,7 +325,7 @@
 					numCount: c3,
 					title: '在住'
 				}, {
-					numCount: this.roomTypeCount - c3,
+					numCount:Math.max( this.roomTypeCount - c3,0),
 					title: '空房'
 				}, {
 					numCount: this.orderDishesTommorow.length,
