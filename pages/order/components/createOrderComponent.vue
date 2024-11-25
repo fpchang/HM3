@@ -307,7 +307,7 @@
 					await OrderService.addOrder(obj);
 					console.log("添加成功");
 					this.$store.dispatch("getGatherEvent", this.hotel_id);
-
+					this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
 					this.submitLoading = false;
 					uni.hideLoading();
 					this.$emit("closePopup");

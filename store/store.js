@@ -125,6 +125,7 @@ const store = createStore({
 		},
 		 async getHotelList(context){	
 			const res = await HotelService.getHotelList();
+			console.log("酒店列表",res);
 			context.commit('updateHotelList', res.result);
 			return res;							
 		},

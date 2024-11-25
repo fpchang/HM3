@@ -86,9 +86,6 @@
 			user(){
 				return this.$store.state.user
 			},
-			hotel_id(){
-				return this.$store.state.hotel_id;
-			},
 			hotelList(){
 				return this.$store.state.hotelList;
 			},
@@ -109,8 +106,6 @@
 				this.$refs.hotelFormRef.validate().then(res => {
 					//uni.showLoading();
 					this.submitLoading = true;
-					let obj = {}
-					console.log(this.hotelForm);
 					if(this.type==1){
 						this.updateHotel();
 						return ;
@@ -144,11 +139,13 @@
 					})
 			},
 			async updateHotel(){
+				console.log(this.targetObj)
 				try {
-					await HotelService.updateHotel(this.hotel_id,this.hotelForm);
+					await HotelService.updateHotel(this.targetObj._id,this.hotelForm);
 					await this.$store.dispatch("getHotelList");
 					this.$emit('closePopup');
 				} catch (error) {
+					console.error(error);
 					uni.hideLoading();
 						uni.showToast({
 							title: '更新失败，请稍候再试',

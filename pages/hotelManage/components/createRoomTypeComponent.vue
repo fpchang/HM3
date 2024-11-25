@@ -13,11 +13,11 @@
                 </view>
             </uni-forms-item>
 			<uni-forms-item label="面积" name="area">
-                <view>
+                <view style="display:flex;align-items:center">
                     <uv-number-box :min="1" integer v-model="roomTypeForm.area" :disabled="type==2">
                         <input slot="input" style="width: 100px;text-align: center;" class="input"
                             v-model="roomTypeForm.area"></input>
-                    </uv-number-box>
+                    </uv-number-box><text style="padding-left:8px">㎡</text>
                 </view>
             </uni-forms-item>
 			<uni-forms-item label="入住人数" name="count">
