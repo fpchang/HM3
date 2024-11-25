@@ -14,7 +14,7 @@
 			 ></uv-icon>
 		   </view>
 		   </view>
-		<view v-if="isPcShow">
+		<view v-if="false&&isPcShow">
 			<uni-table border stripe emptyText="暂无更多数据">
 				<!-- 表头行 -->
 				<uni-tr>
@@ -41,8 +41,38 @@
 
 			</uni-table>
 		</view>
-		<view class="mobile-show-style" style="max-width: 450px;" v-if="!isPcShow">
-			<uni-collapse v-model="accordionVal">
+		<view class="mobile-show-style">
+			<xt-panal-list :dataList="hotelList">
+				
+				<!-- #ifdef MP -->
+				<view v-for="(item,index) of hotelList" slot="card{{index}}">
+					<xt-panal-card :logoUrl="item.firstImages" :title="item.hotelName" :control_edit="item.curRole=='administrator'" :control_delete="item.curRole=='administrator'"  @edit_event="editHotel(item)" @delete_event="deleteHotel(item)" @view_event="viewDetail(item)">
+							 <view slot=titleContent>
+								<view class="titleContent"> 
+									<view class="titleContent-item">{{ `【店主：${item.belong}】` }}</view>
+									<view class="titleContent-item">{{ `【角色：${this.roleFormat(item.curRole)}】` }}</view>
+								</view>
+								
+						   	</view>
+						</xt-panal-card>
+				  </view>
+				<!-- #endif -->
+				  <!-- #ifdef H5 || APP-PLUS -->
+				   <template v-for="(item,index) of hotelList" v-slot:[`card${index}`]>
+					   <xt-panal-card :logoUrl="item.firstImages" :title="item.hotelName" :control_edit="item.curRole=='administrator'" :control_delete="item.curRole=='administrator'" @edit_event="editHotel(item)" @delete_event="deleteHotel(item)" @view_event="viewDetail(item)" >
+							   <template v-slot:titleContent>
+								<view class="titleContent"> 
+									<view class="titleContent-item">{{ `【店主：${item.belong}】` }}</view>
+									<view class="titleContent-item">{{ `【角色：${this.roleFormat(item.curRole)}】` }}</view>
+								</view>
+							   </template>
+						   </xt-panal-card>
+					   </template>
+				 <!-- #endif -->
+			  
+				  
+		  </xt-panal-list>
+			<!-- <uni-collapse v-model="accordionVal">
 				<uni-collapse-item v-for="item of hotelList">
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.hotelName " type="circle">
@@ -63,11 +93,6 @@
 							<view class="list-item" style="justify-content: flex-end;">
 
 								<view class="list-item-c" style="width: 150px;">
-										<!-- <uv-icon name="edit-pen-fill" color="#06c" labelColor="#06c" size="22" label="修改"
-									labelPos="bottom" labelSize="12px" @click="editHotel(item)"></uv-icon>
-							<uv-icon name="trash-fill" color="#e64340" labelColor="#e64340" size="22" label="删除"
-							labelPos="bottom" labelSize="12px" @click="deleteHotel(item)"></uv-icon> -->
-
 							<button
 							v-if="item.curRole=='administrator'"
                     class="uni-button"
@@ -94,11 +119,11 @@
 					</view>
 				</uni-collapse-item>
 
-			</uni-collapse>
+			</uni-collapse> -->
 		</view>
 		<uni-popup ref="popupaddHotel" background-color="transprant">
 			<view class="popup-content">
-				<view class="create-order-title-style">{{type==1?"修改酒店信息":"创建酒店信息"}}</view>
+				<view class="create-order-title-style">{{["新增酒店","修改酒店信息","酒店详情"][type]}}</view>
 				<view class="comContent">
 					<createHotelComponent @closePopup="closePopup" :type="type" :targetObj="targetObj"></createHotelComponent>
 				</view>
@@ -165,6 +190,11 @@ import {alert} from "@/alert";
   
 		},
 		methods:{
+			getSubtitle(item){
+				let str="";
+				return `【店主：${item.belong}】【角色：${this.roleFormat(item.curRole)}】`
+			
+			},
 			roleFormat(val){
 				const p= {
 					administrator:"超级管理员",
@@ -191,7 +221,7 @@ import {alert} from "@/alert";
 					
 				
 				uni.navigateTo({
-					url:`/pages/hotelManage/createHotel/createHotel?type=${this.type}&&targetObj=${JSON.stringify(this.targetObj)}`
+					url:`/pages/hotelManage/createHotel/createHotel?type=${this.type}&&targetObj=${encodeURIComponent(JSON.stringify(this.targetObj))}`
 				})
 			},
 			addHotel(){
@@ -244,6 +274,19 @@ import {alert} from "@/alert";
 					})
 				
 			},
+			viewDetail(targetObj){
+				this.type=2;
+				this.targetObj =targetObj;
+				if(this.$store.state.isPcShow){
+					this.$refs.popupaddHotel.open();
+					return;
+				}
+					
+				
+				uni.navigateTo({
+					url:`/pages/hotelManage/createHotel/createHotel?type=${this.type}&&targetObj=${encodeURIComponent(JSON.stringify(this.targetObj))}`
+				})
+			},
 			closePopup(){
 				this.$refs.popupaddHotel.close();
 			}
@@ -259,7 +302,13 @@ import {alert} from "@/alert";
 		display: flex;
 		justify-content: space-between;
 	}
-
+	.titleContent{
+		font-size: 13px;
+		.titleContent-item{
+			padding:3px 0;
+		}
+	}
+	
 	.col-content {
 		/* background: linear-gradient(to bottom, #FFF, #EEF); */
 		border-radius: 4px;

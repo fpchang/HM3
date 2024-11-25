@@ -34,10 +34,9 @@ export default {
     console.log("参数传递", obj);
     try {
       this.type = obj.type;
-      this.targetObj = JSON.parse(obj.targetObj);
-      uni.setNavigationBarTitle({
-        title: obj.type == "1" ? "修改酒店信息" : "新增酒店",
-      });
+      this.targetObj =JSON.parse(decodeURIComponent(obj.targetObj));
+      const titleArray=["新增酒店","修改酒店信息","酒店详情"];
+      uni.setNavigationBarTitle({title:titleArray[obj.type]})
     } catch (error) {
       this.type = 0;
 	  this.targetObj={}

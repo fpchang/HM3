@@ -58,6 +58,7 @@
               <slot name="titleRight"></slot></view>
            </view>
           <view><text class="sub-title">{{subtitle}}</text> </view>
+          <view><slot name="titleContent"></slot></view>
         </view>
       </view>    
         <slot name="content"></slot>

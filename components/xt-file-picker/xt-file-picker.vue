@@ -124,7 +124,7 @@ export default{
           task.push(new Promise((resolve,reject)=>{
             uniCloud.uploadFile({
                 filePath: item.filePath,
-                cloudPath: `/HM/images${this.cloudPath}${new Date().getTime()}${item.fileName}`,
+                cloudPath: `/HM/client${this.cloudPath}${new Date().getTime()}${item.fileName}`,
                 onUploadProgress: function(progressEvent) {
                   item.percentCompleted = Math.round(
                     (progressEvent.loaded * 100) / progressEvent.total

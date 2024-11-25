@@ -109,7 +109,7 @@ export default {
 		data() {
 			return {
 				submitLoading: false,
-				cloudPath:`/roomType/${this.$store.state.hotel_id}/`,
+				cloudPath:`/${this.$store.state.hotel_id}/roomType/`,
 				roomTypeForm: this.type!=0?{
                     "count": this.rt.count,
                     "name": this.rt.name,

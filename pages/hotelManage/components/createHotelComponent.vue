@@ -3,17 +3,24 @@
 		<uni-forms ref="hotelFormRef" :modelValue="hotelForm" :rules="hotelFormRules">
 
 			<uni-forms-item label="酒店名" required name="hotelName">
-				<uni-easyinput v-model="hotelForm.hotelName" placeholder="请输入酒店名称" />
+				<uni-easyinput v-model="hotelForm.hotelName" placeholder="请输入酒店名称" :disabled="type==2"/>
 			</uni-forms-item>
 			<uni-forms-item label="酒店地址" name="hotelAdress">
-				<uni-easyinput v-model="hotelForm.hotelAdress" placeholder="请输入酒店地址" />
+				<uni-easyinput v-model="hotelForm.hotelAdress" placeholder="请输入酒店地址" :disabled="type==2"/>
 			</uni-forms-item>
 			<uni-forms-item label="备注">
-				<uni-easyinput type="textarea" v-model="hotelForm.hotelIntroduction" placeholder="备注内容"></uni-easyinput>
+				<uni-easyinput type="textarea" v-model="hotelForm.hotelIntroduction" placeholder="备注内容" :disabled="type==2"></uni-easyinput>
 
 			</uni-forms-item>
+			<view>
+				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
+				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccessFirst" :imagesList="hotelForm.firstImages?[hotelForm.firstImages]:[]" max="1" :disabled="type==2"></xt-file-picker>
+				<uni-forms-item label="酒店图片" ></uni-forms-item>
+				<xt-file-picker ref="uploadImagesRef2" :cloudPath="cloudPath" @success="uploadSuccess" :imagesList="hotelForm.imagesList" :disabled="type==2"></xt-file-picker>
+				
+			</view>
 			<uni-forms-item>
-				<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
+				<uv-button v-if="type!=2" type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
 					:loading="submitLoading"></uv-button>
 			</uni-forms-item>
 		</uni-forms>
@@ -31,19 +38,23 @@
 		data() {
 			return {
 				submitLoading: false,
-				//hotelList:getApp().globalData.hotelList,
-				hotelForm: this.type==1?{
+				cloudPath:`/${this.$store.state.hotel_id}/hotel/`,
+				hotelForm: this.type!=0?{
 					belong: this.targetObj.belong,
 					hotelName: this.targetObj.hotelName,
 					hotelAdress: this.targetObj.hotelAdress,
 					hotelCoordinate: this.targetObj.hotelCoordinate,
-					hotelIntroduction: this.targetObj.hotelIntroduction
+					hotelIntroduction: this.targetObj.hotelIntroduction,
+					"firstImages":this.targetObj.firstImages||"",
+					"imagesList": this.targetObj.imagesList||[],
 				}: {
 					belong: "",
 					hotelName: "",
 					hotelAdress: "",
 					hotelCoordinate: [],
-					hotelIntroduction: ""
+					hotelIntroduction: "",
+					"firstImages":"",
+					"imagesList":[],
 				},
 				hotelFormRules: {
 					// 对name字段进行必填验证
@@ -86,7 +97,13 @@
 			}
 		},
 		methods: {
-
+			uploadSuccessFirst(list){
+				this.hotelForm.firstImages=list[0];
+			},
+			uploadSuccess(list){
+				console.log("list");
+				this.hotelForm.imagesList=list;
+			},
 			submitForm() {
 				
 				this.$refs.hotelFormRef.validate().then(res => {
