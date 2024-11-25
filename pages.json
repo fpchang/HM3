@@ -17,7 +17,8 @@
 			"path" : "pages/home/home",
 			"style" : 
 			{
-				"navigationBarTitleText" : "12345"
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText" : ""
 			}
 		},{
 			"path" : "pages/permission/setPermission/setPermission",
@@ -179,6 +180,13 @@
 	{
 		"navigationBarTitleText" : ""
 	}
+},
+{
+	"path" : "pages/client/clinet_index/clinet_index",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
 }
 
 
@@ -190,10 +198,16 @@
 		"backgroundColor": "#ffffff",
 		"list": [
 			{
-				"pagePath": "pages/index/index",
+				"pagePath": "pages/client/clinet_index/clinet_index",
 				"iconPath": "static/img/home-black.png",
 				"selectedIconPath": "static/img/home-blue.png",
 				"text": "首页"
+			},
+			{
+				"pagePath": "pages/home/home",
+				"iconPath": "static/img/home-black.png",
+				"selectedIconPath": "static/img/home-blue.png",
+				"text": "首页2"
 			},
 			{
 				"pagePath": "pages/mine/mine",

@@ -238,8 +238,9 @@ export default {
       uni.setStorageSync("user", userRes.result.data[0]);
       this.$store.commit("setUser", userRes.result.data[0]);
       this.submitLoading=false;
+      let userRole =uni.getStorageSync("userRole");
       uni.reLaunch({
-        url: "/pages/index/index",
+        url: userRole=="hotel"?"/pages/home/home":"/pages/client/clinet_index/clinet_index",
       });
     },
   }
