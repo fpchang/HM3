@@ -224,7 +224,7 @@ import  {DB} from '../../../api/DB';
 			},
 			addRoomType(){
 				console.log(this.$store.state.permissionStore.permissionList)
-				if(!this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_ADD')){
+				if(!this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_CREATE')){
 					 alert.alertNoPermisson();
 					return;
 				}
