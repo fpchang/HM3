@@ -40,7 +40,7 @@
 							</view>
 							<view style="display: flex; flex: 1">{{ item.name }}</view>
 							<view><uni-number-box v-model="item.count" :min="1"
-									:disabled="!item.checked"  /></view>
+									:disabled="!item.checked||type==2"  /></view>
 						</view>
 					</checkbox-group>
 				</view>
