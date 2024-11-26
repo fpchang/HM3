@@ -165,6 +165,9 @@ import  {DB} from '../../../api/DB';
 			},
 			roomType() {
 				return this.$store.state.roomType;
+			},
+			showAddBtn(){
+				return this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_CREATE');
 			}
 		},
 		async created() {
@@ -224,7 +227,7 @@ import  {DB} from '../../../api/DB';
 			},
 			addRoomType(){
 				console.log(this.$store.state.permissionStore.permissionList)
-				if(!this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_ADD')){
+				if(!this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_CREATE')){
 					 alert.alertNoPermisson();
 					return;
 				}
