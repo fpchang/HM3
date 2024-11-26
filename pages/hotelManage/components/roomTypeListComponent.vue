@@ -198,7 +198,7 @@ import  {DB} from '../../../api/DB';
 					str+=`${item.name}床${s}、`;
 				})
 				str = str.substring(0, str.length - 1);
-				return `【${str}】【${item.guestNumber||2}人】【60㎡】`
+				return `【${str}】【${item.guestNumber||2}人】【${item.area||'--'}㎡】`
 				
 			},
 			sortRoomList(list){
@@ -223,6 +223,11 @@ import  {DB} from '../../../api/DB';
 				})
 			},
 			addRoomType(){
+				console.log(this.$store.state.permissionStore.permissionList)
+				if(!this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_ADD')){
+					 alert.alertNoPermisson();
+					return;
+				}
 				this.type=0;
 				if(this.$store.state.isPcShow){
 					this.$refs.popupCreateRoomType.open();
