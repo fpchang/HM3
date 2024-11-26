@@ -60,7 +60,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 		
 		},
 		beforeMounted(){
-			if(this.isPcShow){
+			if(this.$store.state.isPcShow){
 				uni.hideTabBar()
 			}
 			console.log("before mounted....>>>")
