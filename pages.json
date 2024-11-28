@@ -182,14 +182,19 @@
 	}
 },
 {
-	"path" : "pages/client/clinet_index/clinet_index",
+	"path" : "pages/client/client_index/client_index",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
+},
+{
+	"path" : "pages/client/client_hotelList/client_hotelList",
 	"style" : 
 	{
 		"navigationBarTitleText" : ""
 	}
 }
-
-
 ],
 	"tabBar": {
 		"color": "#1d1d1f",
@@ -198,7 +203,7 @@
 		"backgroundColor": "#ffffff",
 		"list": [
 			{
-				"pagePath": "pages/client/clinet_index/clinet_index",
+				"pagePath": "pages/client/client_index/client_index",
 				"iconPath": "static/img/home-black.png",
 				"selectedIconPath": "static/img/home-blue.png",
 				"text": "首页"

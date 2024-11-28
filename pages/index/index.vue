@@ -2,14 +2,14 @@
 	<view class="index">
 		<view class="container"> 
 			<view class="item">
-				<view style="background: #eee;" class="card" @click="selectRole('user')"> 
+				<view  class="card" @click="selectRole('user')"> 
 					<view class="i"><uni-icons type="person-filled" size="100"></uni-icons></view>
 					<view class="h">我是用户</view>
 					<view><uni-icons type="forward" size="80" color="#a1a1a1"></uni-icons></view>
 				</view>
 			</view>
 			<view class="item">
-				<view style="background: #eee;" class="card"  @click="selectRole('hotel')"> 
+				<view  class="card"  @click="selectRole('hotel')"> 
 					<view class="i"><uni-icons type="shop-filled" size="100"></uni-icons></view>
 					<view class="h">我是商家</view>
 					<view><uni-icons type="forward" size="80" color="#a1a1a1"></uni-icons></view>
@@ -47,7 +47,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 				return;
 			}
 			uni.reLaunch({
-        		url: userRole=="hotel"?"/pages/home/home":"/pages/client/clinet_index/clinet_index",
+        		url: userRole=="hotel"?"/pages/home/home":"/pages/client/client_index/client_index",
       		});
 			// uni.reLaunch({
 			// 	url:'/pages/client/clinet_index/clinet_index',
@@ -85,7 +85,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 					case "user":
 						uni.setStorageSync("userRole","user");
 						uni.reLaunch({
-							url:"/pages/client/clinet_index/clinet_index"
+							url:"/pages/client/client_index/client_index"
 						});
 					break;
 					case "hotel":
@@ -104,7 +104,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 	};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .index{
 	height: 100vh;
 	width: 100vw;
@@ -124,6 +124,13 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 			display: flex;
 			align-items: center;
 			border-radius: 12px;
+			transition: transform 0.3s ease;
+			background: #eee;
+			&:hover{
+				transform: scale(1.1);
+				background: #ddd;
+				color: #313131;
+			}
 			.i{
 				padding:20px;
 			}
@@ -131,9 +138,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 				flex: 1;
 				color:#a1a1a1;
 				font-size: 20px;
-				&:hover{
-					color: #000;
-				}
+				
 			}
 		}
 		}

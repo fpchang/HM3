@@ -14,6 +14,9 @@ export default{
         
 	},
   actions:{
+	getTT(){
+		console.log("scenic tt")
+	},
      getScenicSpotList(context,hotel_id){
 		return new Promise((resolve,reject)=>{
 			ScenicSpotService.getScenicSpotList(hotel_id).then(res=>{

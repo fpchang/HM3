@@ -5,11 +5,12 @@ import menuStore from "./modules/menuStore";
 import orderStore from "./modules/orderStore";
 import permissionStore from "./modules/permissionStore";
 import scenicSpotStore from "./modules/scenicSpotStore";
+import hotelClientStore from "./modules/hotelClientStore"
 import {HotelService} from '../services/HotelService';
 import {AccountService} from '../services/AccountService';
 const store = createStore({
 	modules:{
-		menuStore,orderStore,permissionStore,scenicSpotStore
+		menuStore,orderStore,permissionStore,scenicSpotStore,hotelClientStore
 	},
 	state: { //存放状态
 		"config":null,//配置信息
@@ -123,7 +124,8 @@ const store = createStore({
 			return res;
 			
 		},
-		 async getHotelList(context){	
+		 async getHotelList(context){
+			console.log("服务端hotellist")	
 			const res = await HotelService.getHotelList();
 			console.log("酒店列表",res);
 			context.commit('updateHotelList', res.result);

@@ -102,7 +102,13 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "根据当前位置查找附近店铺"
+            }
+        },
+        "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ]
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -120,5 +126,16 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "3"
+    "vueVersion" : "3",
+    "h5" : {
+        "sdkConfigs" : {
+            "maps" : {
+                "amap" : {
+                    "key" : "c4ed86c4f0ef8a0dc0ddb42b4bdeeb0b",
+                    "securityJsCode" : "07f4c6622431920956dc30c6cb7b5d9e",
+                    "serviceHost" : ""
+                }
+            }
+        }
+    }
 }
