@@ -120,14 +120,20 @@ export default {
         const res = await this.$store.dispatch(
           "hotelClientStore/getHotelList",
           {
-            point: [119.882659, 30.626099],
+            location: [119.882659, 30.626099],
             maxDistance: 5000,
             filterVal: this.filterVal,
           }
         );
         console.log(res);
+        const condition={
+          filterVal:this.filterVal,
+          addressName: this.addressName,
+          dateRange:this.dateRange,
+          location:this.location,
+        }
         uni.navigateTo({
-          url: "/pages/client/client_hotelList/client_hotelList",
+          url: `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`,
         });
         uni.hideLoading();
       } catch (error) {

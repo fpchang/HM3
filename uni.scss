@@ -191,3 +191,27 @@ $label-normal:#a1a1a1;
 	border:none!important;
   }
 
+  /*三段式page布局*/
+.flex-page{
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+  }
+  .flex-page-nav{
+	overflow: hidden;
+	/* padding-bottom: 20rpx;
+	background-color:rgb(188,201,231); */
+  }
+  .flex-page-content{
+	flex: 1;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+  }
+  .flex-page-bottom{
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+  }
+

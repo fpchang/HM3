@@ -9,7 +9,7 @@
         </view> 
       </view>
       
-      <view class="dp-item-popup" v-if="active_id">
+      <view class="dp-item-popup" v-if="active_id&&showPopup">
         <view  v-for="item of dataList" :class="['popup-container',item.id==active_id?'popup-container-active':'popup-container-noactive']" style="">
           <slot :name="item.id"></slot>
         </view>
@@ -25,38 +25,30 @@ export default{
   components: { uniIcons },
   name: "xt-dropdown",
   props: {
+    activeId:{
+      type:String,
+      default:""
+    },
     dataList:{
       type:Array,
-      default:[
-        {
-          id:"c1",
-          label:"智能",
-
-        },
-        {
-          id:"c2",
-          label:"智能",
-
-        },
-        {
-          id:"c3",
-          label:"智能",
-
-        }]
+      default:[]
     }
   },
   data() {
     return {
-      active_id:""
+      showPopup:false,
+      active_id:this.activeId||""
     }
   },
   computed: {},
   methods: {
     clickTab(id){
       this.active_id=id;
+      this.showPopup=!this.showPopup;
     },
     clickShade(){
-      this.active_id="" 
+      this.showPopup=false;
+      //this.active_id="" 
     }
   },
   watch: {},

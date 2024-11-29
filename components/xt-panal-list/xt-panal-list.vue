@@ -2,7 +2,6 @@
   <view class="xt-panal-list">
     <view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
-
 				<view class="card" v-for="(item,index) of dataList" :style="{width: `${cardWidth}px`}">
 					<view class="card-item">
              <!-- #ifdef MP -->
@@ -110,6 +109,11 @@ export default {
      /* box-shadow: 0 0 4px 4px #e4e0e0;*/
       border-radius: 10px;
       box-shadow: 2px 4px 12px #00000014;
+      overflow: hidden;
+      &:hover{
+        box-shadow: 2px 4px 12px #0000006e;
+        
+      }
     }
   }
 }

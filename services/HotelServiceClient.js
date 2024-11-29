@@ -10,10 +10,10 @@ class HotelServiceClientClass{
      * 获取酒店列表
     */
       async getHotelList(params){
-        let {point, maxDistance = 30000,filterVal} = params;
+        let {location, maxDistance = 30000,filterVal} = params;
         const db = uniCloud.database();
         const dbCmd = db.command
-        console.log('aaaa', point,maxDistance);
+        console.log('aaaa', location,maxDistance);
         const w =  dbCmd.and(dbCmd.or(
           {
             "hotelName":new RegExp(filterVal, 'i'),
@@ -25,7 +25,7 @@ class HotelServiceClientClass{
         
         ),{
         "hotelCoordinate": dbCmd.geoNear({
-          geometry: new db.Geo.Point(point[0], point[1]),
+          geometry: new db.Geo.Point(location[0], location[1]),
           distanceField:"distance",
           minDistance: 0,
           maxDistance: maxDistance,
