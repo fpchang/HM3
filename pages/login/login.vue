@@ -240,7 +240,7 @@ export default {
       this.submitLoading=false;
       let userRole =uni.getStorageSync("userRole");
       uni.reLaunch({
-        url: userRole=="hotel"?"/pages/home/home":"/pages/client/clinet_index/clinet_index",
+        url: userRole=="hotel"?"/pages/home/home":"/pages/client/client_index/client_index",
       });
     },
   }

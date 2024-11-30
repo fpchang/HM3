@@ -101,7 +101,7 @@ export default{
             for(let i=0;i<len;i++){
               this.selectImageList.push({
                 filePath:res.tempFilePaths[i],
-                fileName:res.tempFiles[i].name,
+                fileName:res.tempFiles[i].name||`img${i}`,
                 percentCompleted:0,
                 uploadStatus:0
               });
@@ -122,9 +122,10 @@ export default{
             continue;
           }
           task.push(new Promise((resolve,reject)=>{
+            let path= `/HM/client${this.cloudPath}${Date.now()}_${item.fileName}`;
             uniCloud.uploadFile({
                 filePath: item.filePath,
-                cloudPath: `/HM/client${this.cloudPath}${new Date().getTime()}${item.fileName}`,
+                cloudPath:path ,
                 onUploadProgress: function(progressEvent) {
                   item.percentCompleted = Math.round(
                     (progressEvent.loaded * 100) / progressEvent.total
@@ -174,6 +175,12 @@ export default{
 		        fileList
 	    });
       return res;
+      },
+      //上传状态 0 上传中，1上传成功，2 有失败的
+      uploadingState(){
+        let list_isLoading= this.selectImageList.filter(item=>{return item.uploadStatus==0});//上传中
+        let list_lodingError= this.selectImageList.filter(item=>{return item.uploadStatus==2});//有上传失败的
+        return list_isLoading.length?0:(list_lodingError?2:1);
       },
      isUploading(){
       

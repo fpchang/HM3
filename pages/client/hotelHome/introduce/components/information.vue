@@ -2,7 +2,8 @@
   <view class="information"> 
     <view class="hotel_label"><text>见山舍民宿舍</text></view>
     <view class="tab-container">
-      <view class="tab" v-for="item in 18">莫干山景区</view>
+      <view class="tab" v-for="item in 5">莫干山景</view>
+      <view style="height: 0;width:70px" v-for="item in 4"></view>
     </view>
     <view class="position-style">
       <view class="adone" bindtap="toMap">
@@ -58,7 +59,7 @@ export default {
   .tab-container{
     margin-top: 20rpx;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     font-size: 24rpx;
     flex-wrap: wrap;
     gap: 8px;

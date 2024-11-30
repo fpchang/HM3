@@ -1,8 +1,19 @@
 <template>
 	<view class="home flex-page">
-		<view class="flex-page-content"> 
-			<introduce v-if="tabId=='b1'" :hotel="hotel"></introduce>
-			
+		<view class="flex-page-content">
+				<!-- <view class="xt-swiper"> 
+					<view style="display: flex;width:fit-content">
+						<view class="xt-swiper-item"> 
+							<introduce v-if="tabId=='b1'" :hotel="hotel"></introduce>
+						</view>
+						<view class="xt-swiper-item"> 
+							<introduce v-if="tabId=='b1'" :hotel="hotel"></introduce>
+						</view> 				
+					</view> 
+				</view> -->
+
+				<introduce v-show="tabId=='b1'" :hotel="hotel"></introduce>	
+				<roomType v-show="tabId=='b2'" :hotel_id="hotel._id"></roomType>			
 		</view>
 		<view class="flex-flex-page-bottom">
 			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab"></xt-tabbar>
@@ -13,15 +24,15 @@
 
 <script>
 import introduce from './introduce/introduce';
+import roomType from './roomType/roomType';
 	export default {
-  components: { introduce },
+  components: { introduce,roomType },
 		data() {
 			return {
 				tabbarList:[
         {id:"b1",label:"首页",icon:"introduce-line-black.svg",activeIcon:"introduce-line-blue.svg"},
-        {id:"b2",label:"我的",icon:"bed-line-black.svg",activeIcon:"bed-line-blue.svg"},
-        {id:"b3",label:"餐饮",icon:"food.svg",activeIcon:"food-blue.svg"},
-        {id:"b4",label:"我的",icon:"mine-line-black.svg",activeIcon:"mine-line-blue.svg"}
+        {id:"b2",label:"房型",icon:"bed-line-black.svg",activeIcon:"bed-line-blue.svg"},
+        {id:"b3",label:"餐饮",icon:"food.svg",activeIcon:"food-blue.svg"}
       ],
 	  	tabId:"b1",
 				hotel:{}
@@ -62,9 +73,21 @@ import introduce from './introduce/introduce';
 </script>
 
 <style lang="scss" scoped>
-.home{
-	max-width: 450px;
+$showWidth:1200px;
+.home{	
 	margin: auto;
+	width:$showWidth ;
 }
-
+.xt-swiper{
+	width: 100vw;
+	.xt-swiper-item{
+		width:100vw;
+		max-width:375px;
+		background: red;
+	}
+	.dev{
+		width: 5px;
+		background-color: #eee;
+	}
+}
 </style>

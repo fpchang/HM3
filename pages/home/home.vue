@@ -16,10 +16,16 @@
 								<uv-icon v-if="hotel.hotelName" name="arrow-down-fill" color="#606266" size="14px"
 									top="2"></uv-icon>
 							</view>
-							<view class="more-menu-area" style="cursor:pointer" v-if="isPcShow">
-								<uni-icons type="bars" size="30" @click="openRightPanal"></uni-icons>
-
+							<view class="right-area"> 
+								<view class="switch" @click="switchEvent"> 
+									<image v-if="config.cloudUrl" :src="`${config['cloudUrl']}/HM/images/miniprogram/line_switch_white.png`" style="width:20px;height:20px"></image><text>切换商家端</text>
+								  </view> 
+								<view class="more-menu-area" style="cursor:pointer" v-if="isPcShow">
+									<uni-icons type="bars" size="30" @click="openRightPanal"></uni-icons>
+	
+								</view>
 							</view>
+							
 						</view>
 						<view class="navbar">
 							<view class="nav-content">
@@ -192,7 +198,9 @@
 				//hotelList: []
 			};
 		},
-		onLoad(e) {},
+		onLoad(e) {
+			
+		},
 		created() {
 			console.log("index create....>>>", uni.getSystemInfoSync());
 			uni.$on("showPopupPivot",(popup,eventType)=>{//popup开发枢纽，0 关闭，1打开
@@ -260,6 +268,8 @@
 			console.log("before mounted....>>>")
 		},
 		mounted() {
+			uni.setTabBarItem({index:0,visible:false});
+			uni.setTabBarItem({index:1,visible:true});
 			console.log("index mounted....>>>",this.$store);
 			
 		},
@@ -271,6 +281,9 @@
 			
 		},
 		computed: {
+			config(){
+      return this.$store.state.config;
+    },
 			isPcShow() {
 				console.log("index computed isPcshow....>>>")
 				return this.$store.state.isPcShow;
@@ -350,6 +363,12 @@
 			}
 		},
 		methods: {
+			switchEvent(){
+      uni.setStorageSync("userRole","user");
+      uni.reLaunch({
+        url:"/pages/client/client_index/client_index"
+      })
+    },
 			async vaildToken(callback) {
 				try {
 					if (!uni.getStorageSync('hm_token')) {
@@ -524,6 +543,29 @@
 </script>
 
 <style lang="scss">
+.right-area{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap:8px;
+	.switch{
+		display:flex;
+		align-items:center;
+		justify-content:flex-end;
+		padding:4px 8px;
+		box-sizing: border-box;
+		background: #000;
+		border-radius: 20px;
+		color:#fff;
+		gap:4px;
+		font-size: 12px;
+		cursor: pointer;
+		&:hover{
+		  box-shadow: 0 0 13px 1px #d9d9d9;
+		}
+	  }
+}
+
 	.top-container {
 		display: flex;
 		flex-direction: column;

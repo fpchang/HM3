@@ -102,7 +102,14 @@
 				this.hotelForm.imagesList=list;
 			},
 			submitForm() {
-				
+				if(this.$refs.uploadImagesRef1.uploadingState()==0||this.$refs.uploadImagesRef2.uploadingState()==0){
+					uni.showToast({title:"有图片正在上传中，请稍候...",icon:"error"});
+					return;
+				}
+				if(this.$refs.uploadImagesRef1.uploadingState()==2||this.$refs.uploadImagesRef2.uploadingState()==2){
+					uni.showToast({title:"有图片上传失败，请重新上传或取消",icon:"error"});
+					return;
+				}
 				this.$refs.hotelFormRef.validate().then(res => {
 					//uni.showLoading();
 					this.submitLoading = true;

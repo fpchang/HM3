@@ -219,7 +219,7 @@
 				"pagePath": "pages/home/home",
 				"iconPath": "static/img/home-black.png",
 				"selectedIconPath": "static/img/home-blue.png",
-				"text": "首页2"
+				"text": "首页"
 			},
 			{
 				"pagePath": "pages/mine/mine",

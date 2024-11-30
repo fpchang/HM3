@@ -1,5 +1,10 @@
 <template>
   <view class="page-container">
+    <view style="display: flex;justify-content:flex-end;padding:10px"> 
+      <view class="switch" @click="switchEvent"> 
+        <image v-if="config.cloudUrl" :src="`${config['cloudUrl']}/HM/images/miniprogram/line_switch_white.png`" style="width:20px;height:20px"></image><text>切换商家端</text>
+      </view>      
+    </view>
     <view class="c-p">
       <view class="container">
         <view class="xt-list">
@@ -55,8 +60,9 @@
 import amap from "../../../common/amap-wx.130";
 import { DB } from "../../../api/DB";
 import { HotelServiceClient } from "../../../services/HotelServiceClient";
+import UniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
 export default {
-  components: {},
+  components: {UniIcons},
   data() {
     return {
       isLoading: false,
@@ -65,16 +71,36 @@ export default {
       filterVal: "",
       addressName: "",
       dateRange:[new Date().getTime(),new Date().getTime()+1000*60*60*24],
-      location: [],
+      location: []
+
     };
+  },
+  computed:{
+    config(){
+      return this.$store.state.config;
+    }
+  },
+  onShow() {
+    uni.setTabBarItem({index:1,visible:false});
+    uni.setTabBarItem({index:0,visible:false});
   },
   async onLoad() {
     console.log("client onload");
+   
     this.isLoading = true;
     await this.getLocation();
     this.isLoading = false;
   },
+  mounted(){
+    
+  },
   methods: {
+    switchEvent(){
+      uni.setStorageSync("userRole","hotel");
+      uni.reLaunch({
+        url:"/pages/home/home"
+      })
+    },
     foramtDateLabel(dateTime){
       let dyStr = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 					return {
@@ -141,11 +167,27 @@ export default {
         uni.hideLoading();
       }
     },
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+.switch{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding:4px 8px;
+  box-sizing: border-box;
+  background: #000;
+  border-radius: 20px;
+  color:#fff;
+  gap:4px;
+  font-size: 12px;
+  cursor: pointer;
+  &:hover{
+    box-shadow: 0 0 13px 1px #d9d9d9;
+  }
+}
 .page-container {
   height: 100vh;
   background-color: #eee;
