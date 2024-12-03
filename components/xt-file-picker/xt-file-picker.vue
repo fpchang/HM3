@@ -101,7 +101,7 @@ export default{
             for(let i=0;i<len;i++){
               this.selectImageList.push({
                 filePath:res.tempFilePaths[i],
-                fileName:res.tempFiles[i].name,
+                fileName:res.tempFiles[i].name||`img${i}`,
                 percentCompleted:0,
                 uploadStatus:0
               });
