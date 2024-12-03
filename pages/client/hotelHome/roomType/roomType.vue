@@ -1,6 +1,6 @@
 <template>
  <view> 
-  <xt-panal-list :dataList="roomType">
+  <xt-panal-list :dataList="roomType" maxWidth="1200">
 				
     <!-- #ifdef MP -->
     <view v-for="(item,index) of roomType" slot="card{{index}}">
@@ -8,9 +8,22 @@
     </view>
     <!-- #endif -->
     <!-- #ifdef H5 || APP-PLUS -->
-     <template v-for="(item,index) of roomType" v-slot:[`card${index}`]>
-1111111111
-       </template>
+     <template v-for="(item,index) of roomType" v-slot:[`card${index}`]="data">
+        <view class="roomCard">
+           <image :src="item.firstImages" mode="aspectFill" :style="{'width':'100%','height':`${data.cardWidth*3/4}px`}"/>
+          <view  class="label-area">
+            <view class="name-sytle">
+              <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
+              <text class="label-item">{{item.area}}m²</text>
+            </view>
+            <view>
+              <text>可住{{item.guestNumber||2}}人</text>
+              <uni-icons type="forward"></uni-icons>
+            </view>
+          </view>
+         
+        </view>
+     </template>
      <!-- #endif -->
   
     
@@ -20,7 +33,9 @@
 
 <script>
 import {HotelService} from '@/services/HotelService';
+import uniIcons from '../../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
 export default {
+  components: { uniIcons },
   name: "roomType",
   props: {
     hotel_id:{
@@ -63,4 +78,15 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.label-area{
+  display:flex;justify-content:space-between;align-items:center;padding:20px;
+  cursor: pointer;
+  color:#969799;
+  .name-sytle{
+    display:flex;flex-direction:column;
+    gap:8px;
+    .label-item{}
+  }
+}
+</style>

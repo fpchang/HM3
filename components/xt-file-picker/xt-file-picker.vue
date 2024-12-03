@@ -180,7 +180,7 @@ export default{
       uploadingState(){
         let list_isLoading= this.selectImageList.filter(item=>{return item.uploadStatus==0});//上传中
         let list_lodingError= this.selectImageList.filter(item=>{return item.uploadStatus==2});//有上传失败的
-        return list_isLoading.length?0:(list_lodingError?2:1);
+        return list_isLoading.length?0:(list_lodingError.length?2:1);
       },
      isUploading(){
       

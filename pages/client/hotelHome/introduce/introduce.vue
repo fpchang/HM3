@@ -67,19 +67,26 @@ export default {
 $showWidth:1200px;
 .introduce{
   height:calc(100vh - 70px);
-  max-width:$showWidth;
+  max-width: 100vw;
+  width:$showWidth;
   background-color:#f1f1f1
 }
 .barner{
-	width: $showWidth;
+  max-width: 100vw;
+  max-height:56.25vw ;
 	height: ($showWidth/16)*9;
+  max-width: 100vw;
 }
 .barner-swiper{
+  max-width: 100vw;
+  max-height:56.25vw ;
   width: $showWidth;
 	height: ($showWidth/16)*9;
   box-sizing: border-box;
 }
 .barner-image{
+  max-width: 100vw;
+  max-height:56.25vw ;
 	width: $showWidth;
 	height: ($showWidth/16)*9;
 }

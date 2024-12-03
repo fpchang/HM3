@@ -5,10 +5,10 @@
 				<view class="card" v-for="(item,index) of dataList" :style="{width: `${cardWidth}px`}">
 					<view class="card-item">
 						<!-- #ifdef MP -->
-						<slot name="card{{index}}"></slot>
+						<slot name="card{{index}}"  :cardWidth="cardWidth - 20"></slot>
 						<!-- #endif -->
 						<!-- #ifdef H5 || APP-PLUS -->
-						<slot :name="`card${index}`"></slot>
+						<slot :name="`card${index}`" :cardWidth="cardWidth -20"></slot>
 						<!-- #endif -->
 					</view>
 				</view>
@@ -21,6 +21,10 @@
 	export default {
 		name: "xt-panal-list",
 		props: {
+			maxWidth:{
+				type:Number,
+				default:3840
+			},
 			dataList: {
 				type: Array,
 				default: []
@@ -32,6 +36,7 @@
 		},
 		data() {
 			return {
+				obj:{tt:"123"},
 				widthTemp: 0
 			}
 		},
@@ -45,6 +50,7 @@
 				w = uni.getWindowInfo().windowWidth;
 				isPc = uni.getDeviceInfo()['deviceType'] == "pc";
 				// #endif
+				w=Math.min(this.maxWidth,w);
 				let scrollWidth = isPc ? 20 : 0;
 				let val = w - scrollWidth;
 

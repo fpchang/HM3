@@ -77,6 +77,7 @@ $showWidth:1200px;
 .home{	
 	margin: auto;
 	width:$showWidth ;
+	max-width: 100vw;
 }
 .xt-swiper{
 	width: 100vw;
