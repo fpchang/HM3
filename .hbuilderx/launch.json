@@ -2,24 +2,20 @@
     "version" : "1.0",
     "configurations" : [
         {
-        	"default" : 
-        	{
-        		"launchtype" : "local"
-        	},
-        	"h5" : 
-        	{
-        		"launchtype" : "local"
-        	},
-        	"mp-toutiao" : 
-        	{
-        		"launchtype" : "local"
-        	},
-        	"mp-weixin" : 
-        	{
-        		"launchtype" : "local"
-        	},
-        	"provider" : "alipay",
-        	"type" : "uniCloud"
+            "default" : {
+                "launchtype" : "local"
+            },
+            "h5" : {
+                "launchtype" : "local"
+            },
+            "mp-toutiao" : {
+                "launchtype" : "remote"
+            },
+            "mp-weixin" : {
+                "launchtype" : "local"
+            },
+            "provider" : "alipay",
+            "type" : "uniCloud"
         }
     ]
 }

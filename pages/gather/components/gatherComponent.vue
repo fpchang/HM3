@@ -1,85 +1,65 @@
 <template>
 	<view class="gather">
+		
 		<xt-panal-list :dataList="[{}]">
-
-			<!-- #ifdef MP -->
+	
+			 			<!-- #ifdef MP-->
 			<view v-for="(item,index) of [{}]" slot="card{{index}}">
 				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
-				<view> 
-					<uni-grid :column="3" :highlight="true" @change="change" :showBorder="false" v-if="GatgerTab_index==0">
-						<uni-grid-item v-for="(it,ind) in showDataListToday" :index="index" :key="index">
-							<view class=" flex-center" style="background-color: #fff;flex:1">
-								<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column"> 
-									<text style="font-weight:bold">{{it.numCount}}</text>
-								<text style="color:#a1a1a1">{{it.title}}</text>
-								</view>
-								
-							</view>
-						</uni-grid-item>
-					</uni-grid>
-					<uni-grid :column="3" :highlight="true" @change="change" :showBorder="false" v-if="GatgerTab_index==1">
-						<uni-grid-item v-for="(it,ind) in showDataListTommorow" :index="index" :key="index">
-							<view class=" flex-center" style="background-color: #fff;flex:1">
-								<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column"> 
-									<text style="font-weight:bold">{{it.numCount}}</text>
-								<text style="color:#a1a1a1">{{it.title}}</text>
-								</view>
-								
-							</view>
-						</uni-grid-item>
-					</uni-grid>
-					<!-- <uv-grid :border="true" v-if="GatgerTab_index==0">
-						<uv-grid-item v-for="(it,ind) in showDataListToday">
-							<view
-								style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
+				<view class="grid-container" v-if="GatgerTab_index==0">
+					<view v-for="(it,ind) in showDataListToday" class="grid-item">
+						<view class="grid-item-c">
+							<view style="display:flex;align-items:center;justify-content:center;flex-direction:column"> 
 								<text style="font-weight:bold">{{it.numCount}}</text>
 								<text style="color:#a1a1a1">{{it.title}}</text>
 							</view>
-	
-						</uv-grid-item>
-					</uv-grid>
-					<uv-grid :border="true" v-if="GatgerTab_index==1">
-						<uv-grid-item v-for="(it,ind) in showDataListTommorow">
-							<view
-								style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column">
-								<text style="font-weight:bold">{{it.numCount}}</text>
-								<text style="color:#a1a1a1">{{it.title}}</text>
-							</view>
-	
-						</uv-grid-item>
-					</uv-grid> -->
+						</view>
+					</view>
+					<view v-for="it in 5" class="grid-item" style="height:0;padding-bottom:0">
+					</view>
 				</view>
-				
+				<view class="grid-container" v-if="GatgerTab_index==1">
+					<view v-for="(it,ind) in showDataListTommorow" class="grid-item">
+						<view class="grid-item-c">
+							<view style="display:flex;align-items:center;justify-content:center;flex-direction:column"> 
+								<text style="font-weight:bold">{{it.numCount}}</text>
+								<text style="color:#a1a1a1">{{it.title}}</text>
+							</view>
+						</view>
+					</view>
+					<view v-for="it in 5" class="grid-item" style="height:0;padding-bottom:0">
+					</view>
+				</view>
 			</view>
 			<!-- #endif -->
-			<!-- #ifdef H5 || APP-PLUS -->
+			<!-- #ifndef MP-WEIXIN ||  MP-TOUTIAO -->
 			<template v-for="(items,indexs) of [1]" v-slot:[`card${indexs}`]>
 
 				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
-				<view> 
-					<uni-grid :column="3" :highlight="true" @change="change" :showBorder="false" v-if="GatgerTab_index==0">
-						<uni-grid-item v-for="(it,ind) in showDataListToday" :index="index" :key="index">
-							<view class=" flex-center" style="background-color: #fff;flex:1">
-								<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column"> 
-									<text style="font-weight:bold">{{it.numCount}}</text>
+				<view class="grid-container" v-if="GatgerTab_index==0">
+					<view v-for="(it,ind) in showDataListToday" class="grid-item">
+						<view class="grid-item-c">
+							<view style="display:flex;align-items:center;justify-content:center;flex-direction:column"> 
+								<text style="font-weight:bold">{{it.numCount}}</text>
 								<text style="color:#a1a1a1">{{it.title}}</text>
-								</view>
-								
 							</view>
-						</uni-grid-item>
-					</uni-grid>
-					<uni-grid :column="3" :highlight="true" @change="change" :showBorder="false" v-if="GatgerTab_index==1">
-						<uni-grid-item v-for="(it,ind) in showDataListTommorow" :index="index" :key="index">
-							<view class=" flex-center" style="background-color: #fff;flex:1">
-								<view style="padding:15px;display:flex;align-items:center;justify-content:center;flex-direction:column"> 
-									<text style="font-weight:bold">{{it.numCount}}</text>
+						</view>
+					</view>
+					<view v-for="it in 5" class="grid-item" style="height:0;padding-bottom:0">
+					</view>
+				</view>
+				<view class="grid-container" v-if="GatgerTab_index==1">
+					<view v-for="(it,ind) in showDataListTommorow" class="grid-item">
+						<view class="grid-item-c">
+							<view style="display:flex;align-items:center;justify-content:center;flex-direction:column"> 
+								<text style="font-weight:bold">{{it.numCount}}</text>
 								<text style="color:#a1a1a1">{{it.title}}</text>
-								</view>
-								
 							</view>
-						</uni-grid-item>
-					</uni-grid>
-			</view> 
+						</view>
+					</view>
+					<view v-for="it in 5" class="grid-item" style="height:0;padding-bottom:0">
+					</view>
+				</view>
 			</template>
 			<!-- #endif -->
 		</xt-panal-list>
@@ -452,6 +432,24 @@
 			padding: 8px 10px;
 			font-size: 13px;
 
+		}
+	}
+
+	.grid-container{
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		.grid-item{
+			width:33.3%;
+			height: 0;
+			padding-bottom: 33.3%;
+			position:relative;
+			.grid-item-c{
+				position: absolute;
+				left: 50%;
+				top:50%;
+				transform: translate(-50%, -50%);
+			}
 		}
 	}
 </style>
