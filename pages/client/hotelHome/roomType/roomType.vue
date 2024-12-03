@@ -1,5 +1,5 @@
 <template>
- <view> 
+  <scroll-view class="roomType" :scroll-x="false" :scroll-y="true">
   <xt-panal-list :dataList="roomType" maxWidth="1200">
 				
     <!-- #ifdef MP -->
@@ -10,8 +10,11 @@
     <!-- #ifdef H5 || APP-PLUS -->
      <template v-for="(item,index) of roomType" v-slot:[`card${index}`]="data">
         <view class="roomCard">
-           <image :src="item.firstImages" mode="aspectFill" :style="{'width':'100%','height':`${data.cardWidth*3/4}px`}"/>
-          <view  class="label-area">
+          <view class="img-area" :style="{'height':`${data.cardWidth*3/4}px`}"> 
+            <image :src="item.firstImages" mode="aspectFill" style="width:100%;height:100%"/>
+          </view>
+          
+          <view  class="label-area" @click="roomDetail(item)">
             <view class="name-sytle">
               <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
               <text class="label-item">{{item.area}}m²</text>
@@ -28,7 +31,7 @@
   
     
 </xt-panal-list>
- </view>
+  </scroll-view>
 </template>
 
 <script>
@@ -54,6 +57,11 @@ export default {
 
   computed: {},
   methods: {
+    roomDetail(item){
+      uni.navigateTo({
+          url: `/pages/client/roomDetail/roomDetail?roomType=${encodeURIComponent(JSON.stringify(item))}`,
+        });
+    },
     async getRoomType(){
       const res = await  HotelService.getRoomType(this.hotel_id);
 				console.log("房型列表 client",res);
@@ -79,8 +87,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$showWidth:1200px;
+.roomType{
+  height:calc(100vh - 70px);
+  max-width: 100vw;
+  width:$showWidth;
+  background-color:#f1f1f1
+}
+.img-area{
+  box-sizing:border-box;
+  padding:10px;
+  width:100%;
+}
 .label-area{
-  display:flex;justify-content:space-between;align-items:center;padding:20px;
+  display:flex;justify-content:space-between;align-items:center;padding:0 20px 20px 20px;
   cursor: pointer;
   color:#969799;
   .name-sytle{
