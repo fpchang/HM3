@@ -1,52 +1,52 @@
 <template>
-  <view class="xt-panal-list">
-    <view style="display: flex; justify-content: center">
+	<view class="xt-panal-list">
+		<view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view class="card" v-for="(item,index) of dataList" :style="{width: `${cardWidth}px`}">
 					<view class="card-item">
-             <!-- #ifdef MP -->
-             <slot name="card{{index}}"></slot>
-            <!-- #endif -->
+						<!-- #ifdef MP -->
+						<slot name="card{{index}}"></slot>
+						<!-- #endif -->
 						<!-- #ifdef H5 || APP-PLUS -->
-            <slot :name="`card${index}`"></slot>
-             <!-- #endif -->
+						<slot :name="`card${index}`"></slot>
+						<!-- #endif -->
 					</view>
 				</view>
 			</view>
 		</view>
-  </view>
+	</view>
 </template>
 
 <script>
-export default {
-  name: "xt-panal-list",
-  props: {
-    dataList:{
-      type:Array,
-      default:[]
-    },
-    num:{
-      type:Number,
-      default:1
-    }
-  },
-  data() {
-    return {
-      widthTemp: 0
-    }
-  },
-  computed: {
-			
+	export default {
+		name: "xt-panal-list",
+		props: {
+			dataList: {
+				type: Array,
+				default: []
+			},
+			num: {
+				type: Number,
+				default: 1
+			}
+		},
+		data() {
+			return {
+				widthTemp: 0
+			}
+		},
+		computed: {
+
 			viewWidth() {
-        const sys =uni.getSystemInfoSync(); 
-			let isPc = sys['deviceType'] == "pc"
-			let w = sys['windowWidth'];
-			// #ifdef MP-WEIXIN ||APP-PLUS
-			w = uni.getWindowInfo().windowWidth;
-			isPc =uni.getDeviceInfo()['deviceType'] == "pc" ;
-			// #endif
-			let scrollWidth =isPc ? 20 : 0;
-			let val = w - scrollWidth;
+				const sys = uni.getSystemInfoSync();
+				let isPc = sys['deviceType'] == "pc"
+				let w = sys['windowWidth'];
+				// #ifdef MP-WEIXIN ||APP-PLUS
+				w = uni.getWindowInfo().windowWidth;
+				isPc = uni.getDeviceInfo()['deviceType'] == "pc";
+				// #endif
+				let scrollWidth = isPc ? 20 : 0;
+				let val = w - scrollWidth;
 
 				return val + this.widthTemp - this.widthTemp;
 			},
@@ -66,55 +66,56 @@ export default {
 			},
 
 		},
-  methods: {
-  },
-  watch: {},
+		methods: {},
+		watch: {},
 
-  // 组件周期函数--监听组件挂载完毕
-  mounted() {
+		// 组件周期函数--监听组件挂载完毕
+		mounted() {
 			if (window) {
 				window.onresize = () => {
 					this.widthTemp = Math.random(10);
 				};
 			}
 		},
-  // 组件周期函数--监听组件数据更新之前
-  beforeUpdate() {},
-  // 组件周期函数--监听组件数据更新之后
-  updated() {},
-  // 组件周期函数--监听组件激活(显示)
-  activated() {},
-  // 组件周期函数--监听组件停用(隐藏)
-  deactivated() {},
-  // 组件周期函数--监听组件销毁之前
-  beforeDestroy() {},
-}
+		// 组件周期函数--监听组件数据更新之前
+		beforeUpdate() {},
+		// 组件周期函数--监听组件数据更新之后
+		updated() {},
+		// 组件周期函数--监听组件激活(显示)
+		activated() {},
+		// 组件周期函数--监听组件停用(隐藏)
+		deactivated() {},
+		// 组件周期函数--监听组件销毁之前
+		beforeDestroy() {},
+	}
 </script>
 
 <style scoped lang="scss">
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  min-width: 370px;
-  .card {
-    min-width: 370px;
-    max-width: 450px;
-    padding: 10px;
-    box-sizing: border-box;
+	.card-container {
+		display: flex;
+		flex-wrap: wrap;
+		min-width: 370px;
 
-    .card-item {
-      height: 100%;
-      box-sizing: border-box;
-      background: #fff;
-     /* box-shadow: 0 0 4px 4px #e4e0e0;*/
-      border-radius: 10px;
-      box-shadow: 2px 4px 12px #00000014;
-      overflow: hidden;
-      &:hover{
-        box-shadow: 2px 4px 12px #0000006e;
-        
-      }
-    }
-  }
-}
+		.card {
+			min-width: 370px;
+			max-width: 450px;
+			padding: 10px;
+			box-sizing: border-box;
+
+			.card-item {
+				height: 100%;
+				box-sizing: border-box;
+				background: #fff;
+				/* box-shadow: 0 0 4px 4px #e4e0e0;*/
+				border-radius: 10px;
+				box-shadow: 2px 4px 12px #00000014;
+				overflow: hidden;
+
+				&:hover {
+					box-shadow: 2px 4px 12px #0000006e;
+
+				}
+			}
+		}
+	}
 </style>
