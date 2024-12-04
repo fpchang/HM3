@@ -1,9 +1,10 @@
 <template>
-	<view class="content">
+	<view class="orderDishes content">
+		<view style="height:44px"><text>2024-12-22</text></view>
 		<uv-vtabs
 			:chain="chain"
 			:list="menuList"
-			hdHeight="0"
+			hdHeight="44px"
 			:height="vtabsHeight"
 			@change="change">
 			<template v-for="(item,index) in menuList" :key="index">
@@ -16,7 +17,7 @@
 							<view v-for="i of item._id['hm-menuDetail']" class="menuDetail-item">
 
 								<view  style="display:flex;align-items:center;">
-									<view ><text style="padding-left:15px">{{i.name}}{{vtabsHeight}} {{windowHeight}}</text> </view>
+									<view ><text style="padding-left:15px">{{i.name}}</text> </view>
 									
 								</view>
 								<view style="display:flex;align-items:center"> 
@@ -160,6 +161,7 @@ const getList = [{
 						text: "晚餐",
 					}
 				],
+				goodsListPanalHeight: 0,
 				orderDishesForm: {
 					mealDate: '',
 					mealDateTimestamp:0,
@@ -181,7 +183,48 @@ const getList = [{
 				return h;
 			},
 			vtabsHeight(){
-				return this.windowHeight - 70 - 60;
+				//#ifdef H5
+				return this.windowHeight - 70 - 60 ;
+				//#endif
+				return this.windowHeight - 70 - 60 - 44;
+			},checkMenuList() {
+				let resultArray = [];
+				this.menuList.map(item => {
+					let arr = item._id['hm-menuDetail'].filter(it => it.checkCount > 0);
+					if (arr.length) {
+						resultArray.push(arr);
+					}
+					return item;
+				});
+				return resultArray.flat();
+			},
+			checMenuCount() {
+				if (!this.checkMenuList.length) {
+					return 0;
+				}
+				let count = 0;
+				this.checkMenuList.map(item => {
+					count += item.checkCount;
+				})
+				return count;
+			},
+			checMenuPriceTotal() {
+				if (!this.checkMenuList.length) {
+					return 0;
+				}
+				let priceTotal = 0;
+				this.checkMenuList.map(item => {
+					priceTotal += item.checkCount * item.price;
+				})
+				return priceTotal;
+			}
+		},
+		watch: {
+			checMenuCount(newval) {
+				if (newval < 1) {
+					this.goodsListPanalHeight = 0
+				}
+
 			}
 		},
 		mounted(){	
@@ -268,12 +311,14 @@ const getList = [{
 
 			},
 			openGoodsList() {
+				console.log("1111")
 				if (!this.checkMenuList.length) {
 					this.goodsListPanalHeight = 0;
 					return;
 				}
 				this.goodsListPanalHeight = this.goodsListPanalHeight == '0' ? 'calc(100vh - 60px)' : 0;
 				//this.$refs.goodsItemPopup.open();
+				console.log(this.goodsListPanalHeight)
 			},
 			closeGoodsList() {
 				//this.goodsListPanalHeight='0'
@@ -324,6 +369,12 @@ const getList = [{
 </script>
 
 <style lang="scss" scoped>
+$showWidth:800px;
+.orderDishes{
+	width: $showWidth;
+	max-width: 100vw;
+	margin:auto;
+}
 .header {
 	padding: 30rpx;
 	font-size: 30rpx;
@@ -392,7 +443,6 @@ const getList = [{
 		width: 100%;
 		height: 0;
 		overflow: hidden;
-		;
 		transition: all 0.3s linear;
 	}
 
@@ -436,20 +486,19 @@ const getList = [{
 	display: flex;
 	flex-direction: column;
 	transition: height 0.3s linear;
-	.list {
-		display: flex;
-		flex-direction: column;
-		background-color: #fff;
 	
-		.list-item {
-			display: flex;
-			height: 40px;
-			padding: 0 12px;
-			justify-content: space-between;
-			align-items: center;
-		}
-	}
 }
 
+.list {
+	display: flex;
+	flex-direction: column;
+	background-color: #fff;
 
+	.list-item {
+		display: flex;
+		padding: 20px 12px;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
 </style>

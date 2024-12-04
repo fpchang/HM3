@@ -1,5 +1,8 @@
 <template>
-  <scroll-view class="introduce" :scroll-x="false" :scroll-y="true">
+  <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
+    <view class="introduce"> 
+
+    
     <view class="barner">
       <swiper class="barner-swiper"  :indicator-dots="true" :autoplay="true"   :circular="true" indicator-color="#FFF">
       <swiper-item v-for="item of hotel.imagesList">
@@ -24,6 +27,7 @@
       <view class="label-title">设施服务</view>
       <servicesFacilities></servicesFacilities>
     </view>
+  </view>
   </scroll-view>
 </template>
 
@@ -65,10 +69,13 @@ export default {
 
 <style scoped lang="scss">
 $showWidth:1200px;
-.introduce{
+.scroll-style{
   height:calc(100vh - 70px);
+}
+.introduce{
   max-width: 100vw;
   width:$showWidth;
+  margin:auto;
   background-color:#f1f1f1
 }
 .barner{

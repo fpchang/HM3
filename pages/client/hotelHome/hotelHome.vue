@@ -75,7 +75,7 @@ import orderDishes from './orderDishes/orderDishes';
 </script>
 
 <style lang="scss" scoped>
-$showWidth:1200px;
+$showWidth:100vw;
 .home{	
 	margin: auto;
 	width:$showWidth ;

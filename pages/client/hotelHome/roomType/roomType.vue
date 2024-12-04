@@ -1,5 +1,8 @@
 <template>
-  <scroll-view class="roomType" :scroll-x="false" :scroll-y="true">
+  <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
+    <view class="roomType"> 
+
+   
   <xt-panal-list :dataList="roomType" maxWidth="1200">
 				
     <!-- #ifdef MP -->
@@ -63,6 +66,7 @@
   
     
 </xt-panal-list>
+</view>
   </scroll-view>
 </template>
 
@@ -120,10 +124,14 @@ export default {
 
 <style scoped lang="scss">
 $showWidth:1200px;
-.roomType{
+.scroll-style{
   height:calc(100vh - 70px);
+}
+.roomType{
+  
   max-width: 100vw;
   width:$showWidth;
+  margin:auto;
   background-color:#f1f1f1
 }
 .img-area{
