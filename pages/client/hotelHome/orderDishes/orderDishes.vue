@@ -34,11 +34,11 @@
 
 						</view>
 					</view>
-					<view 
+					<!-- <view 
 						class="gap"
 						v-if="index<list.length-1">
 						<uv-gap bg-color="#f1f1f1" height="4"></uv-gap>
-					</view>
+					</view> -->
 				</uv-vtabs-item>
 			</template>
 			<uv-gap bg-color="#fff" height="600"></uv-gap>

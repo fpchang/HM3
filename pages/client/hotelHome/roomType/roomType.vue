@@ -3,7 +3,7 @@
     <view class="roomType"> 
 
    
-  <xt-panal-list :dataList="roomType" maxWidth="1200">
+  <xt-panal-list :dataList="roomType" maxWidth=1200>
 				
     <!-- #ifdef MP -->
     <view v-for="(item,index) of roomType" slot="card{{index}}">
