@@ -1,7 +1,7 @@
 <template>
   <scroll-view class="introduce" :scroll-x="false" :scroll-y="true">
     <view class="barner">
-      <swiper class="barner-swiper"  :indicator-dots="true" :autoplay="true" :interval="interval" :duration="duration" :circular="true" indicator-color="#FFF">
+      <swiper class="barner-swiper"  :indicator-dots="true" :autoplay="true"   :circular="true" indicator-color="#FFF">
       <swiper-item v-for="item of hotel.imagesList">
          <image show-menu-by-longpress :src="item" class="barner-image" mode="aspectFill"></image>						
       </swiper-item>

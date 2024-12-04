@@ -11,7 +11,7 @@
 			<view class="room-info-label">房型信息</view>
 			<view class="room-info-list">
 			  <view class="room-info-list-item">
-				<uni-icons type="personadd-filled" size="30px"></uni-icons>
+				<uni-icons type="personadd-filled" size="30px" color="#000"></uni-icons>
 				<view class="la">宜住{{roomType.guestNumber||2}}人</view>
 			  </view>      
 			  
@@ -53,8 +53,41 @@
 				</view>
 			  </view>
 			</view>
-
+			<view class="room-info-label">价格信息</view>
+			<view class="p-list"> 
+				<view class="p-list-item">
+					<view class="title-area"> 
+						<text>标准价格</text>
+					</view>
+					<view> 
+						<text class="pr-text">￥299</text>
+						<text class="edit-text-btn-style">预定</text>
+					</view>
+					
+				</view>
+				<view class="p-list-item">
+					<view class="title-area"> 
+						<text>包含2份早餐</text>
+					</view>
+					<view> 
+						<text class="pr-text">￥399</text>
+						<text class="edit-text-btn-style">预定</text>
+					</view>
+				</view>
+				<view class="p-list-item">
+					<view class="title-area"> 
+						<text>包含2份早餐</text>
+						<text>包含2张萤火虫票</text>
+					</view>
+					
+					<view> 
+						<text class="pr-text">￥499</text>
+						<text class="edit-text-btn-style">预定</text>
+					</view>
+				</view>
+			</view>
 		</view>
+	
 	</scroll-view>
 </template>
 
@@ -69,8 +102,23 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 				roomType:null
 			}
 		},
+		computed:{
+			isPcShow(){
+				return this.$store.state.isPcShow;
+			}
+		},
 		methods: {
 			
+		},
+		onShow(){
+			try {
+				if(this.isPcShow){
+					document.getElementsByTagName('uni-page-head')[0].style.display = 'none';	
+				}
+				
+			} catch (error) {
+				
+			}
 		},
 		onLoad(params){
 			console.log("params",params);
@@ -86,6 +134,7 @@ $showWidth:1200px;
 	width: $showWidth;
 	max-width: 100vw;
 	height: 100vh;
+	margin: auto;
 }
 .barner{
 	max-width: 100vw;
@@ -133,4 +182,27 @@ $showWidth:1200px;
 	  height: 48px;
 	  
 	}
+
+	.p-list{
+		padding:0 20px;
+		.p-list-item{
+			padding:15px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-top: 1px solid #eee;
+			&:last-child{
+				border-bottom: 1px solid #eee;
+			}
+		.title-area{
+			display: flex;
+			flex-direction: column;
+		}
+		.pr-text{
+			padding:0 10px;
+			color: orange;
+			font-weight: bold;
+		}
+		}
+	} 
 </style>

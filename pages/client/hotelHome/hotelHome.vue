@@ -13,7 +13,8 @@
 				</view> -->
 
 				<introduce v-show="tabId=='b1'" :hotel="hotel"></introduce>	
-				<roomType v-show="tabId=='b2'" :hotel_id="hotel._id"></roomType>			
+				<roomType v-show="tabId=='b2'" :hotel_id="hotel._id"></roomType>
+				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>			
 		</view>
 		<view class="flex-flex-page-bottom">
 			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab"></xt-tabbar>
@@ -25,8 +26,9 @@
 <script>
 import introduce from './introduce/introduce';
 import roomType from './roomType/roomType';
+import orderDishes from './orderDishes/orderDishes';
 	export default {
-  components: { introduce,roomType },
+  components: { introduce,roomType ,orderDishes},
 		data() {
 			return {
 				tabbarList:[

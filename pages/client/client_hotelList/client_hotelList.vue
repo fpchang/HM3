@@ -38,7 +38,7 @@
 
 					<!-- #ifdef MP -->
 					<view v-for="(item,index) of hotelList" slot="card{{index}}">
-						<view style="display:flex;" class="zcard" @click="openHotel(item)">
+						 <view style="display:flex;" class="zcard" @click="openHotel(item)">
 							<view style="width:120px;min-height:160px">
 								<image style="width:100%;height:100%" mode="aspectFill" :src="item.firstImages" />
 							</view>
@@ -150,7 +150,7 @@
 				console.log(">>>>>",this.conditionForm)
 				try {
 					const res = await this.$store.dispatch("hotelClientStore/getHotelList",this.conditionForm);
-					console.log(res);
+					console.log("hotelList",res);
 					uni.hideLoading();
 				} catch (error) {
 					console.log(error);

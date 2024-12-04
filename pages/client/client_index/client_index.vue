@@ -113,6 +113,7 @@ export default {
       console.log(e)
     },
     getLocation() {
+      return true;
       // #ifdef H5
       return true;
       // #endif

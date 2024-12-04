@@ -5,7 +5,7 @@
 				<view class="card" v-for="(item,index) of dataList" :style="{width: `${cardWidth}px`}">
 					<view class="card-item">
 						<!-- #ifdef MP -->
-						<slot name="card{{index}}"  :cardWidth="cardWidth - 20"></slot>
+						<slot name="card{{index}}"></slot>
 						<!-- #endif -->
 						<!-- #ifdef H5 || APP-PLUS -->
 						<slot :name="`card${index}`" :cardWidth="cardWidth -20"></slot>

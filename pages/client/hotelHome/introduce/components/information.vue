@@ -29,7 +29,10 @@ export default {
     return {}
   },
   computed: {},
-  methods: {},
+  methods: {
+    toConcat(){},
+    makePhone(){}
+  },
   watch: {},
 
   // 组件周期函数--监听组件挂载完毕

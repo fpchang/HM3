@@ -11,7 +11,7 @@
      <template v-for="(item,index) of roomType" v-slot:[`card${index}`]="data">
         <view class="roomCard">
           <view class="img-area" :style="{'height':`${data.cardWidth*3/4}px`}"> 
-            <image :src="item.firstImages" mode="aspectFill" style="width:100%;height:100%"/>
+            <image :src="item.firstImages" mode="aspectFill" style="width:100%;height:100%"  @click="roomDetail(item)"/>
           </view>
           
           <view  class="label-area" @click="roomDetail(item)">
@@ -23,8 +23,40 @@
               <text>可住{{item.guestNumber||2}}人</text>
               <uni-icons type="forward"></uni-icons>
             </view>
+            
           </view>
-         
+          <view class="p-list"> 
+            <view class="p-list-item">
+              <view class="title-area"> 
+                <text>标准价格</text>
+              </view>
+              <view class="pr-area"> 
+                <text class="pr-text">￥299</text>
+                <text class="edit-text-btn-style">预定</text>
+              </view>
+              
+            </view>
+            <view class="p-list-item">
+              <view class="title-area"> 
+                <text>包含2份早餐</text>
+              </view>
+              <view class="pr-area"> 
+                <text class="pr-text">￥399</text>
+                <text class="edit-text-btn-style">预定</text>
+              </view>
+            </view>
+            <view class="p-list-item">
+              <view class="title-area"> 
+                <text>包含2份早餐</text>
+                <text class="text-overflow-ellipsis">包含2张萤火虫票包含2张萤火虫票包含2张萤火虫票包含2张萤火虫票</text>
+              </view>
+              
+              <view class="pr-area"> 
+                <text class="pr-text">￥499</text>
+                <text class="edit-text-btn-style">预定</text>
+              </view>
+            </view>
+          </view>
         </view>
      </template>
      <!-- #endif -->
@@ -109,4 +141,36 @@ $showWidth:1200px;
     .label-item{}
   }
 }
+.p-list{
+  .p-list-item{
+    box-sizing: border-box;
+    padding:15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+    &:last-child{
+      border-bottom: 1px solid #eee;
+    }
+  .title-area{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 1;
+  }
+  .pr-area{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: space-between;
+    min-width: 86px;
+    .pr-text{
+      color: orange;
+      font-weight: bold;
+      padding:0 4px;
+    }
+  }
+ 
+  }
+} 
 </style>
