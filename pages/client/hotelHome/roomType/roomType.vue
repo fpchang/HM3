@@ -132,7 +132,7 @@ $showWidth:1200px;
   max-width: 100vw;
   width:$showWidth;
   margin:auto;
-  background-color:#f1f1f1
+ /* background-color:#f1f1f1*/
 }
 .img-area{
   box-sizing:border-box;

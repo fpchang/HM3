@@ -42,11 +42,26 @@ import orderDishes from './orderDishes/orderDishes';
 		},
 		computed:{
 		},
+		watch:{
+			tabId(val){
+				const titleObj={
+					"b1":"简介",
+					"b2":"房型",
+					"b3":"订餐"
+				}
+				
+				uni.setNavigationBarTitle({
+        			title:`【${this.hotel.hotelName}】${titleObj[val]}` ,
+      				});
+			}
+		},
 		onLoad(params){
 			try {
 				console.log("传递参数",params)
 				this.hotel = JSON.parse(decodeURIComponent(params.hotel)) ;
-
+				uni.setNavigationBarTitle({
+        			title:`【${this.hotel.hotelName}】简介` ,
+      				});
 			} catch (error) {
 				
 			}

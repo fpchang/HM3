@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$showWidth:1200px;
+$showWidth:800px;
 .scroll-style{
   height:calc(100vh - 70px);
 }
