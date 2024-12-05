@@ -126,8 +126,10 @@
 			}
 		},
 		watch:{
-			hotel_id(newval,oldval){
+			hotel_id(val,oldVal){
+				if(val!=oldVal){
 				this.getOrderListByCondition();
+				}
 			},
 			async partialRefreshComName(val){
 				//下拉刷新

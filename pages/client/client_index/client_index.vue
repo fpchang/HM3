@@ -78,6 +78,18 @@ export default {
   computed:{
     config(){
       return this.$store.state.config;
+    },
+    user(){
+      return this.$store.state.user;
+    }
+  },
+  watch:{
+    user(val){
+      if(val.phone!=oldVal.phone&&val.phone){
+		    console.log("user改变",val,oldVal);
+        this.getHotelList();
+      }
+     
     }
   },
   onShow() {
@@ -126,6 +138,7 @@ export default {
             console.log(data);
             this.addressName = data[0].name;
             this.location = [data[0].longitude, data[0].latitude];
+            this.$store.commit("setLocation",this.location);
             uni.hideLoading();
             resolve();
           },
@@ -138,21 +151,8 @@ export default {
       });
     },
     async getHotelList() {
-      if (this.isLoading) {
-        console.log("isloading....");
-        return;
-      }
-      uni.showLoading();
       try {
-        const res = await this.$store.dispatch(
-          "hotelClientStore/getHotelList",
-          {
-            location: [119.882659, 30.626099],
-            maxDistance: 5000,
-            filterVal: this.filterVal,
-          }
-        );
-        console.log(res);
+        await this.$store.dispatch("loginEvent");
         const condition={
           filterVal:this.filterVal,
           addressName: this.addressName,
@@ -162,11 +162,39 @@ export default {
         uni.navigateTo({
           url: `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`,
         });
-        uni.hideLoading();
       } catch (error) {
-        console.log(error);
-        uni.hideLoading();
+        console.log("检验登录不通过",error)
       }
+     
+      // if (this.isLoading) {
+      //   console.log("isloading....");
+      //   return;
+      // }
+      // uni.showLoading();
+      // try {
+      //   const res = await this.$store.dispatch(
+      //     "hotelClientStore/getHotelList",
+      //     {
+      //       location: [119.882659, 30.626099],
+      //       maxDistance: 5000,
+      //       filterVal: this.filterVal,
+      //     }
+      //   );
+      //   console.log(res);
+      //   const condition={
+      //     filterVal:this.filterVal,
+      //     addressName: this.addressName,
+      //     dateRange:this.dateRange,
+      //     location:this.location,
+      //   }
+      //   uni.navigateTo({
+      //     url: `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`,
+      //   });
+      //   uni.hideLoading();
+      // } catch (error) {
+      //   console.log(error);
+      //   uni.hideLoading();
+      // }
     },
   }
 };

@@ -176,8 +176,10 @@ import  {DB} from '../../../api/DB';
 			
 		},
 		watch:{
-			hotel_id(){
+			hotel_id(val,oldVal){
+				if(val!=oldVal){
 				 this.$store.dispatch("getRoomType");
+				}
 			},
 			async partialRefreshComName(val){
 				//下拉刷新

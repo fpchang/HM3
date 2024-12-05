@@ -160,8 +160,10 @@ import  {OrderService} from '../../../services/OrderService';
 
 		},
 		watch:{
-			hotel_id(newval,oldval){
+			hotel_id(val,oldVal){
+				if(val!=oldVal){
 				this.$store.dispatch("getOrderListTodayAfter",this.hotel_id);
+				}
 			},
 			async partialRefreshComName(val){
 				//下拉刷新
