@@ -1,26 +1,163 @@
 <template>
 	<view>
 		<scroll-view style="height: calc(100vh - 84px);" scroll-x="false" scroll-y="true">
-			<xt-panal-list :dataList="hotelList"> 
-				
+			<xt-panal-list :dataList="orderList"> 
+				<!-- #ifdef MP -->
+				<view v-for="(item,index) of orderList" slot="card{{index}}">
+					{{ item }}
+				</view>
+				<!--#endif-->
+				<!-- #ifdef H5 || APP-PLUS -->
+				<template v-for="(item,index) of orderList" v-slot:[`card${index}`]>
+					<view class="cart-area">
+						<view class="card-nav">
+							<view class="card-nav-item">
+							  <view class="tit"><text>就餐日期:</text></view
+							  ><view style="flex: 1" class="text-overflow-ellipsis"
+								><text class="add-text-style" >{{ item.mealDate }}</text></view
+							  ></view
+							>
+						  </view>
+	
+						  <view  class="menu-detail-content" >
+							<view class="menu-detail-content-item" v-for="it of item.checkMenuList" >
+							  <text class="itx-n">{{it.name}}<text v-if="it.checkCount>1">（{{it.checkCount}}）</text></text>
+							  <view style="display: flex;"> 
+								<text class="itx-p">￥{{it.price *it.checkCount}} </text>
+						 
+								<view class="icon-area">
+								</view>
+							  </view>
+							  
+								  
+							</view>
+							 
+						  </view>
+						  <view class="card-bottom">
+							<view class="priceTotal"> <text style="font-weight:bold">总价:</text> <text style="color:#ff0000;padding:0 8px">￥{{totalPrice}}</text></view>
+						   
+						  </view>
+					</view>
+					
+				</template>
+				<!--#endif-->
 			</xt-panal-list>
 		</scroll-view>
 	</view>
 </template>
 
 <script>
+import { MenuService } from '../../../services/MenuService';
 	export default {
 		data() {
 			return {
-				
+				orderList:null,
+				hotel_id:""
 			}
 		},
+		computed:{
+			user(){
+				return this.$store.state.user;
+			}
+		},
+		watch:{
+			user(obj){
+				this.getOrderDishesList()
+			}
+		},
+		async onLoad(params){
+			console.log("参数",params)
+			this.hotel_id=params.hotel_id;
+			if(this.hotel_id){
+				await this.getOrderDishesList();
+			}
+		},
+		mounted(){
+
+		},
 		methods: {
-			
+			async getOrderDishesList() {
+				console.log("参数",this.hotel_id,this.user.phone);
+				const res = await MenuService.getOrderDishesListByCondition({hotel_id:this.hotel_id,phone:this.user.phone});
+				console.log("请求orderdishes",res);
+				this.orderList=res.result.data;
+	
+		}
 		}
 	}
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.cart-area{
+	padding:15px;
+	color: #7e7f81;
+}
+.card-nav{
+	.card-nav-item {
+	  height: 30px;
+	  display: flex;
+	  align-items: center;
+	  font-size: $uni-font-size-base;
+	  .tit {
+		min-width: 60px;
+		font-weight: bold;
+		padding-right: 12px;
+	  }
+	  .add-text-style{
+		color: $font-color-control;
+		&:hover {
+		  color: $font-color-control-hover;
+		}
+	  };
+	  .phone-style {
+		color: $font-color-control;
+		&:hover {
+		  color: $font-color-control-hover;
+		}
+	  }
+	}
+  }
+  .menu-detail-content{
+  
+	.menu-detail-content-item{
+		padding:5px 0 ;
+	  display:flex;
+	  justify-content:space-between;
+	  font-weight: 500;
+	  color:#7e7f81;
+	  align-items: center;
+	  min-height: 35px;
+	  font-size: $uni-font-size-base;
+	  box-sizing: border-box;
+	  border-bottom: 1px dotted #bbbbbb47;
+	  .edit-style{
+		color: $font-color-control;
+		font-size: $uni-font-size-sm;
+	  }
+	  .itx-p{
+		color:#ff0000;
+	  }
+	  /**&:nth-child(odd){
+		
+		  padding-right: 20px;
+		
+	  };
+	  &:nth-child(even){
+		
+		  padding-left: 20px;
+		
+	  };**/
+	}
+  }
+  .card-bottom{
+	flex: 1;
+	display: flex;
+	align-items: end;
+	.priceTotal{
+		flex: 1;
+		padding:10px 0 ;
+		display: flex;
+		justify-content: end;
+	  }
+  }
 </style>

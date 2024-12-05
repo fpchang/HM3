@@ -213,7 +213,7 @@
 	"path" : "pages/client/orderDishesList/orderDishesList",
 	"style" : 
 	{
-		"navigationBarTitleText" : ""
+		"navigationBarTitleText" : "餐饮订单"
 	}
 }
 ],

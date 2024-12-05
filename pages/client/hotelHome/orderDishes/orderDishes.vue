@@ -98,9 +98,9 @@
 					
 				</view>  -->
 				</view>
-				<view style="display:flex"> 
+				<view style="display:flex;min-width:103px"> 
 					<view @click="openOrderDishesList" class="order-commit-style btn btn-normal">
-						<text>查看</text>
+						<text>订单</text>
 					</view>
 					<view @click="submit" :class="['order-commit-style', 'btn',checMenuCount<1?'btn-disabled':'']">
 						<text>选好了</text>
@@ -248,7 +248,7 @@
 				}
 			},
 			openOrderDishesList(){
-				uni.navigateTo({url:"/pages/client/orderDishesList/orderDishesList"})
+				uni.navigateTo({url:`/pages/client/orderDishesList/orderDishesList?hotel_id=${this.hotel_id}`})
 			},
 			getMenuListFormat(menuList = []) {
 				try {
