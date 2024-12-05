@@ -18,7 +18,7 @@
     </view>
    <view class="text-container"> 
     <view><text>【{{hotel.hotelName}}】</text></view>
-    <view><text>如有疑问，请联系</text><text style="cursor:pointer;color:#06c;padding-left:8px" @click="makePhoneCallEvent(hotel.contactPhone)">{{hotel.contactPhone||1998882121}}</text></view>
+    <view><text>如有疑问，请联系</text><text style="cursor:pointer;color:#06c;padding-left:8px" @click="makePhoneCallEvent(hotel.contactPhone)">{{hotel.contactPhone}}</text></view>
     
    </view>
   </view>

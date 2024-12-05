@@ -208,6 +208,13 @@
 	{
 		"navigationBarTitleText" : ""
 	}
+},
+{
+	"path" : "pages/client/orderDishesList/orderDishesList",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
 }
 ],
 	"tabBar": {

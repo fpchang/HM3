@@ -92,7 +92,7 @@ export default {
     this.isLoading = false;
   },
   mounted(){
-    
+    console.log("config",this.config)
   },
   methods: {
     switchEvent(){

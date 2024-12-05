@@ -239,6 +239,10 @@ export default {
       this.$store.commit("setUser", userRes.result.data[0]);
       this.submitLoading=false;
       let userRole =uni.getStorageSync("userRole");
+      if(getCurrentPages().length>1){
+						uni.navigateBack();
+						return;
+					}
       uni.reLaunch({
         url: userRole=="hotel"?"/pages/home/home":"/pages/client/client_index/client_index",
       });

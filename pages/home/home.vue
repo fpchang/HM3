@@ -199,7 +199,7 @@
 			};
 		},
 		onLoad(e) {
-			
+			console.log("home onload")
 		},
 		created() {
 			console.log("index create....>>>", uni.getSystemInfoSync());

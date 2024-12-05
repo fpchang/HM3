@@ -160,16 +160,16 @@
 			openHotel(hotel){
 				let href = `#/pages/client/hotelHome/hotelHome?hotel=${encodeURIComponent(JSON.stringify(hotel))}`;
 				// #ifdef H5
-				window.open(href, "_blank");
-				return;
+				//window.open(href, "_blank");
+				//return;
 				// #endif
-				// #ifndef H5
+				//// #ifndef H5
+				
+			
+				//// #endif
 				uni.navigateTo({
 					url:`/pages/client/hotelHome/hotelHome?hotel=${encodeURIComponent(JSON.stringify(hotel))}`
 				})
-			
-				// #endif
-				
 			}
 		},
 		onShow() {

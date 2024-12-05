@@ -1,41 +1,22 @@
 <script>
-import {AccountService} from "./services/AccountService";
+
 	export default {
 		onLaunch: async function(ob) {
 			console.log("参数信息",ob)
-			console.log('App Launch XXXXXXXXXX',uni.getSystemInfoSync());
-			// console.log("111",uni.getSystemInfoSync().deviceType)
-			// console.log("222",uni.getDeviceInfo().deviceType)
-			// try {
-			// 	let {hotel_id} = ob.query;
-			// if(hotel_id){
-			// 	this.$store.commit("checkHotel",hotel_id);
-			// }
-			// } catch (error) {
-				
-			// }
-		
+			console.log('App Launch XXXXXXXXXX',uni.getSystemInfoSync());		
 			this.getEnv();
 			this.initData();
-			this.setConfig();
 			
+			//this.$isResolve();
 		},
 		onShow: function() {
 			console.log('App Show');
-			this.initData();
 		},
 		onHide: function() {
 			console.log('App Hide')
 		},
 		methods:{
-			async setConfig(){
-				try {
-					const res = await AccountService.getConfig();
-					this.$store.commit("setConfig",res.result)
-				} catch (error) {
-					console.error(error)
-				}
-			},
+
 			 initData(){
 				const sys =uni.getSystemInfoSync(); 
 				let flag  = sys['deviceType']=='pc' ||sys['windowWidth']>740; 

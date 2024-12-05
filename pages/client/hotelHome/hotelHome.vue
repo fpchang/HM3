@@ -17,7 +17,7 @@
 				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>			
 		</view>
 		<view class="flex-flex-page-bottom">
-			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab"></xt-tabbar>
+			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
 		</view>
 		
 	</view>

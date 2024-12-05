@@ -1,6 +1,6 @@
 <template>
 	<view class="index">
-		<view class="container"> 
+		<view class="container" v-if="!isLoading"> 
 			<view class="item">
 				<view  class="card" @click="selectRole('user')"> 
 					<view class="i"><uni-icons type="person-filled" size="100"></uni-icons></view>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import {AccountService} from "../../services/AccountService";
 import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
 	
 	export default {
@@ -37,21 +38,25 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 
 		data() {
 			return {
-				
+				isLoading:true
 			};
 		},
-		onLoad(e) {},
-		created() {
+		async onLoad(e) {
+			// const { proxy } = getCurrentInstance();
+			// await proxy.$onLaunched;
+			await this.setConfig();
+			this.isLoading=false;
 			let userRole =uni.getStorageSync("userRole");
 			if(!userRole){
 				return;
 			}
 			uni.reLaunch({
-        		url: userRole=="hotel"?"/pages/home/home":"/pages/client/client_index/client_index",
+        		url: userRole!="hotel"?"/pages/client/client_index/client_index":"/pages/home/home",
       		});
-			// uni.reLaunch({
-			// 	url:'/pages/client/clinet_index/clinet_index',
-			// })
+
+		},
+		created() {
+		
 		},
 		onShow() {
 			
@@ -80,6 +85,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 			
 		},
 		methods: {
+
 			selectRole(role){
 				switch(role){
 					case "user":
@@ -98,6 +104,15 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 					case "travelAgency":
 					uni.setStorageSync("userRole","travelAgency");
 					break;
+				}
+			},
+			async setConfig(){
+				try {
+					const res = await AccountService.getConfig();
+					console.log("参数config",res)
+					this.$store.commit("setConfig",res.result)
+				} catch (error) {
+					console.error(error)
 				}
 			}
 		}

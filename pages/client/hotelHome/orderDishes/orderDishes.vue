@@ -1,12 +1,20 @@
 <template>
 	<view class="orderDishes content">
-		<view style="height:44px"><text>2024-12-22</text></view>
-		<uv-vtabs
-			:chain="chain"
-			:list="menuList"
-			hdHeight="44px"
-			:height="vtabsHeight"
-			@change="change">
+		<view class="flex-center top-area">
+			<view>
+				 <uni-datetime-picker v-model="orderDishesForm.mealDate" type="date"  @change="dateConfim">
+					<view class="flex-center">
+						<uni-icons type="calendar" size="24" color="#60626680"></uni-icons><text :style="{color:orderDishesForm.mealDate?'#313131':'#60626680'}" :start="Date.now()">{{orderDishesForm.mealDate||'请选择用餐时间'}}</text>
+					</view>
+					
+				</uni-datetime-picker>
+			</view>
+			<view> 
+				<uni-data-checkbox v-model="orderDishesForm.mealType" :localdata="mealTypeItems"></uni-data-checkbox>
+			</view>
+			
+		</view>
+		<uv-vtabs :chain="chain" :list="menuList" hdHeight="44px" :height="vtabsHeight" @change="change">
 			<template v-for="(item,index) in menuList" :key="index">
 				<uv-vtabs-item :index="index">
 					<view class="item" :key="index2">
@@ -16,15 +24,17 @@
 						<view class="item-content menuDetail">
 							<view v-for="i of item._id['hm-menuDetail']" class="menuDetail-item">
 
-								<view  style="display:flex;align-items:center;">
-									<view ><text style="padding-left:15px">{{i.name}}</text> </view>
-									
+								<view style="display:flex;align-items:center;">
+									<image src="https://env-00jxh1m2dpmq.normal.cloudstatic.cn/HM/images/food.jpg"
+										style="width:80px;height:60px"></image>
+									<view><text style="padding-left:15px">{{i.name}}</text> </view>
+
 								</view>
-								<view style="display:flex;align-items:center"> 
+								<view style="display:flex;align-items:center">
 									<view class="price-style"><text>￥</text><text>{{i.price}}</text> </view>
 									<view class="ad-lose-num flex-center">
-										<uni-icons type="minus-filled" size="24" color="orange" @click="loseMenuCount(i)"
-											v-if="i.checkCount>0"></uni-icons>
+										<uni-icons type="minus-filled" size="24" color="orange"
+											@click="loseMenuCount(i)" v-if="i.checkCount>0"></uni-icons>
 										<text style="padding:0 8px" v-if="i.checkCount>0">{{i.checkCount}}</text>
 										<uni-icons type="plus-filled" size="24" color="orange"
 											@click="addMenuCount(i)"></uni-icons>
@@ -88,9 +98,15 @@
 					
 				</view>  -->
 				</view>
-				<view @click="submit" :class="['order-commit-style', 'btn',checMenuCount<1?'btn-disabled':'']">
-					<text>选好了</text>
+				<view style="display:flex"> 
+					<view @click="openOrderDishesList" class="order-commit-style btn btn-normal">
+						<text>查看</text>
+					</view>
+					<view @click="submit" :class="['order-commit-style', 'btn',checMenuCount<1?'btn-disabled':'']">
+						<text>选好了</text>
+					</view>
 				</view>
+				
 
 			</view>
 
@@ -99,40 +115,42 @@
 </template>
 
 <script>
-import  {HotelService} from '../../../../services/HotelService';
-import  {MenuService} from '../../../../services/MenuService';
+	import {
+		HotelService
+	} from '../../../../services/HotelService';
+	import {
+		MenuService
+	} from '../../../../services/MenuService';
 
 	export default {
 		props: {
-			hotel_id:{
-				type:String,
-				default:""
+			hotel_id: {
+				type: String,
+				default: ""
 			}
 		},
 		data() {
 			return {
-				hotel:null,
-				mealTypeItems: [
-					{
-						value: "lunch",
-						text: "午餐",
-					}, {
-						value: "dinner",
-						text: "晚餐",
-					}
-				],
+				hotel: null,
+				mealTypeItems: [{
+					value: "lunch",
+					text: "午餐",
+				}, {
+					value: "dinner",
+					text: "晚餐",
+				}],
 				goodsListPanalHeight: 0,
 				orderDishesForm: {
 					mealDate: '',
-					mealDateTimestamp:0,
+					mealDateTimestamp: 0,
 					mealType: 'dinner',
 					userName: "",
 					phone: "",
 				},
-				menuList:[]
+				menuList: []
 			}
 		},
-		computed:{
+		computed: {
 			windowHeight() {
 				const sys = uni.getSystemInfoSync();
 				let h = sys['windowHeight'];
@@ -141,12 +159,16 @@ import  {MenuService} from '../../../../services/MenuService';
 				// #endif
 				return h;
 			},
-			vtabsHeight(){
+			vtabsHeight() {
 				//#ifdef H5
-				return this.windowHeight - 70 - 60 ;
+				return this.windowHeight - 70 - 60;
 				//#endif
 				return this.windowHeight - 70 - 60 - 44;
-			},checkMenuList() {
+			},
+			user(){
+				return this.$store.state.user;
+			},
+			checkMenuList() {
 				let resultArray = [];
 				this.menuList.map(item => {
 					let arr = item._id['hm-menuDetail'].filter(it => it.checkCount > 0);
@@ -186,26 +208,27 @@ import  {MenuService} from '../../../../services/MenuService';
 
 			}
 		},
-		mounted(){				
+		mounted() {
+			console.log("hotel",this.hotel)
 			this.getData();
-	
+
 		},
 		methods: {
 			async getData() {
-				if(!this.hotel_id){
+				if (!this.hotel_id) {
 					return;
 				}
 				try {
 					//uni.showLoading();
-					
+
 					const hotelRes = await HotelService.getHotelInfoById(this.hotel_id);
 					const res = await MenuService.getMenuList(this.hotel_id);
 					console.log("酒店信息", hotelRes)
 					console.log("菜单列表", res)
 					this.hotel = hotelRes.result.data[0];
 					this.menuList = this.getMenuListFormat(res.result.data);
-					console.log("menulist",this.menuList)
-					
+					console.log("menulist", this.menuList)
+
 					uni.hideLoading();
 				} catch (error) {
 					console.error(error);
@@ -216,20 +239,30 @@ import  {MenuService} from '../../../../services/MenuService';
 					});
 				}
 			},
-
+			//重选
+			resetMenuList(){
+				for(let i =0;i<this.menuList.length;i++){
+					for(let j =0;j<this.menuList[i]._id['hm-menuDetail'].length;j++){
+						this.menuList[i]._id['hm-menuDetail'][j].checkCount==0;
+					}
+				}
+			},
+			openOrderDishesList(){
+				uni.navigateTo({url:"/pages/client/orderDishesList/orderDishesList"})
+			},
 			getMenuListFormat(menuList = []) {
 				try {
-					
+
 					let arr = menuList.map(item => {
-						item._id['hm-menuDetail'].map(it => {							
+						item._id['hm-menuDetail'].map(it => {
 							it.checkCount = 0;
 							return it;
 						});
-						item.childrens={
-								name:item.name,
-								list:item._id['hm-menuDetail']
-							}
-						
+						item.childrens = {
+							name: item.name,
+							list: item._id['hm-menuDetail']
+						}
+
 						return item;
 					});
 					return arr
@@ -279,182 +312,204 @@ import  {MenuService} from '../../../../services/MenuService';
 			closeGoodsList() {
 				//this.goodsListPanalHeight='0'
 			},
-			 submit() {
+			async submit() {
 				//http://localhost:8080/#/pages/catering/orderDishes/orderDishes?hotel_id=66f4d677e4ec9dbeca1f8ff9
-				if(this.checMenuCount<1||this.isLoading){
+				if (this.checMenuCount < 1 || this.isLoading) {
 					return;
 				}
-				this.$refs.orderDishesRef.validate().then(async (res) => {
-					this.isLoading=true;
+				if(!this.orderDishesForm.mealDate){
+					uni.showToast({title:"请选择用餐日期",icon:"none"})
+					return;
+				}
+					this.isLoading = true;
 					//uni.showLoading();
-					let orderDishesObj =Object.assign(this.orderDishesForm,{hotel_id:this.hotel_id, checkMenuList:this.checkMenuList})
-					console.log(orderDishesObj);
-					orderDishesObj.mealDateTimestamp=new Date(orderDishesObj.mealDate).getTime();;
+					let orderDishesObj = Object.assign(this.orderDishesForm, {
+						phone:this.user.phone,
+						userName:this.user.userName,
+						hotel_id: this.hotel._id,
+						checkMenuList: this.checkMenuList
+					})
+					console.log(orderDishesObj,this.user);
+					orderDishesObj.mealDateTimestamp = new Date(orderDishesObj.mealDate).getTime();
 					try {
-					const res =	await MenuService.addOrderDishes(orderDishesObj);
-					this.isLoading=false;
-					uni.hideLoading();
-					this.$store.dispatch("getMenuEvent",this.hotel_id);
-					if(getCurrentPages().length>1){
-						await this.$store.dispatch("getOrderDishesList",this.hotel_id);
-						uni.navigateBack();
-						return;
-					}
-					uni.reLaunch({
-						url:`/pages/common/success?hotel=${JSON.stringify(this.hotel)}`,
-					});
-			
+						const res = await MenuService.addOrderDishes(orderDishesObj);
+						this.isLoading = false;
+						this.resetMenuList();
+						uni.navigateTo({
+							url:`/pages/common/success?hotel=${JSON.stringify(this.hotel)}`,
+						});
+						uni.hideLoading();
+
 					} catch (error) {
 						let errobj = JSON.parse(JSON.stringify(error));
-						console.log("1111",errobj,errobj.errMsg);
-						this.isLoading=false;
+						console.log("1111", error);
+						this.isLoading = false;
 						uni.hideLoading();
-						const text = errobj.errMsg.includes("exists")?'请不要重复提交':"系统异常，请稍候再试！"
+						const text = errobj.errMsg.includes("exists") ? '请不要重复提交' : "系统异常，请稍候再试！"
 						uni.showModal({
-						content: text,
-						confirmText: "确认",
-					});
-					
-				}
-					
-					
-				})
+							content: text,
+							confirmText: "确认",
+						});
+
+					}
+
+
+				
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-$showWidth:800px;
-.orderDishes{
-	width: $showWidth;
-	max-width: 100vw;
-	margin:auto;
-}
-.header {
-	padding: 30rpx;
-	font-size: 30rpx;
-	color: #333;
-}
-.item {
-	padding: 10rpx 20rpx;
-	&-title {
-		.text {
-			font-weight: 700;
-			font-size: 32rpx;
-			color: #111;
+	$showWidth: 800px;
+
+	.orderDishes {
+		width: $showWidth;
+		max-width: 100vw;
+		margin: auto;
+		.top-area{
+		height:44px;
+		display:flex;
+		justify-content:space-around;
+		background-color:#f3f4f6
 		}
 	}
-	&-content {
-		padding: 20rpx 0;
-		.text {
-			line-height: 48rpx;
-			font-size: 30rpx;
-			color: #111;
-			/* #ifndef APP-NVUE */
-			word-break: break-all;
-			/* #endif */
+
+	.header {
+		padding: 30rpx;
+		font-size: 30rpx;
+		color: #333;
+	}
+
+	.item {
+		padding: 10rpx 20rpx;
+
+		&-title {
+			.text {
+				font-weight: 700;
+				font-size: 32rpx;
+				color: #111;
+			}
+		}
+
+		&-content {
+			padding: 20rpx 0;
+
+			.text {
+				line-height: 48rpx;
+				font-size: 30rpx;
+				color: #111;
+				/* #ifndef APP-NVUE */
+				word-break: break-all;
+				/* #endif */
+			}
 		}
 	}
-}
-.gap {
-	padding: 0 30rpx;
-}
 
-.menuDetail {
-	.menuDetail-item {
-		min-height: 40px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 12px 12px 12px;
-		font-size: 15px;
-		font-weight: 400;
+	.gap {
+		padding: 0 30rpx;
+	}
 
-		.price-style {
-			color: #ff0000;
-			padding: 0 15px;
+	.menuDetail {
+		.menuDetail-item {
+			min-height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 12px 12px 12px;
+			font-size: 15px;
+			font-weight: 400;
+
+			.price-style {
+				color: #ff0000;
+				padding: 0 15px;
+			}
 		}
 	}
-}
 
-.bottom-panal {
+	.bottom-panal {
 
-	box-shadow: 0px -1px 4px -4px #000;
+		box-shadow: 0px -1px 4px -4px #000;
 
-	.control-area {
-		background-color: #fff;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		height: 60px;
-		overflow: hidden;
+		.control-area {
+			background-color: #fff;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 60px;
+			overflow: hidden;
+		}
+
+		.bottom-panal-detail {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			bottom: 60px;
+			width: 100%;
+			height: 0;
+			overflow: hidden;
+			transition: all 0.3s linear;
+		}
+
+		.control-area-left {
+			color: #616161;
+			padding-left: 8px;
+			cursor: pointer;
+
+			&:hover {
+				color: #000;
+			}
+		}
+		
+		.btn {
+			display: flex;
+			align-items: center;
+			padding: 0 8px;
+			color: #eee;
+			height: 60px;
+			font-size: 14px;
+			cursor: pointer;
+			background-color: orange;
+
+			&:hover {
+				color: #fff;
+			}
+		}
+		.btn-normal{
+			background-color: #fff;
+			color:#06c;
+			&:hover {
+				color: rgb(1, 96, 190);
+			}
+		}
+		.btn-disabled {
+			background-color: #aeaeae
+		}
 	}
 
-	.bottom-panal-detail {
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-		bottom: 60px;
-		width: 100%;
+	.goodsListPanal {
+		width: 100vw;
+		background: green;
 		height: 0;
 		overflow: hidden;
-		transition: all 0.3s linear;
+		position: fixed;
+		bottom: 60px;
+		display: flex;
+		flex-direction: column;
+		transition: height 0.3s linear;
+
 	}
 
-	.control-area-left {
-		color: #616161;
-		padding-left: 8px;
-		cursor: pointer;
+	.list {
+		display: flex;
+		flex-direction: column;
+		background-color: #fff;
 
-		&:hover {
-			color: #000;
+		.list-item {
+			display: flex;
+			padding: 20px 12px;
+			justify-content: space-between;
+			align-items: center;
 		}
 	}
-
-	.btn {
-		display: flex;
-		align-items: center;
-		padding: 0 8px;
-		color: #eee;
-		height: 60px;
-		font-size: 14px;
-		cursor: pointer;
-		background-color: orange;
-
-		&:hover {
-			color: #fff;
-		}
-	}
-
-	.btn-disabled {
-		background-color: #aeaeae
-	}
-}
-
-.goodsListPanal {
-	width: 100vw;
-	background: green;
-	height: 0;
-	overflow: hidden;
-	position: fixed;
-	bottom: 60px;
-	display: flex;
-	flex-direction: column;
-	transition: height 0.3s linear;
-	
-}
-
-.list {
-	display: flex;
-	flex-direction: column;
-	background-color: #fff;
-
-	.list-item {
-		display: flex;
-		padding: 20px 12px;
-		justify-content: space-between;
-		align-items: center;
-	}
-}
 </style>

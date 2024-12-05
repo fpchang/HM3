@@ -37,6 +37,7 @@ const store = createStore({
 			state.viewWidth = w;
 		},
 		setConfig(state,obj){
+			console.log("加载配置。。。。。")
 			state.config = obj;
 		},
 		setShareObj(state,obj){

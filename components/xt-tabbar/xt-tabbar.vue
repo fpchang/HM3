@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="tabbar-container">
+		<view class="tabbar-container" :style="{'width':width}">
 			<view class="tab-label-area">
 				<view v-for="item of dataList" class="tab-item">
 					<view class="tab-item-group" @click="clickTab(item.id)">
@@ -31,6 +31,10 @@
 			dataList: {
 				type: Array,
 				default: []
+			},
+			width:{
+				type:String,
+				default:"100vw"
 			}
 		},
 		data() {
@@ -65,9 +69,9 @@
 
 <style scoped lang="scss">
 	.tabbar-container {
-
+		margin:auto;
 		position: relative;
-		z-index: 900;
+		max-width: 100vw;
 
 		.tab-label-area {
 			display: flex;

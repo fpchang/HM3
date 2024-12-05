@@ -3,7 +3,16 @@ class DBConnect{
   constructor(){
 	  this.db=uniCloud.database();
   }
-  callFunction(name,data={}){
+   callFunction(name,data={}){
+    
+    let needLoginCallFunctionArray=["hm_addOrderDishes"];
+    if(!uni.getStorageSync('hm_token')&&needLoginCallFunctionArray.includes(name)){      
+      //未登录
+      console.log("未登录")
+      uni.navigateTo({ url: '/pages/login/login' });
+      return Promise.resolve();
+
+    }
 	return  uniCloud.callFunction({
 	  	name:name,
 	  	data:Object.assign(data,{
