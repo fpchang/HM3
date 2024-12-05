@@ -1,5 +1,11 @@
 <template>
 	<view>
+		<block v-if="orderList&&orderList.length<1">
+			<noData
+			  text_content="没有订单数据"			 			  
+			></noData>
+		  </block>
+		  <block v-if="orderList.length">
 		<scroll-view style="height: calc(100vh - 84px);" scroll-x="false" scroll-y="true">
 			<xt-panal-list :dataList="orderList"> 
 				<!-- #ifdef MP -->
@@ -43,6 +49,7 @@
 				<!--#endif-->
 			</xt-panal-list>
 		</scroll-view>
+	</block>
 	</view>
 </template>
 
