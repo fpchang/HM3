@@ -32,7 +32,7 @@
 				<!-- <uni-data-checkbox v-model="orderForm.roomTypeArray" mode="list"  multiple :localdata="roomTypeListFormat">1111</uni-data-checkbox> -->
 				<view class="uni-list">
 					<checkbox-group @change="bedCheckboxChange">
-						<view class="disabled-style" style="display: flex" v-for="(item,index) in bedTypeList"
+						<view :class="[this.type==2?'disabled-style':'']" style="display: flex" v-for="(item,index) in bedTypeList"
 							:key="item.name">
 							<view>
 								<checkbox   :checked="item.checked"
@@ -54,7 +54,7 @@
 				  </radio-group>
 				 </view>				
 			  </uni-forms-item> -->
-			  <uni-forms-item label="有阳台" name="isBalcony">
+			  <!-- <uni-forms-item label="有阳台" name="isBalcony">
 				 <view style="display:flex;align-items:center;height:100%"> 
 				  <radio-group @change="radioEvent('isBalcony')">
 					<radio value="1" :checked="roomTypeForm.isBalcony" :disabled="type==2"/><text style="padding-right:10px">是</text>
@@ -71,14 +71,27 @@
 				 </view>				
 			  </uni-forms-item>
 			<uni-forms-item label="洗漱用品" name="isOffer">
-				<!-- <checkbox @change="isOfferChange()" :checked="menuDetailForm.isOffer" />正常供应 -->
 				 <view style="display:flex;align-items:center;height:100%"> 
 				  <radio-group @change="radioEvent('disposableToiletries')">
 					<radio value="1" :checked="roomTypeForm.disposableToiletries" :disabled="type==2"/><text style="padding-right:10px">是</text>
 					<radio value="0" :checked="!roomTypeForm.disposableToiletries" :disabled="type==2"/><text style="padding-right:10px">否</text>
 				  </radio-group>
 				 </view>				
-			  </uni-forms-item>
+			  </uni-forms-item> -->
+			  <uni-forms-item label="屋内设施" required>				
+				<checkbox-group @change="facilityCheckboxChange">
+					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name" :getone="false" where="type=='roomType'" orderby="name asc"> 
+						
+						<view :class="[this.type==2?'disabled-style':'','flex-center']" style="justify-content:start;flex-wrap:wrap; gap:20px">
+							<view style=""  v-for="(item,index) in data" :key="item.name"> 
+								<checkbox   :checked="roomTypeForm.facility&&roomTypeForm.facility.includes(item._id)" :disabled="type==2" :value="item._id" />{{ item.name }}
+							</view>
+							<view style="height:0;width:50px"  v-for="item in 5"> 									
+							</view>
+						</view>
+					</unicloud-db>
+				</checkbox-group>			
+		</uni-forms-item>
 			<view>
 				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
 				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccessFirst" :imagesList="roomTypeForm.firstImages?[roomTypeForm.firstImages]:[]" max="1" :disabled="type==2"></xt-file-picker>
@@ -120,9 +133,10 @@ export default {
 					"guestNumber":this.rt.guestNumber,
 					"firstImages":this.rt.firstImages||"",
 					"imagesList": this.rt.imagesList||[],
-					"disposableToiletries":this.rt.disposableToiletries,
+					//"disposableToiletries":this.rt.disposableToiletries,
 					"bedList":this.rt.bedList,
-                    "roomList":this.rt.roomList
+                    "roomList":this.rt.roomList,
+					"facility":this.rt.facility||[]
 				}: {
                     "count": 1,
                     "name": "",
@@ -135,7 +149,8 @@ export default {
 					"imagesList":[],
 					"disposableToiletries":true,
 					"bedList":[],
-                    "roomList":[]
+                    "roomList":[],
+					"facility":[]
                 
 				},
 				bedTypeList:[
@@ -211,6 +226,9 @@ export default {
 			}
 		},
 		methods: {
+			facilityCheckboxChange(e){
+				this.roomTypeForm.facility = e.detail.value;
+			},
 			bedCheckboxChange(e){
 			console.log(e)
 			for(let i =0;i<this.bedTypeList.length;i++){
@@ -314,4 +332,8 @@ export default {
 
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.disabled-style {
+	color: #a1a1a1;
+}
+</style>

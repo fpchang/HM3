@@ -49,7 +49,7 @@
       </view>
       <view class="title-area"> 
         <view class="logo-style" v-if="showLogo">
-          <image style="width:100%;height:100%" mode="aspectFit" :src="logoUrl||defaultLogoUrl" />
+          <image style="width:100%;height:100%" mode="aspectFill" :src="logoUrl||defaultLogoUrl" />
         </view>
         <view class="tit-style">          
           <view class="title-c">
@@ -174,9 +174,9 @@ export default{
   display: flex;
   padding:0 10px;
   .logo-style{
-    width: 60px;
-    height: 93px;
-    border:1px solid #eee;
+    width: 80px;
+    height: 60px;
+    border:0px solid #eee;
     box-sizing: border-box;
   }
   .tit-style {

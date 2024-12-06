@@ -81,21 +81,21 @@ $showWidth:800px;
 .barner{
   max-width: 100vw;
   max-height:56.25vw ;
-	height: ($showWidth/16)*9;
+	height:$showWidth*0.0625*9;
   max-width: 100vw;
 }
 .barner-swiper{
   max-width: 100vw;
   max-height:56.25vw ;
   width: $showWidth;
-	height: ($showWidth/16)*9;
+	height: $showWidth*0.0625*9;
   box-sizing: border-box;
 }
 .barner-image{
   max-width: 100vw;
   max-height:56.25vw ;
 	width: $showWidth;
-	height: ($showWidth/16)*9;
+	height: $showWidth*0.0625*9;
 }
 .panal{
   padding: 20px;
