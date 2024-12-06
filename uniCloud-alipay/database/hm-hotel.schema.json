@@ -51,6 +51,21 @@
 			"bsonType": "array",
 			"defaultValue":[]
 		},
+		"cateringServices":{
+			"description": "餐饮服务",
+			"bsonType": "array",
+			"defaultValue":[]
+		},
+		"recreationFacility":{
+			"description": "休闲设施",
+			"bsonType": "array",
+			"defaultValue":[]
+		},
+		"athleticFacility":{
+			"description": "运动设施",
+			"bsonType": "array",
+			"defaultValue":[]
+		},		
 		"dataStatus":{
 			"description": "数据状态",
 			"bsonType": "int",

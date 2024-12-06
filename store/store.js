@@ -160,7 +160,7 @@ const store = createStore({
 				console.log("未登录");
 				context.dispatch("clearCache");
 				uni.navigateTo({ url: "/pages/login/login" });
-				reject();
+				reject("未登录");
 				return;
 			  }
 			const res = await AccountService.validToken();
@@ -172,7 +172,7 @@ const store = createStore({
 				});
 				context.dispatch("clearCache");
 				uni.navigateTo({ url: "/pages/login/login" });
-				reject();
+				reject("token校验不通过");
 				return;
 			}
 			resolve();

@@ -7,7 +7,55 @@
 				
     <!-- #ifdef MP -->
     <view v-for="(item,index) of roomType" slot="card{{index}}">
-      
+      <view class="roomCard">
+        <view class="img-area" style=""> 
+          <image :src="item.firstImages" mode="widthFix" style="width:100%;height:100%"  @click="roomDetail(item)"/>
+        </view>
+        
+        <view  class="label-area" @click="roomDetail(item)">
+          <view class="name-sytle">
+            <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
+            <text class="label-item">{{item.area}}m²</text>
+          </view>
+          <view>
+            <text>可住{{item.guestNumber||2}}人</text>
+            <uni-icons type="forward"></uni-icons>
+          </view>
+          
+        </view>
+        <view class="p-list"> 
+          <view class="p-list-item">
+            <view class="title-area"> 
+              <text>标准价格</text>
+            </view>
+            <view class="pr-area"> 
+              <text class="pr-text">￥299</text>
+              <text class="edit-text-btn-style">预定</text>
+            </view>
+            
+          </view>
+          <view class="p-list-item">
+            <view class="title-area"> 
+              <text>包含2份早餐</text>
+            </view>
+            <view class="pr-area"> 
+              <text class="pr-text">￥399</text>
+              <text class="edit-text-btn-style">预定</text>
+            </view>
+          </view>
+          <view class="p-list-item">
+            <view class="title-area"> 
+              <text>包含2份早餐</text>
+              <text class="text-overflow-ellipsis">包含2张萤火虫票包含2张萤火虫票包含2张萤火虫票包含2张萤火虫票</text>
+            </view>
+            
+            <view class="pr-area"> 
+              <text class="pr-text">￥499</text>
+              <text class="edit-text-btn-style">预定</text>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
     <!-- #endif -->
     <!-- #ifdef H5 || APP-PLUS -->

@@ -28,10 +28,31 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    phone(){
+      return this.$store.state.user.phone
+    }
+  },
   methods: {
     toConcat(){},
-    makePhone(){}
+    makePhone() {
+      let deviceType = uni.getSystemInfoSync().deviceType;
+      if (deviceType == "phone") {
+        uni.makePhoneCall({
+          phoneNumber: this.phone, //仅为示例
+          success: (success) => {
+            console.log("调用成功", success);
+          },
+        });
+        return;
+      }
+      uni.setClipboardData({
+        data: this.phone,
+        success: function () {
+          console.log("success");
+        },
+      });
+    },
   },
   watch: {},
 

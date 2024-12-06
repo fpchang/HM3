@@ -13,7 +13,7 @@
 				</view> -->
 
 				<introduce v-show="tabId=='b1'" :hotel="hotel"></introduce>	
-				<roomType v-show="tabId=='b2'" :hotel_id="hotel._id"></roomType>
+				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id"></roomType>
 				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>			
 		</view>
 		<view class="flex-flex-page-bottom">

@@ -84,7 +84,7 @@ export default {
     }
   },
   watch:{
-    user(val){
+    user(val,oldVal){
       if(val.phone!=oldVal.phone&&val.phone){
 		    console.log("user改变",val,oldVal);
         this.getHotelList();

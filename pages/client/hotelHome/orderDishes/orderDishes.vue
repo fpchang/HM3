@@ -1,9 +1,9 @@
 <template>
 	<view class="orderDishes content">
 		<view class="flex-center top-area">
-			<view>
+			<view style="background:#fff;padding:5px;width:140px">
 				 <uni-datetime-picker v-model="orderDishesForm.mealDate" type="date"  @change="dateConfim">
-					<view class="flex-center">
+					<view class="flex-center" >
 						<uni-icons type="calendar" size="24" color="#60626680"></uni-icons><text :style="{color:orderDishesForm.mealDate?'#313131':'#60626680'}" :start="Date.now()">{{orderDishesForm.mealDate||'请选择用餐时间'}}</text>
 					</view>
 					
@@ -23,12 +23,10 @@
 						</view>
 						<view class="item-content menuDetail">
 							<view v-for="i of item._id['hm-menuDetail']" class="menuDetail-item">
-
 								<view style="display:flex;align-items:center;">
 									<image src="https://env-00jxh1m2dpmq.normal.cloudstatic.cn/HM/images/food.jpg"
 										style="width:80px;height:60px"></image>
-									<view><text style="padding-left:15px">{{i.name}}</text> </view>
-
+									<view><text style="padding-left:15px">{{i.name}}</text></view>
 								</view>
 								<view style="display:flex;align-items:center">
 									<view class="price-style"><text>￥</text><text>{{i.price}}</text> </view>
@@ -335,9 +333,10 @@
 						const res = await MenuService.addOrderDishes(orderDishesObj);
 						this.isLoading = false;
 						this.resetMenuList();
-						uni.navigateTo({
-							url:`/pages/common/success?hotel=${JSON.stringify(this.hotel)}`,
-						});
+						// uni.navigateTo({
+						// 	url:`/pages/common/success?hotel=${JSON.stringify(this.hotel)}`,
+						// });
+						this.openOrderDishesList();
 						uni.hideLoading();
 
 					} catch (error) {
