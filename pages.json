@@ -215,6 +215,13 @@
 	{
 		"navigationBarTitleText" : "餐饮订单"
 	}
+},
+{
+	"path" : "pages/roomPrice/roomPrice",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
 }
 ],
 	"tabBar": {
