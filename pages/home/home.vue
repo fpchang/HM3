@@ -229,6 +229,7 @@ import recharge from "@/pages/mine/recharge/rechargeComponent";
 import intructions from "@/pages/mine/instructions/instructions";
 import { AccountService } from "@/services/AccountService";
 import hotelList from "@/pages/hotelManage/hotelList/hotelList";
+import {useStore} from 'vuex';
 export default {
   components: {
     gatherComponent,
@@ -244,7 +245,15 @@ export default {
     recharge,
     intructions,
   },
-
+  setup(){
+   
+	const store = useStore()
+	let config = store.state.config;
+	let imgUrl=`${config.cloudUrl}/HM/images/miniprogram/`;
+  return {
+    config
+  }
+  },
   data() {
     return {
       title: "Hello",
@@ -335,8 +344,6 @@ export default {
     console.log("before mounted....>>>");
   },
   mounted() {
-    uni.setTabBarItem({ index: 0, visible: false });
-    uni.setTabBarItem({ index: 1, visible: true });
     console.log("index mounted....>>>", this.$store);
   },
   async onPullDownRefresh() {
@@ -348,9 +355,6 @@ export default {
     this.initData();
   },
   computed: {
-    config() {
-      return this.$store.state.config;
-    },
     isPcShow() {
       console.log("index computed isPcshow....>>>");
       return this.$store.state.isPcShow;

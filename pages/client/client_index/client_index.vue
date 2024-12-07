@@ -1,4 +1,10 @@
 <template>
+  <view class="home flex-page">
+		<view class="flex-page-content">
+
+   <block v-if="tabId=='b1'"> 
+
+    
   <view class="page-container">
     <view style="display: flex;justify-content:flex-end;padding:10px"> 
       <view class="switch" @click="switchEvent"> 
@@ -54,6 +60,15 @@
       </view>
     </view>
   </view>
+</block>
+<block v-if="tabId=='b2'">
+  <mineComponent></mineComponent>
+</block> 
+</view>
+<view class="flex-flex-page-bottom">
+  <xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
+</view>
+</view>
 </template>
 
 <script>
@@ -61,12 +76,18 @@ import amap from "../../../common/amap-wx.130";
 import { DB } from "../../../api/DB";
 import { HotelServiceClient } from "../../../services/HotelServiceClient";
 import UniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
+import mineComponent from '../mine/components/mineComponent';
 export default {
-  components: {UniIcons},
+  components: {mineComponent,UniIcons},
   data() {
     return {
       isLoading: false,
       amapPlugin: null,
+      tabbarList:[
+        {id:"b1",label:"首页",icon:"/static/img/home-black.png",activeIcon:"/static/img/home-blue.png"},
+        {id:"b2",label:"我的",icon:"/static/img/mine-black.png",activeIcon:"/static/img/mine-blue.png"}
+      ],
+      tabId:"b1",
       key: "a69cc73276ceb1a813f3be0d5d42c2aa",
       filterVal: "",
       addressName: "",
@@ -92,21 +113,33 @@ export default {
      
     }
   },
-  onShow() {
-    uni.setTabBarItem({index:1,visible:false});
-    uni.setTabBarItem({index:0,visible:false});
-  },
-  async onLoad() {
-    console.log("client onload");
-   
-    this.isLoading = true;
-    await this.getLocation();
-    this.isLoading = false;
+  async created(){
+    console.log("client created",this.config);
+    //  uni.setTabBarItem({index:1,visible:false});
+    //  uni.setTabBarItem({index:0,visible:true});
+      this.isLoading = true;
+     await this.getLocation();
+      this.isLoading = false;
   },
   mounted(){
-    console.log("config",this.config)
+    console.log("config",this.config);
+    // if(this.$store.state.isPcShow){
+		// 		uni.hideTabBar();
+		// 	}
+			//if(this.isPcShow){
+			// #ifdef H5
+			try {
+				document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
+			} catch (error) {
+				
+			}
+			// #endif
   },
   methods: {
+    clickTab(id){
+				console.log(id);
+				this.tabId=id;
+			},
     switchEvent(){
       uni.setStorageSync("userRole","hotel");
       uni.reLaunch({
@@ -159,8 +192,14 @@ export default {
           dateRange:this.dateRange,
           location:this.location,
         }
+        let href = `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`;
+        //#ifdef H5
+        
+						window.open(`#${href}`, "_blank");
+          return;
+        //#endif
         uni.navigateTo({
-          url: `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`,
+          url: href,
         });
       } catch (error) {
         console.log("检验登录不通过",error)

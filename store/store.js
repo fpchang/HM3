@@ -46,7 +46,7 @@ const store = createStore({
       state.viewWidth = w;
     },
     setConfig(state, obj) {
-      console.log("加载配置。。。。。");
+      uni.setStorageSync("config",obj);
       state.config = obj;
     },
     setShareObj(state, obj) {
@@ -198,7 +198,8 @@ const store = createStore({
 		
 	},
 	clearCache(context){
-		uni.clearStorageSync();
+		  uni.removeStorageSync("hm_token");
+      uni.removeStorageSync("user");
       	context.commit("setUser", {});
       	context.commit("setHotelId", "");
 	},

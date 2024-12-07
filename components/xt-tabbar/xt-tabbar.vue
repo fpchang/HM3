@@ -5,7 +5,7 @@
 				<view v-for="item of dataList" class="tab-item">
 					<view class="tab-item-group" @click="clickTab(item.id)">
 						<image class="img"
-							:src="`https://env-00jxh1m2dpmq.normal.cloudstatic.cn/HM/images/miniprogram/${item.id==active_id?item.activeIcon:item.icon}`" />
+							:src="`${item.id==active_id?item.activeIcon:item.icon}`" />
 						<text style="padding:0 5px" :class="[item.id==active_id?'active_text':'']">{{item.label}}</text>
 
 					</view>

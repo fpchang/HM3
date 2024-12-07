@@ -184,6 +184,7 @@
 		},
 		onLoad(obj) {
 			console.log("参数传递", obj, obj.condition);
+			
 			try {
 				this.type = obj.type;
 				this.conditionForm = JSON.parse(decodeURIComponent(obj.condition));
@@ -193,6 +194,9 @@
 			} catch (error) {
 				console.log(error)
 			}
+		},
+		mounted(){
+			console.log("config",this.$store.state.config)
 		}
 	}
 </script>

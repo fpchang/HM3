@@ -109,7 +109,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 			async setConfig(){
 				try {
 					const res = await AccountService.getConfig();
-					console.log("参数config",res)
+					console.log("参数config",res);
 					this.$store.commit("setConfig",res.result)
 				} catch (error) {
 					console.error(error)

@@ -224,12 +224,6 @@
 		"backgroundColor": "#ffffff",
 		"list": [
 			{
-				"pagePath": "pages/client/client_index/client_index",
-				"iconPath": "static/img/home-black.png",
-				"selectedIconPath": "static/img/home-blue.png",
-				"text": "首页"
-			},
-			{
 				"pagePath": "pages/home/home",
 				"iconPath": "static/img/home-black.png",
 				"selectedIconPath": "static/img/home-blue.png",

@@ -1,5 +1,37 @@
 <script>
-
+	// "tabBar": {
+	// 	"height": "0",
+	// 	"color": "#1d1d1f",
+	// 	"selectedColor": "#0071e3",
+	// 	"borderStyle": "black",
+	// 	"backgroundColor": "#ffffff",
+	// 	"list": [
+	// 		{
+	// 			"index":0,
+	// 			"pagePath": "pages/client/client_index/client_index",
+	// 			"iconPath": "static/img/home-black.png",
+	// 			"selectedIconPath": "static/img/home-blue.png",
+	// 			"text": "首页",
+	// 			"visible": true
+	// 		},
+	// 		{
+	// 			"index":1,
+	// 			"pagePath": "pages/home/home",
+	// 			"iconPath": "static/img/home-black.png",
+	// 			"selectedIconPath": "static/img/home-blue.png",
+	// 			"text": "首页",
+	// 			"visible": true
+	// 		},
+	// 		{
+	// 			"index":2,
+	// 			"pagePath": "pages/mine/mine",
+	// 			"iconPath": "static/img/mine-black.png",
+	// 			"selectedIconPath": "static/img/mine-blue.png",
+	// 			"text": "我的",
+	// 			"visible": true
+	// 		}
+	// 	]
+	// },
 	export default {
 		onLaunch: async function(ob) {
 			console.log("参数信息",ob)
@@ -23,6 +55,8 @@
 				// #ifdef MP-WEIXIN ||APP-PLUS
 				flag = sys['deviceType']=='pc' ||uni.getWindowInfo().windowWidth>740; 
 				// #endif
+				const config = uni.getStorageSync("config");
+				config&&this.$store.commit("setConfig",config);
 				this.$store.commit("setPcShow",flag);					
 				this.$store.commit("updateUser");
 				this.$store.dispatch("initViewWidth");

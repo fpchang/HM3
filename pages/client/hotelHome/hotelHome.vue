@@ -27,19 +27,30 @@
 import introduce from './introduce/introduce';
 import roomType from './roomType/roomType';
 import orderDishes from './orderDishes/orderDishes';
+import {useStore} from 'vuex';
 	export default {
   components: { introduce,roomType ,orderDishes},
+  setup(){
+	const store = useStore()
+	let config = store.state.config;
+	let imgUrl=`${config.cloudUrl}/HM/images/miniprogram/`;
+	let 	tabbarList=[
+        {id:"b1",label:"首页",icon:`${imgUrl}introduce-line-black.svg`,activeIcon:`${imgUrl}introduce-line-blue.svg`},
+        {id:"b2",label:"房型",icon:`${imgUrl}bed-line-black.svg`,activeIcon:`${imgUrl}bed-line-blue.svg`},
+        {id:"b3",label:"餐饮",icon:`${imgUrl}food.svg`,activeIcon:`${imgUrl}food-blue.svg`}
+      ]
+	  return {
+		config,
+		tabbarList
+	 	 }
+ 	 },
 		data() {
 			return {
-				tabbarList:[
-        {id:"b1",label:"首页",icon:"introduce-line-black.svg",activeIcon:"introduce-line-blue.svg"},
-        {id:"b2",label:"房型",icon:"bed-line-black.svg",activeIcon:"bed-line-blue.svg"},
-        {id:"b3",label:"餐饮",icon:"food.svg",activeIcon:"food-blue.svg"}
-      ],
-	  	tabId:"b1",
+	  			tabId:"b1",
 				hotel:{}
 			}
 		},
+		
 		computed:{
 		},
 		watch:{
