@@ -8,6 +8,16 @@
 			<uni-forms-item label="酒店地址" name="hotelAdress">
 				<uni-easyinput v-model="hotelForm.hotelAdress" placeholder="请输入酒店地址" :disabled="type==2" />
 			</uni-forms-item>
+			<uni-forms-item label="特点">
+				<view style="display:flex;align-items:flex-end;justify-content:start;gap:10px;flex-wrap:wrap"> 
+					<view v-for="(item,index) in hotelForm.feature">
+						<uv-tags  :text="item" type="warning" :closable="type!=2" :show="close2" @close="deleteFeature(index)"></uv-tags>						
+					</view>
+					<view :class="['tag-xt',type==2?'tag-xt-disable':'']" @click="addFeature"><uni-icons type="plus" size="22px" :color="type==2?'#eee':'#a1a1a1'"></uni-icons><text>添加</text></view>
+				</view> 
+				<view><text style="color:#a1a1a1">如：免费停车，宠物免费，户外泳池，草地烧烤等</text></view>
+				
+			</uni-forms-item>
 			<uni-forms-item label="餐饮" required>
 				<checkbox-group @change="cateringCheckboxChange">
 					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig"
@@ -80,6 +90,10 @@
 					:disabled="submitDisabled" :loading="submitLoading"></uv-button>
 			</uni-forms-item>
 		</uni-forms>
+		<uni-popup ref="featureDialog" type="dialog">
+			<uni-popup-dialog ref="inputClose" before-close  mode="input" title="添加特色" value=""
+				placeholder="请输入特色标签名" @close="closeFeaturePopup" @confirm="submitFeature"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 </template>
 
@@ -88,7 +102,9 @@
 	import {
 		HotelService
 	} from "../../../services/HotelService";
+import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
 	export default {
+  components: { uniIcons },
 		props: {
 			type: 0,
 			targetObj: {}
@@ -107,7 +123,8 @@
 					"imagesList": this.targetObj.imagesList || [],
 					"cateringServices": this.targetObj.cateringServices,
 					"recreationFacility": this.targetObj.recreationFacility,
-					"athleticFacility": this.targetObj.athleticFacility
+					"athleticFacility": this.targetObj.athleticFacility,
+					feature:this.targetObj.feature
 				} : {
 					belong: "",
 					hotelName: "",
@@ -118,7 +135,8 @@
 					"imagesList": [],
 					"cateringServices": [],
 					"recreationFacility": [],
-					"athleticFacility": []
+					"athleticFacility": [],
+					feature:[]
 				},
 				hotelFormRules: {
 					// 对name字段进行必填验证
@@ -160,6 +178,31 @@
 			}
 		},
 		methods: {
+			closeFeaturePopup(){
+				this.$refs.featureDialog.close()
+			},
+			submitFeature(val){
+				console.log(val)
+				if(!val){
+					return;
+				}
+				let arr = this.hotelForm.feature||[];
+				arr.push(val);
+				this.hotelForm.feature=arr;
+				this.closeFeaturePopup();
+			},
+			addFeature(){
+				if(this.type==2){
+					return;
+				}
+				this.$refs.featureDialog.open()
+			},
+			deleteFeature(index){
+				if(this.type==2){
+					return;
+				}
+				this.hotelForm.feature.splice(index,1);
+			},
 			cateringCheckboxChange(e) {
 				this.hotelForm.cateringServices = e.detail.value;
 			},
@@ -257,5 +300,19 @@
 
 	.disabled-style {
 		color: #a1a1a1;
+	}
+	.tag-xt{
+		display: flex;
+		align-items: flex-end;
+		padding:2px 8px;
+		border:1px solid #a1a1a1;
+		border-radius:6px;
+		gap:4px;
+		color:#a1a1a1
+	}
+	.tag-xt-disable{
+		color: #eee;
+		border:1px solid #eee;
+		color: #eee;
 	}
 </style>

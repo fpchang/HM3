@@ -77,6 +77,52 @@
 			"description": "设施",
 			"bsonType": "array"
 		},
+		"priceBase":{
+			"bsonType": "object",
+			"properties":{
+				"name":{
+					"description": "价格名目",
+					"bsonType": "string",
+					"defaultValue":"基础价格"
+				},
+				"price":{
+					"description": "价格",
+					"bsonType": "double",
+					"defaultValue":0
+				}
+			}
+		},
+		"priceA":{
+			"bsonType": "object",
+			"properties":{
+				"name":{
+					"description": "价格名目",
+					"bsonType": "string",
+					"defaultValue":"套餐价格A"
+				},
+				"price":{
+					"description": "价格",
+					"bsonType": "double",
+					"defaultValue":0
+				}
+			}
+		},
+		"priceB":{
+			"bsonType": "object",
+			"properties":{
+				"name":{
+					"description": "价格名目",
+					"bsonType": "string",
+					"defaultValue":"套餐价格B"
+					
+				},
+				"price":{
+					"description": "价格",
+					"bsonType": "double",
+					"defaultValue":0
+				}
+			}
+		},
 		"dataStatus": {
 			"description": "数据是否有效",
 			"bsonType": "int",

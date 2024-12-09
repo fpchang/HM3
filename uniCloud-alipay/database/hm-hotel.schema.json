@@ -51,6 +51,11 @@
 			"bsonType": "array",
 			"defaultValue":[]
 		},
+		"feature":{
+			"description": "特色",
+			"bsonType": "array",
+			"defaultValue":[]
+		},
 		"cateringServices":{
 			"description": "餐饮服务",
 			"bsonType": "array",

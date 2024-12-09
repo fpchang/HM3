@@ -121,11 +121,11 @@
 
 			</uni-collapse> -->
 		</view>
-		<uni-popup ref="popupaddHotel" background-color="transprant">
+		<uni-popup ref="popupaddHotel" background-color="transprant" @change="popupChange">
 			<view class="popup-content">
 				<view class="create-order-title-style">{{["新增酒店","修改酒店信息","酒店详情"][type]}}</view>
 				<view class="comContent">
-					<createHotelComponent @closePopup="closePopup" :type="type" :targetObj="targetObj"></createHotelComponent>
+					<createHotelComponent  @closePopup="closePopup" :type="type" :targetObj="targetObj"></createHotelComponent>
 				</view>
 
 			</view>
@@ -148,6 +148,7 @@ import {alert} from "@/alert";
 				targetObj:{},
 				submitLoading: false,
 				accordionVal: '0',
+				showPopup:false,
 				
 			}
 		},
@@ -213,7 +214,7 @@ import {alert} from "@/alert";
 				// 	return;
 				// }
 				this.type=1;
-				this.targetObj =targetObj;
+				this.targetObj =JSON.parse(JSON.stringify(targetObj));
 				if(this.$store.state.isPcShow){
 					this.$refs.popupaddHotel.open();
 					return;
@@ -276,7 +277,8 @@ import {alert} from "@/alert";
 			},
 			viewDetail(targetObj){
 				this.type=2;
-				this.targetObj =targetObj;
+				this.targetObj =JSON.parse(JSON.stringify(targetObj));
+				console.log(this.targetObj)
 				if(this.$store.state.isPcShow){
 					this.$refs.popupaddHotel.open();
 					return;
@@ -286,6 +288,9 @@ import {alert} from "@/alert";
 				uni.navigateTo({
 					url:`/pages/hotelManage/createHotel/createHotel?type=${this.type}&&targetObj=${encodeURIComponent(JSON.stringify(this.targetObj))}`
 				})
+			},
+			popupChange(e){
+				this.showPopup=e.show;
 			},
 			closePopup(){
 				this.$refs.popupaddHotel.close();
