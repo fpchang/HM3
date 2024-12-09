@@ -36,7 +36,13 @@ class HotelServiceClientClass{
       
          
     }
- 
+    /** 
+     * 获取当前酒店房型信息
+    */
+    getRoomType(hotel_id){
+      return DB.getCollection("hm-roomType",{hotel_id});
+
+}
 
 }
 //module.exports =new HotelService();

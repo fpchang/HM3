@@ -2,14 +2,14 @@
   <view class="information"> 
     <view class="hotel_label"><text>见山舍民宿舍</text></view>
     <view class="tab-container">
-      <view class="tab" v-for="item in 5">莫干山景</view>
+      <view class="tab" v-for="item of  feature">{{item}}</view>
       <view style="height: 0;width:70px" v-for="item in 4"></view>
     </view>
     <view class="position-style">
       <view class="adone" bindtap="toMap">
         <!-- <van-icon name="location" color="green" size="40rpx" style="margin: 0rpx 10rpx -8rpx 0;" /> -->
          <uni-icons type="location-filled" size="20px" color="green"></uni-icons>
-         <view class="la">浙江省湖州市莫干山镇北湖村上下庄一号</view>
+         <view class="la">{{hotel.hotelAdress}}</view>
       </view>
       <uni-icons style="margin-left: 30rpx;" type="weixin" size="30px" color="green" @click="toConcat"></uni-icons>
       <uni-icons style="margin-left: 30rpx;"  type="phone-filled" size="30px" color="green" @click="makePhone"></uni-icons>
@@ -24,11 +24,21 @@ import uniTag from '../../../../../uni_modules/uni-tag/components/uni-tag/uni-ta
 export default {
   components: { uniTag, UniIcons },
   name:"information",
-  props: {},
+  props: {
+    hotel:{
+      type:Object
+    }
+  },
+  setup(){
+   
+  },
   data() {
     return {}
   },
   computed: {
+    feature(){
+      return this.hotel.feature ||[];
+    },
     phone(){
       return this.$store.state.user.phone
     }

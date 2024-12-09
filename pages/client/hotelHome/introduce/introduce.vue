@@ -11,7 +11,7 @@
     </swiper>
     </view>
     <view class="panal">
-      <information></information>
+      <information :hotel="hotel"></information>
     </view>
     <view class="dev-line"></view>
     <view class="panal">
@@ -25,7 +25,7 @@
     <view class="dev-line"></view>
     <view class="panal">
       <view class="label-title">设施服务</view>
-      <servicesFacilities></servicesFacilities>
+      <servicesFacilities :hotel="hotel"></servicesFacilities>
     </view>
   </view>
   </scroll-view>

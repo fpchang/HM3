@@ -49,7 +49,7 @@
       </view>
       <view class="title-area"> 
         <view class="logo-style" v-if="showLogo">
-          <image style="width:100%;height:100%" mode="aspectFill" :src="logoUrl||defaultLogoUrl" />
+          <image style="width:100%;height:100%" mode="aspectFit" :src="logoUrl||defaultLogoUrl" />
         </view>
         <view class="tit-style">          
           <view class="title-c">
