@@ -24,34 +24,37 @@
           
         </view>
         <view class="p-list"> 
-          <view class="p-list-item">
+          <view class="p-list-item" v-if="item.priceBase>0">
             <view class="title-area"> 
-              <text>标准价格</text>
+              <text>{{item.priceBase_name||'标准价格'}}</text>
             </view>
             <view class="pr-area"> 
-              <text class="pr-text">￥299</text>
-              <text class="edit-text-btn-style">预定</text>
+              <text class="pr-text">￥{{item.priceBase}}</text>
+              <text class="edit-text-btn-style" @click="reserve(item,'priceBase')">预定</text>
+              <text class="edit-text-btn-style" @click="bargain(item,'priceBase')">议价</text>
             </view>
             
           </view>
-          <view class="p-list-item">
+          <view class="p-list-item" v-if="item.priceA>0">
             <view class="title-area"> 
-              <text>包含2份早餐</text>
+              <text>{{item.priceA_name}}</text>
             </view>
             <view class="pr-area"> 
-              <text class="pr-text">￥399</text>
-              <text class="edit-text-btn-style">预定</text>
+              <text class="pr-text">￥{{item.priceA}}</text>
+              <text class="edit-text-btn-style" @click="reserve(item,'priceA')">预定</text>
+              <text class="edit-text-btn-style" @click="bargain(item,'priceA')">议价</text>
             </view>
           </view>
-          <view class="p-list-item">
+          <view class="p-list-item" v-if="item.priceB>0">
             <view class="title-area"> 
-              <text>包含2份早餐</text>
-              <text class="text-overflow-ellipsis">包含2张萤火虫票包含2张萤火虫票包含2张萤火虫票包含2张萤火虫票</text>
+              <text>{{item.priceB_name}}</text>
+              <text class="text-overflow-ellipsis"></text>
             </view>
             
             <view class="pr-area"> 
-              <text class="pr-text">￥499</text>
-              <text class="edit-text-btn-style">预定</text>
+              <text class="pr-text">￥{{item.priceB}}</text>
+              <text class="edit-text-btn-style" @click="reserve(item,'priceB')">预定</text>
+              <text class="edit-text-btn-style" @click="bargain(item,'priceB')">议价</text>
             </view>
           </view>
         </view>
@@ -77,34 +80,37 @@
             
           </view>
           <view class="p-list"> 
-            <view class="p-list-item">
+            <view class="p-list-item" v-if="item.priceBase>0">
               <view class="title-area"> 
-                <text>标准价格</text>
+                <text>{{item.priceBase_name||'标准价格'}}</text>
               </view>
               <view class="pr-area"> 
-                <text class="pr-text">￥299</text>
-                <text class="edit-text-btn-style">预定</text>
+                <text class="pr-text">￥{{item.priceBase}}</text>
+                <text class="edit-text-btn-style" @click="reserve(item,'priceBase')">预定</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceBase')">议价</text>
               </view>
               
             </view>
-            <view class="p-list-item">
+            <view class="p-list-item" v-if="item.priceA>0">
               <view class="title-area"> 
-                <text>包含2份早餐</text>
+                <text>{{item.priceA_name}}</text>
               </view>
               <view class="pr-area"> 
-                <text class="pr-text">￥399</text>
-                <text class="edit-text-btn-style">预定</text>
+                <text class="pr-text">￥{{item.priceA}}</text>
+                <text class="edit-text-btn-style" @click="reserve(item,'priceA')">预定</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceA')">议价</text>
               </view>
             </view>
-            <view class="p-list-item">
+            <view class="p-list-item" v-if="item.priceB>0">
               <view class="title-area"> 
-                <text>包含2份早餐</text>
-                <text class="text-overflow-ellipsis">包含2张萤火虫票包含2张萤火虫票包含2张萤火虫票包含2张萤火虫票</text>
+                <text>{{item.priceB_name}}</text>
+                <text class="text-overflow-ellipsis"></text>
               </view>
               
               <view class="pr-area"> 
-                <text class="pr-text">￥499</text>
-                <text class="edit-text-btn-style">预定</text>
+                <text class="pr-text">￥{{item.priceB}}</text>
+                <text class="edit-text-btn-style" @click="reserve(item,'priceB')">预定</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceB')">议价</text>
               </view>
             </view>
           </view>
@@ -151,6 +157,12 @@ export default {
 				console.log("房型列表 client",res);
 				this.roomType = res.result.data;
       
+    },
+    reserve(item,p){
+      uni.showToast({title:"暂未开放",icon:"none"});
+    },
+    bargain(item,p){
+      uni.showToast({title:"暂未开放",icon:"none"});
     }
   },
   watch: {},
@@ -213,6 +225,7 @@ $showWidth:1200px;
     flex-direction: column;
     overflow: hidden;
     flex: 1;
+    color: #6e6e6e;
   }
   .pr-area{
     display: flex;
@@ -220,6 +233,7 @@ $showWidth:1200px;
     align-items: baseline;
     justify-content: space-between;
     min-width: 86px;
+    gap:8px;
     .pr-text{
       color: orange;
       font-weight: bold;

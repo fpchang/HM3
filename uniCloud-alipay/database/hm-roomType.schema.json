@@ -78,50 +78,31 @@
 			"bsonType": "array"
 		},
 		"priceBase":{
-			"bsonType": "object",
-			"properties":{
-				"name":{
-					"description": "价格名目",
-					"bsonType": "string",
-					"defaultValue":"基础价格"
-				},
-				"price":{
-					"description": "价格",
+					"description": "价格1",
 					"bsonType": "double",
 					"defaultValue":0
-				}
-			}
 		},
 		"priceA":{
-			"bsonType": "object",
-			"properties":{
-				"name":{
-					"description": "价格名目",
-					"bsonType": "string",
-					"defaultValue":"套餐价格A"
-				},
-				"price":{
-					"description": "价格",
+					"description": "价格2",
 					"bsonType": "double",
 					"defaultValue":0
-				}
-			}
 		},
 		"priceB":{
-			"bsonType": "object",
-			"properties":{
-				"name":{
-					"description": "价格名目",
-					"bsonType": "string",
-					"defaultValue":"套餐价格B"
-					
-				},
-				"price":{
-					"description": "价格",
+					"description": "价格3",
 					"bsonType": "double",
 					"defaultValue":0
-				}
-			}
+		},
+		"priceBase_name":{
+					"description": "价格1名称",
+					"bsonType": "string"
+		},
+		"priceA_name":{
+					"description": "价格2名称",
+					"bsonType": "string"
+		},
+		"priceB_name":{
+					"description": "价格3名称",
+					"bsonType": "string"
 		},
 		"dataStatus": {
 			"description": "数据是否有效",

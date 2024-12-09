@@ -151,20 +151,21 @@ export default {
 .right-area {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding-left:20px;
   flex: 1;
+  gap:10px;
   .rec-item-list {
     flex: 1;
-
+    gap:8px;
     display: flex;
     flex-wrap: wrap;
-    align-content: center;
     box-sizing: border-box;
+    justify-content: space-between;
     .rec-item-list-item {
-      padding: 0 8px;
       display: flex;
       align-items: center;
       justify-content: left;
+      min-width: 35%;
     }
   }
   .dev {

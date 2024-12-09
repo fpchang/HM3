@@ -78,6 +78,35 @@
 				  </radio-group>
 				 </view>				
 			  </uni-forms-item> -->
+			  <uni-forms-item label="价格" required> 
+				<view class="priceContainer" style=""> 
+				 <view class="price-list" > 
+					<view class="price-list-item" style="">
+						<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" focus class="in" :disabled="type==2"></input> 
+						<uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2" inputWidth="60px">
+                        <input slot="input" style="width: 200px;text-align: center;" 
+                            v-model="roomTypeForm.priceBase"></input>
+                    </uv-number-box>
+					</view>
+					<view class="price-list-item" style="display:flex;flex:8px">
+						<input placeholder="套餐A" v-model="roomTypeForm.priceA_name" class="in"  :disabled="type==2"></input> 
+						<uv-number-box :min="0" integer v-model="roomTypeForm.priceA" :disabled="type==2" inputWidth="60px">
+                        <input slot="input" style="width: 200px;text-align: center;" 
+                            v-model="roomTypeForm.priceA"></input>
+                    </uv-number-box>
+					</view>
+					<view class="price-list-item" style="display:flex">
+						<input placeholder="套餐B" v-model="roomTypeForm.priceB_name" class="in"  :disabled="type==2"></input> 
+						<uv-number-box :min="0" integer v-model="roomTypeForm.priceB" :disabled="type==2" inputWidth="60px" >
+                        <input slot="input" style="width: 200px;text-align: center;" 
+                            v-model="roomTypeForm.priceB"></input>
+                    </uv-number-box>
+					</view>
+
+				</view>
+				<view><text style="color:#a1a1a1;color:orange">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>
+			</view>
+			  </uni-forms-item>
 			  <uni-forms-item label="屋内设施" required>				
 				<checkbox-group @change="facilityCheckboxChange">
 					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name" :getone="false" where="type=='roomType'" orderby="name asc"> 
@@ -136,7 +165,13 @@ export default {
 					//"disposableToiletries":this.rt.disposableToiletries,
 					"bedList":this.rt.bedList,
                     "roomList":this.rt.roomList,
-					"facility":this.rt.facility||[]
+					"facility":this.rt.facility||[],
+					"priceBase_name":this.rt.priceBase_name,
+					"priceA_name":this.rt.priceA_name,
+					"priceB_name":this.rt.priceB_name,
+					"priceBase":this.rt.priceBase,
+					"priceA":this.rt.priceA,
+					"priceB":this.rt.priceB
 				}: {
                     "count": 1,
                     "name": "",
@@ -150,7 +185,13 @@ export default {
 					"disposableToiletries":true,
 					"bedList":[],
                     "roomList":[],
-					"facility":[]
+					"facility":[],
+					"priceBase_name":"",
+					"priceA_name":"",
+					"priceB_name":"",
+					"priceBase":0,
+					"priceA":0,
+					"priceB":0
                 
 				},
 				bedTypeList:[
@@ -335,5 +376,20 @@ export default {
 <style lang="scss" scoped>
 .disabled-style {
 	color: #a1a1a1;
+}
+.priceContainer{
+	border:1px solid #eee;padding:8px;
+	.price-list{
+		.price-list-item{
+			display:flex;padding:8px 0;
+			gap:8px;
+			.in{
+				flex: 1;
+				border:1px solid #eee;padding:4px 8px;
+				font-size: 14px;
+				color: #777777;
+			}
+		}
+	}
 }
 </style>
