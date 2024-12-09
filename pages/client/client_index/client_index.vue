@@ -113,6 +113,9 @@ export default {
      
     }
   },
+  onLoad(){
+    uni.hideHomeButton();
+  },
   async created(){
     console.log("client created",this.config);
     //  uni.setTabBarItem({index:1,visible:false});

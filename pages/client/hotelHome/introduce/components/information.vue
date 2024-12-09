@@ -9,7 +9,7 @@
       <view class="adone" bindtap="toMap">
         <!-- <van-icon name="location" color="green" size="40rpx" style="margin: 0rpx 10rpx -8rpx 0;" /> -->
          <uni-icons type="location-filled" size="20px" color="green"></uni-icons>
-         <view class="la">{{hotel.hotelAdress}}</view>
+         <view class="la">{{hotel.hotelAddressArea}}{{hotel.hotelAddress}}</view>
       </view>
       <uni-icons style="margin-left: 30rpx;" type="weixin" size="30px" color="green" @click="toConcat"></uni-icons>
       <uni-icons style="margin-left: 30rpx;"  type="phone-filled" size="30px" color="green" @click="makePhone"></uni-icons>
@@ -44,12 +44,27 @@ export default {
     }
   },
   methods: {
-    toConcat(){},
+    toConcat(){
+      if(!this.hotel.wechat){
+        uni.showToast({title:"无微信号"});
+        return;
+      }
+      uni.setClipboardData({
+        data: this.hotel.wechat,
+        success: function () {
+          console.log("success");
+        },
+      });
+    },
     makePhone() {
       let deviceType = uni.getSystemInfoSync().deviceType;
+      if(!this.hotel.serviceTel){
+        uni.showToast({title:"无客服电话"});
+        return;
+      }
       if (deviceType == "phone") {
         uni.makePhoneCall({
-          phoneNumber: this.phone, //仅为示例
+          phoneNumber: this.hotel.serviceTel, //仅为示例
           success: (success) => {
             console.log("调用成功", success);
           },
@@ -57,7 +72,7 @@ export default {
         return;
       }
       uni.setClipboardData({
-        data: this.phone,
+        data: this.hotel.serviceTel,
         success: function () {
           console.log("success");
         },

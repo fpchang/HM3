@@ -19,7 +19,7 @@ class HotelServiceClientClass{
             "hotelName":new RegExp(filterVal, 'i'),
           
         },{
-          "hotelAdress":new RegExp(filterVal, 'i'),
+          "hotelAddress":new RegExp(filterVal, 'i'),
         
       }
         

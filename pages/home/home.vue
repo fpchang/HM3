@@ -277,6 +277,7 @@ export default {
   },
   onLoad(e) {
     console.log("home onload");
+    uni.hideHomeButton();
   },
   async created() {
     console.log("index create....>>>", uni.getSystemInfoSync());

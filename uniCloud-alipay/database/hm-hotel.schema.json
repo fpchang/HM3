@@ -25,8 +25,24 @@
 			"description": "酒店名称",
 			"bsonType": "string"
 		},
-		"hotelAdress": {
+		"hotelAddressArea": {
+			"description": "酒店区域(省市县)",
+			"bsonType": "string"
+		},
+		"hotelAddress": {
 			"description": "酒店地址",
+			"bsonType": "string"
+		},
+		"hotelAddressCode":{
+			"description": "地址码（县code）",
+			"foreignKey": "opendb-city-china.schema.code"
+		},
+		"serviceTel":{
+			"description": "客服电话",
+			"bsonType": "string"
+		},
+		"wechat":{
+			"description": "客服电话",
 			"bsonType": "string"
 		},
 		"hotelCoordinate": {

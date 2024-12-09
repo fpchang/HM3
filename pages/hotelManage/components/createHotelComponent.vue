@@ -5,8 +5,28 @@
 			<uni-forms-item label="酒店名" required name="hotelName">
 				<uni-easyinput v-model="hotelForm.hotelName" placeholder="请输入酒店名称" :disabled="type==2" />
 			</uni-forms-item>
-			<uni-forms-item label="酒店地址" name="hotelAdress">
-				<uni-easyinput v-model="hotelForm.hotelAdress" placeholder="请输入酒店地址" :disabled="type==2" />
+			<uni-forms-item label="酒店地址" name="hotelAddress">
+				<view  style="display:flex;flex-direction: column;gap:5px">
+					
+					<view style="display:flex;align-items:center;justify-content:space-between">
+						<view style="min-width:260px">
+							<uni-easyinput v-model="hotelForm.hotelAddressArea" disabled v-if="type==2" />
+							<uni-data-picker v-if="type!=2" :readonly="type==2"  placeholder="请选择区域地址" self-field="code" v-model="hotelForm.hotelAddressCode" parent-field="parent_code" collection="opendb-city-china" orderby="value asc" field="code as value, name as text, eq(type, 2) as isleaf" @change="onchange"></uni-data-picker>
+						</view>
+						
+					</view> 
+					 
+					<!-- <uni-data-picker placeholder="请选择地址" popup-title="请选择城市" v-model="hotelForm.hotelAddress" collection="opendb-city-china" field="code as value, name as text" orderby="value asc" :step-searh="true" self-field="code" parent-field="parent_code"
+ @change="onchange" @nodeclick="onnodeclick"></uni-data-picker>
+ {{  hotelForm.hotelAddress}} -->
+   <view> 
+	
+					<uni-easyinput type="textarea" v-model="hotelForm.hotelAddress" placeholder="请输入酒店详细地址" :disabled="type==2" />
+   </view>
+ 					
+				</view>
+			
+		
 			</uni-forms-item>
 			<uni-forms-item label="特点">
 				<view style="display:flex;align-items:flex-end;justify-content:start;gap:10px;flex-wrap:wrap"> 
@@ -70,6 +90,12 @@
 					</unicloud-db>
 				</checkbox-group>
 			</uni-forms-item>
+			<uni-forms-item label="客服电话">
+				<uni-easyinput v-model="hotelForm.serviceTel" placeholder="请输入客服电话" :disabled="type==2" />
+			</uni-forms-item>
+			<uni-forms-item label="微信">
+				<uni-easyinput v-model="hotelForm.wechat" placeholder="请输入微信号" :disabled="type==2" />
+			</uni-forms-item>
 			<uni-forms-item label="备注">
 				<uni-easyinput type="textarea" v-model="hotelForm.hotelIntroduction" placeholder="备注内容"
 					:disabled="type==2"></uni-easyinput>
@@ -116,7 +142,9 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 				hotelForm: this.type != 0 ? {
 					belong: this.targetObj.belong,
 					hotelName: this.targetObj.hotelName,
-					hotelAdress: this.targetObj.hotelAdress,
+					hotelAddressCode:this.targetObj.hotelAddressCode,
+					hotelAddress:this.targetObj.hotelAddress,
+					hotelAddressArea:this.targetObj.hotelAddressArea,
 					hotelCoordinate: this.targetObj.hotelCoordinate,
 					hotelIntroduction: this.targetObj.hotelIntroduction,
 					"firstImages": this.targetObj.firstImages || "",
@@ -124,11 +152,15 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 					"cateringServices": this.targetObj.cateringServices,
 					"recreationFacility": this.targetObj.recreationFacility,
 					"athleticFacility": this.targetObj.athleticFacility,
+					serviceTel:this.targetObj.serviceTel,
+					wechat:this.targetObj.wechat,
 					feature:this.targetObj.feature
 				} : {
 					belong: "",
 					hotelName: "",
-					hotelAdress: "",
+					hotelAddress: "",
+					hotelAddressCode:"",
+					hotelAddressArea:"",
 					hotelCoordinate: [],
 					hotelIntroduction: "",
 					"firstImages": "",
@@ -136,6 +168,8 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 					"cateringServices": [],
 					"recreationFacility": [],
 					"athleticFacility": [],
+					serviceTel:"",
+					wechat:"",
 					feature:[]
 				},
 				hotelFormRules: {
@@ -178,6 +212,19 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 			}
 		},
 		methods: {
+			onchange(e){
+				console.log("onchang",e)
+				
+				let list =e.detail.value;
+				let adstr="";
+				list.map(item=>{
+					adstr+= (item.text+"/")
+				});
+				this.hotelForm.hotelAddressArea=adstr
+			},
+			onnodeclick(e){
+				//console.log("onnodeclick",e)
+			},
 			closeFeaturePopup(){
 				this.$refs.featureDialog.close()
 			},

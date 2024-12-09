@@ -50,9 +50,14 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 			if(!userRole){
 				return;
 			}
-			uni.reLaunch({
-        		url: userRole!="hotel"?"/pages/client/client_index/client_index":"/pages/home/home",
+			if(userRole=="hotel"){
+				uni.switchTab({url:"/pages/home/home"});
+			}else{
+				uni.redirectTo({
+        		url:"/pages/client/client_index/client_index",
       		});
+			}
+			
 
 		},
 		created() {

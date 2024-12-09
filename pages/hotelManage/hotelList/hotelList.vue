@@ -27,7 +27,7 @@
 				<!-- 表格数据行 -->
 				<uni-tr v-for="item of hotelList">
 					<uni-td>{{item.hotelName}}</uni-td>
-					<uni-td>{{item.hotelAdress}}</uni-td>
+					<uni-td>{{item.hotelAddress}}</uni-td>
 					<uni-td>{{item.belong}}</uni-td>
 					<uni-td>{{roleFormat(item.curRole)}}</uni-td>
 					<uni-td align="center">
@@ -82,7 +82,7 @@
 					<view class="col-content">
 						<view class="list">
 							<view class="list-item">
-								<view class="list-item-c"><text class="stitle">地址：</text><text>{{item.hotelAdress}}</text></view>
+								<view class="list-item-c"><text class="stitle">地址：</text><text>{{item.hotelAddress}}</text></view>
 							</view>
 							<view class="list-item">
 								<view class="list-item-c"><text class="stitle">店主：</text><text>{{item.belong}}</text></view>

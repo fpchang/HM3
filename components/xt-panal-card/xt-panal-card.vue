@@ -1,6 +1,6 @@
 <template>
   <view class="xt-panal-card">
-    <view style="padding:5px 0">
+    <view style="padding:10px 0">
       <view class="header-style">
 
         <view v-if="showControl" style="flex: 1; display: flex; justify-content: flex-end; gap: 15px;padding:5px 10px">
