@@ -43,7 +43,15 @@ class HotelServiceClientClass{
       return DB.getCollection("hm-roomType",{hotel_id});
 
 }
-
+getCollectHotel(phone){
+  return DB.getCollection("hm-collect",{phone})
+}
+addCollectHotel(phone,hotel_id){
+  return DB.add("hm-collect",{phone,hotel_id});
+}
+cancelCollectHotel(_id){
+  return DB.remove("hm-collect",_id);
+}
 }
 //module.exports =new HotelService();
 export var HotelServiceClient=new HotelServiceClientClass();

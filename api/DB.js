@@ -42,6 +42,9 @@ class DBConnect{
   update(dbName,_id="",data={}){
     return this.db.collection(dbName).doc(_id).update(data);
   }
+  remove(dbName,_id){
+    return this.db.collection(dbName).doc(_id).remove();
+  }
 }
 //module.exports = new DB();
 export var DB = new DBConnect();

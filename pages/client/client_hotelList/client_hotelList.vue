@@ -2,11 +2,11 @@
 	<view>
 		<view style="padding:0 20px">
 			<view class="search-style">
-				<view>
+				<view v-if="conditionForm['dateRange']">
 					<uni-datetime-picker v-model="conditionForm.dateRang" type="daterange" return-type="timestamp"
 						@change="dateConfim">
 						<view class="d1">
-							<text>{{foramtDateLabel(conditionForm.dateRange[0]).de}}</text><text>{{foramtDateLabel(conditionForm.dateRange[1]).de}}</text>
+							<text>{{foramtDateLabel(conditionForm['dateRange'][0]).de}}</text><text>{{foramtDateLabel(conditionForm['dateRange'][1]).de}}</text>
 						</view>
 
 					</uni-datetime-picker>
@@ -105,6 +105,7 @@
 		},
 		data() {
 			return {
+				isLoading:false,
 				dataList: [{
 						id: "c1",
 						label: "智能",
@@ -158,6 +159,10 @@
 				}
 			},
 			openHotel(hotel){
+				if(this.isLoading){
+					return;
+				}
+				this.isLoading=true;
 				let href = `#/pages/client/hotelHome/hotelHome?hotel=${encodeURIComponent(JSON.stringify(hotel))}`;
 				// #ifdef H5
 				//window.open(href, "_blank");

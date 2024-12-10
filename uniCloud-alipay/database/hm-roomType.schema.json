@@ -104,6 +104,16 @@
 					"description": "价格3名称",
 					"bsonType": "string"
 		},
+		"isBargain":{
+					"description": "是否接受议价",
+					"bsonType": "bool",
+					"defaultValue":true
+		},
+		"bargainMinPercent":{
+					"description": "议价最低百分比",
+					"bsonType": "int",
+					"defaultValue":80
+		},
 		"dataStatus": {
 			"description": "数据是否有效",
 			"bsonType": "int",

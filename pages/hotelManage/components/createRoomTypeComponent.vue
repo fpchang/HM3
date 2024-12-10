@@ -79,7 +79,7 @@
 				 </view>				
 			  </uni-forms-item> -->
 			  <uni-forms-item label="价格" required> 
-				<view class="priceContainer" style=""> 
+				<view class="priceContainer"> 
 				 <view class="price-list" > 
 					<view class="price-list-item" style="">
 						<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" focus class="in" :disabled="type==2"></input> 
@@ -105,7 +105,20 @@
 
 				</view>
 				<view><text style="color:#a1a1a1;color:orange">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>
+				
 			</view>
+		</uni-forms-item>
+			<uni-forms-item label="是否议价"> 
+				<radio-group @change="isBargainChange" >
+					<radio :disabled="type==2" :value="true" :checked="roomTypeForm.isBargain" /><text style="padding-right:10px">是</text>
+					<radio :disabled="type==2" :value="false" :checked="!roomTypeForm.isBargain" /><text style="padding-right:10px">否</text>
+				  </radio-group>
+			  </uni-forms-item>
+			  <uni-forms-item label="议价范围" v-if="roomTypeForm.isBargain"> 
+		
+				  <view class="flex-center">
+					<view style="flex:1"><slider :disabled="type==2" :value="roomTypeForm.bargainMinPercent" @change="bargainMinPercentChange" min="50" max="100" show-value /> </view><text>（最低{{roomTypeForm.bargainMinPercent}}%）</text>
+				</view>				
 			  </uni-forms-item>
 			  <uni-forms-item label="屋内设施" required>				
 				<checkbox-group @change="facilityCheckboxChange">
@@ -171,7 +184,9 @@ export default {
 					"priceB_name":this.rt.priceB_name,
 					"priceBase":this.rt.priceBase,
 					"priceA":this.rt.priceA,
-					"priceB":this.rt.priceB
+					"priceB":this.rt.priceB,
+					isBargain:this.rt.isBargain,
+					bargainMinPercent:this.rt.bargainMinPercent||80
 				}: {
                     "count": 1,
                     "name": "",
@@ -191,7 +206,9 @@ export default {
 					"priceB_name":"",
 					"priceBase":0,
 					"priceA":0,
-					"priceB":0
+					"priceB":0,
+					isBargain:true,
+					bargainMinPercent:80
                 
 				},
 				bedTypeList:[
@@ -267,6 +284,13 @@ export default {
 			}
 		},
 		methods: {
+			bargainMinPercentChange(e){
+				this.roomTypeForm.bargainMinPercent=e.detail.value
+			},
+			isBargainChange(e){
+      			let {value} = e.detail;
+      			this.roomTypeForm.isBargain = value;
+   				 },
 			facilityCheckboxChange(e){
 				this.roomTypeForm.facility = e.detail.value;
 			},

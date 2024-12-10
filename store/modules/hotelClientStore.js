@@ -4,6 +4,7 @@ import {HotelServiceClient} from '../../services/HotelServiceClient';
 export default{
 	namespaced: true,
 	state: { //存放状态
+		currentHotel_id:"",
 		hotelList:[]
 	},
 
@@ -12,6 +13,9 @@ export default{
 		updateHotelList(state, list) {
 			console.log("client set")
 			state.hotelList = list;
+		},
+		updateCurrentHotel_id(state, hotel_id) {
+			state.currentHotel_id = hotel_id;
 		}
         
 	},

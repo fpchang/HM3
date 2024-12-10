@@ -31,7 +31,7 @@
             <view class="pr-area"> 
               <text class="pr-text">￥{{item.priceBase}}</text>
               <text class="edit-text-btn-style" @click="reserve(item,'priceBase')">预定</text>
-              <text class="edit-text-btn-style" @click="bargain(item,'priceBase')">议价</text>
+              <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.isBargain">议价</text>
             </view>
             
           </view>
@@ -42,7 +42,7 @@
             <view class="pr-area"> 
               <text class="pr-text">￥{{item.priceA}}</text>
               <text class="edit-text-btn-style" @click="reserve(item,'priceA')">预定</text>
-              <text class="edit-text-btn-style" @click="bargain(item,'priceA')">议价</text>
+              <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.isBargain">议价</text>
             </view>
           </view>
           <view class="p-list-item" v-if="item.priceB>0">
@@ -54,7 +54,7 @@
             <view class="pr-area"> 
               <text class="pr-text">￥{{item.priceB}}</text>
               <text class="edit-text-btn-style" @click="reserve(item,'priceB')">预定</text>
-              <text class="edit-text-btn-style" @click="bargain(item,'priceB')">议价</text>
+              <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.isBargain">议价</text>
             </view>
           </view>
         </view>
@@ -87,7 +87,7 @@
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceBase}}</text>
                 <text class="edit-text-btn-style" @click="reserve(item,'priceBase')">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceBase')">议价</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.isBargain">议价</text>
               </view>
               
             </view>
@@ -98,7 +98,7 @@
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceA}}</text>
                 <text class="edit-text-btn-style" @click="reserve(item,'priceA')">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceA')">议价</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.isBargain">议价</text>
               </view>
             </view>
             <view class="p-list-item" v-if="item.priceB>0">
@@ -110,7 +110,7 @@
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceB}}</text>
                 <text class="edit-text-btn-style" @click="reserve(item,'priceB')">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceB')">议价</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.isBargain">议价</text>
               </view>
             </view>
           </view>

@@ -33,7 +33,7 @@
                     :src="`${config['cloudUrl']}/HM/images/miniprogram/line_switch_white.png`"
                     style="width: 20px; height: 20px"
                   ></image
-                  ><text>切换商家端</text>
+                  ><text>切换客户端</text>
                 </view>
                 <view
                   class="more-menu-area"
@@ -334,7 +334,7 @@ export default {
       return {
         title: `【${this.hotel.hotelName}】订餐`,
         imageUrl: `${this.$store.state.config.cloudUrl}/HM/images/food.jpg`,
-        path: `/pages/catering/orderDishes/orderDishes?hotel_id=${this.hotel_id}`,
+        path: `/pages/catering/orderDishes/orderDishes?hotel=${encodeURIComponent(JSON.stringify(this.hotel))}`,
       };
     }
   },

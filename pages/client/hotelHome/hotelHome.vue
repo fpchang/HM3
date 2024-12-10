@@ -1,16 +1,6 @@
 <template>
 	<view class="home flex-page">
 		<view class="flex-page-content">
-				<!-- <view class="xt-swiper"> 
-					<view style="display: flex;width:fit-content">
-						<view class="xt-swiper-item"> 
-							<introduce v-if="tabId=='b1'" :hotel="hotel"></introduce>
-						</view>
-						<view class="xt-swiper-item"> 
-							<introduce v-if="tabId=='b1'" :hotel="hotel"></introduce>
-						</view> 				
-					</view> 
-				</view> -->
 
 				<introduce v-show="tabId=='b1'" :hotel="hotel"></introduce>	
 				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id"></roomType>
@@ -19,7 +9,8 @@
 		<view class="flex-flex-page-bottom">
 			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
 		</view>
-		
+		<uni-fab ref="fab" :pattern="pattern" :content="content" horizontal="right" vertical="bottom"
+			direction="vertical" @trigger="trigger" @fabClick="fabClick" />
 	</view>
 </template>
 
@@ -30,8 +21,8 @@ import orderDishes from './orderDishes/orderDishes';
 import {useStore} from 'vuex';
 	export default {
   components: { introduce,roomType ,orderDishes},
-  setup(){
-	const store = useStore()
+  setup(props){
+	const store = useStore();
 	let config = store.state.config;
 	let imgUrl=`${config.cloudUrl}/HM/images/miniprogram/`;
 	let 	tabbarList=[
@@ -39,6 +30,7 @@ import {useStore} from 'vuex';
         {id:"b2",label:"房型",icon:`${imgUrl}bed-line-black.svg`,activeIcon:`${imgUrl}bed-line-blue.svg`},
         {id:"b3",label:"餐饮",icon:`${imgUrl}food.svg`,activeIcon:`${imgUrl}food-blue.svg`}
       ]
+	  store.commit("updateCurrentHotel_id",props.hotel._id);
 	  return {
 		config,
 		tabbarList
@@ -47,7 +39,26 @@ import {useStore} from 'vuex';
 		data() {
 			return {
 	  			tabId:"b1",
-				hotel:{}
+				hotel:{},
+				content: [{
+						iconPath: '/static/image.png',
+						selectedIconPath: '/static/image-active.png',
+						text: '相册',
+						active: false
+					},
+					{
+						iconPath: '/static/home.png',
+						selectedIconPath: '/static/home-active.png',
+						text: '首页',
+						active: false
+					},
+					{
+						iconPath: '/static/star.png',
+						selectedIconPath: '/static/star-active.png',
+						text: '收藏',
+						active: false
+					}
+				]
 			}
 		},
 		
@@ -91,6 +102,19 @@ import {useStore} from 'vuex';
 			}
 			// #endif
 		},
+		onShareAppMessage(res) {
+		if (res.from == "button") {
+		// 来自页面内分享按钮
+		let url =this.hotel.firstImages||`${this.$store.state.config.cloudUrl}/HM/images/hotel.jpg`;
+		console.log("uuuuuuuuuu",url)
+		return {
+			title: "民宿管家",
+			imageUrl: url,
+			path: `/pages/client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`,
+		};
+		}
+
+  },
 		methods: {
 			clickTab(id){
 				console.log(id);
@@ -107,6 +131,7 @@ $showWidth:100vw;
 	width:$showWidth ;
 	max-width: 100vw;
 }
+
 .xt-swiper{
 	width: 100vw;
 	.xt-swiper-item{
