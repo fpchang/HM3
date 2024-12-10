@@ -159,7 +159,6 @@
 					return;
 				}
 				this.isLoading=true;
-				console.log("333333",this.conditionForm.dateRang)
 				let href = `#/pages/client/hotelHome/hotelHome?st=${this.conditionForm.dateRange[0]}&&et=${this.conditionForm.dateRange[1]}&&hotel=${encodeURIComponent(JSON.stringify(hotel))}`;
 				// #ifdef H5
 				window.open(href, "_blank");
@@ -170,7 +169,7 @@
 			
 				//// #endif
 				uni.navigateTo({
-					url:`pages/client/hotelHome/hotelHome?st=${this.conditionForm.dateRange[0]}&&et=${this.conditionForm.dateRange[1]}&&hotel=${encodeURIComponent(JSON.stringify(hotel))}`,
+					url:`/pages/client/hotelHome/hotelHome?st=${this.conditionForm.dateRange[0]}&&et=${this.conditionForm.dateRange[1]}&&hotel=${encodeURIComponent(JSON.stringify(hotel))}`,
 					complete:()=>{
 						this.isLoading=false;
 					}

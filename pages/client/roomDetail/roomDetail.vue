@@ -1,7 +1,7 @@
 <template>
-	 <scroll-view class="roomDetail" :scroll-x="false" :scroll-y="true">
+	 <scroll-view class="roomDetail" :scroll-x="false" :scroll-y="true" v-if="roomType">
 		<view class="barner">
-			  <swiper class="barner-swiper"  :indicator-dots="true" :autoplay="true" :interval="interval" :duration="duration" :circular="true" indicator-color="#FFF">
+			  <swiper class="barner-swiper"  :indicator-dots="true" :autoplay="true"  :duration="duration" :circular="true" indicator-color="#FFF">
 			  <swiper-item v-for="item of roomType.imagesList">
 				 <image show-menu-by-longpress :src="item" class="barner-image" mode="aspectFill"></image>						
 			  </swiper-item>
@@ -9,7 +9,9 @@
 		</view>
 		<view> 
 			<view class="room-info-label">房型信息</view>
+			<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name , type" :getone="false" where="type=='roomType'" orderby="name asc"> 
 			<view class="room-info-list">
+
 			  <view class="room-info-list-item">
 				<uni-icons type="personadd-filled" size="30px" color="#000"></uni-icons>
 				<view class="la">宜住{{roomType.guestNumber||2}}人</view>
@@ -24,7 +26,13 @@
 				<view>{{roomType.area}}m</view>
 			  </view> 
 		
-			  <view class="room-info-list-item">
+			 
+				<view class="room-info-list-item" v-for="item of data">
+					<image :src="`${imgsrc}balcony.svg`" style="width: 30px;height:30px;"></image>
+					<view class="la">{{item.name}}</view>
+				  </view> 
+				
+			  <!-- <view class="room-info-list-item">
 				<image :src="`${imgsrc}balcony.svg`" style="width: 30px;height:30px;"></image>
 				<view class="la">观景阳台</view>
 			  </view>  
@@ -44,48 +52,51 @@
 				<image :src="`${imgsrc}toiletries.svg`" style="width: 30px;height:30px;"></image>
 				<view class="la">洗漱护理</view>
 			  </view> 
+			   -->
 			  <view class="room-info-list-item">
 				<image :src="`${imgsrc}bed.svg`" style="width: 30px;height:30px;"></image>
 				<view class="la">
-					<view v-for="item of roomType.bedList">{{item.name}}*{{item.count}}</view>
-				  
-		
+					<view v-for="item of roomType.bedList">{{item.name}}*{{item.count}}</view>				  	
 				</view>
 			  </view>
 			</view>
+		</unicloud-db>
 			<view class="room-info-label">价格信息</view>
-			<view class="p-list"> 
-				<view class="p-list-item">
-					<view class="title-area"> 
-						<text>标准价格</text>
-					</view>
-					<view> 
-						<text class="pr-text">￥299</text>
-						<text class="edit-text-btn-style">预定</text>
-					</view>
-					
+			<view class="p-list" v-if="roomType.remainCount>0"> 
+				<view class="p-list-item" v-if="roomType.priceBase>0">
+				  <view class="title-area"> 
+					<text>{{roomType.priceBase_name||'标准价格'}}</text>
+				  </view>
+				  <view class="pr-area"> 
+					<text class="pr-text">￥{{roomType.priceBase}}</text>
+					<text class="edit-text-btn-style" @click="reserve('priceBase')" v-if="roomType.remainCount>0">预定</text>
+					<text class="edit-text-btn-style" @click="bargain('priceBase')" v-if="roomType.remainCount>0&&roomType.isBargain">议价</text>
+				  </view>
+				  
 				</view>
-				<view class="p-list-item">
-					<view class="title-area"> 
-						<text>包含2份早餐</text>
-					</view>
-					<view> 
-						<text class="pr-text">￥399</text>
-						<text class="edit-text-btn-style">预定</text>
-					</view>
+				<view class="p-list-item" v-if="roomType.priceA>0">
+				  <view class="title-area"> 
+					<text>{{roomType.priceA_name}}</text>
+				  </view>
+				  <view class="pr-area"> 
+					<text class="pr-text">￥{{roomType.priceA}}</text>
+					<text class="edit-text-btn-style" @click="reserve('priceA')" v-if="roomType.remainCount>0">预定</text>
+					<text class="edit-text-btn-style" @click="bargain('priceA')" v-if="roomType.remainCount>0&&roomType.isBargain">议价</text>
+				  </view>
 				</view>
-				<view class="p-list-item">
-					<view class="title-area"> 
-						<text>包含2份早餐</text>
-						<text>包含2张萤火虫票</text>
-					</view>
-					
-					<view> 
-						<text class="pr-text">￥499</text>
-						<text class="edit-text-btn-style">预定</text>
-					</view>
+				<view class="p-list-item" v-if="roomType.priceB>0">
+				  <view class="title-area"> 
+					<text>{{roomType.priceB_name}}</text>
+					<text class="text-overflow-ellipsis"></text>
+				  </view>
+				  
+				  <view class="pr-area"> 
+					<text class="pr-text">￥{{roomType.priceB}}</text>
+					<text class="edit-text-btn-style" @click="reserve('priceB')" v-if="roomType.remainCount>0">预定</text>
+					<text class="edit-text-btn-style" @click="bargain('priceB')" v-if="roomType.remainCount>0&&roomType.isBargain">议价</text>
+				  </view>
 				</view>
-			</view>
+			  </view>
 		</view>
 	
 	</scroll-view>
@@ -108,7 +119,12 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 			}
 		},
 		methods: {
-			
+			reserve(p){
+      uni.showToast({title:"暂未开放",icon:"none"});
+    },
+    bargain(p){
+      uni.showToast({title:"暂未开放",icon:"none"});
+    }
 		},
 		onShow(){
 			try {
@@ -155,7 +171,19 @@ $showWidth:1200px;
 	  width: $showWidth;
 	  height: $showWidth*0.0625*9;
   }
-
+  .pr-area{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: space-between;
+    min-width: 86px;
+    gap:8px;
+    .pr-text{
+      color: orange;
+      font-weight: bold;
+      padding:0 4px;
+    }
+  }
   .room-info-list {
 	display: flex;
 	}
