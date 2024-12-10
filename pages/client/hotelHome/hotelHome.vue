@@ -3,14 +3,13 @@
 		<view class="flex-page-content">
 
 				<introduce v-show="tabId=='b1'" :hotel="hotel"></introduce>	
-				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id"></roomType>
+				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id" :range="dateRange"></roomType>
 				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>			
 		</view>
 		<view class="flex-flex-page-bottom">
 			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
 		</view>
-		<uni-fab ref="fab" :pattern="pattern" :content="content" horizontal="right" vertical="bottom"
-			direction="vertical" @trigger="trigger" @fabClick="fabClick" />
+		
 	</view>
 </template>
 
@@ -30,7 +29,6 @@ import {useStore} from 'vuex';
         {id:"b2",label:"房型",icon:`${imgUrl}bed-line-black.svg`,activeIcon:`${imgUrl}bed-line-blue.svg`},
         {id:"b3",label:"餐饮",icon:`${imgUrl}food.svg`,activeIcon:`${imgUrl}food-blue.svg`}
       ]
-	  store.commit("updateCurrentHotel_id",props.hotel._id);
 	  return {
 		config,
 		tabbarList
@@ -40,6 +38,7 @@ import {useStore} from 'vuex';
 			return {
 	  			tabId:"b1",
 				hotel:{},
+				dateRange:[],
 				content: [{
 						iconPath: '/static/image.png',
 						selectedIconPath: '/static/image-active.png',
@@ -81,6 +80,8 @@ import {useStore} from 'vuex';
 			try {
 				console.log("传递参数",params)
 				this.hotel = JSON.parse(decodeURIComponent(params.hotel)) ;
+				this.dateRange = [Number(params.st),Number(params.et)  ];
+				this.$store.commit("updateCurrentHotel_id",this.hotel._id);
 				uni.setNavigationBarTitle({
         			title:`【${this.hotel.hotelName}】简介` ,
       				});

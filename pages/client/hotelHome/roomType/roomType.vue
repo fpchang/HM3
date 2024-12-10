@@ -1,77 +1,31 @@
 <template>
-  <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
-    <view class="roomType"> 
-
-   
-  <xt-panal-list :dataList="roomType" maxWidth=1200>
-				
-    <!-- #ifdef MP -->
-    <view v-for="(item,index) of roomType" slot="card{{index}}">
-      <view class="roomCard">
-        <view class="img-area" style=""> 
-          <image :src="item.firstImages" mode="widthFix" style="width:100%;height:100%"  @click="roomDetail(item)"/>
-        </view>
-        
-        <view  class="label-area" @click="roomDetail(item)">
-          <view class="name-sytle">
-            <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
-            <text class="label-item">{{item.area}}m²</text>
-          </view>
-          <view>
-            <text>可住{{item.guestNumber||2}}人</text>
-            <uni-icons type="forward"></uni-icons>
-          </view>
-          
-        </view>
-        <view class="p-list"> 
-          <view class="p-list-item" v-if="item.priceBase>0">
-            <view class="title-area"> 
-              <text>{{item.priceBase_name||'标准价格'}}</text>
-            </view>
-            <view class="pr-area"> 
-              <text class="pr-text">￥{{item.priceBase}}</text>
-              <text class="edit-text-btn-style" @click="reserve(item,'priceBase')">预定</text>
-              <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.isBargain">议价</text>
-            </view>
-            
-          </view>
-          <view class="p-list-item" v-if="item.priceA>0">
-            <view class="title-area"> 
-              <text>{{item.priceA_name}}</text>
-            </view>
-            <view class="pr-area"> 
-              <text class="pr-text">￥{{item.priceA}}</text>
-              <text class="edit-text-btn-style" @click="reserve(item,'priceA')">预定</text>
-              <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.isBargain">议价</text>
-            </view>
-          </view>
-          <view class="p-list-item" v-if="item.priceB>0">
-            <view class="title-area"> 
-              <text>{{item.priceB_name}}</text>
-              <text class="text-overflow-ellipsis"></text>
-            </view>
-            
-            <view class="pr-area"> 
-              <text class="pr-text">￥{{item.priceB}}</text>
-              <text class="edit-text-btn-style" @click="reserve(item,'priceB')">预定</text>
-              <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.isBargain">议价</text>
-            </view>
-          </view>
-        </view>
-      </view>
+  <view> 
+    <view class="search"> 
+      <uni-datetime-picker v-model="dateRange" type="daterange" return-type="timestamp" @change="dateConfim" >
+        <text class="strong">{{foramtDateLabel(dateRange[0]).de}}</text
+        ><text class="normal" style="padding: 0 10px">{{foramtDateLabel(dateRange[0]).dy}}</text>
+        <text style="padding: 0 25px">-</text>
+        <text class="strong">{{foramtDateLabel(dateRange[1]).de}}</text
+        ><text class="normal" style="padding: 0 10px">{{foramtDateLabel(dateRange[1]).dy}}</text>
+      </uni-datetime-picker>
     </view>
-    <!-- #endif -->
-    <!-- #ifdef H5 || APP-PLUS -->
-     <template v-for="(item,index) of roomType" v-slot:[`card${index}`]="data">
+    <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
+      <view class="roomType">   
+    <xt-panal-list :dataList="remainTypeList" maxWidth=1200>
+          
+      <!-- #ifdef MP -->
+      <view v-for="(item,index) of remainTypeList" slot="card{{index}}">
         <view class="roomCard">
-          <view class="img-area" :style="{'height':`${data.cardWidth*3/4}px`}"> 
-            <image :src="item.firstImages" mode="aspectFill" style="width:100%;height:100%"  @click="roomDetail(item)"/>
+          <view class="img-area" style=""> 
+            <image :src="item.firstImages" mode="widthFix" style="width:100%;height:100%"  @click="roomDetail(item)"/>
           </view>
           
           <view  class="label-area" @click="roomDetail(item)">
             <view class="name-sytle">
               <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
               <text class="label-item">{{item.area}}m²</text>
+              <text v-if="item.remainCount>0">剩余{{item.remainCount}}间</text>
+                <text v-if="item.remainCount<1">满房</text>
             </view>
             <view>
               <text>可住{{item.guestNumber||2}}人</text>
@@ -79,15 +33,15 @@
             </view>
             
           </view>
-          <view class="p-list"> 
+          <view class="p-list" v-if="item.remainCount>0"> 
             <view class="p-list-item" v-if="item.priceBase>0">
               <view class="title-area"> 
                 <text>{{item.priceBase_name||'标准价格'}}</text>
               </view>
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceBase}}</text>
-                <text class="edit-text-btn-style" @click="reserve(item,'priceBase')">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.isBargain">议价</text>
+                <text class="edit-text-btn-style" @click="reserve(item,'priceBase')" v-if="item.remainCount>0">预定</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.remainCount>0&&item.isBargain">议价</text>
               </view>
               
             </view>
@@ -97,8 +51,8 @@
               </view>
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceA}}</text>
-                <text class="edit-text-btn-style" @click="reserve(item,'priceA')">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.isBargain">议价</text>
+                <text class="edit-text-btn-style" @click="reserve(item,'priceA')" v-if="item.remainCount>0">预定</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text>
               </view>
             </view>
             <view class="p-list-item" v-if="item.priceB>0">
@@ -109,28 +63,91 @@
               
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceB}}</text>
-                <text class="edit-text-btn-style" @click="reserve(item,'priceB')">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.isBargain">议价</text>
+                <text class="edit-text-btn-style" @click="reserve(item,'priceB')" v-if="item.remainCount>0">预定</text>
+                <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.remainCount>0&&item.isBargain">议价</text>
               </view>
             </view>
           </view>
         </view>
-     </template>
-     <!-- #endif -->
-  
+      </view>
+      <!-- #endif -->
+      <!-- #ifdef H5 || APP-PLUS -->
+       <template v-for="(item,index) of remainTypeList" v-slot:[`card${index}`]="data">
+          <view class="roomCard">
+            <view class="img-area" :style="{'height':`${data.cardWidth*3/4}px`}"> 
+              <image :src="item.firstImages" mode="aspectFill" style="width:100%;height:100%"  @click="roomDetail(item)"/>
+            </view>
+            
+            <view  class="label-area" @click="roomDetail(item)">
+              <view class="name-sytle">
+                <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
+                <text class="label-item">{{item.area}}m²</text>
+                <text v-if="item.remainCount>0">剩余{{item.remainCount}}间</text>
+                <text v-if="item.remainCount<1" style="color:orange;font-weight:bold">满房</text>
+              </view>
+              <view>
+                <text>可住{{item.guestNumber||2}}人</text>
+                <uni-icons type="forward"></uni-icons>
+              </view>
+              
+            </view>
+            <view class="p-list" v-if="item.remainCount>0"> 
+              <view class="p-list-item" v-if="item.priceBase>0">
+                <view class="title-area"> 
+                  <text>{{item.priceBase_name||'标准价格'}}</text>
+                </view>
+                <view class="pr-area"> 
+                  <text class="pr-text">￥{{item.priceBase}}</text>
+                  <text class="edit-text-btn-style" @click="reserve(item,'priceBase')" v-if="item.remainCount>0">预定</text>
+                  <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                </view>
+                
+              </view>
+              <view class="p-list-item" v-if="item.priceA>0">
+                <view class="title-area"> 
+                  <text>{{item.priceA_name}}</text>
+                </view>
+                <view class="pr-area"> 
+                  <text class="pr-text">￥{{item.priceA}}</text>
+                  <text class="edit-text-btn-style" @click="reserve(item,'priceA')" v-if="item.remainCount>0">预定</text>
+                  <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                </view>
+              </view>
+              <view class="p-list-item" v-if="item.priceB>0">
+                <view class="title-area"> 
+                  <text>{{item.priceB_name}}</text>
+                  <text class="text-overflow-ellipsis"></text>
+                </view>
+                
+                <view class="pr-area"> 
+                  <text class="pr-text">￥{{item.priceB}}</text>
+                  <text class="edit-text-btn-style" @click="reserve(item,'priceB')" v-if="item.remainCount>0">预定</text>
+                  <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                </view>
+              </view>
+            </view>
+          </view>
+       </template>
+       <!-- #endif -->
     
-</xt-panal-list>
-</view>
-  </scroll-view>
+      
+  </xt-panal-list>
+  </view>
+    </scroll-view>
+  </view>
+  
 </template>
 
 <script>
-import {HotelService} from '@/services/HotelService';
+import {HotelServiceClient} from '@/services/HotelServiceClient';
 import uniIcons from '../../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
 export default {
   components: { uniIcons },
   name: "roomType",
   props: {
+    range:{
+      type:Array
+    },
     hotel_id:{
       type:String,
       default:""
@@ -138,22 +155,41 @@ export default {
   },
   data() {
     return {
-      roomType:[]
+      roomType:[],
+      dateRange:this.range,
+      remainTypeList:[]
     }
   },
  async created(){
-  await this.getRoomType();
+ // await this.getRoomType();
+ this.getRemainRoomType();
   },
 
   computed: {},
   methods: {
+    foramtDateLabel(dateTime){
+      let dyStr = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+					return {
+						de: new Date(dateTime).Format("MM-dd"),
+						dy: dyStr[new Date(dateTime).getDay()]
+					}
+				
+    },
     roomDetail(item){
       uni.navigateTo({
           url: `/pages/client/roomDetail/roomDetail?roomType=${encodeURIComponent(JSON.stringify(item))}`,
         });
     },
+    dateConfim(){
+      this.getRemainRoomType()
+    },
+    async getRemainRoomType(){
+      const list = await  HotelServiceClient.getRemainRoomType(this.hotel_id,this.dateRange[0],this.dateRange[1]);
+      console.log("房型价格列表 client",list);
+      this.remainTypeList=list;
+    },
     async getRoomType(){
-      const res = await  HotelService.getRoomType(this.hotel_id);
+      const res = await  HotelServiceClient.getRoomType(this.hotel_id);
 				console.log("房型列表 client",res);
 				this.roomType = res.result.data;
       
@@ -184,9 +220,21 @@ export default {
 
 <style scoped lang="scss">
 $showWidth:1200px;
-.scroll-style{
-  height:calc(100vh - 70px);
+.search{
+  height: 40px;
+  padding:20px;
+  box-sizing: border-box;
+  max-width: 100vw;
+  width:$showWidth;
+  margin:auto;
+  background:#fff;
+  display: flex;
+  align-items: center;
 }
+.scroll-style{
+  height:calc(100vh - 110px);
+}
+
 .roomType{
   
   max-width: 100vw;
@@ -243,4 +291,12 @@ $showWidth:1200px;
  
   }
 } 
+.strong {
+  font-size: 18px;
+  font-weight: bold;
+}
+.normal {
+  font-size: 13px;
+  color: #a1a1a1;
+}
 </style>

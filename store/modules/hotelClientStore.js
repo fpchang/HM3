@@ -5,11 +5,14 @@ export default{
 	namespaced: true,
 	state: { //存放状态
 		currentHotel_id:"",
-		hotelList:[]
+		hotelList:[],
+		searchCondition:{}
 	},
 
 	mutations: {
-		//调用 this.$store.commit('updateHotelList',[])
+		updateSearchCondition(state,obj){
+			this.searchCondition=obj;
+		},
 		updateHotelList(state, list) {
 			console.log("client set")
 			state.hotelList = list;

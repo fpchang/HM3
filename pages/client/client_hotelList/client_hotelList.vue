@@ -44,17 +44,14 @@
 							</view>
 							<view style="padding:10px" class="zcard-right">
 								<view class="item"><text class="title">{{item.hotelName}}</text></view>
-								<view class="item"><text>距你直线距离800米</text></view>
+								<view class="item"><text>距你直线距离{{getDistance(conditionForm.location ,item.hotelCoordinate)}}米</text></view>
 								<view class="item">
 									<view class="tabscontainer" style=""> 
-										<uni-tag :inverted="true" text="莫干山景区" size="mini"/>
-										<uni-tag :inverted="true" text="宠物免费" size="mini"/>
-										<uni-tag :inverted="true" text="免费停车" size="mini"/>
-										<uni-tag :inverted="true" text="萤火虫" size="mini"/>
+										<uni-tag v-for="i of item.feature" :inverted="true" :text="i" size="mini"/>
 									</view>
 
 								</view>
-								<view class="bottom item"><text>499￥</text></view>
+								<view class="bottom item"><text></text></view>
 							</view>
 						</view>
 
@@ -68,13 +65,12 @@
 							</view>
 							<view style="padding:10px" class="zcard-right">
 								<view class="item"><text class="title">{{item.hotelName}}</text></view>
-								<view class="item"><text>距你直线距离800米</text></view>
+								<view class="item"><text>距你直线距离{{ getDistance(conditionForm.location ,item.hotelCoordinate)}}米</text></view>
 								<view class="item">
 									<view class="tabscontainer" style=""> 
-										<uni-tag :inverted="true" text="莫干山景区" size="mini"/>
-										<uni-tag :inverted="true" text="宠物免费" size="mini"/>
-										<uni-tag :inverted="true" text="免费停车" size="mini"/>
-										<uni-tag :inverted="true" text="萤火虫" size="mini"/>
+
+										<uni-tag v-for="i of item.feature" :inverted="true" :text="i" size="mini"/>
+								
 									</view>
 
 								</view>
@@ -163,9 +159,10 @@
 					return;
 				}
 				this.isLoading=true;
-				let href = `#/pages/client/hotelHome/hotelHome?hotel=${encodeURIComponent(JSON.stringify(hotel))}`;
+				console.log("333333",this.conditionForm.dateRang)
+				let href = `#/pages/client/hotelHome/hotelHome?st=${this.conditionForm.dateRange[0]}&&et=${this.conditionForm.dateRange[1]}&&hotel=${encodeURIComponent(JSON.stringify(hotel))}`;
 				// #ifdef H5
-				//window.open(href, "_blank");
+				window.open(href, "_blank");
 				//return;
 				// #endif
 				//// #ifndef H5
@@ -173,10 +170,31 @@
 			
 				//// #endif
 				uni.navigateTo({
-					url:`/pages/client/hotelHome/hotelHome?hotel=${encodeURIComponent(JSON.stringify(hotel))}`
+					url:`pages/client/hotelHome/hotelHome?st=${this.conditionForm.dateRange[0]}&&et=${this.conditionForm.dateRange[1]}&&hotel=${encodeURIComponent(JSON.stringify(hotel))}`,
+					complete:()=>{
+						this.isLoading=false;
+					}
 				})
-			}
+			},		
+			getDistance(location,location_){
+				let lon1 = location[0],la1=location[1];
+				let lon2 = location_[0],la2=location_[1];
+					let radLat1 = la1 * Math.PI / 180.0;
+					let radLat2 = la2 * Math.PI / 180.0;
+					let a = radLat1 - radLat2;
+					let b = lon1 * Math.PI / 180.0 - lon2 * Math.PI / 180.0;
+					let s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+					s = s * 6378.137;
+					s = Math.round(s * 10000) / 10;
+					console.log("距离",s);
+					return s;
+					//this.distance=s
+
+					
+
+		}
 		},
+	
 		onShow() {
 			try {
 				if (this.$store.state.isPcShow) {
@@ -193,6 +211,7 @@
 			try {
 				this.type = obj.type;
 				this.conditionForm = JSON.parse(decodeURIComponent(obj.condition));
+				console.log("conditionForm",this.conditionForm)
 				this.conditionForm.location= [119.882659, 30.626099];
 				this.getHotelList();
 
@@ -201,7 +220,8 @@
 			}
 		},
 		mounted(){
-			console.log("config",this.$store.state.config)
+			console.log("config",this.$store.state.config);
+			//this.getDistance([120.0868811, 30.894178],[121.0868811, 30.894178])
 		}
 	}
 </script>

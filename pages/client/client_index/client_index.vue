@@ -118,17 +118,11 @@ export default {
   },
   async created(){
     console.log("client created",this.config);
-    //  uni.setTabBarItem({index:1,visible:false});
-    //  uni.setTabBarItem({index:0,visible:true});
       this.isLoading = true;
      await this.getLocation();
       this.isLoading = false;
   },
   mounted(){
-    console.log("config",this.config);
-    // if(this.$store.state.isPcShow){
-		// 		uni.hideTabBar();
-		// 	}
 			//if(this.isPcShow){
 			// #ifdef H5
 			try {
@@ -161,7 +155,6 @@ export default {
       console.log(e)
     },
     getLocation() {
-      return true;
       // #ifdef H5
       return true;
       // #endif
@@ -187,6 +180,7 @@ export default {
       });
     },
     async getHotelList() {
+      console.log("open",this.location)
       try {
         await this.$store.dispatch("loginEvent");
         const condition={
@@ -205,7 +199,7 @@ export default {
           url: href,
         });
       } catch (error) {
-        console.log("检验登录不通过",error)
+       
       }
      
       // if (this.isLoading) {

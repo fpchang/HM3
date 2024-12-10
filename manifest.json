@@ -108,7 +108,10 @@
                 "desc" : "根据当前位置查找附近店铺"
             }
         },
-        "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ]
+        "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ],
+        "unipush" : {
+            "enable" : true
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true
