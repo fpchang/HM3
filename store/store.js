@@ -37,7 +37,8 @@ const store = createStore({
   mutations: {
     //当前位置坐标
     setLocation(state, loc) {
-      this.location = loc;
+      //console.log("store 设置location",loc)
+      state.location = loc;
     },
     setPartialRefreshComName(state, comName) {
       state.partialRefreshComName = comName;

@@ -16,7 +16,7 @@
         <view class="xt-list">
           <view class="xt-list-item">
             <view class="item-con">
-              <text>{{ addressName }}</text>
+              <text>{{ address }}</text>
               <text class="flex-center" @click="getLocation"
                 ><uni-icons type="location-filled" size="20"></uni-icons
                 ><text>我的位置</text></text
@@ -25,8 +25,7 @@
           </view>
           <view class="xt-list-item">
             <view class="item-con">
-              <view>
-               
+              <view>              
                 <uni-datetime-picker v-model="dateRange" type="daterange" return-type="timestamp" @change="dateConfim" >
                   <text class="strong">{{foramtDateLabel(dateRange[0]).de}}</text
                   ><text class="normal" style="padding: 0 10px">{{foramtDateLabel(dateRange[0]).dy}}</text>
@@ -39,13 +38,14 @@
             </view>
           </view>
           <view class="xt-list-item">
-            <view class="item-con">
-              <uni-easyinput
+            <view class="item-con" @click="toSearch">
+              <!-- <uni-easyinput
                 v-model="filterVal"
                 placeholder="酒店名/品牌名/地标"
                 style="font-size: 18px; font-weight: bold"
                 :inputBorder="false"
-              />
+              /> -->
+              <text style="color:#a1a1a1">{{filterVal||'酒店名/品牌名/地标'}}</text>
             </view>
           </view>
           <view class="xt-list-item">
@@ -90,8 +90,9 @@ export default {
       tabId:"b1",
       key: "a69cc73276ceb1a813f3be0d5d42c2aa",
       filterVal: "",
-      addressName: "",
+      address: "",
       dateRange:[new Date().getTime(),new Date().getTime()+1000*60*60*24],
+      sarchLocation:[],
       location: []
 
     };
@@ -111,6 +112,9 @@ export default {
         this.getHotelList();
       }
      
+    },
+    filterVal(val){
+      this.searchAddress(val);
     }
   },
   onLoad(){
@@ -119,6 +123,9 @@ export default {
   async created(){
     console.log("client created",this.config);
       this.isLoading = true;
+      this.amapPlugin = new amap.AMapWX({
+          key: this.key,
+        });
      await this.getLocation();
       this.isLoading = false;
   },
@@ -154,18 +161,30 @@ export default {
     dateConfim(e){
       console.log(e)
     },
+    searchAddress(keywords){
+    this.amapPlugin.getInputtips({
+      keywords: keywords,
+      location: '',
+      success: function(data){
+        console.log("sssss",data)
+        // if(data && data.tips){
+        //   that.setData({
+        //     tips: data.tips
+        //   });
+        // }
+      }
+    })
+    },
     getLocation() {
       // #ifdef H5
       return true;
       // #endif
       return new Promise((resolve, reject) => {
-        this.amapPlugin = new amap.AMapWX({
-          key: this.key,
-        });
+       
         this.amapPlugin.getRegeo({
           success: (data) => {
             console.log(data);
-            this.addressName = data[0].name;
+            this.address = data[0].name;
             this.location = [data[0].longitude, data[0].latitude];
             this.$store.commit("setLocation",this.location);
             uni.hideLoading();
@@ -179,21 +198,36 @@ export default {
         });
       });
     },
+    toSearch(){
+				uni.navigateTo({
+					url:"/pages/client/hotelSearch/hotelSearch",
+					events:{
+						getAddress:obj=>{
+							console.log("ooooooooo",obj)
+							this.filterVal=obj.filterVal;
+							this.address=obj.address,
+							this.location=obj.location;
+							//this.getHotelList();
+							}
+						}
+					
+				})
+			},
     async getHotelList() {
       console.log("open",this.location)
       try {
         await this.$store.dispatch("loginEvent");
         const condition={
           filterVal:this.filterVal,
-          addressName: this.addressName,
+          address: this.address,
           dateRange:this.dateRange,
           location:this.location,
         }
         let href = `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`;
         //#ifdef H5
         
-						window.open(`#${href}`, "_blank");
-          return;
+						//window.open(`#${href}`, "_blank");
+          //return;
         //#endif
         uni.navigateTo({
           url: href,
@@ -219,7 +253,7 @@ export default {
       //   console.log(res);
       //   const condition={
       //     filterVal:this.filterVal,
-      //     addressName: this.addressName,
+      //     address: this.address,
       //     dateRange:this.dateRange,
       //     location:this.location,
       //   }

@@ -5,7 +5,7 @@ export default{
 	namespaced: true,
 	state: { //存放状态
 		currentHotel_id:"",
-		hotelList:[],
+		hotelList:null,
 		searchCondition:{}
 	},
 

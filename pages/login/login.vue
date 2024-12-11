@@ -1,7 +1,7 @@
 <template>
   <view class="container">
     <view class="panel">
-      <view class="title">欢迎使用 [民宿管理系统]</view>
+      <view class="title">欢迎使用 [议宿平台]</view>
       <view class="subtitle">手机号快捷登录/注册</view>
       <view style="height: 80px"></view>
       <uni-forms ref="userForm" :modelValue="userForm" :rules="rules">

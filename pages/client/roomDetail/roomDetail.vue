@@ -9,7 +9,7 @@
 		</view>
 		<view> 
 			<view class="room-info-label">房型信息</view>
-			<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name , type" :getone="false" where="type=='roomType'" orderby="name asc"> 
+			<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name , type , icon" :getone="false" where="type=='roomType'" orderby="name asc"> 
 			<view class="room-info-list">
 
 			  <view class="room-info-list-item">
@@ -17,20 +17,22 @@
 				<view class="la">宜住{{roomType.guestNumber||2}}人</view>
 			  </view>      
 			  
-			  <view class="room-info-list-item">
+			  <!-- <view class="room-info-list-item">
 				<image :src="`${imgsrc}bashroom.svg`" style="width: 30px;height:30px;"></image>
 				<view class="la">独立卫生间</view>
-			  </view>  
+			  </view>   -->
 			  <view class="room-info-list-item">
 				<image :src="`${imgsrc}area.svg`" style="width: 30px;height:30px;"></image>
 				<view>{{roomType.area}}m</view>
 			  </view> 
 		
-			 
-				<view class="room-info-list-item" v-for="item of data">
-					<image :src="`${imgsrc}balcony.svg`" style="width: 30px;height:30px;"></image>
+			 <block v-for="item of data"> 
+				<view class="room-info-list-item" v-if="roomType.facility.includes(item._id)">
+					<image :src="item.icon" style="width: 30px;height:30px;"></image>
 					<view class="la">{{item.name}}</view>
-				  </view> 
+				  </view>
+			 </block>
+				 
 				
 			  <!-- <view class="room-info-list-item">
 				<image :src="`${imgsrc}balcony.svg`" style="width: 30px;height:30px;"></image>
@@ -59,6 +61,11 @@
 					<view v-for="item of roomType.bedList">{{item.name}}*{{item.count}}</view>				  	
 				</view>
 			  </view>
+			  
+				<view class="room-info-list-item" style="height: 0;" v-for="i in 5">
+					1111
+				  </view>
+			
 			</view>
 		</unicloud-db>
 			<view class="room-info-label">价格信息</view>
@@ -116,6 +123,9 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 		computed:{
 			isPcShow(){
 				return this.$store.state.isPcShow;
+			},
+			config(){
+				return this.$store.state.config
 			}
 		},
 		methods: {
@@ -186,6 +196,7 @@ $showWidth:1200px;
   }
   .room-info-list {
 	display: flex;
+	justify-content: space-between;
 	}
 	.room-info-label{
 	  font-size: 20px;
@@ -198,7 +209,7 @@ $showWidth:1200px;
 	  flex-wrap: wrap;
 	}
 	.room-info-list .room-info-list-item{
-	  width: 90px;
+	  min-width: 80px;
 	  display: flex;
 	  flex-direction: column;
 	  align-items: center;

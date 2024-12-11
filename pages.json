@@ -222,6 +222,13 @@
 	{
 		"navigationBarTitleText" : ""
 	}
+},
+{
+	"path" : "pages/client/hotelSearch/hotelSearch",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
 }
 
 ],

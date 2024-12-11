@@ -12,8 +12,8 @@
 					</uni-datetime-picker>
 
 				</view>
-				<input style="background-color:transparent;flex:1" placeholder="位置/品牌/酒店"
-					v-model="conditionForm.filterVal"></input>
+				<!-- <input style="background-color:transparent;flex:1" placeholder="位置/品牌/酒店"></input> -->
+				 <view style="background-color:transparent;flex:1;color:#bbb" @click="toSearch"><text>{{conditionForm.filterVal||'位置/品牌/酒店'}}</text></view>
 				<uni-icons type="search" size="22px"></uni-icons>
 			</view>
 
@@ -32,7 +32,12 @@
 			</xt-dropdown>
 
 		</view>
+		<block v-if="hotelList&&hotelList.length<1">
+			<noData text_content="未找到相关酒店"></noData>
+		</block>
+		<block v-if="hotelList">
 		<scroll-view style="height: calc(100vh - 84px);" scroll-x="false" scroll-y="true">
+			
 			<view>
 				<xt-panal-list :dataList="hotelList">
 
@@ -44,7 +49,7 @@
 							</view>
 							<view style="padding:10px" class="zcard-right">
 								<view class="item"><text class="title">{{item.hotelName}}</text></view>
-								<view class="item"><text>距你直线距离{{getDistance(conditionForm.location ,item.hotelCoordinate)}}米</text></view>
+								<view class="item"><text>距你直线距离{{getDistance(conditionForm.location ,item.hotelCoordinate)}}Km</text></view>
 								<view class="item">
 									<view class="tabscontainer" style=""> 
 										<uni-tag v-for="i of item.feature" :inverted="true" :text="i" size="mini"/>
@@ -65,7 +70,7 @@
 							</view>
 							<view style="padding:10px" class="zcard-right">
 								<view class="item"><text class="title">{{item.hotelName}}</text></view>
-								<view class="item"><text>距你直线距离{{ getDistance(conditionForm.location ,item.hotelCoordinate)}}米</text></view>
+								<view class="item"><text>距你直线距离{{ getDistance(conditionForm.location ,item.hotelCoordinate)}}Km</text></view>
 								<view class="item">
 									<view class="tabscontainer" style=""> 
 
@@ -74,6 +79,7 @@
 									</view>
 
 								</view>
+								<view class="item"><text style="color:#a1a1a1">{{item.hotelAddress}}</text></view>
 								<view class="bottom item"><text>499￥</text></view>
 							</view>
 						</view>
@@ -85,6 +91,7 @@
 			</view>
 
 		</scroll-view>
+	</block>
 	</view>
 
 </template>
@@ -118,7 +125,13 @@
 
 					}
 				],
-				conditionForm: {}
+				
+				conditionForm: {
+					filterVal:"",
+          			address:"",//目标地址
+          			dateRange:[Date.now(),Date.now()+1000*60*60*24],
+          			location:[]//查询的坐标
+				}
 			}
 		},
 		computed: {
@@ -137,6 +150,21 @@
 					dy: dyStr[new Date(dateTime).getDay()]
 				}
 
+			},
+			toSearch(){
+				uni.navigateTo({
+					url:"/pages/client/hotelSearch/hotelSearch",
+					events:{
+						getAddress:obj=>{
+							console.log("ooooooooo",obj)
+							this.conditionForm.filterVal=obj.filterVal;
+							this.conditionForm.address=obj.address,
+							this.conditionForm.location=obj.location;
+							this.getHotelList();
+							}
+						}
+					
+				})
 			},
 			async getHotelList() {
 				if (this.isLoading) {
@@ -161,7 +189,7 @@
 				this.isLoading=true;
 				let href = `#/pages/client/hotelHome/hotelHome?st=${this.conditionForm.dateRange[0]}&&et=${this.conditionForm.dateRange[1]}&&hotel=${encodeURIComponent(JSON.stringify(hotel))}`;
 				// #ifdef H5
-				window.open(href, "_blank");
+				//window.open(href, "_blank");
 				//return;
 				// #endif
 				//// #ifndef H5
@@ -184,14 +212,32 @@
 					let b = lon1 * Math.PI / 180.0 - lon2 * Math.PI / 180.0;
 					let s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
 					s = s * 6378.137;
-					s = Math.round(s * 10000) / 10;
+					s = Math.round(s * 10000) / 10000;
 					console.log("距离",s);
-					return s;
+					return this.numDelivery(s);
 					//this.distance=s
 
 					
 
-		}
+		},
+		numDelivery(num) {
+
+			let result = parseFloat(num);
+
+			if (isNaN(result)) {
+
+			console.log("传递参数错误，请检查！");
+
+			return false;
+
+			}
+
+			result = Math.round(num * 100) / 100;
+
+			return result;
+
+			}
+
 		},
 	
 		onShow() {

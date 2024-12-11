@@ -10,17 +10,18 @@ class HotelServiceClientClass{
      * 获取酒店列表
     */
       async getHotelList(params){
-        let {location, maxDistance = 300000,filterVal} = params;
+        let {location, maxDistance = 9000000,filterVal} = params;
         const db = uniCloud.database();
         const dbCmd = db.command
         console.log('aaaa', location,maxDistance);
-        
+        let text=filterVal.split("").join("|");
+        console.log("查询参数",params,text);
         const w =  dbCmd.and(dbCmd.or(
           {
-            "hotelName":new RegExp(filterVal, 'i'),
+            "hotelName":new RegExp(text, 'i'),
           
         },{
-          "hotelAddress":new RegExp(filterVal, 'i'),
+          "hotelAddress":new RegExp(text, 'i'),
         
       }
         
