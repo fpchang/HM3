@@ -129,6 +129,7 @@
 		HotelService
 	} from "../../../services/HotelService";
 import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
+import amap from "../../../common/amap-wx.130";
 	export default {
   components: { uniIcons },
 		props: {
@@ -191,6 +192,22 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 								}
 							}
 						],
+					},
+					hotelAddress:{
+						rules: [{
+								required: true,
+								errorMessage: '请输入酒店地址',
+							},
+							{
+								validateFunction: (rule, value, data, callback) => {
+									
+									if (!this.hotelForm.hotelAddressArea) {
+										callback('请选择区域')
+									}
+									return true;
+								}
+							}
+						]
 					}
 				}
 
@@ -266,7 +283,7 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 				console.log("list");
 				this.hotelForm.imagesList = list;
 			},
-			submitForm() {
+			async submitForm() {
 				console.log(this.hotelForm);
 				if (this.$refs.uploadImagesRef1.uploadingState() == 0 || this.$refs.uploadImagesRef2.uploadingState() ==
 					0) {
@@ -284,9 +301,14 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 					});
 					return;
 				}
-				this.$refs.hotelFormRef.validate().then(res => {
+				
+				this.$refs.hotelFormRef.validate().then(async res => {
 					//uni.showLoading();
 					this.submitLoading = true;
+					let addressStr=this.hotelForm.hotelAddressArea +this.hotelForm.hotelAddress				
+					const location = await this.searchAddress(addressStr);
+					console.log("获取的坐标",location);
+					this.hotelForm.hotelCoordinate=location;
 					if (this.type == 1) {
 						this.updateHotel();
 						return;
@@ -335,6 +357,44 @@ import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-ic
 					this.submitLoading = false;
 				}
 
+			},
+			searchAddress(keywords) {
+				return new Promise((relolve,reject)=>{
+					try {
+						let	amapPlugin = new amap.AMapWX({
+						key: this.$store.state.config.miniProgramKey,
+					});
+						//let that = this;
+						//let location = this.$store.state.location;
+						console.log("location",location)
+						amapPlugin.getInputtips({
+							keywords: keywords,
+							//location: location.toString(","),
+							success: function(data) {
+								console.log("sssss", data)												
+								if(data.tips.length<1){
+									uni.showToast({
+										title: '无法定位该地址',
+										icon: 'none'
+									})
+									return;
+								}
+								let location = data.tips[0].location;
+								let loc = location.split(",").map(Number);
+								relolve(loc);
+								
+							},
+							fail:function(e){
+								reject(e)
+							}
+							
+						})
+					} catch (error) {
+						reject("未能获取地址坐标")
+					}
+			
+				})
+		
 			}
 		},
 	};

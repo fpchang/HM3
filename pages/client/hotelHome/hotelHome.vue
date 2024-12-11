@@ -116,7 +116,7 @@ import {HotelServiceClient} from "../../../services/HotelServiceClient";
 		// 来自页面内分享按钮
 		let url =this.hotel.firstImages||`${this.$store.state.config.cloudUrl}/HM/images/hotel.jpg`;
 		return {
-			title: "民宿管家",
+			title: "议宿",
 			imageUrl: url,
 			path: `/pages/client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`,
 		};

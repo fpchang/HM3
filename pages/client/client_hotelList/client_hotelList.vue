@@ -49,13 +49,14 @@
 							</view>
 							<view style="padding:10px" class="zcard-right">
 								<view class="item"><text class="title">{{item.hotelName}}</text></view>
-								<view class="item"><text>距你直线距离{{getDistance(conditionForm.location ,item.hotelCoordinate)}}Km</text></view>
+								<view class="item"><text>距你直线距离 <text style="padding:0 4px;font-weight:bold">{{getDistance(conditionForm.location ,item.hotelCoordinate)}}</text>KM</text></view>
 								<view class="item">
 									<view class="tabscontainer" style=""> 
 										<uni-tag v-for="i of item.feature" :inverted="true" :text="i" size="mini"/>
 									</view>
 
 								</view>
+								<view class="item"><text style="color:#a1a1a1">{{item.hotelAddress}}</text></view>
 								<view class="bottom item"><text></text></view>
 							</view>
 						</view>
@@ -70,7 +71,7 @@
 							</view>
 							<view style="padding:10px" class="zcard-right">
 								<view class="item"><text class="title">{{item.hotelName}}</text></view>
-								<view class="item"><text>距你直线距离{{ getDistance(conditionForm.location ,item.hotelCoordinate)}}Km</text></view>
+								<view class="item"><text>距你直线距离<text style="padding:0 4px;font-weight:bold">{{getDistance(conditionForm.location ,item.hotelCoordinate)}}</text>KM</text></view>
 								<view class="item">
 									<view class="tabscontainer" style=""> 
 
@@ -80,7 +81,7 @@
 
 								</view>
 								<view class="item"><text style="color:#a1a1a1">{{item.hotelAddress}}</text></view>
-								<view class="bottom item"><text>499￥</text></view>
+								<view class="bottom item"><text></text></view>
 							</view>
 						</view>
 					</template>

@@ -3,7 +3,10 @@
 		<view style="padding:0 20px">
 			<view class="search-style">
 				<input style="background-color:transparent;flex:1" placeholder="位置/品牌/酒店" v-model="filterVal" :focus="true"></input>
-				<uni-icons type="search" size="22px" @click="search"></uni-icons>
+				<view @click="search" style="padding:5px 0 5px 10px">
+					<uni-icons type="search" size="22px" ></uni-icons>
+				</view>
+				
 			</view>
 
 		</view>
@@ -107,11 +110,12 @@ import uniSection from '../../../uni_modules/uni-section/components/uni-section/
 			search(){
 				const eventChannel = this.getOpenerEventChannel();
 				let obj={
-							filterVal:this.filterVal,
+						filterVal:this.filterVal,
 							address:"",
 							location:this.$store.state.location
 				}
-  				eventChannel.emit('getAddress',Object.assign({},{filterVal:this.filterVal}));
+				console.log("返回参数",obj)
+  				eventChannel.emit('getAddress',obj);
 				uni.navigateBack()
 			}
 		}

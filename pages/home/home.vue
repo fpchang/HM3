@@ -315,7 +315,7 @@ export default {
     if (res.from != "button") {
       // 来自页面内分享按钮
       return {
-        title: "民宿管家",
+        title: "议宿",
         imageUrl: `${this.$store.state.config.cloudUrl}/HM/images/hotel.jpg`,
         path: `/pages/index/index`,
       };

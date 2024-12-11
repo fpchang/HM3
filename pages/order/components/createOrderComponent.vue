@@ -299,7 +299,7 @@
 					orderSource: Number(this.orderForm.orderSource),
 					wxNickName: this.orderForm.wxNickName,
 					orderSouce_Zn: sourceObj.name_Zn,
-					orderStatus: 0,
+					orderStatus: 1,
 					downPayment: Number(this.orderForm.downPayment),
 					totalAmount: Number(this.orderForm.totalAmount),
 				};

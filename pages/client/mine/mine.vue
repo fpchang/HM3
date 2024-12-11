@@ -39,6 +39,28 @@
 				</view>
 			</view>
 		</view>
+		<view class="t"> 
+			<xt-panal-list :dataList="1">
+
+				<!-- #ifdef MP -->
+				<view v-for="(item,index) of [1]" slot="card{{index}}">
+
+
+				</view>
+				<!-- #endif -->
+				<!-- #ifdef H5 || APP-PLUS -->
+				<template v-for="(item,index) of [1]" v-slot:[`card${index}`]>
+					<view>
+						<view><text>收藏</text></view>
+						<view><text>订单</text></view>
+						<view><text>收藏</text></view>
+					</view>
+				</template>
+				<!-- #endif -->
+
+
+			</xt-panal-list>
+		</view>
 		<view class="flex-center"> 
 			<text style="padding:10px;color:#ececec">浙ICP备2024130639号</text>
 		</view>
@@ -48,14 +70,6 @@
 				placeholder="请输入名称" @close="closeNameUpdate" @confirm="submitNameUpdate"></uni-popup-dialog>
 		</uni-popup>
 		<uni-pay ref="pay"></uni-pay>
-		<uni-popup ref="popupRecharge" background-color="#fff" type="bottom">
-			<view class="popup-content">
-				<view class="create-order-title-style">充值中心</view>
-				<view class="comContent">
-					<recharge></recharge>
-				</view>
-			</view>
-		</uni-popup>
 	</view>
 </template>
 

@@ -207,7 +207,7 @@ export default {
 							this.filterVal=obj.filterVal;
 							this.address=obj.address,
 							this.location=obj.location;
-							//this.getHotelList();
+							this.getHotelList();
 							}
 						}
 					
@@ -266,6 +266,18 @@ export default {
       //   uni.hideLoading();
       // }
     },
+  },
+  onShareAppMessage(res) {
+		if (res.from != "button") {
+		// 来自页面内分享按钮
+		let url =`${this.config.cloudUrl}/HM/logo/yisu.png`;
+		return {
+			title: "议宿",
+			imageUrl: url,
+			path: `/pages/index/index`,
+		};
+		}
+
   }
 };
 </script>

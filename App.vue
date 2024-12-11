@@ -51,9 +51,9 @@
 
 			 initData(){
 				const sys =uni.getSystemInfoSync(); 
-				let flag  = sys['deviceType']=='pc' ||sys['windowWidth']>740; 
+				let flag  = sys['deviceType']=='pc' ||sys['windowWidth']>1000; 
 				// #ifdef MP-WEIXIN ||APP-PLUS
-				flag = sys['deviceType']=='pc' ||uni.getWindowInfo().windowWidth>740; 
+				flag = sys['deviceType']=='pc' ||uni.getWindowInfo().windowWidth>1000; 
 				// #endif
 				const config = uni.getStorageSync("config");
 				config&&this.$store.commit("setConfig",config);

@@ -15,7 +15,7 @@ class OrderServiceClass{
 	 */
 	getOrderListByCheckIn(hotel_id,st) {
 	    let startTime = new Date(new Date(st).Format("yyyy/MM/dd 14:00:00")).getTime();
-	    let jql = `hotel_id=='${hotel_id}'&&orderStatus!=10&&checkInStartDateTimeStamp==${startTime}`;
+	    let jql = `hotel_id=='${hotel_id}'&&orderStatus==1&&checkInStartDateTimeStamp==${startTime}`;
 	    return this.DB.getCollection("hm-order", jql);
 	}
     	/**
@@ -24,7 +24,7 @@ class OrderServiceClass{
 	 */
 	getOrderListByCheckOut(hotel_id,ed=new Date()) {
 	    let endTime = new Date(new Date(ed).Format("yyyy/MM/dd 12:00:00")).getTime();
-	    let jql = `hotel_id=='${hotel_id}'&&orderStatus!=10&&checkInEndDateTimeStamp==${endTime}`;
+	    let jql = `hotel_id=='${hotel_id}'&&orderStatus==1&&checkInEndDateTimeStamp==${endTime}`;
 	    return this.DB.getCollection("hm-order", jql);
 	}
     /**
@@ -32,7 +32,7 @@ class OrderServiceClass{
 	 */
 	getOrderListToday(hotel_id) {
 	    let startTime = new Date(new Date().Format("yyyy/MM/dd 14:00:00")).getTime();
-        const s0 =  `hotel_id=='${hotel_id}'&&orderStatus!=10`
+        const s0 =  `hotel_id=='${hotel_id}'&&orderStatus==1`
         const s1 = `${startTime}>=checkInStartDateTimeStamp&&${startTime}<checkInEndDateTimeStamp`;
        
 	    let jql = `${s0}&&${s1}`;
@@ -43,7 +43,7 @@ class OrderServiceClass{
 	 */
 	getOrderListByDate(hotel_id,date=new Date()) {
 	    let startTime = new Date(new Date(date).Format("yyyy/MM/dd 14:00:00")).getTime();
-        const s0 =  `hotel_id=='${hotel_id}'&&orderStatus!=10`
+        const s0 =  `hotel_id=='${hotel_id}'&&orderStatus==1`
         const s1 = `${startTime}>=checkInStartDateTimeStamp&&${startTime}<checkInEndDateTimeStamp`;
        
 	    let jql = `${s0}&&${s1}`;
@@ -63,7 +63,7 @@ class OrderServiceClass{
         const s4=`checkInStartDateTimeStamp<=${startTime}&&checkInEndDateTimeStamp>=${endTime}`;
 		
 		let jql =
-            `hotel_id=='${hotel_id}'&&orderStatus!=10&&(${s1}||${s2}||${s3}||${s4})`;
+            `hotel_id=='${hotel_id}'&&orderStatus==1&&(${s1}||${s2}||${s3}||${s4})`;
         return this.DB.getCollectionGroupBy("hm-order", jql,"checkInStartDateTimeStamp asc");
     }
       /** 
@@ -73,7 +73,7 @@ class OrderServiceClass{
     let startTime = new Date(new Date().Format("yyyy/MM/dd 14:00:00")).getTime();
     let endTime = new Date(new Date().Format("yyyy/MM/dd 12:00:00")).getTime();
     let jql =
-        `hotel_id=='${hotel_id}'&&orderStatus!=10&&(checkInStartDateTimeStamp>=${startTime} ||` +
+        `hotel_id=='${hotel_id}'&&orderStatus==1&&(checkInStartDateTimeStamp>=${startTime} ||` +
         `(${endTime}<checkInEndDateTimeStamp && ${endTime}>checkInStartDateTimeStamp))`;
     return   this.DB.getCollectionGroupBy("hm-order", jql,"checkInStartDateTimeStamp asc");
    
@@ -83,7 +83,7 @@ class OrderServiceClass{
  * @returns 删除订单
  */
 deleteOrder(_id){
-   return  this.DB.callFunction( 'hm-deleteOrder',{ _id});
+   return  this.DB.callFunction('hm-deleteOrder',{ _id});
 }
 }
 //module.exports =new OrderService();

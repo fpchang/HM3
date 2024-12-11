@@ -44,7 +44,59 @@
 					</view>
 				</view>
 			</view>
+			<view class="t"> 
+				<xt-panal-list :dataList="2">
+	
+					<!-- #ifdef MP -->
+					<view v-for="(item,index) of [1]" slot="card{{index}}">
+	
+	
+					</view>
+					<!-- #endif -->
+					<!-- #ifdef H5 || APP-PLUS -->
+					<template  v-slot:[`card0`]>
+						<view class="menu-card">
+							<view class="menu-card-list"> 
+								<view  class="menu-card-list-item">
+									<text>0</text>
+									<text>收藏</text>
+								</view>
+								<view  class="menu-card-list-item">
+									<text>0</text>
+									<text>浏览历史</text>
+								</view>
+								
+							</view>
+							
+						</view>
+					</template>
+					<template  v-slot:[`card1`]>
+						<view class="menu-card">
+							<view class="menu-card-list"> 
+								<view  class="menu-card-list-item" @click="toOrder('all')">
+									<text><uv-icon name="order" color="#a1a1a1" size="28"></uv-icon></text>
+									<text>全部订单</text>
+								</view>
+								<view  class="menu-card-list-item" @click="toOrder('pay')">
+									<text><uv-icon name="red-packet" color="#a1a1a1" size="28"></uv-icon></text>
+									<text>待付款</text>
+								</view>
+								<view  class="menu-card-list-item" @click="toOrder('in')">
+									<text><uv-icon name="empty-favor" color="#a1a1a1" size="28"></uv-icon></text>
+									<text>待入住</text>
+								</view>
+								
+							</view>
+							
+						</view>
+					</template>
+					<!-- #endif -->
+	
+	
+				</xt-panal-list>
+			</view>
 		</view>
+		
 		<view class="flex-center"> 
 			<text style="padding:10px;color:#ececec">浙ICP备2024130639号</text>
 		</view>
@@ -170,17 +222,36 @@
 				}
 				this.$store.dispatch("loginOut");
 			},
-		
+		   toOrder(type){
+			uni.showToast({title:"暂未开放",icon:'none'})
+		   }
 		
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
 .mine{
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
+}
+.menu-card{
+	padding:20px;
+	.menu-card-list{
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		.menu-card-list-item{
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			align-items: center;
+			color: #a1a1a1;
+			cursor: pointer;
+		}
+	}
 }
 	.card-list {
 		flex: 1;

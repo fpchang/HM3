@@ -55,12 +55,12 @@ class HotelServiceClientClass{
      let startTime = new Date( new Date(st).Format( "yyyy/MM/dd")  + " 14:00:00").getTime();
       let endTime = new Date(new Date(et).Format( "yyyy/MM/dd") + " 12:00:00").getTime();
 
-      // let jql =`hotel_id=='${hotel_id}'&&orderStatus!=10&&(`+
+      // let jql =`hotel_id=='${hotel_id}'&&orderStatus==1&&(`+
       //   `${endTime}<=checkInEndDateTimeStamp&&${endTime}>checkInStartDateTimeStamp||` +
       //   `${startTime}>=checkInStartDateTimeStamp&&${endTime}<=checkInEndDateTimeStamp||` +
       //   `${startTime}<=checkInStartDateTimeStamp&&${endTime}>=checkInEndDateTimeStamp)`;
 
-        let W =  dbCmd.and({"hotel_id":dbCmd.eq(hotel_id),"orderStatus":dbCmd.neq(10)},
+        let W =  dbCmd.and({"hotel_id":dbCmd.eq(hotel_id),"orderStatus":dbCmd.eq(1)},
           dbCmd.or(
           {"checkInEndDateTimeStamp":dbCmd.gte(endTime),"checkInStartDateTimeStamp":dbCmd.lt(endTime)},
           {"checkInStartDateTimeStamp":dbCmd.lte(startTime),"checkInEndDateTimeStamp":dbCmd.gte(endTime)},
