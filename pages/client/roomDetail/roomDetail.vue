@@ -63,7 +63,6 @@
 			  </view>
 			  
 				<view class="room-info-list-item" style="height: 0;" v-for="i in 5">
-					1111
 				  </view>
 			
 			</view>

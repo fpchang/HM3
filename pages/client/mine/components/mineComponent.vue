@@ -48,9 +48,42 @@
 				<xt-panal-list :dataList="2">
 	
 					<!-- #ifdef MP -->
-					<view v-for="(item,index) of [1]" slot="card{{index}}">
+					<view  slot="card0">
+						<view class="menu-card">
+							<view class="menu-card-list"> 
+								<view  class="menu-card-list-item">
+									<text>0</text>
+									<text>收藏</text>
+								</view>
+								<view  class="menu-card-list-item">
+									<text>0</text>
+									<text>浏览历史</text>
+								</view>
+								
+							</view>
+							
+						</view>
 	
-	
+					</view>
+					<view  slot="card1">
+						<view class="menu-card">
+							<view class="menu-card-list"> 
+								<view  class="menu-card-list-item" @click="toOrder('all')">
+									<view><uv-icon name="order" color="#a1a1a1" size="28px"></uv-icon></view>
+									<text>全部订单</text>
+								</view>
+								<view  class="menu-card-list-item" @click="toOrder('pay')">
+									<view><uv-icon name="red-packet" color="#a1a1a1" size="28px"></uv-icon></view>
+									<text>待付款</text>
+								</view>
+								<view  class="menu-card-list-item" @click="toOrder('in')">
+									<view><uv-icon name="empty-favor" color="#a1a1a1" size="28px"></uv-icon></view>
+									<text>待入住</text>
+								</view>
+								
+							</view>
+							
+						</view>
 					</view>
 					<!-- #endif -->
 					<!-- #ifdef H5 || APP-PLUS -->
@@ -239,6 +272,7 @@
 }
 .menu-card{
 	padding:20px;
+	box-sizing: border-box;
 	.menu-card-list{
 		display: flex;
 		align-items: center;
@@ -257,7 +291,6 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		padding: 15px;
 		box-sizing: border-box;
 
 		.card {

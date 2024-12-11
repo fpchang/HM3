@@ -7,7 +7,6 @@
     </view>
     <view class="position-style">
       <view class="adone" bindtap="toMap">
-        <!-- <van-icon name="location" color="green" size="40rpx" style="margin: 0rpx 10rpx -8rpx 0;" /> -->
          <uni-icons type="location-filled" size="20px" color="green"></uni-icons>
          <view class="la">{{hotel.hotelAddressArea}}{{hotel.hotelAddress}}</view>
       </view>
@@ -101,22 +100,22 @@ export default {
 
   .hotel_label{
     margin:10px 0;
-    font-size: 40rpx;
+    font-size:16px;
     font-weight: bolder;
     color: rgb(177, 90, 31);
   }
   .tab-container{
-    margin-top: 20rpx;
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    font-size: 24rpx;
+    font-size: 14px;
     flex-wrap: wrap;
     gap: 8px;
     .tab{
-      padding: 10rpx;
+      padding:5px;
       background-color: rgb(177, 90, 31);
       color: #fff;
-      border-radius: 10rpx;
+      border-radius: 5px;
     }
   }
   .position-style{

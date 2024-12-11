@@ -6,44 +6,52 @@
 				<uni-easyinput v-model="hotelForm.hotelName" placeholder="请输入酒店名称" :disabled="type==2" />
 			</uni-forms-item>
 			<uni-forms-item label="酒店地址" name="hotelAddress">
-				<view  style="display:flex;flex-direction: column;gap:5px">
-					
+				<view style="display:flex;flex-direction: column;gap:5px">
+
 					<view style="display:flex;align-items:center;justify-content:space-between">
 						<view style="min-width:260px">
 							<uni-easyinput v-model="hotelForm.hotelAddressArea" disabled v-if="type==2" />
-							<uni-data-picker v-if="type!=2" :readonly="type==2"  placeholder="请选择区域地址" self-field="code" v-model="hotelForm.hotelAddressCode" parent-field="parent_code" collection="opendb-city-china" orderby="value asc" field="code as value, name as text, eq(type, 2) as isleaf" @change="onchange"></uni-data-picker>
+							<uni-data-picker v-if="type!=2" :readonly="type==2" placeholder="请选择区域地址" self-field="code"
+								v-model="hotelForm.hotelAddressCode" parent-field="parent_code"
+								collection="opendb-city-china" orderby="value asc"
+								field="code as value, name as text, eq(type, 2) as isleaf"
+								@change="onchange"></uni-data-picker>
 						</view>
-						
-					</view> 
-					 
+
+					</view>
+
 					<!-- <uni-data-picker placeholder="请选择地址" popup-title="请选择城市" v-model="hotelForm.hotelAddress" collection="opendb-city-china" field="code as value, name as text" orderby="value asc" :step-searh="true" self-field="code" parent-field="parent_code"
  @change="onchange" @nodeclick="onnodeclick"></uni-data-picker>
  {{  hotelForm.hotelAddress}} -->
-   <view> 
-	
-					<uni-easyinput type="textarea" v-model="hotelForm.hotelAddress" placeholder="请输入酒店详细地址" :disabled="type==2" />
-   </view>
- 					
+					<view>
+
+						<uni-easyinput type="textarea" v-model="hotelForm.hotelAddress" placeholder="请输入酒店详细地址"
+							:disabled="type==2" />
+					</view>
+
 				</view>
-			
-		
+
+
 			</uni-forms-item>
 			<uni-forms-item label="特点">
-				<view style="display:flex;align-items:flex-end;justify-content:start;gap:10px;flex-wrap:wrap"> 
+				<view style="display:flex;align-items:flex-end;justify-content:start;gap:10px;flex-wrap:wrap">
 					<view v-for="(item,index) in hotelForm.feature">
-						<uv-tags  :text="item" type="warning" :closable="type!=2" :show="close2" @close="deleteFeature(index)"></uv-tags>						
+						<uv-tags :text="item" type="warning" :closable="type!=2" :show="close2"
+							@close="deleteFeature(index)"></uv-tags>
 					</view>
-					<view :class="['tag-xt',type==2?'tag-xt-disable':'']" @click="addFeature"><uni-icons type="plus" size="22px" :color="type==2?'#eee':'#a1a1a1'"></uni-icons><text>添加</text></view>
-				</view> 
+					<view :class="['tag-xt',type==2?'tag-xt-disable':'']" @click="addFeature"><uni-icons type="plus"
+							size="22px" :color="type==2?'#eee':'#a1a1a1'"></uni-icons><text>添加</text></view>
+				</view>
 				<view><text style="color:#a1a1a1">如：免费停车，宠物免费，户外泳池，草地烧烤等</text></view>
-				
+
 			</uni-forms-item>
 			<uni-forms-item label="餐饮" required>
 				<checkbox-group @change="cateringCheckboxChange">
 					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig"
 						field="name" :getone="false" where="type=='catering'">
 
-						<view :class="[this.type==2?'disabled-style':'','flex-center']" style="justify-content:start;flex-wrap:wrap; gap:8px">
+						<view :class="[this.type==2?'disabled-style':'','flex-center']"
+							style="justify-content:start;flex-wrap:wrap; gap:8px">
 							<view style="" v-for="(item,index) in data" :key="item.name">
 								<checkbox
 									:checked="hotelForm.cateringServices&&hotelForm.cateringServices.includes(item._id)"
@@ -61,7 +69,8 @@
 					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig"
 						field="name" :getone="false" where="type=='recreation'">
 
-						<view :class="[this.type==2?'disabled-style':'','flex-center']" style="justify-content:start;flex-wrap:wrap; gap:8px">
+						<view :class="[this.type==2?'disabled-style':'','flex-center']"
+							style="justify-content:start;flex-wrap:wrap; gap:8px">
 							<view style="" v-for="(item,index) in data" :key="item.name">
 								<checkbox
 									:checked="hotelForm.recreationFacility&&hotelForm.recreationFacility.includes(item._id)"
@@ -78,7 +87,8 @@
 					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig"
 						field="name" :getone="false" where="type=='athleticFacility'">
 
-						<view :class="[this.type==2?'disabled-style':'','flex-center']" style="justify-content:start;flex-wrap:wrap; gap:8px">
+						<view :class="[this.type==2?'disabled-style':'','flex-center']"
+							style="justify-content:start;flex-wrap:wrap; gap:8px">
 							<view style="" v-for="(item,index) in data" :key="item.name">
 								<checkbox
 									:checked="hotelForm.athleticFacility&&hotelForm.athleticFacility.includes(item._id)"
@@ -117,7 +127,7 @@
 			</uni-forms-item>
 		</uni-forms>
 		<uni-popup ref="featureDialog" type="dialog">
-			<uni-popup-dialog ref="inputClose" before-close  mode="input" title="添加特色" value=""
+			<uni-popup-dialog v-if="showPopup" ref="inputClose" before-close mode="input" title="添加特色" v-model="tabval"
 				placeholder="请输入特色标签名" @close="closeFeaturePopup" @confirm="submitFeature"></uni-popup-dialog>
 		</uni-popup>
 	</view>
@@ -128,10 +138,12 @@
 	import {
 		HotelService
 	} from "../../../services/HotelService";
-import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
-import amap from "../../../common/amap-wx.130";
+	import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
+	import amap from "../../../common/amap-wx.130";
 	export default {
-  components: { uniIcons },
+		components: {
+			uniIcons
+		},
 		props: {
 			type: 0,
 			targetObj: {}
@@ -139,13 +151,15 @@ import amap from "../../../common/amap-wx.130";
 		data() {
 			return {
 				submitLoading: false,
+				showPopup: false,
 				cloudPath: `/${this.$store.state.hotel_id}/hotel/`,
+				tabval: "",
 				hotelForm: this.type != 0 ? {
 					belong: this.targetObj.belong,
 					hotelName: this.targetObj.hotelName,
-					hotelAddressCode:this.targetObj.hotelAddressCode,
-					hotelAddress:this.targetObj.hotelAddress,
-					hotelAddressArea:this.targetObj.hotelAddressArea,
+					hotelAddressCode: this.targetObj.hotelAddressCode,
+					hotelAddress: this.targetObj.hotelAddress,
+					hotelAddressArea: this.targetObj.hotelAddressArea,
 					hotelCoordinate: this.targetObj.hotelCoordinate,
 					hotelIntroduction: this.targetObj.hotelIntroduction,
 					"firstImages": this.targetObj.firstImages || "",
@@ -153,15 +167,15 @@ import amap from "../../../common/amap-wx.130";
 					"cateringServices": this.targetObj.cateringServices,
 					"recreationFacility": this.targetObj.recreationFacility,
 					"athleticFacility": this.targetObj.athleticFacility,
-					serviceTel:this.targetObj.serviceTel,
-					wechat:this.targetObj.wechat,
-					feature:this.targetObj.feature
+					serviceTel: this.targetObj.serviceTel,
+					wechat: this.targetObj.wechat,
+					feature: this.targetObj.feature
 				} : {
 					belong: "",
 					hotelName: "",
 					hotelAddress: "",
-					hotelAddressCode:"",
-					hotelAddressArea:"",
+					hotelAddressCode: "",
+					hotelAddressArea: "",
 					hotelCoordinate: [],
 					hotelIntroduction: "",
 					"firstImages": "",
@@ -169,9 +183,9 @@ import amap from "../../../common/amap-wx.130";
 					"cateringServices": [],
 					"recreationFacility": [],
 					"athleticFacility": [],
-					serviceTel:"",
-					wechat:"",
-					feature:[]
+					serviceTel: "",
+					wechat: "",
+					feature: []
 				},
 				hotelFormRules: {
 					// 对name字段进行必填验证
@@ -193,14 +207,14 @@ import amap from "../../../common/amap-wx.130";
 							}
 						],
 					},
-					hotelAddress:{
+					hotelAddress: {
 						rules: [{
 								required: true,
 								errorMessage: '请输入酒店地址',
 							},
 							{
 								validateFunction: (rule, value, data, callback) => {
-									
+
 									if (!this.hotelForm.hotelAddressArea) {
 										callback('请选择区域')
 									}
@@ -229,43 +243,47 @@ import amap from "../../../common/amap-wx.130";
 			}
 		},
 		methods: {
-			onchange(e){
-				console.log("onchang",e)
-				
-				let list =e.detail.value;
-				let adstr="";
-				list.map(item=>{
-					adstr+= (item.text+"/")
+			onchange(e) {
+				console.log("onchang", e)
+
+				let list = e.detail.value;
+				let adstr = "";
+				list.map(item => {
+					adstr += (item.text + "/")
 				});
-				this.hotelForm.hotelAddressArea=adstr
+				this.hotelForm.hotelAddressArea = adstr
 			},
-			onnodeclick(e){
+			onnodeclick(e) {
 				//console.log("onnodeclick",e)
 			},
-			closeFeaturePopup(){
-				this.$refs.featureDialog.close()
+			closeFeaturePopup() {
+
+				this.$refs.featureDialog.close();
+				this.showPopup = false;
 			},
-			submitFeature(val){
+			submitFeature(val) {
 				console.log(val)
-				if(!val){
+				if (!val) {
 					return;
 				}
-				let arr = this.hotelForm.feature||[];
+				let arr = this.hotelForm.feature || [];
 				arr.push(val);
-				this.hotelForm.feature=arr;
+				this.hotelForm.feature = arr;
+				this.tabval = "";
 				this.closeFeaturePopup();
 			},
-			addFeature(){
-				if(this.type==2){
+			addFeature() {
+				if (this.type == 2) {
 					return;
 				}
+				this.showPopup = true;
 				this.$refs.featureDialog.open()
 			},
-			deleteFeature(index){
-				if(this.type==2){
+			deleteFeature(index) {
+				if (this.type == 2) {
 					return;
 				}
-				this.hotelForm.feature.splice(index,1);
+				this.hotelForm.feature.splice(index, 1);
 			},
 			cateringCheckboxChange(e) {
 				this.hotelForm.cateringServices = e.detail.value;
@@ -285,7 +303,8 @@ import amap from "../../../common/amap-wx.130";
 			},
 			async submitForm() {
 				console.log(this.hotelForm);
-				if (this.$refs.uploadImagesRef1.uploadingState() == 0 || this.$refs.uploadImagesRef2.uploadingState() ==
+				if (this.$refs.uploadImagesRef1.uploadingState() == 0 || this.$refs.uploadImagesRef2
+				.uploadingState() ==
 					0) {
 					uni.showToast({
 						title: "有图片正在上传中，请稍候...",
@@ -293,7 +312,8 @@ import amap from "../../../common/amap-wx.130";
 					});
 					return;
 				}
-				if (this.$refs.uploadImagesRef1.uploadingState() == 2 || this.$refs.uploadImagesRef2.uploadingState() ==
+				if (this.$refs.uploadImagesRef1.uploadingState() == 2 || this.$refs.uploadImagesRef2
+				.uploadingState() ==
 					2) {
 					uni.showToast({
 						title: "有图片上传失败，请重新上传或取消",
@@ -301,14 +321,14 @@ import amap from "../../../common/amap-wx.130";
 					});
 					return;
 				}
-				
+
 				this.$refs.hotelFormRef.validate().then(async res => {
 					//uni.showLoading();
 					this.submitLoading = true;
-					let addressStr=this.hotelForm.hotelAddressArea +this.hotelForm.hotelAddress				
+					let addressStr = this.hotelForm.hotelAddressArea + this.hotelForm.hotelAddress
 					const location = await this.searchAddress(addressStr);
-					console.log("获取的坐标",location);
-					this.hotelForm.hotelCoordinate=location;
+					console.log("获取的坐标", location);
+					this.hotelForm.hotelCoordinate = location;
 					if (this.type == 1) {
 						this.updateHotel();
 						return;
@@ -359,20 +379,20 @@ import amap from "../../../common/amap-wx.130";
 
 			},
 			searchAddress(keywords) {
-				return new Promise((relolve,reject)=>{
+				return new Promise((relolve, reject) => {
 					try {
-						let	amapPlugin = new amap.AMapWX({
-						key: this.$store.state.config.miniProgramKey,
-					});
+						let amapPlugin = new amap.AMapWX({
+							key: this.$store.state.config.miniProgramKey,
+						});
 						//let that = this;
 						//let location = this.$store.state.location;
-						console.log("location",location)
+						console.log("location", location)
 						amapPlugin.getInputtips({
 							keywords: keywords,
 							//location: location.toString(","),
 							success: function(data) {
-								console.log("sssss", data)												
-								if(data.tips.length<1){
+								console.log("sssss", data)
+								if (data.tips.length < 1) {
 									uni.showToast({
 										title: '无法定位该地址',
 										icon: 'none'
@@ -382,19 +402,19 @@ import amap from "../../../common/amap-wx.130";
 								let location = data.tips[0].location;
 								let loc = location.split(",").map(Number);
 								relolve(loc);
-								
+
 							},
-							fail:function(e){
+							fail: function(e) {
 								reject(e)
 							}
-							
+
 						})
 					} catch (error) {
 						reject("未能获取地址坐标")
 					}
-			
+
 				})
-		
+
 			}
 		},
 	};
@@ -408,18 +428,20 @@ import amap from "../../../common/amap-wx.130";
 	.disabled-style {
 		color: #a1a1a1;
 	}
-	.tag-xt{
+
+	.tag-xt {
 		display: flex;
 		align-items: flex-end;
-		padding:2px 8px;
-		border:1px solid #a1a1a1;
-		border-radius:6px;
-		gap:4px;
-		color:#a1a1a1
+		padding: 2px 8px;
+		border: 1px solid #a1a1a1;
+		border-radius: 6px;
+		gap: 4px;
+		color: #a1a1a1
 	}
-	.tag-xt-disable{
+
+	.tag-xt-disable {
 		color: #eee;
-		border:1px solid #eee;
+		border: 1px solid #eee;
 		color: #eee;
 	}
 </style>

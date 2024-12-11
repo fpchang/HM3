@@ -30,6 +30,7 @@
             
               </unicloud-db>
             </view>
+            <view class="rec-item-list-item" v-for="it in 3" style="height:0;"></view>
           </view>
           <view class="dev"></view>
         </view>
@@ -165,7 +166,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: left;
-      min-width: 35%;
+      min-width: 120px;
     }
   }
   .dev {
