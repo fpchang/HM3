@@ -18,6 +18,7 @@ import introduce from './introduce/introduce';
 import roomType from './roomType/roomType';
 import orderDishes from './orderDishes/orderDishes';
 import {useStore} from 'vuex';
+import {HotelServiceClient} from "../../../services/HotelServiceClient";
 	export default {
   components: { introduce,roomType ,orderDishes},
   setup(props){
@@ -78,13 +79,20 @@ import {useStore} from 'vuex';
 		},
 		onLoad(params){
 			try {
-				console.log("传递参数",params)
-				this.hotel = JSON.parse(decodeURIComponent(params.hotel)) ;
-				this.dateRange = [Number(params.st),Number(params.et)  ];
-				this.$store.commit("updateCurrentHotel_id",this.hotel._id);
-				uni.setNavigationBarTitle({
+				console.log("传递参数",params);
+				if(params.hotel){//跳转过来的页面
+					this.hotel = JSON.parse(decodeURIComponent(params.hotel)) ;
+					this.dateRange = [Number(params.st),Number(params.et)  ];
+					this.$store.commit("updateCurrentHotel_id",this.hotel._id);
+					uni.setNavigationBarTitle({
         			title:`【${this.hotel.hotelName}】简介` ,
       				});
+				}
+				if(params.hotel_id){//分享进来的页面
+					this.getHotel(params.hotel_id);
+					this.dateRange = [Date.now(),Date.now()+1000*60*60*24];
+				}
+				
 			} catch (error) {
 				
 			}
@@ -107,7 +115,6 @@ import {useStore} from 'vuex';
 		if (res.from == "button") {
 		// 来自页面内分享按钮
 		let url =this.hotel.firstImages||`${this.$store.state.config.cloudUrl}/HM/images/hotel.jpg`;
-		console.log("uuuuuuuuuu",url)
 		return {
 			title: "民宿管家",
 			imageUrl: url,
@@ -120,6 +127,14 @@ import {useStore} from 'vuex';
 			clickTab(id){
 				console.log(id);
 				this.tabId=id;
+			},
+			async getHotel(hotel_id){
+			const res=	await HotelServiceClient.getHotel(hotel_id);
+			console.log("当前酒店",res);
+			this.hotel=res.result.data[0];
+				uni.setNavigationBarTitle({
+        			title:`【${this.hotel.hotelName}】简介` ,
+      				});
 			}
 		}
 	}

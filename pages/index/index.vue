@@ -38,16 +38,17 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 
 		data() {
 			return {
-				isLoading:true
+				isLoading:true,
+				userRole:null
 			};
 		},
 		async onLoad(e) {
 			// const { proxy } = getCurrentInstance();
 			// await proxy.$onLaunched;
-			await this.setConfig();
-			this.isLoading=false;
-			let userRole =uni.getStorageSync("userRole");
+			await this.setConfig();			
+			let userRole =uni.getStorageSync("userRole");			
 			if(!userRole){
+				this.isLoading=false;
 				return;
 			}
 			if(userRole=="hotel"){

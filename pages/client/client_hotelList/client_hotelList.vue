@@ -21,13 +21,13 @@
 		<view style="margin:auto;max-width:450px">
 			<xt-dropdown :dataList="dataList" activeId="c1">
 				<template v-slot:["c1"]>
-					<view style="height:100px;background:red"></view>
+					<view></view>
 				</template>
 				<template v-slot:["c2"]>
-					<view style="height:200px;background:green"></view>
+					<view></view>
 				</template>
 				<template v-slot:["c3"]>
-					<view style="height:300px;background:orange"></view>
+					<view></view>
 				</template>
 			</xt-dropdown>
 

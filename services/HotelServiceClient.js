@@ -4,7 +4,9 @@ class HotelServiceClientClass{
         this.DB=DB;
     }
 
-    
+    getHotel(_id){
+      return DB.getCollection("hm-hotel",{_id})
+    }
 
     /** 
      * 获取酒店列表
@@ -13,7 +15,6 @@ class HotelServiceClientClass{
         let {location, maxDistance = 9000000,filterVal} = params;
         const db = uniCloud.database();
         const dbCmd = db.command
-        console.log('aaaa', location,maxDistance);
         let text=filterVal.split("").join("|");
         console.log("查询参数",params,text);
         const w =  dbCmd.and(dbCmd.or(
