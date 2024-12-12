@@ -86,6 +86,11 @@
 			"description": "运动设施",
 			"bsonType": "array",
 			"defaultValue":[]
+		},
+		"onlinePayment":{
+			"description": "开通在线订房，开通后可支持在线支付，未开通只能线下支付",
+			"bsonType": "bool",
+			"defaultValue":false
 		},		
 		"dataStatus":{
 			"description": "数据状态",

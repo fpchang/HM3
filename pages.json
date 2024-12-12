@@ -229,6 +229,20 @@
 	{
 		"navigationBarTitleText" : ""
 	}
+},
+{
+	"path" : "pages/client/order/orderList/orderList",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
+},
+{
+	"path" : "pages/client/order/createOrder/createOrder",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
 }
 
 ],

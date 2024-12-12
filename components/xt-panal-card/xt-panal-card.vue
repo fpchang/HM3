@@ -1,6 +1,6 @@
 <template>
   <view class="xt-panal-card">
-    <view style="padding:10px 0">
+    <view  class="xt-panal-card-container">
       <view class="header-style">
 
         <view v-if="showControl" style="flex: 1; display: flex; justify-content: flex-end; gap: 15px;padding:5px 10px">
@@ -165,6 +165,11 @@ export default{
 </script>
 
 <style scoped lang="scss">
+.xt-panal-card-container{
+  display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 .header-style {
   display: flex;
   align-items: center;

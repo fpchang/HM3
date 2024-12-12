@@ -194,11 +194,17 @@ export default {
 				this.roomType = res.result.data;
       
     },
-    reserve(item,p){
-      uni.showToast({title:"暂未开放",icon:"none"});
+    reserve(item,priceField){
+      console.log("111111",this.dateRange)
+     uni.navigateTo({
+      url:`/pages/client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
+     })
     },
-    bargain(item,p){
-      uni.showToast({title:"暂未开放",icon:"none"});
+    bargain(item,priceField){
+      console.log("111111",this.dateRange)
+       uni.navigateTo({
+      url:`/pages/client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=bargain&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
+     })
     }
   },
   watch: {},

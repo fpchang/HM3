@@ -23,6 +23,12 @@
 				"$env": "now"
 			}
 		},
+		"orderType": {
+			"description": "订单类型-普通订单与议价单",
+			"bsonType": "string",
+			"enum":["normal","bargain"],
+			"defaultValue":"normal"
+		},
 		"roomTypeArray": {
 			"description": "房型数据",
 			"bsonType": "array"
@@ -72,8 +78,13 @@
 			"description": "订单来源中文",
 			"bsonType": "string"
 		},
+		"payType":{
+			"description": "支付方式 ,线上与线下",
+			"bsonType": "string",
+			"enum":["online","offline"]
+		},
 		"orderStatus": {
-			"description": "订单状态,0待付款，1已付款,2已撤消",
+			"description": "订单状态,0待付款，1已确认, 8：退款， 9，已过期,10 已撤消",
 			"bsonType": "int"
 		},
 		"downPayment": {

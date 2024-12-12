@@ -78,36 +78,84 @@
 				  </radio-group>
 				 </view>				
 			  </uni-forms-item> -->
-			  <uni-forms-item label="价格" required> 
+			  <view style="display:flex;flex-direction:column;gap:10px;font-size:13px;padding-bottom:15px">
+				<view>价格设置</view>
 				<view class="priceContainer"> 
-				 <view class="price-list" > 
-					<view class="price-list-item" style="">
-						<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" focus class="in" :disabled="type==2"></input> 
-						<uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2" inputWidth="60px">
-                        <input slot="input" style="width: 200px;text-align: center;" 
-                            v-model="roomTypeForm.priceBase"></input>
-                    </uv-number-box>
-					</view>
-					<view class="price-list-item" style="display:flex;flex:8px">
-						<input placeholder="套餐A" v-model="roomTypeForm.priceA_name" class="in"  :disabled="type==2"></input> 
-						<uv-number-box :min="0" integer v-model="roomTypeForm.priceA" :disabled="type==2" inputWidth="60px">
-                        <input slot="input" style="width: 200px;text-align: center;" 
-                            v-model="roomTypeForm.priceA"></input>
-                    </uv-number-box>
-					</view>
-					<view class="price-list-item" style="display:flex">
-						<input placeholder="套餐B" v-model="roomTypeForm.priceB_name" class="in"  :disabled="type==2"></input> 
-						<uv-number-box :min="0" integer v-model="roomTypeForm.priceB" :disabled="type==2" inputWidth="60px" >
-                        <input slot="input" style="width: 200px;text-align: center;" 
-                            v-model="roomTypeForm.priceB"></input>
-                    </uv-number-box>
-					</view>
+					<view class="price-list" > 
+				   <view class="price-list-item" >
+					   <view class="group">
+					   <text>名称：</text> 
+					   <input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" focus class="in" type="textarea" :disabled="type==2"></input> 
+					   </view>
+					   <view class="group">
+						   <text>价格：</text> 
+						   <uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2" inputWidth="60px">
+							   <input slot="input" style="width: 200px;text-align: center;" 
+								   v-model="roomTypeForm.priceBase"></input>
+						   </uv-number-box>
+					   </view>
+					   
+				   </view>
+				   </view>
+			   </view>
 
-				</view>
-				<view><text style="color:#a1a1a1;color:orange">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>
+			   <view class="priceContainer"> 
+				<view class="price-list" > 
+			   <view class="price-list-item" >
+				   <view class="group">
+				   <text>名称：</text> 
+				   <input placeholder="套餐A" v-model="roomTypeForm.priceA_name" focus class="in" type="textarea" :disabled="type==2"></input> 
+				   </view>
+				   <view class="group">
+					   <text>价格：</text> 
+					   <uv-number-box :min="0" integer v-model="roomTypeForm.priceA" :disabled="type==2" inputWidth="60px">
+						   <input slot="input" style="width: 200px;text-align: center;" 
+							   v-model="roomTypeForm.priceA"></input>
+					   </uv-number-box>
+				   </view>
+				   
+			   </view>
+			   </view>
+		   </view>
+		   <view class="priceContainer"> 
+			<view class="price-list" > 
+		   <view class="price-list-item" >
+			   <view class="group">
+			   <text>名称：</text> 
+			   <input placeholder="套餐B" v-model="roomTypeForm.priceB_name" focus class="in" type="textarea" :disabled="type==2"></input> 
+			   </view>
+			   <view class="group">
+				   <text>价格：</text> 
+				   <uv-number-box :min="0" integer v-model="roomTypeForm.priceB" :disabled="type==2" inputWidth="60px">
+					   <input slot="input" style="width: 200px;text-align: center;" 
+						   v-model="roomTypeForm.priceB"></input>
+				   </uv-number-box>
+			   </view>
+			   
+		   </view>
+		   </view>
+	   </view>
+	   <view><text style="color:#a1a1a1;color:orange">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>	
+				
+				
 				
 			</view>
-		</uni-forms-item>
+		<!-- <uni-forms-item label="标准价格" required>
+			<view style="display:flex;justify-content:space-between"> 
+				<view class="group flex-center">
+					<text>名称：</text> 
+					<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" focus class="in" :disabled="type==2"></input> 
+				</view>
+				<view class="group flex-center">
+					<text>价格：</text> 
+					<uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2" inputWidth="60px">
+						<input slot="input" style="width: 200px;text-align: center;" 
+							v-model="roomTypeForm.priceBase"></input>
+					</uv-number-box>
+				</view>
+			</view>
+			
+		</uni-forms-item>  -->
 			<uni-forms-item label="是否议价"> 
 				<radio-group @change="isBargainChange" >
 					<radio :disabled="type==2" :value="true" :checked="roomTypeForm.isBargain" /><text style="padding-right:10px">是</text>
@@ -403,10 +451,17 @@ export default {
 }
 .priceContainer{
 	border:1px solid #eee;padding:8px;
+	font-size: 14px;
 	.price-list{
 		.price-list-item{
-			display:flex;padding:8px 0;
-			gap:8px;
+			display:flex;
+			flex-wrap: wrap;
+			gap:10px;		
+			.group{
+				min-width: 350px;
+				display: flex;
+				align-items:center;
+			}
 			.in{
 				flex: 1;
 				border:1px solid #eee;padding:4px 8px;

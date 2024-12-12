@@ -58,7 +58,8 @@
 				  <view v-for="(item,index) of roomType" slot="card{{index}}">
 					  <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)" :subtitle="getSubtitle(item)">
 					  		 <view slot=titleRight>
-					  			<uni-badge class="uni-badge-left-margin" :text="item.count" />
+					  			<!-- <uni-badge class="uni-badge-left-margin" :text="item.count" /> -->
+								  <text style="font-size:13px">({{item.count}})</text>
 							 </view>
 					  	</xt-panal-card>
 					</view>
@@ -67,7 +68,8 @@
 					 <template v-for="(item,index) of roomType" v-slot:[`card${index}`]>
 						 <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)" :subtitle="getSubtitle(item)">
 						 		<template v-slot:titleRight>
-						 			<uni-badge class="uni-badge-left-margin" :text="item.count" />
+						 			<!-- <uni-badge class="uni-badge-left-margin" :text="item.count" /> -->
+									  <text style="font-size:13px">({{item.count}})</text>
 						 		</template>
 						 	</xt-panal-card>
 						 </template>
