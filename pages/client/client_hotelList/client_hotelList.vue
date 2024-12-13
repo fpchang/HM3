@@ -188,7 +188,10 @@
 					return;
 				}
 				this.isLoading=true;
-				let href = `#/pages/client/hotelHome/hotelHome?st=${this.conditionForm.dateRange[0]}&&et=${this.conditionForm.dateRange[1]}&&hotel=${encodeURIComponent(JSON.stringify(hotel))}`;
+				console.log("111111111",this.conditionForm)
+				this.$store.commit("hotelClientStore/updateHotel",hotel);
+				this.$store.commit("hotelClientStore/updateSearchCondition",this.conditionForm);				
+				let href = `#/pages/client/hotelHome/hotelHome`;
 				// #ifdef H5
 				//window.open(href, "_blank");
 				//return;
@@ -198,7 +201,7 @@
 			
 				//// #endif
 				uni.navigateTo({
-					url:`/pages/client/hotelHome/hotelHome?st=${this.conditionForm.dateRange[0]}&&et=${this.conditionForm.dateRange[1]}&&hotel=${encodeURIComponent(JSON.stringify(hotel))}`,
+					url:`/pages/client/hotelHome/hotelHome`,
 					complete:()=>{
 						this.isLoading=false;
 					}

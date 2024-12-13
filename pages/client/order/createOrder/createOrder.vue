@@ -3,7 +3,7 @@
 		<view class="flex-page-content">
 			<createOrderComponent v-if="formData" ref="createOrderComponent" :formData="formData" @setPriceTotal="setPriceTotal"></createOrderComponent>
 		</view>
-		<view class="flex-page-bottom flex-page-bottom-shadow">
+		<!-- <view class="flex-page-bottom flex-page-bottom-shadow">
 			<view style="padding:0 20px"> 
 				<view class="pay-area"> 
 					<view style="flex:1"><text>在线支付</text><text class="rmb">￥{{priceTotal}}</text></view>
@@ -12,7 +12,7 @@
 				<view style="height:20px"></view>
 			</view>
 			
-		</view>
+		</view> -->
 		
 	</view>
 </template>

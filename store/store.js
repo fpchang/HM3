@@ -32,9 +32,13 @@ const store = createStore({
     hotel_id: "",
     roomType: [],
     location: [],
+    tt:"11"
   },
 
   mutations: {
+    settt(state,str){
+      state.tt =str;
+    },
     //当前位置坐标
     setLocation(state, loc) {
       //console.log("store 设置location",loc)

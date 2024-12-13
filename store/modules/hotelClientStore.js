@@ -4,28 +4,29 @@ import {HotelServiceClient} from '../../services/HotelServiceClient';
 export default{
 	namespaced: true,
 	state: { //存放状态
-		currentHotel_id:"",
 		hotelList:null,
+		hotel:null,
+		roomType:null,
 		searchCondition:{}
 	},
 
 	mutations: {
 		updateSearchCondition(state,obj){
-			this.searchCondition=obj;
+			state.searchCondition=obj;
 		},
 		updateHotelList(state, list) {
 			console.log("client set")
 			state.hotelList = list;
 		},
-		updateCurrentHotel_id(state, hotel_id) {
-			state.currentHotel_id = hotel_id;
+		updateHotel(state,hotel){
+			state.hotel=hotel;
+		},
+		updateRoomType(state,roomType){
+			state._roomType=roomType;
 		}
         
 	},
   actions:{
-	getTT(){
-		console.log("clent tt")
-	},
     async  getHotelList(context,params){
 		const res = await HotelServiceClient.getHotelList(params);
 		console.log("客户端hotelist",res);

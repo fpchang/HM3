@@ -12,7 +12,7 @@
 			</uni-forms-item>
 		
 		</uni-forms> -->
-		<xt-panal-list :dataList="[1]" maxWidth=1200>
+		<xt-panal-list :dataList="[1]" :maxWidth="Number(1200)">
           
 			<!-- #ifdef MP -->
 			<view v-for="(item,index) of remainTypeList" slot="card{{index}}">
@@ -37,9 +37,8 @@
 					<uni-forms ref="baseForm" :modelValue="orderForm" label-width="80px">
 						<uni-forms-item label="日期" required>
 							<view class="form-content">
-								<text>{{formatDate(formData.dateRange[0])}}</text> 
-								<text>至</text>
-								<text>{{formatDate(formData.dateRange[1])}}</text>
+								<text>{{formatDate(formData.dateRange).dt}}</text> 
+								<text style="font-weight:bold">{{formatDate(formData.dateRange).dy}}</text> 
 							</view>						
 						</uni-forms-item>
 						<uni-forms-item label="住客名" required>
@@ -56,6 +55,37 @@
 							<view class="form-content">
 								<text>{{formData.roomType.name}}</text> 
 								<text>{{ formData.roomType[`${formData.priceField}_name`] }}</text>
+							</view>
+							
+						</uni-forms-item>
+						<uni-forms-item label="价格" required>
+							<view class="form-content">
+								<text>￥{{priceTotal}}</text>
+							</view>
+										
+						
+						</uni-forms-item>
+						<uni-forms-item label="议价" required>
+							<view class="flex-center" style="flex:1;color:#a1a1a1">
+									<text>￥{{minPrice}}</text>
+									<view style="flex:1"> 
+										<slider  activeColor="orange" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="orange" /> 
+									</view>
+									<text>￥{{priceTotal}}</text>
+							</view>	
+						</uni-forms-item>
+						<uni-forms-item>
+							<view class="pay-area" v-if="isBargainOrder">
+								<view style="flex:1"><text>议价</text><text class="rmb">￥{{bargainPrice}}</text></view>
+								<view> 
+									<button size="default" type="default" class="btn" @click="bargainEvent">发起议价</button>
+								</view>								
+							</view>
+							<view class="pay-area" v-if="!isBargainOrder">
+								<view style="flex:1"><text>在线支付</text><text class="rmb">￥{{priceTotal}}</text></view>
+								<view> 
+									<button size="default" type="default" class="btn" @click="payEvent">立即支付</button>
+								</view>								
 							</view>
 							
 						</uni-forms-item>
@@ -84,12 +114,14 @@
 			}
 		},
 		setup(props){
-			console.log(2222222222,props)
+
 		},
 		data() {
 			return {
 				submitLoading: false,
 				dateSelectShow: false,
+				//priceTotal:0,
+				bargainPrice:this.minPrice,
 				source: [{
 						name: "xiechen",
 						name_Zn: "携程",
@@ -145,9 +177,24 @@
 		created() {
 			this.orderForm.userName = this.user.userName;
 			this.orderForm.phone = this.user.phone;
-			this.setPriceTotal();
 		},
 		computed: {
+			bargainMinPercent(){
+				return this.formData.roomType['bargainMinPercent']||85;//最小议价百分比
+			},
+			minPrice(){
+				return (this.bargainMinPercent/100)*this.formData.roomType[this.formData.priceField];
+			} ,
+			signPrice(){
+				return this.formData.roomType[this.formData.priceField];
+			},
+			priceTotal(){
+				return this.selectCount*this.signPrice;				
+
+			},
+			hotel(){
+				return this.$store.state.hotelClientStore.hotel;
+			},
 			isPcShow() {
 				return this.$store.state.isPcShow
 			},
@@ -173,7 +220,11 @@
 						value: item.value,
 					};
 				});
+			},
+			isBargainOrder(){
+				return this.priceTotal>this.bargainPrice;
 			}
+			
 	
 
 		},
@@ -184,7 +235,6 @@
 					return;
 				}
 				this.selectCount= this.selectCount-1;
-				this.setPriceTotal();
 			},
 			addCount(){
 				if(this.selectCount+1>this.formData.roomType.count){
@@ -192,14 +242,18 @@
 					return;
 				}
 				this.selectCount= this.selectCount+1;
-				this.setPriceTotal();
 			},
-			setPriceTotal(){
-				let priceTotal=this.selectCount*this.formData.roomType[this.formData.priceField];
-				this.$emit("setPriceTotal",priceTotal)
+			bargainPriceChange(e){
+				console.log(e)
+				this.bargainPrice=e.detail.value;
 			},
-			formatDate(time){
-				return new Date(time).Format("yyyy-MM-dd");
+			formatDate(range){
+				let st =range[0],et = range[1];
+				let day =Math.floor((et-st)/(1000*60*60*24)); 
+				return {
+					dt:`${new Date(st).Format("MM-dd")} 至 ${new Date(et).Format("MM-dd")}`,
+					dy:`${day}晚`
+				} 
 			},
 			dateRangeArrayFormat() {
 				let startTime = new Date(
@@ -212,8 +266,18 @@
 				).getTime();
 				return [startTime, endTime];
 				},
-			
+				bargainEvent(){
+					console.log(this.formData.orderType)
+					this.orderForm.orderStatus=2;
+					this.submitForm()
+				},
+				payEvent(){
+					this.orderForm.orderStatus=1;
+					this.submitForm()
+				},
 			async submitForm() {
+				// uni.navigateTo({url:"/pages/client/order/orderList/orderList"})
+				// return;
 				//uni.showLoading();
 				this.submitLoading = true;
 				let dateRange = this.dateRangeArrayFormat();
@@ -235,21 +299,22 @@
 					phone: this.orderForm.phone, //-
 					createrPhone: this.user.phone, //--
 					createrName: this.user.userName, //--
+					fromClient:true,
+					orderStatus:this.orderForm.orderStatus,
 					orderSource: Number(this.orderForm.orderSource),
 					orderSouce_Zn: sourceObj.name_Zn,
-					payType:'offline'//--
+					totalAmount:this.isBargainOrder?this.bargainPrice:this.priceTotal,
+					payType:this.hotel.onlinePayment?'online':'offline'//--
 
 				};
 				console.log(obj)
-				return;
 				try {
 					await OrderService.addOrder(obj);
 					console.log("添加成功");
-					this.$store.dispatch("getGatherEvent", this.hotel_id);
-					this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
 					this.submitLoading = false;
 					uni.hideLoading();
-					this.$emit("closePopup");
+					//this.$emit("closePopup");
+					uni.navigateTo({url:"/pages/client/order/orderList/orderList"})
 				} catch (error) {
 					console.error("添加失败", error);
 					this.submitLoading = false;
@@ -273,7 +338,7 @@
 		align-items: center;
 	}
 	.uni-forms-item{
-		margin-bottom: 0;
+		margin-bottom: 0!important;
 	}
 	.calendar-container {
 		flex: 1;
@@ -322,4 +387,30 @@
 		color:#a1a1a1;
 		font-size: 16px;
 	}
+	.pay-area{
+		height: 60px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 14px;
+		.rmb{
+			color:orange;
+			font-weight: bold;
+			font-size: 20px;
+			padding:0 10px;
+		}
+		.btn{
+			background-color: orange;
+			color:#fff;
+			width: 86px;
+			height: 40px;
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-bottom-right-radius:37%;
+			text-overflow: clip;
+		}
+	}
+
 </style>

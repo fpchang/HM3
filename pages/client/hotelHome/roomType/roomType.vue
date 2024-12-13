@@ -41,7 +41,7 @@
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceBase}}</text>
                 <text class="edit-text-btn-style" @click="reserve(item,'priceBase')" v-if="item.remainCount>0">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
               </view>
               
             </view>
@@ -52,7 +52,7 @@
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceA}}</text>
                 <text class="edit-text-btn-style" @click="reserve(item,'priceA')" v-if="item.remainCount>0">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
               </view>
             </view>
             <view class="p-list-item" v-if="item.priceB>0">
@@ -64,7 +64,7 @@
               <view class="pr-area"> 
                 <text class="pr-text">￥{{item.priceB}}</text>
                 <text class="edit-text-btn-style" @click="reserve(item,'priceB')" v-if="item.remainCount>0">预定</text>
-                <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
               </view>
             </view>
           </view>
@@ -99,7 +99,7 @@
                 <view class="pr-area"> 
                   <text class="pr-text">￥{{item.priceBase}}</text>
                   <text class="edit-text-btn-style" @click="reserve(item,'priceBase')" v-if="item.remainCount>0">预定</text>
-                  <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                  <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
                 </view>
                 
               </view>
@@ -110,7 +110,7 @@
                 <view class="pr-area"> 
                   <text class="pr-text">￥{{item.priceA}}</text>
                   <text class="edit-text-btn-style" @click="reserve(item,'priceA')" v-if="item.remainCount>0">预定</text>
-                  <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                  <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
                 </view>
               </view>
               <view class="p-list-item" v-if="item.priceB>0">
@@ -122,7 +122,7 @@
                 <view class="pr-area"> 
                   <text class="pr-text">￥{{item.priceB}}</text>
                   <text class="edit-text-btn-style" @click="reserve(item,'priceB')" v-if="item.remainCount>0">预定</text>
-                  <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.remainCount>0&&item.isBargain">议价</text>
+                  <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
                 </view>
               </view>
             </view>
@@ -146,7 +146,8 @@ export default {
   name: "roomType",
   props: {
     range:{
-      type:Array
+      type:Array,
+      default:[Date.now(),Date.now()+1000*60*60*24]
     },
     hotel_id:{
       type:String,

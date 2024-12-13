@@ -3,7 +3,7 @@
 		<view class="flex-page-content">
 
 				<introduce v-show="tabId=='b1'" :hotel="hotel"></introduce>	
-				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id" :range="dateRange"></roomType>
+				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id" :range="searchCondition['dateRange']"></roomType>
 				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>			
 		</view>
 		<view class="flex-flex-page-bottom">
@@ -38,8 +38,6 @@ import {HotelServiceClient} from "../../../services/HotelServiceClient";
 		data() {
 			return {
 	  			tabId:"b1",
-				hotel:{},
-				dateRange:[],
 				content: [{
 						iconPath: '/static/image.png',
 						selectedIconPath: '/static/image-active.png',
@@ -63,6 +61,13 @@ import {HotelServiceClient} from "../../../services/HotelServiceClient";
 		},
 		
 		computed:{
+			hotel(){
+				console.log(this.$store.state)
+				return this.$store.state.hotelClientStore.hotel;
+			},
+			searchCondition(){
+				return this.$store.state.hotelClientStore.searchCondition;
+			}
 		},
 		watch:{
 			tabId(val){
@@ -78,25 +83,22 @@ import {HotelServiceClient} from "../../../services/HotelServiceClient";
 			}
 		},
 		onLoad(params){
+			if(params.hotel_id){//分享进来的页面
+					this.getHotel(params.hotel_id);
+					//this.dateRange = [Date.now(),Date.now()+1000*60*60*24];
+				}
+			
+		},
+		created(){
+			console.log("hotelHome created",this.hotel,this.searchCondition)
 			try {
-				console.log("传递参数",params);
-				if(params.hotel){//跳转过来的页面
-					this.hotel = JSON.parse(decodeURIComponent(params.hotel)) ;
-					this.dateRange = [Number(params.st),Number(params.et)  ];
-					this.$store.commit("updateCurrentHotel_id",this.hotel._id);
 					uni.setNavigationBarTitle({
         			title:`【${this.hotel.hotelName}】简介` ,
-      				});
-				}
-				if(params.hotel_id){//分享进来的页面
-					this.getHotel(params.hotel_id);
-					this.dateRange = [Date.now(),Date.now()+1000*60*60*24];
-				}
+      				});				
 				
 			} catch (error) {
 				
 			}
-			
 		},
 		onShow(){
 			if(this.$store.state.isPcShow){

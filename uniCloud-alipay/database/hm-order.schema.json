@@ -14,7 +14,7 @@
 		"hotel_id": {
 			"description": "酒店id",
 			"bsonType": "string",
-			"foreignKey": "hotel._id"
+			"foreignKey": "hm-hotel._id"
 		},
 		"createTime": {
 			"description": "创建时间",
@@ -22,6 +22,11 @@
 			"forceDefaultValue": {
 				"$env": "now"
 			}
+		},
+		"fromClient":{
+			"description": "是否从客户端下的订单",
+			"bsonType": "bool",
+			"defaultValue":false
 		},
 		"orderType": {
 			"description": "订单类型-普通订单与议价单",
@@ -84,7 +89,7 @@
 			"enum":["online","offline"]
 		},
 		"orderStatus": {
-			"description": "订单状态,0待付款，1已确认, 8：退款， 9，已过期,10 已撤消",
+			"description": "订单状态,0待付款，1已生效(线上已经付款，或线下订单),2 等待接受议价 (接受后状态变0)，3，议价被拒绝，8：已退款， 9，已过期,10 已撤消",
 			"bsonType": "int"
 		},
 		"downPayment": {
