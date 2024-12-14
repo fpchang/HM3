@@ -15,8 +15,78 @@
 		<xt-panal-list :dataList="[1]" :maxWidth="Number(1200)">
           
 			<!-- #ifdef MP -->
-			<view v-for="(item,index) of remainTypeList" slot="card{{index}}">
-			 
+			<view v-for="(item,index) of [1]" slot="card{{index}}">
+				<view style="padding:20px"> 
+					<view class="formitem">						
+							<view class="title"><text>订房信息</text></view>
+							<view>
+								<view class="ad-lose-num flex-center">
+									<uni-icons type="minus-filled" size="24" color="orange" @click="loseCount()"></uni-icons>
+									<text style="padding:0 8px">{{selectCount}}</text>
+									<uni-icons type="plus-filled" size="24" color="orange"
+										@click="addCount()"></uni-icons>
+								</view>
+							</view>
+						
+					</view>
+					<uni-forms ref="baseForm" :modelValue="orderForm" label-width="80px">
+						<uni-forms-item label="日期" required>
+							<view class="form-content">
+								<text>{{formatDate(formData.dateRange).dt}}</text> 
+								<text style="font-weight:bold">{{formatDate(formData.dateRange).dy}}</text> 
+							</view>						
+						</uni-forms-item>
+						<uni-forms-item label="住客名" required>
+							<view style="display:flex;height:100%;flex-direction:column" class="input-area"> 
+								<input v-model="orderForm.userName" trim="all" placeholder="住客名"  class="in"/>
+							</view>							
+						</uni-forms-item>
+						<uni-forms-item label="联系人" required>
+							<view style="display:flex;height:100%;flex-direction:column" class="input-area"> 
+								<input v-model="orderForm.phone" trim="all" placeholder="联系电话"  class="in"/>
+							</view>							
+						</uni-forms-item>
+						<uni-forms-item label="房型" required>
+							<view class="form-content">
+								<text>{{formData.roomType.name}}</text> 
+								<text>{{ formData.roomType[`${formData.priceField}_name`] }}</text>
+							</view>
+							
+						</uni-forms-item>
+						<uni-forms-item label="价格" required>
+							<view class="form-content">
+								<text>￥{{priceTotal}}</text>
+							</view>
+										
+						
+						</uni-forms-item>
+						<uni-forms-item label="议价" required>
+							
+							<view class="flex-center" style="flex:1;color:#a1a1a1">
+									<text>￥{{minPrice}}</text>
+									<view style="flex:1"> 
+										<slider  activeColor="orange" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="orange" /> 
+									</view>
+									<text>￥{{priceTotal}}</text>
+							</view>	
+						</uni-forms-item>
+						<uni-forms-item>
+							<view class="pay-area" v-if="isBargainOrder">
+								<view style="flex:1"><text>议价</text><text class="rmb">￥{{bargainPrice}}</text></view>
+								<view> 
+									<button size="default" type="default" class="btn" @click="bargainEvent">发起议价</button>
+								</view>								
+							</view>
+							<view class="pay-area" v-if="!isBargainOrder">
+								<view style="flex:1"><text>在线支付</text><text class="rmb">￥{{priceTotal}}</text></view>
+								<view> 
+									<button size="default" type="default" class="btn" @click="payEvent">立即支付</button>
+								</view>								
+							</view>
+							
+						</uni-forms-item>
+					</uni-forms>
+				</view>
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef H5 || APP-PLUS -->
@@ -121,7 +191,7 @@
 				submitLoading: false,
 				dateSelectShow: false,
 				//priceTotal:0,
-				bargainPrice:this.minPrice,
+				bargainPrice:null,
 				source: [{
 						name: "xiechen",
 						name_Zn: "携程",
@@ -177,6 +247,7 @@
 		created() {
 			this.orderForm.userName = this.user.userName;
 			this.orderForm.phone = this.user.phone;
+			this.bargainPrice = this.formData.roomType[this.formData.priceField];
 		},
 		computed: {
 			bargainMinPercent(){
@@ -337,7 +408,7 @@
 		display: flex;
 		align-items: center;
 	}
-	.uni-forms-item{
+	::v-deep.uni-forms-item{
 		margin-bottom: 0!important;
 	}
 	.calendar-container {
