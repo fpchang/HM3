@@ -74,9 +74,8 @@
 			<uni-segmented-control :current="current" :values="items"
 			active-color="orange" @clickItem="onClickItem" />
 			<view>
-				<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-order" :where="_WHERE"
+				<unicloud-db v-slot:default="{data, loading, error, options}" :collection="colList" 
 						   orderby="createTime desc">
-						<view>{{data}}</view>
 						 <block v-if="!loading&&data.length<1"> 
 							<view><noData></noData></view>
 						 </block>
@@ -103,7 +102,8 @@
 											<text>{{item.hotel_id[0].hotelAddress}}</text>
 										</view>
 										<view class="info">
-											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text><text style="padding:0 5px">1间2晚</text><text>大床房</text>
+											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text>
+											<text style="padding:0 15px">{{item.roomTypeArray.length}}间{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}晚</text><text>大床房</text>
 										</view>
 										<view class="price">
 											<text v-if="item.payType=='online'">在线支付</text>
@@ -158,8 +158,11 @@
 			hotel_id(){
 				return this.$store.state.hotel_id;
 			},
+			hotel(){
+				return this.$store.state.hotel;
+			},
 			_WHERE(){//待办
-				return `hotel_id=='${this.hotel_id}'&&(orderStatus==0||orderStatus==2)`
+				return `hotel_id=='${this.hotel_id}'&&(orderStatus==0||orderStatus==2)&&checkInStartDateTimeStamp>${(Date.now()-1000*60*60*10)}`
 			},
 			user(){
 				return this.$store.state.user;
@@ -195,6 +198,9 @@
 			}
 		},
 		methods: {
+			 formatDateLabel(d){
+				return new Date(d).Format("MM-dd")
+			},
 			formatDateTitle(item) {
 				return `${new Date(item.checkInStartDateTimeStamp).Format("MM-dd")}~${new Date(item.checkInEndDateTimeStamp).Format("MM-dd")}`;
 			},

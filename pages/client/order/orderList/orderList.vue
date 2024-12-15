@@ -30,7 +30,7 @@
 											<text>{{item.hotel_id[0].hotelAddress}}</text>
 										</view>
 										<view class="info">
-											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text><text style="padding:0 5px">1间2晚</text><text>大床房</text>
+											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text><text style="padding:0 15px"><text>{{item.roomTypeArray.length}}</text>间{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}晚</text><text>大床房</text>
 										</view>
 										<view class="price">
 											<text v-if="item.payType=='online'">在线支付</text>
@@ -83,6 +83,9 @@ export default{
 			const formatDateLabel=(d)=>{
 				return new Date(d).Format("MM-dd")
 			}
+			const dayNum=(params)=> {
+				return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24))
+			},
 			let type =ref('all');
 			let _WHERE =computed(()=>{
 				let w ='';
@@ -104,7 +107,8 @@ export default{
 			formatDateLabel,
 			colList,
 			type,
-			_WHERE
+			_WHERE,
+			dayNum
 
 		}
 		},
