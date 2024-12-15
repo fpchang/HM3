@@ -158,13 +158,17 @@ const store = createStore({
         }
       } catch (error) {}
     },
-     loginEvent(context) {
+    loginEvent(context,loginSuccess) {
 		return new Promise(async (resolve,reject)=>{
 			if (!uni.getStorageSync("hm_token")) {
 				//未登录
 				console.log("未登录");
 				context.dispatch("clearCache");
-				uni.navigateTo({ url: "/pages/login/login" });
+				uni.navigateTo({ url: "/pages/login/login",events:{
+          loginSuccess(){
+            loginSuccess&&loginSuccess();
+          }
+        } });
 				reject("未登录");
 				return;
 			  }
@@ -181,6 +185,7 @@ const store = createStore({
 				return;
 			}
 			resolve();
+      loginSuccess&&loginSuccess();
 		})
       
 	 

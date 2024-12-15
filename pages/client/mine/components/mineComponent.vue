@@ -255,8 +255,11 @@
 				}
 				this.$store.dispatch("loginOut");
 			},
-		   toOrder(type){
-			uni.showToast({title:"暂未开放",icon:'none'})
+		   toOrder(type){			
+			
+			uni.navigateTo({
+				url:`/pages/client/order/orderList/orderList?type=${type}`
+			})
 		   }
 		
 		}

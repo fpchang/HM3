@@ -1,10 +1,7 @@
 <template>
-	<view class="mobile-show-style" style="max-width: 850px;">
-		<block v-if="noData">
-			<noData text_content="当前无订单数据"></noData>
-		</block>
-		<block v-if="!noData">
-			<uni-collapse v-model="accordionVal" >
+	<view class="mobile-show-style" style="max-width: 850px;margin:auto">
+	
+			<!-- <uni-collapse v-model="accordionVal" >
 				<uni-collapse-item v-for="item of checkInOrderList">
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.userName " :sub-title="formatDateTitle(item)">
@@ -64,8 +61,7 @@
 				   labelSize="12px"
 				   @click="deleteOrder(item)"
 				 ></uv-icon>
-									 <!-- <button class="uni-button" size="mini" type="warn"
-									@click="deleteOrder(item)">撤消订单</button> -->
+									
 								
 								</view>
 							</view>
@@ -74,8 +70,69 @@
 					</view>
 				</uni-collapse-item>
 	
-			</uni-collapse>
-		</block>
+			</uni-collapse> -->
+			<uni-segmented-control :current="current" :values="items"
+			active-color="orange" @clickItem="onClickItem" />
+			<view>
+				<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-order" :where="_WHERE"
+						   orderby="createTime desc">
+						<view>{{data}}</view>
+						 <block v-if="!loading&&data.length<1"> 
+							<view><noData></noData></view>
+						 </block>
+						 <block v-if="data.length>0"> 
+							<xt-panal-list :dataList="data">
+
+								<!-- #ifdef MP -->
+								<view v-for="(item,index) of data" slot="card{{index}}">
+					
+					
+								</view>
+								<!-- #endif -->
+								<!-- #ifdef H5 || APP-PLUS -->
+								<template v-for="(item,index) of data" v-slot:[`card${index}`]>
+									<view class="p-card">
+										<view class="header">
+											<view><text>{{item.userName}}</text></view>
+											<view><text>{{item.orderStatus}}</text></view>
+										</view>
+										<view class="title">
+											<text>{{item.hotel_id[0].hotelName}}</text>
+										</view>
+										<view class="address">
+											<text>{{item.hotel_id[0].hotelAddress}}</text>
+										</view>
+										<view class="info">
+											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text><text style="padding:0 5px">1间2晚</text><text>大床房</text>
+										</view>
+										<view class="price">
+											<text v-if="item.payType=='online'">在线支付</text>
+											<text v-if="item.payType=='offline'">到店支付</text>
+											<text>￥{{item.totalAmount}}</text>
+										</view>
+										<view> 
+											
+										</view>
+										<!--议价单同意-->
+										<view v-if="orderType=='bargain'&&ordetStatus==0"> 
+											<text v-if="item.payType=='online'">去付款</text>
+											<text v-if="item.payType=='offline'">确认</text>
+										</view>
+										<!--普通单同意,可进行退订操作-->
+										<view v-if="orderType=='normal'&&ordetStatus==1"> 
+											<text v-if="item.payType=='online'">退订</text>
+										</view>
+									</view>
+								</template>
+								<!-- #endif -->
+					
+					
+							</xt-panal-list>
+						 </block>
+		
+	</unicloud-db>
+			</view>
+	
 		
 	</view>
 </template>
@@ -86,7 +143,9 @@
 	export default {
 		data() {
 			return {
-				accordionVal: '0'
+				accordionVal:1,
+				current:0,
+				items: ['待处理', '待入住']
 			}
 		},
 		onLoad() {
@@ -98,6 +157,19 @@
 		computed:{
 			hotel_id(){
 				return this.$store.state.hotel_id;
+			},
+			_WHERE(){//待办
+				return `hotel_id=='${this.hotel_id}'&&(orderStatus==0||orderStatus==2)`
+			},
+			user(){
+				return this.$store.state.user;
+			},
+			colList(){
+				const db = uniCloud.database();
+				return [
+          		db.collection('hm-order').where(this._WHERE).getTemp(),
+          		db.collection('hm-hotel').field("_id,hotelName,hotelAddress").getTemp()
+			  ]
 			},
 			partialRefreshComName(){
 				return this.$store.state.partialRefreshComName;
@@ -221,4 +293,23 @@
 	    .bg-purple-dark {
 	        background: #99a9bf;
 	    } */
+
+		.p-card{
+			padding:15px;
+			box-sizing: border-box;
+			display: flex;
+			flex-direction: column;
+			gap:8px;
+			color:#a1a1a1;
+			.header{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			.title{
+				font-weight: bold;
+				font-size: 18px;
+				color:#1a1a1a;
+			}
+		}
 </style>

@@ -39,7 +39,7 @@
 			"bsonType": "array"
 		},
 		"userName": {
-			"description": "用户名",
+			"description": "住客名",
 			"bsonType": "string"
 		},
 		"checkInStartDateTimeStamp": {
@@ -64,7 +64,7 @@
 			"foreignKey": "hm-user.phone"
 		},
 		"createrName": {
-			"description": "联系人姓名",
+			"description": "下单人姓名",
 			"bsonType": "string"
 		},
 		"phone": {

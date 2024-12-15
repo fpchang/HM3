@@ -107,10 +107,10 @@ export default {
   },
   watch:{
     user(val,oldVal){
-      if(val.phone!=oldVal.phone&&val.phone){
-		    console.log("user改变",val,oldVal);
-        this.getHotelList();
-      }
+      // if(val.phone!=oldVal.phone&&val.phone){
+		  //   console.log("user改变",val,oldVal);
+      //   this.getHotelList();
+      // }
      
     },
     filterVal(val){
@@ -216,8 +216,8 @@ export default {
     async getHotelList() {
       console.log("open",this.location)
       try {
-        await this.$store.dispatch("loginEvent");
-        const condition={
+        await this.$store.dispatch("loginEvent",()=>{
+          const condition={
           filterVal:this.filterVal,
           address: this.address,
           dateRange:this.dateRange,
@@ -232,6 +232,8 @@ export default {
         uni.navigateTo({
           url: href,
         });
+        });
+      
       } catch (error) {
        
       }
