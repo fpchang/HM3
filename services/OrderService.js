@@ -85,6 +85,11 @@ class OrderServiceClass{
 deleteOrder(_id){
    return  this.DB.callFunction('hm-deleteOrder',{ _id});
 }
+//更改订单状态
+updateOrder(_id,orderStatus){
+    console.log(arguments)
+    return this.DB.update("hm-order",_id,{orderStatus:Number(orderStatus)});
+}
 }
 //module.exports =new OrderService();
 export var OrderService=new OrderServiceClass();

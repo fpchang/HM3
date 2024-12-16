@@ -188,7 +188,7 @@ $showWidth:1200px;
     min-width: 86px;
     gap:8px;
     .pr-text{
-      color: orange;
+      color: #ED9121;
       font-weight: bold;
       padding:0 4px;
     }
@@ -238,7 +238,7 @@ $showWidth:1200px;
 		}
 		.pr-text{
 			padding:0 10px;
-			color: orange;
+			color: #ED9121;
 			font-weight: bold;
 		}
 		}

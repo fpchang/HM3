@@ -85,7 +85,7 @@ export default{
 			}
 			const dayNum=(params)=> {
 				return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24))
-			},
+			}
 			let type =ref('all');
 			let _WHERE =computed(()=>{
 				let w ='';

@@ -21,9 +21,9 @@
 							<view class="title"><text>订房信息</text></view>
 							<view>
 								<view class="ad-lose-num flex-center">
-									<uni-icons type="minus-filled" size="24" color="orange" @click="loseCount()"></uni-icons>
+									<uni-icons type="minus-filled" size="24" color="#ED9121" @click="loseCount()"></uni-icons>
 									<text style="padding:0 8px">{{selectCount}}</text>
-									<uni-icons type="plus-filled" size="24" color="orange"
+									<uni-icons type="plus-filled" size="24" color="#ED9121"
 										@click="addCount()"></uni-icons>
 								</view>
 							</view>
@@ -38,7 +38,7 @@
 						</uni-forms-item>
 						<uni-forms-item label="住客名" required>
 							<view style="display:flex;height:100%;flex-direction:column" class="input-area"> 
-								<input v-model="orderForm.userName" trim="all" placeholder="住客名"  class="in"/>
+								<input v-model="orderForm.userName" trim="all" placeholder="请输入住客名"  class="in"/>
 							</view>							
 						</uni-forms-item>
 						<uni-forms-item label="联系人" required>
@@ -65,7 +65,7 @@
 							<view class="flex-center" style="flex:1;color:#a1a1a1">
 									<text>￥{{minPrice}}</text>
 									<view style="flex:1"> 
-										<slider  activeColor="orange" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="orange" /> 
+										<slider  activeColor="#ED9121" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="#ED9121" /> 
 									</view>
 									<text>￥{{priceTotal}}</text>
 							</view>	
@@ -96,9 +96,9 @@
 							<view class="title"><text>订房信息</text></view>
 							<view>
 								<view class="ad-lose-num flex-center">
-									<uni-icons type="minus-filled" size="24" color="orange" @click="loseCount()"></uni-icons>
+									<uni-icons type="minus-filled" size="24" color="#ED9121" @click="loseCount()"></uni-icons>
 									<text style="padding:0 8px">{{selectCount}}</text>
-									<uni-icons type="plus-filled" size="24" color="orange"
+									<uni-icons type="plus-filled" size="24" color="#ED9121"
 										@click="addCount()"></uni-icons>
 								</view>
 							</view>
@@ -139,7 +139,7 @@
 							<view class="flex-center" style="flex:1;color:#a1a1a1">
 									<text>￥{{minPrice}}</text>
 									<view style="flex:1"> 
-										<slider  activeColor="orange" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="orange" /> 
+										<slider  activeColor="#ED9121" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="#ED9121" /> 
 									</view>
 									<text>￥{{priceTotal}}</text>
 							</view>	
@@ -374,6 +374,7 @@
 					orderStatus:this.orderForm.orderStatus,
 					orderSource: Number(this.orderForm.orderSource),
 					orderSouce_Zn: sourceObj.name_Zn,
+					orderType:this.isBargainOrder?'bargain':'normal',
 					totalAmount:this.isBargainOrder?this.bargainPrice:this.priceTotal,
 					payType:this.hotel.onlinePayment?'online':'offline'//--
 
@@ -465,13 +466,13 @@
 		align-items: center;
 		font-size: 14px;
 		.rmb{
-			color:orange;
+			color:#ED9121;
 			font-weight: bold;
 			font-size: 20px;
 			padding:0 10px;
 		}
 		.btn{
-			background-color: orange;
+			background-color: #ED9121;
 			color:#fff;
 			width: 86px;
 			height: 40px;

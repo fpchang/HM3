@@ -139,6 +139,9 @@ export default {
 			}
 			// #endif
   },
+  onShow(){
+    console.log("client index onshow")
+  },
   methods: {
     clickTab(id){
 				console.log(id);
@@ -229,6 +232,7 @@ export default {
 						//window.open(`#${href}`, "_blank");
           //return;
         //#endif
+        console.log("跳转-------------")
         uni.navigateTo({
           url: href,
         });

@@ -9,7 +9,7 @@
                     <view class="im-cont">
                       <image class="imgStyle" :src="item.filePath" mode="aspectFill"></image>
                       <view class="progress-container" v-if="item.uploadStatus==0&&item.percentCompleted>0">
-                        <progress :percent="item.percentCompleted" border-radius="12" stroke-width="20" activeColor="orange" :show-info="false"></progress>
+                        <progress :percent="item.percentCompleted" border-radius="12" stroke-width="20" activeColor="#ED9121" :show-info="false"></progress>
                       </view>
                       <view class="delete-container" v-if="!disabled">
                         <uni-icons  type="trash" size="50" @click="deleteFile(index)" color="#fff"></uni-icons>

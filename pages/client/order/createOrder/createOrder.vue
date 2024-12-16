@@ -73,13 +73,13 @@ import createOrderComponent from './createOrderComponent';
 	align-items: center;
 	font-size: 14px;
 	.rmb{
-		color:orange;
+		color:#ED9121;
 		font-weight: bold;
 		font-size: 20px;
 		padding:0 10px;
 	}
 	.btn{
-		background-color: orange;
+		background-color: #ED9121;
 		color:#fff;
 		width: 120px;
 		height: 50px;

@@ -25,7 +25,7 @@
               <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
               <text class="label-item">{{item.area}}m²</text>
               <text v-if="item.remainCount>0">剩余{{item.remainCount}}间</text>
-                <text v-if="item.remainCount<1" style="color:orange;font-weight:bold">满房</text>
+                <text v-if="item.remainCount<1" style="color:#ED9121;font-weight:bold">满房</text>
             </view>
             <view>
               <text>可住{{item.guestNumber||2}}人</text>
@@ -83,7 +83,7 @@
                 <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
                 <text class="label-item">{{item.area}}m²</text>
                 <text v-if="item.remainCount>0">剩余{{item.remainCount}}间</text>
-                <text v-if="item.remainCount<1" style="color:orange;font-weight:bold">满房</text>
+                <text v-if="item.remainCount<1" style="color:#ED9121;font-weight:bold">满房</text>
               </view>
               <view>
                 <text>可住{{item.guestNumber||2}}人</text>
@@ -290,7 +290,7 @@ $showWidth:1200px;
     min-width: 86px;
     gap:8px;
     .pr-text{
-      color: orange;
+      color: #ED9121;
       font-weight: bold;
       padding:0 4px;
     }

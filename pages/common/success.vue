@@ -112,7 +112,7 @@ export default{
         padding:8px 30px;
         flex-direction: column;
         justify-content: center;
-        color: orange;
+        color: #ED9121;
       }
     }
     .text-container{

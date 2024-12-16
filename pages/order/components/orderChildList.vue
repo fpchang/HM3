@@ -72,10 +72,10 @@
 	
 			</uni-collapse> -->
 			<uni-segmented-control :current="current" :values="items"
-			active-color="orange" @clickItem="onClickItem" />
+			active-color="#ED9121" @clickItem="onClickItem" />
 			<view>
-				<unicloud-db v-slot:default="{data, loading, error, options}" :collection="colList" 
-						   orderby="createTime desc">
+				<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList" 
+						   orderby="createTime desc" >
 						 <block v-if="!loading&&data.length<1"> 
 							<view><noData></noData></view>
 						 </block>
@@ -91,37 +91,36 @@
 								<!-- #ifdef H5 || APP-PLUS -->
 								<template v-for="(item,index) of data" v-slot:[`card${index}`]>
 									<view class="p-card">
+										
+										<view class="title">
+											<text>{{item.orderType=='bargain'?'议价单':'普通订单'}}</text>
+										</view>
 										<view class="header">
 											<view><text>{{item.userName}}</text></view>
 											<view><text>{{item.orderStatus}}</text></view>
 										</view>
-										<view class="title">
-											<text>{{item.hotel_id[0].hotelName}}</text>
-										</view>
-										<view class="address">
-											<text>{{item.hotel_id[0].hotelAddress}}</text>
-										</view>
 										<view class="info">
 											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text>
-											<text style="padding:0 15px">{{item.roomTypeArray.length}}间{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}晚</text><text>大床房</text>
+											<text style="padding:0 15px">{{item.roomTypeArray.length}}间{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}晚</text><text>{{item.roomTypeArray[0].name}}</text>
 										</view>
 										<view class="price">
 											<text v-if="item.payType=='online'">在线支付</text>
 											<text v-if="item.payType=='offline'">到店支付</text>
 											<text>￥{{item.totalAmount}}</text>
 										</view>
-										<view> 
-											
+										<view class="control-area">
+											<view v-if="item.orderStatus==0"> 
+												<button size="default" type="default" class="btn" @click="receiveOrder(item)">接受</button>
+											</view>	
+											<view v-if="item.orderStatus==2"> 
+												<button size="default" type="default" class="btn btn-red" @click="agreenOrder(item)">同意</button>
+											</view>	
+											<view v-if="item.orderStatus==2"> 
+												<button size="default" type="default" class="btn btn-red" @click="rejectOrder(item)">拒绝</button>
+											</view>	
+												
 										</view>
-										<!--议价单同意-->
-										<view v-if="orderType=='bargain'&&ordetStatus==0"> 
-											<text v-if="item.payType=='online'">去付款</text>
-											<text v-if="item.payType=='offline'">确认</text>
-										</view>
-										<!--普通单同意,可进行退订操作-->
-										<view v-if="orderType=='normal'&&ordetStatus==1"> 
-											<text v-if="item.payType=='online'">退订</text>
-										</view>
+										
 									</view>
 								</template>
 								<!-- #endif -->
@@ -162,7 +161,14 @@
 				return this.$store.state.hotel;
 			},
 			_WHERE(){//待办
-				return `hotel_id=='${this.hotel_id}'&&(orderStatus==0||orderStatus==2)&&checkInStartDateTimeStamp>${(Date.now()-1000*60*60*10)}`
+				let os='';
+				if(this.current==0){
+					os='(orderStatus==0||orderStatus==2)';
+				}
+				if(this.current==1){
+					os='orderStatus==1';
+				}
+				return `hotel_id=='${this.hotel_id}'&&${os}&&checkInStartDateTimeStamp>${Date.now()-1000*60*60*10}`
 			},
 			user(){
 				return this.$store.state.user;
@@ -198,6 +204,50 @@
 			}
 		},
 		methods: {
+			onClickItem(e){
+				console.log(e)
+				this.current=e.currentIndex;
+			},
+			async receiveOrder(item){
+				const conf = await uni.showModal({
+				title: "确认接受此议价单",
+				content: "请核对订单价格",
+				cancelText: "取消",
+				confirmText: "确认",
+			});
+			if (conf["cancel"]) {
+				return;
+			}
+			await OrderService.updateOrder(item._id,{orderStatus:1});
+			this.$refs.udb.refresh();
+			},
+			//议价单同意
+			async agreenOrder(item){
+				const conf = await uni.showModal({
+				title: "确认接受此议价单",
+				content: "请核对订单价格",
+				cancelText: "取消",
+				confirmText: "确认",
+			});
+			if (conf["cancel"]) {
+				return;
+			}
+				await OrderService.updateOrder(item._id,{orderStatus:0});
+				this.$refs.udb.refresh();
+			},
+			async rejectOrder(item){
+				const conf = await uni.showModal({
+				title: "确认拒绝此议价单",
+				content: "请核对订单价格",
+				cancelText: "取消",
+				confirmText: "确认",
+			});
+			if (conf["cancel"]) {
+				return;
+			}
+				await OrderService.updateOrder(item._id,{orderStatus:3});
+				this.$refs.udb.refresh();
+			},
 			 formatDateLabel(d){
 				return new Date(d).Format("MM-dd")
 			},
@@ -317,5 +367,28 @@
 				font-size: 18px;
 				color:#1a1a1a;
 			}
+			.control-area{
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				gap:10px;
+				.btn{
+					background-color: #ED9121;
+					color:#fff;
+					width: 86px;
+					height: 40px;
+					font-size: 13px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-top-left-radius:37%;
+					border-bottom-right-radius:37%;
+					text-overflow: clip;
+				}
+				.btn-red{
+					background-color: #B33F22;
+				}
+			}
+		
 		}
 </style>

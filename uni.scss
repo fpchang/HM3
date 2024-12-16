@@ -15,7 +15,9 @@
 // @import '@/uni_modules/uview-ui/theme.scss';
 
 /* 颜色变量 */
-
+/*主题*/
+$theam-main-color:#ED9121;
+$theam-Err-color:#B33F22;
 /* 行为相关颜色 */
 $uni-color-primary: #007aff;
 $uni-color-success: #4cd964;
@@ -93,7 +95,7 @@ $font-color-control-hover:rgb(1, 85, 169);
 /* label color*/
 $label-normal:#a1a1a1;
 .tips-area{
-	color: orange;
+	color: #ED9121;
 	font-size:$uni-font-size-sm ;
 	.ct{
 		color:$font-color-control ;
