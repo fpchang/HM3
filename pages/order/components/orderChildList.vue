@@ -160,7 +160,7 @@
 			hotel(){
 				return this.$store.state.hotel;
 			},
-			_WHERE(){//待办
+			_WHERE(){//待办1
 				let os='';
 				if(this.current==0){
 					os='(orderStatus==0||orderStatus==2)';
