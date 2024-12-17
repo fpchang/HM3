@@ -97,7 +97,7 @@
 										</view>
 										<view class="header">
 											<view><text>{{item.userName}}</text></view>
-											<view><text>{{item.orderStatus}}</text></view>
+											
 										</view>
 										<view class="info">
 											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text>

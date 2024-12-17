@@ -278,14 +278,14 @@ export default {
 }
 
 .submit-btn{
-  background:#06c;
+  background:#ED9121;
   border-radius: 22.5px;
   color: #fff!important;
   cursor: pointer;
   
 }
 .submit-btn-disabled{
-  background:#0066cc78!important;
+  background:#ed912178!important;
   color: #eee!important;
 }
 .sms-btn {

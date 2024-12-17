@@ -310,7 +310,7 @@ export default {
   background-color: #eee;
 }
 .submit-btn {
-  background: #06c;
+  background: #ED9121;
   border-radius: 22.5px;
   color: #fff !important;
   cursor: pointer;

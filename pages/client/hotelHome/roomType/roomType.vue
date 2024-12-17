@@ -195,11 +195,13 @@ export default {
 				this.roomType = res.result.data;
       
     },
-    reserve(item,priceField){
-      console.log("111111",this.dateRange)
-     uni.navigateTo({
-      url:`/pages/client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
-     })
+    async reserve(item,priceField){
+      await this.$store.dispatch("loginEvent",()=>{
+        uni.navigateTo({
+          url:`/pages/client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
+        })
+      })
+   
     },
     bargain(item,priceField){
       console.log("111111",this.dateRange)
