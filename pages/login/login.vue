@@ -7,7 +7,7 @@
       <uni-forms ref="userForm" :modelValue="userForm" :rules="rules">
         <uni-forms-item name="phone">
           <view class="flex-center input-area">
-            <input  type="number" v-model="userForm.phone" placeholder="请输入手机号" />       
+            <input  type="tel" maxlength="11" v-model="userForm.phone" placeholder="请输入手机号" />       
           </view>
         </uni-forms-item>
         <uni-forms-item name="smsCode">
@@ -309,6 +309,7 @@ export default {
 .container {
   width: 100vw;
   height: 100vh;
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -319,11 +320,12 @@ export default {
     .title {
       font-size: 25px;
       padding: 15px 0;
+      color: #fff;
     }
 
     .subtitle {
       font-size: 16px;
-      color: #aaa;
+      color: #f7f7f7;
     }
   }
 }

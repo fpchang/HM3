@@ -88,9 +88,20 @@
 			"bsonType": "string",
 			"enum":["online","offline"]
 		},
+		"bargainStatus": {
+			"description": "议价单状态0 等待审核，1同意，2拒绝",
+			"bsonType": "int",
+			"enum":[0,1,2]
+		},
 		"orderStatus": {
-			"description": "订单状态,0待付款，1已生效(线上已经付款，或线下订单),2 等待接受议价 (接受后状态变0)，3，议价被拒绝，8：已退款， 9，已过期,10 已撤消",
-			"bsonType": "int"
+			"description": "订单状态,0待审核，1已生效(线上已经付款，或线下订单), 9，已过期,10 已撤消",
+			"bsonType": "int",
+			"enum":[0,1,9,10]
+		},
+		"payStatus":{
+			"description": "支付状态,0等待支付，1已经支付，2线下支付",
+			"bsonType": "int",
+			"enum":[0,1,2]
 		},
 		"downPayment": {
 			"description": "定金",

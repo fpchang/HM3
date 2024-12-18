@@ -1,9 +1,8 @@
 <template>
 	<view class="orderList">
 		
-		<unicloud-db v-slot:default="{data, loading, error, options}" :collection="colList"
+		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList"
 						 :getone="false" :where="_WHERE" orderby="createTime desc">
-						
 						 <block v-if="!loading&&data.length<1"> 
 							<view><noData></noData></view>
 						 </block>
@@ -19,12 +18,13 @@
 								<!-- #ifdef H5 || APP-PLUS -->
 								<template v-for="(item,index) of data" v-slot:[`card${index}`]>
 									<view class="p-card">
-										<view class="header">
-											<view><text>{{item.userName}}</text></view>
-											<view><text>{{item.orderStatus}}</text></view>
-										</view>
+										
 										<view class="title">
 											<text>{{item.hotel_id[0].hotelName}}</text>
+										</view>
+										<view class="header">
+											<view><text>{{item.userName}}</text></view>
+											<view><text>{{formatOrderStatus(item)}}</text></view>
 										</view>
 										<view class="address">
 											<text>{{item.hotel_id[0].hotelAddress}}</text>
@@ -41,13 +41,30 @@
 											
 										</view>
 										<!--议价单同意-->
-										<view v-if="orderType=='bargain'&&ordetStatus==0"> 
-											<text v-if="item.payType=='online'">去付款</text>
-											<text v-if="item.payType=='offline'">确认</text>
+							
+										<view v-if="item.orderType=='bargain'&&item.orderStatus==4" class="pay-area"> 
+											<view v-if="item.hotel_id[0].payType=='online'"> 
+												<button size="default" type="default" class="btn" @click="payEvent">立即支付</button>
+											</view>	
+											<view  v-if="item.hotel_id[0].payType!='online'"> 
+												<button size="default" type="default" class="btn" @click="confirmOrder(item)">确认</button>
+											</view>	
+											<view> 
+												<button size="default" type="default" class="btn btn-red" @click="cancelOrder(item)">取消订单</button>
+											</view>	
+											
+										</view>
+										<!--普通单等待支付-->
+										<view v-if="item.orderType=='normal'&&item.orderStatus==5" class="pay-area"> 
+											<view > 
+												<button size="default" type="default" class="btn" @click="payEvent">立即支付</button>
+											</view>	
 										</view>
 										<!--普通单同意,可进行退订操作-->
-										<view v-if="orderType=='normal'&&ordetStatus==1"> 
-											<text v-if="item.payType=='online'">退订</text>
+										<view v-if="item.orderType=='normal'&&item.orderStatus==1" class="pay-area"> 
+											<view  v-if="item.payType=='offline'"> 
+												<button size="default" type="default" class="btn" @click="payEvent">退订</button>
+											</view>	
 										</view>
 									</view>
 								</template>
@@ -63,11 +80,13 @@
 
 <script>
 import {useStore} from 'vuex';
-import {  computed, ref } from 'vue';
+import {  computed, ref,getCurrentInstance  } from 'vue';
+import  {OrderService} from "../../../../services/OrderService";
 import noData from '../../../../components/noData/noData.vue';
 export default{
   components: { noData },	
 		setup(){
+			const instance = getCurrentInstance();//类似this
 			const store = useStore();
 			const db = uniCloud.database();
 			console.log(store.state)
@@ -77,7 +96,7 @@ export default{
 			let colList=computed(()=>{
 				return [
           		db.collection('hm-order').where(`fromClient==true && createrPhone=='${store.state.user.phone}'`).getTemp(),
-          		db.collection('hm-hotel').field("_id,hotelName,hotelAddress").getTemp()
+          		db.collection('hm-hotel').field("_id,hotelName,hotelAddress,payType").getTemp()
 			  ]
 			});
 			const formatDateLabel=(d)=>{
@@ -102,13 +121,63 @@ export default{
 				}
 				return w;
 			})
+			const udb =ref();
+		const confirmOrder=async (item)=>{
+				await OrderService.updateOrder(item._id,{orderStatus:1});
+				udb.value.refresh();
+		}
+		const cancelOrder=async (item)=>{
+			const conf = await uni.showModal({
+				title: "确认取消",
+				content: "取消后无法恢复",
+				cancelText: "取消",
+				confirmText: "确认",
+			});
+			if (conf["cancel"]) {
+				return;
+			}
+				await OrderService.updateOrder(item._id,{orderStatus:10});
+				udb.value.refresh();
+		}
+		const formatOrderStatus=(item)=>{
+			if(item.orderType=='bargain'){
+				let status = item.bargainStatus;
+				let obj ={
+				"0":"等待商家同意",
+				"1":"已同意",
+				"2":"商家拒绝",
+			}
+				return obj[status]
+			}
+			if(item.orderType=='normal'){
+				let status = item.orderStatus;
+				let payType=item.payType;
+				let payStatus=item.payStatus;
+
+				let obj ={
+				"0":"待审核",
+				"1":"生效中",
+				"10":"已取消",
+				}
+				if(payType=='online'&&payStatus==0){
+					return "待支付"
+				}
+				return obj[status]
+				
+			}
+		}
 		return{
 			user,
+			udb,
 			formatDateLabel,
 			colList,
 			type,
 			_WHERE,
-			dayNum
+			dayNum,
+			confirmOrder,
+			cancelOrder,
+			formatOrderStatus
+
 
 		}
 		},
@@ -152,6 +221,36 @@ export default{
 		font-weight: bold;
 		font-size: 18px;
 		color:#1a1a1a;
+	}
+}
+.pay-area{
+	height: 60px;
+	display: flex;
+	justify-content: flex-end;
+	gap:15px;
+	align-items: center;
+	font-size: 14px;
+	.rmb{
+		color:#ED9121;
+		font-weight: bold;
+		font-size: 20px;
+		padding:0 10px;
+	}
+	.btn{
+		background-color: #ED9121;
+		color:#fff;
+		width: 86px;
+		height: 40px;
+		font-size: 13px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-top-left-radius:37%;
+		border-bottom-right-radius:37%;
+		text-overflow: clip;
+	}
+	.btn-red{
+		background-color: #B33F22;
 	}
 }
 </style>

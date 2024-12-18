@@ -153,9 +153,12 @@
 							</view>
 							<view class="pay-area" v-if="!isBargainOrder">
 								<view style="flex:1"><text>在线支付</text><text class="rmb">￥{{priceTotal}}</text></view>
-								<view> 
+								<view v-if="hotel.payType!='online'"> 
+									<button size="default" type="default" class="btn" @click="reserve">预定</button>
+								</view>
+								<view v-if="hotel.payType=='online'"> 
 									<button size="default" type="default" class="btn" @click="payEvent">立即支付</button>
-								</view>								
+								</view>									
 							</view>
 							
 						</uni-forms-item>
@@ -240,7 +243,10 @@
 					dateRangeArray: [],
 					userName: "",
 					phone: "",
+					orderType:"normal",
 					orderStatus: 0,
+					bargainStatus:0,
+					payStatus:0
 				},
 			};
 		},
@@ -337,19 +343,30 @@
 				).getTime();
 				return [startTime, endTime];
 				},
-				bargainEvent(){
+				//发起议价单
+				async bargainEvent(){
 					console.log(this.formData.orderType)
-					this.orderForm.orderStatus=2;
-					this.submitForm()
+					//this.orderForm.bargainStatus=0;
+					await this.submitForm();
+					uni.redirectTo({url:"/pages/client/order/orderList/orderList"});
 				},
-				payEvent(){
-					this.orderForm.orderStatus=1;
-					this.submitForm()
+				//发起支付
+				async payEvent(){
+					return;
+					this.orderForm.payType='online';
+					await this.submitForm()
+				},
+				//线下预定
+				async reserve(){
+					console.log("预定")
+					this.orderForm.payType='offline';
+					await this.submitForm();
+					uni.redirectTo({url:"/pages/client/order/orderList/orderList"});
+					// const db = uniCloud.database();
+					// db.collection('hm-order').remove()
 				},
 			async submitForm() {
-				// uni.navigateTo({url:"/pages/client/order/orderList/orderList"})
-				// return;
-				//uni.showLoading();
+				
 				this.submitLoading = true;
 				let dateRange = this.dateRangeArrayFormat();
 				let sourceObj = this.source.find(
@@ -371,6 +388,8 @@
 					createrPhone: this.user.phone, //--
 					createrName: this.user.userName, //--
 					fromClient:true,
+					bargainStatus:this.orderForm.bargainStatus,
+					payStatus:this.orderForm.payStatus,
 					orderStatus:this.orderForm.orderStatus,
 					orderSource: Number(this.orderForm.orderSource),
 					orderSouce_Zn: sourceObj.name_Zn,
@@ -379,24 +398,25 @@
 					payType:this.hotel.onlinePayment?'online':'offline'//--
 
 				};
-				console.log(obj)
-				try {
-					await OrderService.addOrder(obj);
+				console.log(obj);
+				await OrderService.addOrder(obj);
 					console.log("添加成功");
 					this.submitLoading = false;
 					uni.hideLoading();
-					//this.$emit("closePopup");
-					uni.navigateTo({url:"/pages/client/order/orderList/orderList"})
-				} catch (error) {
-					console.error("添加失败", error);
-					this.submitLoading = false;
-					uni.hideLoading();
-					uni.showToast({
-						title: '添加失败，请稍候再试',
-						duration: 2000,
-						icon: "error"
-					});
-				}
+				// try {
+				
+				// 	//this.$emit("closePopup");
+					
+				// } catch (error) {
+				// 	console.error("添加失败", error);
+				// 	this.submitLoading = false;
+				// 	uni.hideLoading();
+				// 	uni.showToast({
+				// 		title: '添加失败，请稍候再试',
+				// 		duration: 2000,
+				// 		icon: "error"
+				// 	});
+				// }
 
 
 			},

@@ -86,9 +86,9 @@ deleteOrder(_id){
    return  this.DB.callFunction('hm-deleteOrder',{ _id});
 }
 //更改订单状态
-updateOrder(_id,orderStatus){
-    console.log(arguments)
-    return this.DB.update("hm-order",_id,{orderStatus:Number(orderStatus)});
+updateOrder(_id,obj){
+  console.log("更新",_id,obj)
+    return this.DB.update("hm-order",_id,obj);
 }
 }
 //module.exports =new OrderService();

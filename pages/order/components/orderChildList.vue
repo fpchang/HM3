@@ -163,10 +163,10 @@
 			_WHERE(){//待办1
 				let os='';
 				if(this.current==0){
-					os='(orderStatus==0||orderStatus==2)';
+					os="(orderStatus==0&&orderType=='bargain'||orderStatus==0&&orderType=='normal'&&payStatus==1)";
 				}
 				if(this.current==1){
-					os='orderStatus==1';
+					os='orderStatus==1&&orderType=='normal'';
 				}
 				return `hotel_id=='${this.hotel_id}'&&${os}&&checkInStartDateTimeStamp>${Date.now()-1000*60*60*10}`
 			},
@@ -219,6 +219,7 @@
 				return;
 			}
 			await OrderService.updateOrder(item._id,{orderStatus:1});
+			const udb = ref();
 			this.$refs.udb.refresh();
 			},
 			//议价单同意
