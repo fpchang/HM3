@@ -166,7 +166,7 @@
 					os="(orderStatus==0&&orderType=='bargain'||orderStatus==0&&orderType=='normal'&&payStatus==1)";
 				}
 				if(this.current==1){
-					os='orderStatus==1&&orderType=='normal'';
+					os="orderStatus==1&&orderType=='normal'";
 				}
 				return `hotel_id=='${this.hotel_id}'&&${os}&&checkInStartDateTimeStamp>${Date.now()-1000*60*60*10}`
 			},

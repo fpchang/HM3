@@ -38,7 +38,7 @@
 						</uni-forms-item>
 						<uni-forms-item label="住客名" required>
 							<view style="display:flex;height:100%;flex-direction:column" class="input-area"> 
-								<input v-model="orderForm.userName" trim="all" placeholder="请输入住客名"  class="in"/>
+								<input v-model="orderForm.userName" trim="all" placeholder="住客名"  class="in"/>
 							</view>							
 						</uni-forms-item>
 						<uni-forms-item label="联系人" required>
@@ -61,7 +61,6 @@
 						
 						</uni-forms-item>
 						<uni-forms-item label="议价" required>
-							
 							<view class="flex-center" style="flex:1;color:#a1a1a1">
 									<text>￥{{minPrice}}</text>
 									<view style="flex:1"> 
@@ -79,9 +78,12 @@
 							</view>
 							<view class="pay-area" v-if="!isBargainOrder">
 								<view style="flex:1"><text>在线支付</text><text class="rmb">￥{{priceTotal}}</text></view>
-								<view> 
+								<view v-if="hotel.payType!='online'"> 
+									<button size="default" type="default" class="btn" @click="reserve">预定</button>
+								</view>
+								<view v-if="hotel.payType=='online'"> 
 									<button size="default" type="default" class="btn" @click="payEvent">立即支付</button>
-								</view>								
+								</view>									
 							</view>
 							
 						</uni-forms-item>

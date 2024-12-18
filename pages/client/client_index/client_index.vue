@@ -76,7 +76,7 @@ import amap from "../../../common/amap-wx.130";
 import { DB } from "../../../api/DB";
 import { HotelServiceClient } from "../../../services/HotelServiceClient";
 import UniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
-import mineComponent from '../mine/components/mineComponent';
+import mineComponent from '../mine/components/mineComponent.vue';
 export default {
   components: {mineComponent,UniIcons},
   data() {

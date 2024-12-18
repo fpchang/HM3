@@ -11,7 +11,56 @@
 
 								<!-- #ifdef MP -->
 								<view v-for="(item,index) of data" slot="card{{index}}">
-					
+									<view class="p-card">
+										
+										<view class="title">
+											<text>{{item.hotel_id[0].hotelName}}</text>
+										</view>
+										<view class="header">
+											<view><text>{{item.userName}}</text></view>
+											<view><text>{{formatOrderStatus(item)}}</text></view>
+										</view>
+										<view class="address">
+											<text>{{item.hotel_id[0].hotelAddress}}</text>
+										</view>
+										<view class="info">
+											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text><text style="padding:0 15px"><text>{{item.roomTypeArray.length}}</text>间{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}晚</text><text>大床房</text>
+										</view>
+										<view class="price">
+											<text v-if="item.payType=='online'">在线支付</text>
+											<text v-if="item.payType=='offline'">到店支付</text>
+											<text>￥{{item.totalAmount}}</text>
+										</view>
+										<view> 
+											
+										</view>
+										<!--议价单同意-->
+							
+										<view v-if="item.orderType=='bargain'&&item.orderStatus==4" class="pay-area"> 
+											<view v-if="item.hotel_id[0].payType=='online'"> 
+												<button size="default" type="default" class="btn" @click="payEvent">立即支付</button>
+											</view>	
+											<view  v-if="item.hotel_id[0].payType!='online'"> 
+												<button size="default" type="default" class="btn" @click="confirmOrder(item)">确认</button>
+											</view>	
+											<view> 
+												<button size="default" type="default" class="btn btn-red" @click="cancelOrder(item)">取消订单</button>
+											</view>	
+											
+										</view>
+										<!--普通单等待支付-->
+										<view v-if="item.orderType=='normal'&&item.orderStatus==5" class="pay-area"> 
+											<view > 
+												<button size="default" type="default" class="btn" @click="payEvent">立即支付</button>
+											</view>	
+										</view>
+										<!--普通单同意,可进行退订操作-->
+										<view v-if="item.orderType=='normal'&&item.orderStatus==1" class="pay-area"> 
+											<view  v-if="item.payType=='offline'"> 
+												<button size="default" type="default" class="btn" @click="payEvent">退订</button>
+											</view>	
+										</view>
+									</view>
 					
 								</view>
 								<!-- #endif -->

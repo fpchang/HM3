@@ -99,7 +99,7 @@
 			"enum":[0,1,9,10]
 		},
 		"payStatus":{
-			"description": "支付状态,0等待支付，1已经支付，2线下支付",
+			"description": "支付状态,0等待支付，1已经支付",
 			"bsonType": "int",
 			"enum":[0,1,2]
 		},

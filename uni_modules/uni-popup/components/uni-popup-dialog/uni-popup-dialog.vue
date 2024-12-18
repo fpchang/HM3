@@ -123,7 +123,7 @@
 			},
 			focus: {
 				type: Boolean,
-				default: true,
+				default: false,
 			}
 		},
 		data() {
@@ -145,6 +145,9 @@
 			titleText() {
 				return this.title || t("uni-popup.title")
 			}
+		},
+		mounted(){
+	
 		},
 		watch: {
 			type(val) {

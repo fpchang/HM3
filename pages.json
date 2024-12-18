@@ -185,7 +185,12 @@
 	"path" : "pages/client/client_index/client_index",
 	"style" : 
 	{
-		"navigationBarTitleText" : ""
+		"navigationBarTitleText" : "",
+		"app-plus": {
+		                  "titleNView":false,
+		                  "scrollIndicator":"none",
+		                  "softinputMode": "adjustResize"
+		                }
 	}
 },
 {
@@ -246,6 +251,7 @@
 }
 
 ],
+
 	"tabBar": {
 		"color": "#1d1d1f",
 		"selectedColor": "#0071e3",
@@ -270,7 +276,12 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#FFFFFF"
+		"backgroundColor": "#FFFFFF",
+		"app-plus": {
+		                  "titleNView":false,
+		                  "scrollIndicator":"none",
+		                  "softinputMode": "adjustResize"
+		                }
 	},
 	"uniIdRouter": {}
 }

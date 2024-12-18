@@ -134,10 +134,11 @@
 			<text style="padding:10px;color:#ececec">浙ICP备2024130639号</text>
 		</view>
 		
-		<uni-popup ref="nameDialog" type="dialog">
+		<uni-popup ref="nameDialog" type="dialog" :change="change">
 			<uni-popup-dialog ref="inputClose" before-close  mode="input" title="更改名称" value=""
 				placeholder="请输入名称" @close="closeNameUpdate" @confirm="submitNameUpdate"></uni-popup-dialog>
-		</uni-popup>
+		
+			</uni-popup>
 		<uni-pay ref="pay"></uni-pay>
 		<uni-popup ref="popupRecharge" background-color="#fff" type="bottom">
 			<view class="popup-content">
@@ -159,6 +160,7 @@
 		},
 		data() {
 			return {
+				showPopup:false,
 				avatar: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png',
 				menuList: [
 					{
@@ -184,15 +186,18 @@
 		},
 		onShow() {
 		},
-		created() {
-			
+		created() {			
 		},
+	
 		async onPullDownRefresh() {
 			console.log("mine  refrush");
-			await this.$store.dispatch("getUser");
+			//await this.$store.dispatch("getUser");
 			uni.stopPullDownRefresh();			
 		},
 		methods: {
+			change(e){
+				console.log(e)
+			},
 			login() {
 				uni.navigateTo({
 					url: "/uni_modules/uni-id-pages/pages/login/login-smscode?phoneNumber=18516285834"
@@ -206,9 +211,11 @@
 				return new Date(Number(d)).Format("yyyy-MM-dd");
 			},
 			closeNameUpdate(){
+				this.showPopup=false;
 				this.$refs.nameDialog.close()
 			},
 			openNameUpdate(){
+				this.showPopup=true;
 				this.$refs.nameDialog.open()
 			},
 			async submitNameUpdate(val){
