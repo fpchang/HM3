@@ -109,15 +109,25 @@
 											<text>￥{{item.totalAmount}}</text>
 										</view>
 										<view class="control-area">
-											<view v-if="item.orderStatus==0"> 
-												<button size="default" type="default" class="btn" @click="receiveOrder(item)">接受</button>
-											</view>	
-											<view v-if="item.orderStatus==2"> 
-												<button size="default" type="default" class="btn btn-red" @click="agreenOrder(item)">同意</button>
-											</view>	
-											<view v-if="item.orderStatus==2"> 
-												<button size="default" type="default" class="btn btn-red" @click="rejectOrder(item)">拒绝</button>
-											</view>	
+											<!--普通订单-->
+											<block v-if="item.orderType=='normal'&&item.orderStatus==0"> 
+												<view> 
+													<button size="default" type="default" class="btn" @click="receiveOrder(item)">接受</button>
+												</view>
+												<view> 
+													<button size="default" type="default" class="btn btn-red" @click="rejectOrder(item)">拒绝</button>
+												</view>	
+											</block>
+											<block v-if="item.orderType=='bargain'&&item.bargainStatus==0"> 
+												<view> 
+													<button size="default" type="default" class="btn btn-red" @click="receiveBargainOrder(item)">同意</button>
+												</view>	
+												<view> 
+													<button size="default" type="default" class="btn btn-red" @click="rejectBargainOrder(item)">拒绝</button>
+												</view>	
+											</block>
+
+											
 												
 										</view>
 										
@@ -163,7 +173,7 @@
 			_WHERE(){//待办1
 				let os='';
 				if(this.current==0){
-					os="(orderStatus==0&&orderType=='bargain'||orderStatus==0&&orderType=='normal'&&payStatus==1)";
+					os="(bargainStatus==0&&orderType=='bargain'||orderStatus==0&&orderType=='normal'&&payStatus==1)";
 				}
 				if(this.current==1){
 					os="orderStatus==1&&orderType=='normal'";
@@ -210,7 +220,7 @@
 			},
 			async receiveOrder(item){
 				const conf = await uni.showModal({
-				title: "确认接受此议价单",
+				title: "确认接受此订单",
 				content: "请核对订单价格",
 				cancelText: "取消",
 				confirmText: "确认",
@@ -221,6 +231,46 @@
 			await OrderService.updateOrder(item._id,{orderStatus:1});
 			const udb = ref();
 			this.$refs.udb.refresh();
+			},
+			async receiveBargainOrder(item){
+				const conf = await uni.showModal({
+				title: "确认接受此议价单",
+				content: "请核对订单价格",
+				cancelText: "取消",
+				confirmText: "确认",
+			});
+			if (conf["cancel"]) {
+				return;
+			}
+			await OrderService.updateOrder(item._id,{bargainStatus:1});
+				this.$refs.udb.refresh();
+			},
+			
+			async rejectBargainOrder(item){
+				const conf = await uni.showModal({
+				title: "确认拒绝此订单",
+				content: "请核对订单价格",
+				cancelText: "取消",
+				confirmText: "确认",
+			});
+			if (conf["cancel"]) {
+				return;
+			}
+				await OrderService.updateOrder(item._id,{bargainStatus:2});
+				this.$refs.udb.refresh();
+			},
+			async rejectOrder(item){
+				const conf = await uni.showModal({
+				title: "确认拒绝此议价单",
+				content: "请核对订单价格",
+				cancelText: "取消",
+				confirmText: "确认",
+			});
+			if (conf["cancel"]) {
+				return;
+			}
+				await OrderService.updateOrder(item._id,{orderStatus:2});
+				this.$refs.udb.refresh();
 			},
 			//议价单同意
 			async agreenOrder(item){
@@ -236,19 +286,7 @@
 				await OrderService.updateOrder(item._id,{orderStatus:0});
 				this.$refs.udb.refresh();
 			},
-			async rejectOrder(item){
-				const conf = await uni.showModal({
-				title: "确认拒绝此议价单",
-				content: "请核对订单价格",
-				cancelText: "取消",
-				confirmText: "确认",
-			});
-			if (conf["cancel"]) {
-				return;
-			}
-				await OrderService.updateOrder(item._id,{orderStatus:3});
-				this.$refs.udb.refresh();
-			},
+			
 			 formatDateLabel(d){
 				return new Date(d).Format("MM-dd")
 			},

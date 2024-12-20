@@ -3,6 +3,7 @@
 		
 		<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList"
 						 :getone="false" :where="_WHERE" orderby="createTime desc">
+						 {{ console.log("订单",data) }}
 						 <block v-if="!loading&&data.length<1"> 
 							<view><noData></noData></view>
 						 </block>
@@ -135,6 +136,11 @@ import noData from '../../../../components/noData/noData.vue';
 export default{
   components: { noData },	
 		setup(){
+			// uniCloud.callFunction({
+	  		// name:"hm_order_task"				
+	 		//  }).then(res=>{
+			// 	console.log("task",res)1734580800000
+			//  })
 			const instance = getCurrentInstance();//类似this
 			const store = useStore();
 			const db = uniCloud.database();
@@ -193,7 +199,7 @@ export default{
 				let status = item.bargainStatus;
 				let obj ={
 				"0":"等待商家同意",
-				"1":"已同意",
+				"1":"商家已同意",
 				"2":"商家拒绝",
 			}
 				return obj[status]
@@ -206,6 +212,9 @@ export default{
 				let obj ={
 				"0":"待审核",
 				"1":"生效中",
+				"2":"拒绝",
+				"5":"已完成",
+				"9":"过期",
 				"10":"已取消",
 				}
 				if(payType=='online'&&payStatus==0){
