@@ -248,6 +248,13 @@
 	{
 		"navigationBarTitleText" : ""
 	}
+},
+{
+	"path" : "pages/client/map/pathPlaining/pathPlaining",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
 }
 
 ],

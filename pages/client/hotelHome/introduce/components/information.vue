@@ -1,12 +1,12 @@
 <template>
   <view class="information"> 
-    <view class="hotel_label"><text>见山舍民宿舍</text></view>
+    <view class="hotel_label"><text>{{hotel.hotelName}}介绍</text></view>
     <view class="tab-container">
       <view class="tab" v-for="item of  feature">{{item}}</view>
       <view style="height: 0;width:70px" v-for="item in 4"></view>
     </view>
     <view class="position-style">
-      <view class="adone" bindtap="toMap">
+      <view class="adone" @click="toMap">
          <uni-icons type="location-filled" size="20px" color="green"></uni-icons>
          <view class="la">{{hotel.hotelAddressArea}}{{hotel.hotelAddress}}</view>
       </view>
@@ -43,6 +43,10 @@ export default {
     }
   },
   methods: {
+    toMap(){
+      console.log(111);
+      uni.navigateTo({url:"/pages/client/map/pathPlaining/pathPlaining"})
+    },
     toConcat(){
       if(!this.hotel.wechat){
         uni.showToast({title:"无微信号"});
