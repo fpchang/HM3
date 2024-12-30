@@ -109,7 +109,7 @@
 											<text>￥{{item.totalAmount}}</text>
 										</view>
 										<view class="control-area">
-											<!--普通订单-->
+											<!--普通订单待办-->
 											<block v-if="item.orderType=='normal'&&item.orderStatus==0"> 
 												<view> 
 													<button size="default" type="default" class="btn" @click="receiveOrder(item)">接受</button>
@@ -117,6 +117,14 @@
 												<view> 
 													<button size="default" type="default" class="btn btn-red" @click="rejectOrder(item)">拒绝</button>
 												</view>	
+											</block>
+											<!--普通订单待入住-->
+											<block v-if="item.orderType=='normal'&&item.orderStatus==1">
+												<!--可撤销后台下的单--> 
+												<view>
+													<button v-if="item.fromClient" size="default" type="default" class="btn btn-red" @click="deleteOrder(item)">撤销</button>
+											
+												</view>
 											</block>
 											<block v-if="item.orderType=='bargain'&&item.bargainStatus==0"> 
 												<view> 
@@ -170,12 +178,16 @@
 			hotel(){
 				return this.$store.state.hotel;
 			},
-			_WHERE(){//待办1
+			_WHERE(){
 				let os='';
-				if(this.current==0){
-					os="(bargainStatus==0&&orderType=='bargain'||orderStatus==0&&orderType=='normal'&&payStatus==1)";
+				if(this.current==0){//待办1
+					const s1="bargainStatus==0&&orderType=='bargain'";//议价单
+					const s2="payType=='online'&&payStatus==1&&orderStatus==0";//线上支付订单
+					const s3="payType=='offline'&&orderStatus==0";//线下支付订单
+					os=`${s1}||${s2}||${s3}`
+
 				}
-				if(this.current==1){
+				if(this.current==1){//待入住
 					os="orderStatus==1&&orderType=='normal'";
 				}
 				return `hotel_id=='${this.hotel_id}'&&${os}&&checkInStartDateTimeStamp>${Date.now()-1000*60*60*10}`
@@ -229,7 +241,6 @@
 				return;
 			}
 			await OrderService.updateOrder(item._id,{orderStatus:1});
-			const udb = ref();
 			this.$refs.udb.refresh();
 			},
 			async receiveBargainOrder(item){
@@ -333,6 +344,7 @@
 						title: '取消成功'
 					});
 				}
+				this.$refs.udb.refresh();
 				this.getOrderList();
 			}
 		}

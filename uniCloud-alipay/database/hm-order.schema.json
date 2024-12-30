@@ -86,6 +86,7 @@
 		"payType":{
 			"description": "支付方式 ,线上与线下",
 			"bsonType": "string",
+			"defaultValue":"offline",
 			"enum":["online","offline"]
 		},
 		"bargainStatus": {

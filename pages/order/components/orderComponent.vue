@@ -131,7 +131,7 @@ import orderChildCalendarList from './orderChildCalendarList';
 					text:'日历'
 				}, {
 					value:1,
-					text:'列表'
+					text:'订单'
 				},{
 					value:2,
 					text:'表格'

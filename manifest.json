@@ -19,7 +19,8 @@
         /* 模块配置 */
         "modules" : {
             "Share" : {},
-            "Payment" : {}
+            "Payment" : {},
+            "Maps" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -58,6 +59,13 @@
                         "__platform__" : [ "ios", "android" ]
                     },
                     "appleiap" : {}
+                },
+                "maps" : {
+                    "amap" : {
+                        "name" : "amapAw5CiRY6N",
+                        "appkey_ios" : "fcda0c29e3679748e0f59ddb18b94960",
+                        "appkey_android" : "fcda0c29e3679748e0f59ddb18b94960"
+                    }
                 }
             },
             "icons" : {

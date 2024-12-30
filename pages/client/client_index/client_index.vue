@@ -1,247 +1,285 @@
 <template>
   <view class="home flex-page">
-		<view class="flex-page-content">
-
-   <block v-if="tabId=='b1'"> 
-
-    
-  <view class="page-container">
-    <view style="display: flex;justify-content:flex-end;padding:10px"> 
-      <view class="switch" @click="switchEvent"> 
-        <image v-if="config.cloudUrl" :src="`${config['cloudUrl']}/HM/images/miniprogram/line_switch_white.png`" style="width:20px;height:20px"></image><text>切换商家端</text>
-      </view>      
-    </view>
-    <view class="c-p">
-      <view class="container">
-        <view class="xt-list">
-          <view class="xt-list-item">
-            <view class="item-con">
-              <text>{{ address }}</text>
-              <text class="flex-center" @click="getLocation"
-                ><uni-icons type="location-filled" size="20"></uni-icons
-                ><text>我的位置</text></text
-              >
+    <view class="flex-page-content">
+      <block v-if="tabId == 'b1'">
+        <view class="page-container">
+          <view style="display: flex; justify-content: flex-end; padding: 10px">
+            <view class="switch" @click="switchEvent">
+              <image
+                v-if="config.cloudUrl"
+                :src="`${config['cloudUrl']}/HM/images/miniprogram/line_switch_white.png`"
+                style="width: 20px; height: 20px"
+              ></image
+              ><text>切换商家端</text>
             </view>
           </view>
-          <view class="xt-list-item">
-            <view class="item-con">
-              <view>              
-                <uni-datetime-picker v-model="dateRange" type="daterange" return-type="timestamp" @change="dateConfim" >
-                  <text class="strong">{{foramtDateLabel(dateRange[0]).de}}</text
-                  ><text class="normal" style="padding: 0 10px">{{foramtDateLabel(dateRange[0]).dy}}</text>
-                  <text style="padding: 0 25px">-</text>
-                  <text class="strong">{{foramtDateLabel(dateRange[1]).de}}</text
-                  ><text class="normal" style="padding: 0 10px">{{foramtDateLabel(dateRange[1]).dy}}</text>
-                </uni-datetime-picker>
-              </view>
-              <text class="flex-center">共1晚</text>
-            </view>
-          </view>
-          <view class="xt-list-item">
-            <view class="item-con" @click="toSearch">
-              <!-- <uni-easyinput
+          <view class="c-p">
+            <view class="container">
+              <view class="xt-list">
+                <view class="xt-list-item">
+                  <view class="item-con">
+                    <text>{{ address }}</text>
+                    <text class="flex-center" @click="getLocation"
+                      ><uni-icons type="location-filled" size="20"></uni-icons
+                      ><text>我的位置</text></text
+                    >
+                  </view>
+                </view>
+                <view class="xt-list-item">
+                  <view class="item-con">
+                    <view>
+                      <uni-datetime-picker
+                        v-model="dateRange"
+                        type="daterange"
+                        return-type="timestamp"
+                        @change="dateConfim"
+                      >
+                        <text class="strong">{{
+                          foramtDateLabel(dateRange[0]).de
+                        }}</text
+                        ><text class="normal" style="padding: 0 10px">{{
+                          foramtDateLabel(dateRange[0]).dy
+                        }}</text>
+                        <text style="padding: 0 25px">-</text>
+                        <text class="strong">{{
+                          foramtDateLabel(dateRange[1]).de
+                        }}</text
+                        ><text class="normal" style="padding: 0 10px">{{
+                          foramtDateLabel(dateRange[1]).dy
+                        }}</text>
+                      </uni-datetime-picker>
+                    </view>
+                    <text class="flex-center">共1晚</text>
+                  </view>
+                </view>
+                <view class="xt-list-item">
+                  <view class="item-con" @click="toSearch">
+                    <!-- <uni-easyinput
                 v-model="filterVal"
                 placeholder="酒店名/品牌名/地标"
                 style="font-size: 18px; font-weight: bold"
                 :inputBorder="false"
               /> -->
-              <text style="color:#a1a1a1">{{filterVal||'酒店名/品牌名/地标'}}</text>
+                    <text style="color: #a1a1a1">{{
+                      filterVal || "酒店名/品牌名/地标"
+                    }}</text>
+                  </view>
+                </view>
+                <view class="xt-list-item">
+                  <button
+                    class="submit-btn $font-color-control"
+                    @click="getHotelList"
+                  >
+                    查找
+                  </button>
+                </view>
+              </view>
             </view>
           </view>
-          <view class="xt-list-item">
-            <button
-              class="submit-btn $font-color-control"
-              @click="getHotelList"
-            >
-              查找
-            </button>
-          </view>
         </view>
-      </view>
+      </block>
+      <block v-if="tabId == 'b2'">
+        <mineComponent></mineComponent>
+      </block>
+    </view>
+    <view class="flex-flex-page-bottom">
+      <xt-tabbar
+        :dataList="tabbarList"
+        @clickTab="clickTab"
+        width="1200px"
+      ></xt-tabbar>
     </view>
   </view>
-</block>
-<block v-if="tabId=='b2'">
-  <mineComponent></mineComponent>
-</block> 
-</view>
-<view class="flex-flex-page-bottom">
-  <xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
-</view>
-</view>
 </template>
 
 <script>
 import amap from "../../../common/amap-wx.130";
 import { DB } from "../../../api/DB";
 import { HotelServiceClient } from "../../../services/HotelServiceClient";
-import UniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
-import mineComponent from '../mine/components/mineComponent.vue';
+import UniIcons from "../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue";
+import mineComponent from "../mine/components/mineComponent.vue";
 export default {
-  components: {mineComponent,UniIcons},
+  components: { mineComponent, UniIcons },
   data() {
     return {
       isLoading: false,
       amapPlugin: null,
-      tabbarList:[
-        {id:"b1",label:"首页",icon:"/static/img/home-black.png",activeIcon:"/static/img/home-blue.png"},
-        {id:"b2",label:"我的",icon:"/static/img/mine-black.png",activeIcon:"/static/img/mine-blue.png"}
+      tabbarList: [
+        {
+          id: "b1",
+          label: "首页",
+          icon: "/static/img/home-black.png",
+          activeIcon: "/static/img/home-blue.png",
+        },
+        {
+          id: "b2",
+          label: "我的",
+          icon: "/static/img/mine-black.png",
+          activeIcon: "/static/img/mine-blue.png",
+        },
       ],
-      tabId:"b1",
+      tabId: "b1",
       key: "a69cc73276ceb1a813f3be0d5d42c2aa",
       filterVal: "",
       address: "",
-      dateRange:[new Date().getTime(),new Date().getTime()+1000*60*60*24],
-      sarchLocation:[],
-      location: []
-
+      dateRange: [
+        new Date().getTime(),
+        new Date().getTime() + 1000 * 60 * 60 * 24,
+      ],
+      sarchLocation: [],
+      location: [],
     };
   },
-  computed:{
-    config(){
+  computed: {
+    config() {
       return this.$store.state.config;
     },
-    user(){
+    user() {
       return this.$store.state.user;
-    }
+    },
   },
-  watch:{
-    user(val,oldVal){
+  watch: {
+    user(val, oldVal) {
       // if(val.phone!=oldVal.phone&&val.phone){
-		  //   console.log("user改变",val,oldVal);
+      //   console.log("user改变",val,oldVal);
       //   this.getHotelList();
       // }
-     
     },
-    filterVal(val){
+    filterVal(val) {
       this.searchAddress(val);
-    }
+    },
   },
-  onLoad(){
+  onLoad() {
     uni.hideHomeButton();
   },
-  async created(){
-    console.log("client created",this.config);
-      this.isLoading = true;
-      this.amapPlugin = new amap.AMapWX({
-          key: this.key,
-        });
-     await this.getLocation();
-      this.isLoading = false;
+  async created() {
+    console.log("client created", this.config);
+    this.isLoading = true;
+    this.amapPlugin = new amap.AMapWX({
+      key: this.key,
+    });
+    await this.getLocation();
+    this.isLoading = false;
   },
-  mounted(){
-			//if(this.isPcShow){
-			// #ifdef H5
-			try {
-				document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
-			} catch (error) {
-				
-			}
-			// #endif
+  async mounted() {
+    //if(this.isPcShow){
+    // #ifdef H5
+    try {
+      document.getElementsByTagName("uni-page-head")[0].style.display = "none";
+    } catch (error) {}
+    // #endif
   },
-  onShow(){
-    console.log("client index onshow")
+  onShow() {
+    console.log("client index onshow");
   },
   methods: {
-    clickTab(id){
-				console.log(id);
-				this.tabId=id;
-			},
-    switchEvent(){
-      uni.setStorageSync("userRole","hotel");
+    clickTab(id) {
+      console.log(id);
+      this.tabId = id;
+    },
+    switchEvent() {
+      uni.setStorageSync("userRole", "hotel");
       uni.reLaunch({
-        url:"/pages/home/home"
-      })
+        url: "/pages/home/home",
+      });
     },
-    foramtDateLabel(dateTime){
+    foramtDateLabel(dateTime) {
       let dyStr = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-					return {
-						de: new Date(dateTime).Format("MM-dd"),
-						dy: dyStr[new Date(dateTime).getDay()]
-					}
-				
+      return {
+        de: new Date(dateTime).Format("MM-dd"),
+        dy: dyStr[new Date(dateTime).getDay()],
+      };
     },
-    dateConfim(e){
-      console.log(e)
+    dateConfim(e) {
+      console.log(e);
     },
-    searchAddress(keywords){
-    this.amapPlugin.getInputtips({
-      keywords: keywords,
-      location: '',
-      success: function(data){
-        console.log("sssss",data)
-        // if(data && data.tips){
-        //   that.setData({
-        //     tips: data.tips
-        //   });
-        // }
-      }
-    })
+    searchAddress(keywords) {
+      this.amapPlugin.getInputtips({
+        keywords: keywords,
+        location: "",
+        success: function (data) {
+          console.log("sssss", data);
+          // if(data && data.tips){
+          //   that.setData({
+          //     tips: data.tips
+          //   });
+          // }
+        },
+      });
     },
     getLocation() {
       // #ifdef H5
       return true;
       // #endif
       return new Promise((resolve, reject) => {
-       
-        this.amapPlugin.getRegeo({
-          success: (data) => {
-            console.log(data);
-            this.address = data[0].name;
-            this.location = [data[0].longitude, data[0].latitude];
-            this.$store.commit("setLocation",this.location);
+        uni.getLocation({
+          type: "gcj02",
+          success: (res) => {
+            console.log("当前位置的经度：" + res.longitude);
+            console.log("当前位置的纬度：" + res.latitude);
+            this.$store.commit("setLocation", [res.longitude, res.latitude]);
             uni.hideLoading();
             resolve();
           },
-          fail: (e) => {
-            this.isLoading = false;
-            console.log(e);
-            reject(e);
-          },
         });
+        // this.amapPlugin.getRegeo({
+        //   //type: 'gcj02',
+        //   success: (data) => {
+        //     console.log(data);
+        //     this.address = data[0].name;
+        //     this.location = [data[0].longitude, data[0].latitude];
+        //     console.log("当前坐标",this.location)
+        //     this.$store.commit("setLocation",this.location);
+        //     uni.hideLoading();
+        //     resolve();
+        //   },
+        //   fail: (e) => {
+        //     this.isLoading = false;
+        //     console.log(e);
+        //     reject(e);
+        //   },
+        // });
       });
     },
-    toSearch(){
-				uni.navigateTo({
-					url:"/pages/client/hotelSearch/hotelSearch",
-					events:{
-						getAddress:obj=>{
-							console.log("ooooooooo",obj)
-							this.filterVal=obj.filterVal;
-							this.address=obj.address,
-							this.location=obj.location;
-							this.getHotelList();
-							}
-						}
-					
-				})
-			},
+
+    toSearch() {
+      uni.navigateTo({
+        url: "/pages/client/hotelSearch/hotelSearch",
+        events: {
+          getAddress: (obj) => {
+            console.log("ooooooooo", obj);
+            this.filterVal = obj.filterVal;
+            (this.address = obj.address), (this.location = obj.location);
+            this.getHotelList();
+          },
+        },
+      });
+    },
     async getHotelList() {
-      console.log("open",this.location)
+      console.log("open", this.location);
       try {
-        await this.$store.dispatch("loginEvent",()=>{
-          const condition={
-          filterVal:this.filterVal,
-          address: this.address,
-          dateRange:this.dateRange,
-          location:this.location,
-        }
-        let href = `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`;
-        //#ifdef H5
-        
-						//window.open(`#${href}`, "_blank");
+        await this.$store.dispatch("loginEvent", () => {
+          const condition = {
+            filterVal: this.filterVal,
+            address: this.address,
+            dateRange: this.dateRange,
+            location: this.location,
+          };
+          let href = `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(
+            JSON.stringify(condition)
+          )}`;
+          //#ifdef H5
+
+          //window.open(`#${href}`, "_blank");
           //return;
-        //#endif
-        console.log("跳转-------------")
-        uni.navigateTo({
-          url: href,
+          //#endif
+          console.log("跳转-------------");
+          uni.navigateTo({
+            url: href,
+          });
         });
-        });
-      
-      } catch (error) {
-       
-      }
-     
+      } catch (error) {}
+
       // if (this.isLoading) {
       //   console.log("isloading....");
       //   return;
@@ -274,34 +312,33 @@ export default {
     },
   },
   onShareAppMessage(res) {
-		if (res.from != "button") {
-		// 来自页面内分享按钮
-		let url =`${this.config.cloudUrl}/HM/logo/yisu.png`;
-		return {
-			title: "议宿",
-			imageUrl: url,
-			path: `/pages/index/index`,
-		};
-		}
-
-  }
+    if (res.from != "button") {
+      // 来自页面内分享按钮
+      let url = `${this.config.cloudUrl}/HM/logo/yisu.png`;
+      return {
+        title: "议宿",
+        imageUrl: url,
+        path: `/pages/index/index`,
+      };
+    }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.switch{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  padding:4px 8px;
+.switch {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 4px 8px;
   box-sizing: border-box;
   background: #000;
   border-radius: 20px;
-  color:#fff;
-  gap:4px;
+  color: #fff;
+  gap: 4px;
   font-size: 12px;
   cursor: pointer;
-  &:hover{
+  &:hover {
     box-shadow: 0 0 13px 1px #d9d9d9;
   }
 }
@@ -310,7 +347,7 @@ export default {
   background-color: #eee;
 }
 .submit-btn {
-  background: #ED9121;
+  background: #ed9121;
   border-radius: 22.5px;
   color: #fff !important;
   cursor: pointer;

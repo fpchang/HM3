@@ -61,7 +61,7 @@
 							style="color: red;font-weight: bold;letter-spacing: 3px;">{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}</text><text>晚</text></uni-td>
 					<uni-td>
 	
-						<view class="uni-group" v-if="item.checkInEndDateTimeStamp > new Date().getTime()">
+						<view class="uni-group" v-if="item.checkInEndDateTimeStamp > new Date().getTime() && !item.fromClient">
 							<!-- <button class="uni-button" size="mini" type="primary">修改</button> -->
 							<!-- <button  class="uni-button" size="mini" type="warn" @click="deleteOrder(item)">撤销</button> -->
 							<!-- <uv-icon name="trash-fill" color="#e64340" labelColor="#e64340" size="22" label="撤销"
