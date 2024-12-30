@@ -49,7 +49,7 @@
 							</view>
 							<view style="padding:10px" class="zcard-right">
 								<view class="item"><text class="title">{{item.hotelName}}</text></view>
-								<view class="item"><text>距你直线距离 <text style="padding:0 4px;font-weight:bold">{{getDistance(conditionForm.location ,item.hotelCoordinate)}}</text>KM</text></view>
+								<view class="item"><text>距你直线距离 <text style="padding:0 4px;font-weight:bold">{{getDistance(location ,item.hotelCoordinate)}}</text>KM</text></view>
 								<view class="item">
 									<view class="tabscontainer" style=""> 
 										<uni-tag v-for="i of item.feature" :inverted="true" :text="i" size="mini"/>
@@ -71,7 +71,7 @@
 							</view>
 							<view style="padding:10px" class="zcard-right">
 								<view class="item"><text class="title">{{item.hotelName}}</text></view>
-								<view class="item"><text>距你直线距离<text style="padding:0 4px;font-weight:bold">{{getDistance(conditionForm.location ,item.hotelCoordinate)}}</text>KM</text></view>
+								<view class="item"><text>距你直线距离<text style="padding:0 4px;font-weight:bold">{{getDistance(location ,item.hotelCoordinate)}}</text>KM</text></view>
 								<view class="item">
 									<view class="tabscontainer" style=""> 
 
@@ -130,8 +130,8 @@
 				conditionForm: {
 					filterVal:"",
           			address:"",//目标地址
-          			dateRange:[Date.now(),Date.now()+1000*60*60*24],
-          			location:[]//查询的坐标
+          			dateRange:[Date.now(),Date.now()+1000*60*60*24]
+          			
 				}
 			}
 		},
@@ -139,6 +139,11 @@
 			isPcShow(){
 				return this.$store.state.isPcShow;
 			},
+			 location(){
+				return this.$store.state.location
+			},
+     
+   
 			hotelList() {
 				return this.$store.state.hotelClientStore.hotelList;
 			}
