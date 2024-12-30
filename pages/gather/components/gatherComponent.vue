@@ -1,38 +1,7 @@
 <template>
 	<view class="gather">
-		
-		<xt-panal-list :dataList="[{}]">	
-			<!-- #ifdef MP-->
-			<view v-for="(item,index) of [{}]" slot="card{{index}}">
-				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>
-				<view class="grid-container" v-if="GatgerTab_index==0">
-					<view v-for="(it,ind) in showDataListToday" class="grid-item">
-						<view class="grid-item-c">
-							<view style="display:flex;align-items:center;justify-content:center;flex-direction:column"> 
-								<text style="font-weight:bold">{{it.numCount}}</text>
-								<text style="color:#a1a1a1">{{it.title}}</text>
-							</view>
-						</view>
-					</view>
-					<view v-for="it in 5" class="grid-item" style="height:0;padding-bottom:0">
-					</view>
-				</view>
-				<view class="grid-container" v-if="GatgerTab_index==1">
-					<view v-for="(it,ind) in showDataListTommorow" class="grid-item">
-						<view class="grid-item-c">
-							<view style="display:flex;align-items:center;justify-content:center;flex-direction:column"> 
-								<text style="font-weight:bold">{{it.numCount}}</text>
-								<text style="color:#a1a1a1">{{it.title}}</text>
-							</view>
-						</view>
-					</view>
-					<view v-for="it in 5" class="grid-item" style="height:0;padding-bottom:0">
-					</view>
-				</view>
-			</view>
-			<!-- #endif -->
-			<!-- #ifndef MP-WEIXIN ||  MP-TOUTIAO -->
-			<template v-for="(items,indexs) of [1]" v-slot:[`card${indexs}`]>
+		<xt-panal-list :dataList="[1,2]">			
+			<template  v-slot:[`card0`]>
 
 				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>
 				<view class="grid-container" v-if="GatgerTab_index==0">
@@ -60,57 +29,17 @@
 					</view>
 				</view>
 			</template>
-			<!-- #endif -->
+			 <template  v-slot:[`card1`]>
+				<orderChildList></orderChildList>
+			</template> 
 		</xt-panal-list>
-		<!-- <view style="display: flex; justify-content: center">
-			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
-				<view class="card" v-for="(item,index) of dataList" :style="{width:`${cardWidth}px`}">
-					<view class="card-item">
-						<gatherCardComponent :targetObj="item" :numCount="item.numCount">
-							<template v-slot:content>
-								<view>
-									<uni-section class="mb-10" title="详情" type="line"></uni-section>
-									<view v-if="index==0" class="c-list">
-										<view class="c-list-item" v-for="it of item.list">
-											<text>{{it.userName}}</text>
-											<view>
-												<text style="color: red;font-weight: bold;letter-spacing: 3px;">{{dayNum([it.checkInStartDateTimeStamp,it.checkInEndDateTimeStamp])}}</text><text>晚</text>
-											</view>
-										</view>
-									</view>
-									<view v-if="index==1" class="c-list">
-										<view class="c-list-item" v-for="it of item.list">
-											<text>{{it.userName}}</text>
-											<view>
-												<text
-													style="color: red;font-weight: bold;letter-spacing: 3px;">{{roomNum(it)}}</text><text>间</text>
-											</view>
-										</view>
-									</view>
-									<view v-if="index==2" class="c-list">
-										<view class="c-list-item" v-for="it of item.list">
-											<text>{{it.userName}}</text>
-											<view>
-												<text
-													style="color: red;font-weight: bold;">{{it.mealType=='lunch'?'午餐':'晚餐'}}</text>
-											</view>
-										</view>
-									</view>
-								</view>
-
-
-							</template>
-						</gatherCardComponent>
-					</view>
-				</view>
-
-			</view>
-		</view> -->
+		
 	</view>
 </template>
 
 <script>
 	import gatherCardComponent from './gatherCardComponent.vue';
+	import orderChildList from '../../order/components/orderChildList';
 	import {
 		OrderService
 	} from '../../../services/OrderService';
@@ -121,7 +50,8 @@
 	export default {
 		components: {
 			gatherCardComponent,
-			XtSubsection
+			XtSubsection,
+			orderChildList
 		},
 		props: {
 

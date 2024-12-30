@@ -1,79 +1,12 @@
 <template>
-	<view class="mobile-show-style" style="max-width: 850px;margin:auto">
+	<view class="mobile-show-style">
 	
-			<!-- <uni-collapse v-model="accordionVal" >
-				<uni-collapse-item v-for="item of checkInOrderList">
-					<template v-slot:title>
-						<uni-section class="mb-10" :title=" item.userName " :sub-title="formatDateTitle(item)">
-							<template v-slot:right>
-								<text style="font-weight: bold;">{{item.roomTypeArray.length}}间-</text>
-								<text style="font-weight: bold;">{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}天</text>
-							</template>
-						</uni-section>
-					</template>
-					<view class="col-content">
-						<view class="list">
-							
-							<view class="list-item">
-								<view class="list-item-c"><text>定单来源：</text><text>{{item.orderSouce_Zn}}</text></view>
-								
-							</view>
-							<view class="list-item">
-								<view class="list-item-c"><text>入住日期：</text><text>{{item.checkInStartDate}}</text></view>
-								
-							</view>
-							<view  class="list-item">
-								<view class="list-item-c"><text>退房日期：</text><text>{{item.checkInEndDate}}</text></view>
-							</view>
-							<view class="list-item">
-								<view class="list-item-c"><text>创建人：</text><text>{{item.createrPhone}}【{{item.createrName || "--"}}】</text></view>
-								
-							</view>
-							<view  class="list-item">
-								<view class="list-item-c"><text>创建日期：</text><text>{{new Date(item.createTime).Format("yyyy/MM/dd HH:mm:ss")}}</text></view>
-							</view>
-							<view class="list-item">
-								<view class="list-item-c"><text>房型：</text><text v-for="it of item.roomTypeArray">【{{it.name}}】* <text
-									:class="[it.count>1?'strongText':'']">{{it.count}}</text></text></view>
-								
-							</view>
-							<view class="list-item">
-								<view class="list-item-c"><text>定金：</text><text class="num-style">{{item.downPayment}}</text>元</view>
-								
-							</view>
-							<view class="list-item">
-								<view class="list-item-c"><text>总金额：</text><text class="num-style">{{item.totalAmount}}</text>元</view>
-								
-							</view>
-							<view class="list-item">
-								<view class="list-item-c"><text>欠款：</text><text class="num-style" :style="{color:item.totalAmount - item.downPayment>0?'#e64340':''}">{{item.totalAmount - item.downPayment}}</text>元</view>
-								
-							</view>
-							<view class="list-item" style="justify-content:flex-end">
-								<view class="list-item-c">
-									<uv-icon
-				   name="trash-fill"
-				   color="#e64340"
-				   labelColor="#e64340"
-				   size="22"
-				   label="撤消订单"
-				   labelPos="bottom"
-				   labelSize="12px"
-				   @click="deleteOrder(item)"
-				 ></uv-icon>
-									
-								
-								</view>
-							</view>
-						</view>
-	
-					</view>
-				</uni-collapse-item>
-	
-			</uni-collapse> -->
-			<view style="padding:0 15px"> 
-				<uni-segmented-control :current="current" :values="items"
-				active-color="#ED9121" @clickItem="onClickItem" />
+		<view> 
+				<!-- <uni-segmented-control :current="current" :values="items"
+				active-color="#ED9121" @clickItem="onClickItem" /> -->
+				<xt-subsection :items="items" @checkTab="onClickItem" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>
+				
+				
 			</view>
 			
 			<view>
@@ -273,6 +206,7 @@
 				if(val=='orderComponent'){
 					console.log("局部刷新 orderComponent")
 					await this.$store.dispatch("getOrderListTodayAfter",this.hotel_id);
+					this.$refs.udb.refresh();
 					console.log("刷新完成");
 					this.$store.commit("setPartialRefreshComName","");
 					uni.hideLoading();
@@ -281,9 +215,8 @@
 			}
 		},
 		methods: {
-			onClickItem(e){
-				console.log(e)
-				this.current=e.currentIndex;
+			onClickItem(index){
+				this.current=index;
 			},
 			async receiveOrder(item){
 				if(!this.$store.state.permissionStore.permissionList.includes('ORDER_UPDATE')){
