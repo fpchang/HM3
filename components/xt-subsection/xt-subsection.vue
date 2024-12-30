@@ -1,6 +1,6 @@
 <template>
-  <view class="xt-subsection">
-    <view class="xt-sub-container" :style="{'background-color':bgColor}">
+  <view class="xt-subsection" :style="styleStr">
+    <view class="xt-sub-container">
       <view v-for="(item,index) in items" @click="checkTab(index)" :class="['sub-item',index==current?'sub-item-active':'']" :style="{'background-color':current==index?activeBgColor:''}">
         {{ item }}
       </view>
@@ -20,6 +20,18 @@ export default {
       type:String,
       default:"#eee"
     },
+    fColor:{
+       type:String,
+        default:"#a1a1a1"
+    },
+    activeBgColor:{
+      type:String,
+      default:"#FFF"
+    },
+    activeFColor:{
+       type:String,
+        default:"#000"
+    },
     activeBgColor:{
       type:String,
       default:"#fff"
@@ -27,10 +39,17 @@ export default {
   },
   data() {
     return {
-      current:0
+      current:0,
+      styleStr:""
     }
   },
-  computed: {},
+  created(){
+     this.styleStr=`--fcolor:${this.fColor};--bgColor:${this.bgColor};--activeBgColor:${this.activeBgColor};--activeFcolor:${this.activeFColor}`
+  },
+
+  computed: {
+   
+  },
   methods: {
     checkTab(index){
       if(this.current==index){
@@ -60,18 +79,20 @@ export default {
 <style scoped lang="scss">
 .xt-sub-container{
   display: flex;
+  background-color: var(--bgColor,#eee);
   .sub-item{
     flex: 1;
     padding:10px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    color:#a1a1a1;
+    color:var(--fcolor,#a1a1a1);
     font-weight: bold;
 
   }
   .sub-item-active{
-    color:#000;
+    background-color: var(--activeBgColor,#fff);
+    color:var(--activeFcolor,#000);
   }
 }
 </style>

@@ -4,7 +4,7 @@
 		<xt-panal-list :dataList="[{}]">	
 			<!-- #ifdef MP-->
 			<view v-for="(item,index) of [{}]" slot="card{{index}}">
-				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
+				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>
 				<view class="grid-container" v-if="GatgerTab_index==0">
 					<view v-for="(it,ind) in showDataListToday" class="grid-item">
 						<view class="grid-item-c">
@@ -34,7 +34,7 @@
 			<!-- #ifndef MP-WEIXIN ||  MP-TOUTIAO -->
 			<template v-for="(items,indexs) of [1]" v-slot:[`card${indexs}`]>
 
-				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab"></xt-subsection>
+				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>
 				<view class="grid-container" v-if="GatgerTab_index==0">
 					<view v-for="(it,ind) in showDataListToday" class="grid-item">
 						<view class="grid-item-c">
