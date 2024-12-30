@@ -71,8 +71,11 @@
 				</uni-collapse-item>
 	
 			</uni-collapse> -->
-			<uni-segmented-control :current="current" :values="items"
-			active-color="#ED9121" @clickItem="onClickItem" />
+			<view style="padding:0 15px"> 
+				<uni-segmented-control :current="current" :values="items"
+				active-color="#ED9121" @clickItem="onClickItem" />
+			</view>
+			
 			<view>
 				<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList" 
 						   orderby="createTime desc" >
@@ -85,7 +88,56 @@
 								<!-- #ifdef MP -->
 								<view v-for="(item,index) of data" slot="card{{index}}">
 					
-					
+									<view class="p-card">
+										
+										<view class="title">
+											<text>{{item.orderType=='bargain'?'议价单':'普通订单'}}</text>
+										</view>
+										<view class="header">
+											<view><text>{{item.userName}}</text></view>
+											
+										</view>
+										<view class="info">
+											<text>{{formatDateLabel(item.checkInStartDate)}}至{{formatDateLabel(item.checkInEndDate)}}</text>
+											<text style="padding:0 15px">{{item.roomTypeArray.length}}间{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}晚</text><text>{{item.roomTypeArray[0].name}}</text>
+										</view>
+										<view class="price">
+											<text v-if="item.payType=='online'">在线支付</text>
+											<text v-if="item.payType=='offline'">到店支付</text>
+											<text>￥{{item.totalAmount}}</text>
+										</view>
+										<view class="control-area">
+											<!--普通订单待办-->
+											<block v-if="updateOrderPermission&&item.orderType=='normal'&&item.orderStatus==0"> 
+												<view> 
+													<button size="default" type="default" class="btn" @click="receiveOrder(item)">接受</button>
+												</view>
+												<view> 
+													<button size="default" type="default" class="btn btn-red" @click="rejectOrder(item)">拒绝</button>
+												</view>	
+											</block>
+											<!--普通订单待入住-->
+											<block v-if="updateOrderPermission&&item.orderType=='normal'&&item.orderStatus==1">
+												<!--可撤销后台下的单--> 
+												<view>
+													<button v-if="item.fromClient" size="default" type="default" class="btn btn-red" @click="deleteOrder(item)">撤销</button>
+											
+												</view>
+											</block>
+											<block v-if="updateOrderPermission&&item.orderType=='bargain'&&item.bargainStatus==0"> 
+												<view> 
+													<button size="default" type="default" class="btn btn-red" @click="receiveBargainOrder(item)">同意</button>
+												</view>	
+												<view> 
+													<button size="default" type="default" class="btn btn-red" @click="rejectBargainOrder(item)">拒绝</button>
+												</view>	
+											</block>
+
+											
+												
+										</view>
+										
+									</view>
 								</view>
 								<!-- #endif -->
 								<!-- #ifdef H5 || APP-PLUS -->
@@ -110,7 +162,7 @@
 										</view>
 										<view class="control-area">
 											<!--普通订单待办-->
-											<block v-if="item.orderType=='normal'&&item.orderStatus==0"> 
+											<block v-if="updateOrderPermission&&item.orderType=='normal'&&item.orderStatus==0"> 
 												<view> 
 													<button size="default" type="default" class="btn" @click="receiveOrder(item)">接受</button>
 												</view>
@@ -119,14 +171,14 @@
 												</view>	
 											</block>
 											<!--普通订单待入住-->
-											<block v-if="item.orderType=='normal'&&item.orderStatus==1">
+											<block v-if="updateOrderPermission&&item.orderType=='normal'&&item.orderStatus==1">
 												<!--可撤销后台下的单--> 
 												<view>
 													<button v-if="item.fromClient" size="default" type="default" class="btn btn-red" @click="deleteOrder(item)">撤销</button>
 											
 												</view>
 											</block>
-											<block v-if="item.orderType=='bargain'&&item.bargainStatus==0"> 
+											<block v-if="updateOrderPermission&&item.orderType=='bargain'&&item.bargainStatus==0"> 
 												<view> 
 													<button size="default" type="default" class="btn btn-red" @click="receiveBargainOrder(item)">同意</button>
 												</view>	
@@ -210,6 +262,9 @@
 			},
 			noData(){
 				return this.checkInOrderList&&this.checkInOrderList.length<1;
+			},
+			updateOrderPermission(){
+				return this.$store.state.permissionStore.permissionList.includes('ORDER_UPDATE')
 			}
 		},
 		watch:{
@@ -231,6 +286,10 @@
 				this.current=e.currentIndex;
 			},
 			async receiveOrder(item){
+				if(!this.$store.state.permissionStore.permissionList.includes('ORDER_UPDATE')){
+					alert.alertNoPermisson();
+					return;
+				}
 				const conf = await uni.showModal({
 				title: "确认接受此订单",
 				content: "请核对订单价格",
@@ -244,6 +303,10 @@
 			this.$refs.udb.refresh();
 			},
 			async receiveBargainOrder(item){
+				if(!this.$store.state.permissionStore.permissionList.includes('ORDER_UPDATE')){
+					alert.alertNoPermisson();
+					return;
+				}
 				const conf = await uni.showModal({
 				title: "确认接受此议价单",
 				content: "请核对订单价格",
@@ -258,6 +321,10 @@
 			},
 			
 			async rejectBargainOrder(item){
+				if(!this.$store.state.permissionStore.permissionList.includes('ORDER_UPDATE')){
+					alert.alertNoPermisson();
+					return;
+				}
 				const conf = await uni.showModal({
 				title: "确认拒绝此订单",
 				content: "请核对订单价格",
@@ -271,6 +338,10 @@
 				this.$refs.udb.refresh();
 			},
 			async rejectOrder(item){
+				if(!this.$store.state.permissionStore.permissionList.includes('ORDER_UPDATE')){
+					alert.alertNoPermisson();
+					return;
+				}
 				const conf = await uni.showModal({
 				title: "确认拒绝此议价单",
 				content: "请核对订单价格",
