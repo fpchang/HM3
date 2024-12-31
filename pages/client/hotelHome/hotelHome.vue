@@ -4,7 +4,8 @@
 
 				<introduce v-show="tabId=='b1'" :hotel="hotel"></introduce>	
 				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id" :range="searchCondition['dateRange']"></roomType>
-				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>			
+				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>
+				<showScenicSpot v-if="tabId=='b4'" :hotel_id="hotel._id"></showScenicSpot>			
 		</view>
 		<view class="flex-flex-page-bottom">
 			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
@@ -17,10 +18,11 @@
 import introduce from './introduce/introduce';
 import roomType from './roomType/roomType';
 import orderDishes from './orderDishes/orderDishes';
+import showScenicSpot from './scenicSpot/showScenicSpot.vue';
 import {useStore} from 'vuex';
 import {HotelServiceClient} from "../../../services/HotelServiceClient";
 	export default {
-  components: { introduce,roomType ,orderDishes},
+  components: { introduce,roomType ,orderDishes,showScenicSpot},
   setup(props){
 	const store = useStore();
 	let config = store.state.config;
@@ -28,7 +30,9 @@ import {HotelServiceClient} from "../../../services/HotelServiceClient";
 	let 	tabbarList=[
         {id:"b1",label:"首页",icon:`${imgUrl}introduce-line-black.svg`,activeIcon:`${imgUrl}introduce-line-blue.svg`},
         {id:"b2",label:"房型",icon:`${imgUrl}bed-line-black.svg`,activeIcon:`${imgUrl}bed-line-blue.svg`},
-        {id:"b3",label:"餐饮",icon:`${imgUrl}food.svg`,activeIcon:`${imgUrl}food-blue.svg`}
+        {id:"b3",label:"餐饮",icon:`${imgUrl}food.svg`,activeIcon:`${imgUrl}food-blue.svg`},
+		{id:"b4",label:"景点",icon:`${imgUrl}scenicSpot-black.png`,activeIcon:`${imgUrl}scenicSpot-blue.png`}
+		
       ]
 	  return {
 		config,
