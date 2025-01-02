@@ -45,7 +45,7 @@
 				</view>
 			</view>
 			<view class="t"> 
-				<xt-panal-list :dataList="2">
+				<xt-panal-list count="2">
 	
 					<!-- #ifdef MP -->
 					<view  slot="card0">

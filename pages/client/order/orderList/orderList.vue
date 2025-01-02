@@ -8,7 +8,7 @@
 							<view><noData></noData></view>
 						 </block>
 						 <block v-if="data.length>0"> 
-							<xt-panal-list :dataList="data">
+							<xt-panal-list :count="data.length">
 
 								<!-- #ifdef MP -->
 								<view v-for="(item,index) of data" slot="card{{index}}">

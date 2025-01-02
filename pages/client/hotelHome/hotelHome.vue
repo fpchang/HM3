@@ -8,7 +8,7 @@
 				<showScenicSpot v-if="tabId=='b4'" :hotel_id="hotel._id"></showScenicSpot>			
 		</view>
 		<view class="flex-flex-page-bottom">
-			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
+			<xt-tabbar :count="tabbarList.length" @clickTab="clickTab" width="1200px"></xt-tabbar>
 		</view>
 		
 	</view>
@@ -78,7 +78,8 @@ import {HotelServiceClient} from "../../../services/HotelServiceClient";
 				const titleObj={
 					"b1":"简介",
 					"b2":"房型",
-					"b3":"订餐"
+					"b3":"订餐",
+					"b4":"景点"
 				}
 				
 				uni.setNavigationBarTitle({

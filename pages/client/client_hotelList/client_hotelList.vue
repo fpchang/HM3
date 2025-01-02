@@ -39,7 +39,7 @@
 		<scroll-view style="height: calc(100vh - 84px);" scroll-x="false" scroll-y="true">
 			
 			<view>
-				<xt-panal-list :dataList="hotelList">
+				<xt-panal-list :count="hotelList.length">
 
 					<!-- #ifdef MP -->
 					<view v-for="(item,index) of hotelList" slot="card{{index}}">
@@ -212,7 +212,7 @@
 					}
 				})
 			},		
-			getDistance(location,location_){
+			getDistance(location,location_){//km距离
 				let lon1 = location[0],la1=location[1];
 				let lon2 = location_[0],la2=location_[1];
 					let radLat1 = la1 * Math.PI / 180.0;
@@ -224,9 +224,7 @@
 					s = Math.round(s * 10000) / 10000;
 					console.log("距离",s);
 					return this.numDelivery(s);
-					//this.distance=s
-
-					
+					//this.distance=s					
 
 		},
 		numDelivery(num) {

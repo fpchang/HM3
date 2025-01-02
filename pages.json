@@ -255,6 +255,34 @@
 	{
 		"navigationBarTitleText" : ""
 	}
+},
+{
+	"path" : "pages/financialManagement/income/income",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
+},
+{
+	"path" : "pages/financialManagement/expenses/expenses",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
+},
+{
+	"path" : "pages/financialManagement/income/createIncome/createIncome",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
+},
+{
+	"path" : "pages/financialManagement/expenses/createExpenses/createExpenses",
+	"style" : 
+	{
+		"navigationBarTitleText" : ""
+	}
 }
 
 ],

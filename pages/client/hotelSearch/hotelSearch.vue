@@ -12,7 +12,7 @@
 		</view>
 		<scroll-view style="height: calc(100vh - 84px);" scroll-x="false" scroll-y="true">
 			<view>
-				<xt-panal-list :dataList="list">
+				<xt-panal-list :count="list.length">
 
 					<!-- #ifdef MP -->
 					<view v-for="(item,index) of list" slot="card{{index}}">

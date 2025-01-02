@@ -42,7 +42,7 @@
 			</uni-table>
 		</view>
 		<view class="mobile-show-style">
-			<xt-panal-list :dataList="hotelList">
+			<xt-panal-list :count="hotelList.length">
 				
 				<!-- #ifdef MP -->
 				<view v-for="(item,index) of hotelList" slot="card{{index}}">

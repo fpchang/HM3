@@ -193,7 +193,11 @@ $label-normal:#a1a1a1;
   button::after{
 	border:none!important;
   }
-
+//初始化输入框
+.baseInput{
+	font-size: 12px;
+	color: #6a6a6a;
+}
   /*三段式page布局*/
 .flex-page{
 	height: 100vh;

@@ -1,6 +1,6 @@
 <template>
 	<view class="gather">
-		<xt-panal-list :dataList="[1,2]">			
+		<xt-panal-list count="2">			
 			<template  v-slot:[`card0`]>
 
 				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>

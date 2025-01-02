@@ -1,16 +1,6 @@
 <template>
 
 	<view class="order-component">
-		<!-- <uni-fab ref="fab" :popMenu="false" :pattern="pattern" horizontal="right" vertical="top" @createOrderEvent="createOrderEvent" /> -->
-		<!-- <view class="tbs-style">
-			<view class="uni-padding-wrap uni-common-mt" style="flex:1;">
-				<view style="max-width:450px;padding:0 20px">
-					<uni-data-checkbox v-model="tabRadioVal" :localdata="tabitems"></uni-data-checkbox>				
-				</view>
-			</view>
-			<view class="tbs-c-btn"><button class="uni-button" size="mini" type="primary"
-					@click="createOrderEvent">创建订单</button></view>
-		</view> -->
 		<view class="add-content-style">
 			<view class="left-panal">
 				<uni-data-checkbox v-model="tabRadioVal" :localdata="tabitems"></uni-data-checkbox>				

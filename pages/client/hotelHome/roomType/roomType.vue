@@ -11,7 +11,7 @@
     </view>
     <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
       <view class="roomType">   
-    <xt-panal-list :dataList="remainTypeList" maxWidth=1200>
+    <xt-panal-list :count="remainTypeList.length" maxWidth=1200>
           
       <!-- #ifdef MP -->
       <view v-for="(item,index) of remainTypeList" slot="card{{index}}">

@@ -281,7 +281,7 @@
 				//uni.showLoading();
 				this.submitLoading = true;
 				let dateRange = this.dateRangeArrayFormat;
-				console.log(this.dateRangeArrayFormat)
+				console.log("333333333",this.dateRangeArrayFormat)
 				let sourceObj = this.source.find(
 					(item) => item.value == this.orderForm.orderSource
 				);

@@ -12,9 +12,9 @@
 			</uni-forms-item>
 		
 		</uni-forms> -->
-    <xt-panal-list :dataList="[1]" :maxWidth="Number(1200)">
+    <xt-panal-list :count="1" :maxWidth="Number(1200)">
       <!-- #ifdef MP -->
-      <view v-for="(item, index) of [1]" slot="card{{index}}">
+      <view  slot="card0">
         <view style="padding: 20px">
           <view class="formitem">
             <view class="title"><text>订房信息</text></view>

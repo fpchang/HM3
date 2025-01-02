@@ -52,7 +52,7 @@
 			</uni-table>
 		</view>
 		<view class="mobile-show-style">
-			<xt-panal-list :dataList="roomType">
+			<xt-panal-list :count="roomType.length">
 				
 				  <!-- #ifdef MP -->
 				  <view v-for="(item,index) of roomType" slot="card{{index}}">

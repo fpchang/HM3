@@ -9,7 +9,7 @@
         scroll-x="false"
         scroll-y="true"
       >
-        <xt-panal-list :dataList="orderList">
+        <xt-panal-list :count="orderList.length">
           <!-- #ifdef MP -->
           <view v-for="(item, index) of orderList" slot="card{{index}}">
 			<view class="cart-area">

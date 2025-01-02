@@ -40,7 +40,7 @@
 			</view>
 		</view>
 		<view class="t"> 
-			<xt-panal-list :dataList="1">
+			<xt-panal-list count="1">
 
 				<!-- #ifdef MP -->
 				<view v-for="(item,index) of [1]" slot="card{{index}}">

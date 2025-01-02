@@ -2,7 +2,7 @@
 	<view class="xt-panal-list">
 		<view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
-				<view class="card" v-for="(item,index) of dataList" :style="{width: `${cardWidth}px`}">
+				<view class="card" v-for="(item,index) in count" :style="{width: `${cardWidth}px`}">
 					<view class="card-item">
 						<!-- #ifdef MP -->
 						<slot name="card{{index}}"></slot>
@@ -28,6 +28,10 @@
 			dataList: {
 				type: Array,
 				default: []
+			},
+			count:{
+				type:Number,
+				default:1
 			},
 			num: {
 				type: Number,

@@ -133,6 +133,12 @@
                 v-if="item.ComponentName == 'hotelList'"
               >
               </hotelList>
+              <fm
+                :key="item.time"
+                :createTime="item.time"
+                v-if="item.ComponentName == 'fm'"
+              >
+            </fm>
             </view>
           </scroll-view>
         </swiper-item>
@@ -223,6 +229,7 @@ import roomTypeListComponent from "@/pages/hotelManage/components/roomTypeListCo
 import employeeComponent from "@/pages/hotelManage/components/employeeComponent.vue";
 import menuListComponent from "@/pages/catering/components/menuListComponent.vue";
 import scenicSpotListComponent from "@/pages/scenicSpot/components/scenicSpotListComponent";
+import fm from "@/pages/financialManagement/components/fmIndexComponent";
 import mine from "@/pages/mine/mine";
 import feedback from "@/pages/mine/feedback/feedback";
 import recharge from "@/pages/mine/recharge/rechargeComponent";
@@ -241,6 +248,7 @@ export default {
     scenicSpotListComponent,
     hotelList,
     mine,
+    fm,
     feedback,
     recharge,
     intructions,
@@ -541,7 +549,13 @@ export default {
           time: 0,
           permission: "MENU_HOTELMANAGE",
           ComponentName: "hotelList",
-        },
+        }, {
+          //index: 8,
+          name: "财务管理",
+          time: 0,
+          permission: "MENU_FM",
+          ComponentName: "fm",
+        }
       ];
       this.tabList = arr.filter((item) => {
         return this.permissionList.includes(item.permission);
