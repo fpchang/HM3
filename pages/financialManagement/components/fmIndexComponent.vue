@@ -16,7 +16,7 @@
             label="创建单据"
             labelPos="bottom"
             labelSize="12px"
-            @click="createIOE"
+       
           ></uv-icon>
         </view>
       </view> -->
@@ -35,7 +35,7 @@
             labelPos="bottom"
             labelSize="14px"
             space="12px"
-            @click="createIOE"
+            
           ></uv-icon>
         </navigator> 
           <navigator url="/pages/financialManagement/expenses/expenses" hover-class="navigator-hover">
@@ -49,7 +49,7 @@
           labelPos="bottom"
           labelSize="14px"
           space="12px"
-          @click="createIOE"
+        
         ></uv-icon>
       </navigator>
           </view>

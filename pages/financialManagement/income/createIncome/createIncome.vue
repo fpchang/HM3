@@ -2,7 +2,7 @@
 	<view class="createIncome">
         <uni-forms ref="incomeRef" :modelValue="incomeForm" :rules="incomeRules" label-width="90px">
            <uni-forms-item label="收账时间" required name="ioeTime"> 
-			<uni-datetime-picker type="date" return-type="timestamp" :clear-icon="false" v-model="incomeForm.ioeTime" @maskClick="maskClick" />
+			<uni-datetime-picker type="date" return-type="timestamp" :clear-icon="false" v-model="incomeForm.ioeTime" />
 		   </uni-forms-item>
 			<uni-forms-item label="收入类型" required name="type">
 				<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="hm-incomeAndExpensesConfig"
@@ -17,9 +17,8 @@
 				
             </uni-forms-item>
             <uni-forms-item label="金额" name="amount" required>
-                <view>
-					<input class="baseInput" type="number" v-model="incomeForm.amount"  placeholder="请输入金额" />
-            
+				<view>
+					<uni-easyinput type="number" v-model="incomeForm.amount"  placeholder="请输入金额" ></uni-easyinput>
                 </view>
             </uni-forms-item>
 		
@@ -97,6 +96,8 @@ export default {
 					this.incomeForm.hotel_id = this.$store.state.hotel_id;
 					console.log(this.incomeForm)
 					await FMService.add(this.incomeForm);
+					const eventChannel = this.getOpenerEventChannel();
+					eventChannel.emit('updateData');
 					uni.navigateBack();
 				})
 			}

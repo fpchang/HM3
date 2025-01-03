@@ -2,14 +2,12 @@
 	<view>		
 			<view class="add-content-style">
 			  <view class="left-panal">
-				<uni-data-checkbox
-				  v-model="tabRadioVal"
-				  :localdata="tabitems"
-				></uni-data-checkbox>
+				
 			  </view>
 			  <view class="control-panal">
 				
-				<navigator url="/pages/financialManagement/expenses/createExpenses/createExpenses" hover-class="navigator-hover">
+				<!-- <navigator url="/pages/financialManagement/expenses/createExpenses/createExpenses" hover-class="navigator-hover">
+				 -->
 					<uv-icon
 				  name="plus-circle-fill"
 				  color="#000"
@@ -17,16 +15,16 @@
 				  label="创建单据"
 				  labelPos="bottom"
 				  labelSize="12px"
-				  @click="createIncome"
+				  @click="createExpenses"
 				></uv-icon>
-				</navigator>
+				<!-- </navigator> -->
 			
 			  </view>
 			</view>
 			<view class="filter-area">
 				<view style="flex:1"> 
 					<uni-datetime-picker v-model="filter.dateRangeArray" rangeSeparator="/" type="daterange"
-					return-type="timestamp" @change="dateConfim" :clear-icon="false" style="z-index: 9999;" />			
+					return-type="timestamp"  :clear-icon="false" style="z-index: 9999;" />			
 				</view>
 				<view style="width:120px">
 					<unicloud-db ref="udbconfig" v-slot:default="{data, loading, error, options}" collection="hm-incomeAndExpensesConfig"
@@ -42,9 +40,13 @@
 			</view> 
 			<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList"
 						 :getone="false" :where="where_str"  orderby="ioeTime asc">
-			<view class="info-area"> 
-				<text>小计：</text><text>{{amountSum(data)}}元</text>
-			</view>
+			<view class="info-area">
+				<view class="item"> 
+					<view><text>总计(元)</text></view>
+					<view class="num-area"><text class="num">{{amountSum(data) }}</text></view>
+				</view>
+			  </view>
+			<uni-section class="mb-10" title="其它支出明细" sub-title="" type="line"></uni-section>
 		  <scroll-view scroll-x="false" scroll-y="true" style="height: calc(100vh - 160px);">
 	
 			
@@ -118,7 +120,18 @@ import {useStore} from 'vuex';
 					sum+=item.amount
 				 });
 				 return sum;
-			}
+			},
+			createExpenses() {
+      uni.navigateTo({
+        url: "/pages/financialManagement/expenses/createExpenses/createExpenses",
+        events: {
+          updateData: () => {
+            console.log("刷新数据");
+            this.$refs.udb.refresh();
+          },
+        },
+      });
+    },
 		}
 	}
 </script>
@@ -151,17 +164,36 @@ import {useStore} from 'vuex';
 	gap: 12px;
 	padding:0 15px;
 }
-.info-area{
+.info-area {
 	color: #6a6a6a;
-	font-size: 14px;
-	padding:0px 20px;
-	height: 40px;
+	font-size: 12px;
 	display: flex;
 	align-items: center;
-	font-weight: bold;
-
-
-}
+	display: flex;
+	justify-content: space-around;
+	max-width: 600px;
+	.item{
+	  border:1px solid #e0e0e0;
+	  border-radius: 10px;
+	  width: 120px;
+	  height: 70px;
+	  box-sizing: border-box;
+	  padding:8px;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: space-between;
+	  .num-area{
+		  text-align: center;
+		  .num{
+			  color:#ED9121;
+			  padding:0 4px;
+			  font-weight: bold;
+			  font-size: 20px;
+			}
+	  }
+	}
+	
+  }
 .list{
 	color: #6a6a6a;
 	font-size: 13px;
