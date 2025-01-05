@@ -1,27 +1,5 @@
 <template>
   <view>
-    <view class="order-component">
-      <!-- <view class="add-content-style">
-        <view class="left-panal">
-          <uni-data-checkbox
-            v-model="tabRadioVal"
-            :localdata="tabitems"
-          ></uni-data-checkbox>
-        </view>
-        <view class="control-panal">
-          <uv-icon
-            name="plus-circle-fill"
-            color="#000"
-            size="22"
-            label="创建单据"
-            labelPos="bottom"
-            labelSize="12px"
-       
-          ></uv-icon>
-        </view>
-      </view> -->
-    </view>
-
     <view> 
       <xt-panal-list :count="5">
         <template v-slot:["card0"]>
@@ -101,6 +79,7 @@
 </template>
 
 <script>
+import {FMService} from "../../../services/FMService";
 export default {
   setup(){
     let monthFirst =new Date(new Date().getFullYear(),new Date().getMonth(),1).getTime();
@@ -250,8 +229,9 @@ export default {
         this.chartData = JSON.parse(JSON.stringify(res));
       }, 500);
     },
-   
+    getIncome(st,et){
 
+    }
   }
 };
 </script>
