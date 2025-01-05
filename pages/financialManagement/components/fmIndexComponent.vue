@@ -37,8 +37,8 @@
           <view class="charts-box">
             <qiun-data-charts 
               type="pie"
-              :opts="currentMonthIncome.opts"
-              :chartData="currentMonthIncome.data"
+              :opts="pieConfig.opts"
+              :chartData="currentMonthIncome"
             />
           </view>
         </template>
@@ -47,8 +47,8 @@
           <view class="charts-box">
             <qiun-data-charts 
               type="pie"
-              :opts="currentMonthIncome.opts"
-              :chartData="currentMonthIncome.data"
+              :opts="pieConfig.opts"
+              :chartData="currentMonthExpenses"
             />
           </view>
         </template>
@@ -75,6 +75,7 @@
         </template>
       </xt-panal-list>
     </view>
+    {{ currentMonthIncome }}
   </view>
 </template>
 
@@ -84,23 +85,19 @@ export default {
   setup(){
     let monthFirst =new Date(new Date().getFullYear(),new Date().getMonth(),1).getTime();
 		let monthLast =new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime()-1;
-		let yearFirst = 	new Date().getFullYear()
+		let yearFirst = 	new Date(new Date().getFullYear(),0,1).getTime();
+    let yearLast = 	new Date(new Date().getFullYear(),12,1).getTime()-1;
+    return {monthFirst,monthLast,yearFirst,yearLast}
   },
   data(){
     return {
-      //当月收入 饼图
-      currentMonthIncome:{
-        data:{
-            series: [
-              {
-                data: [{"name":"一班","value":50},{"name":"二班","value":30},{"name":"三班","value":20},{"name":"四班","value":18},{"name":"五班","value":8}]
-              }
-            ]
-          },
+      //饼图配置
+      pieConfig:{
         opts: {
         color: ["#1890FF","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
         padding: [5,5,5,5],
         enableScroll: false,
+        
         extra: {
           pie: {
             activeOpacity: 0.5,
@@ -114,25 +111,23 @@ export default {
         }
       }
       },
+      //当月收入 饼图
+      currentMonthIncome:{
+        series: [
+              {
+                data:[]
+              }
+            ]
+       
+      },
       //当月支出 饼图
       currentMonthExpenses:{
-        data:{},
-        opts: {
-        color: ["#1890FF","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
-        padding: [5,5,5,5],
-        enableScroll: false,
-        extra: {
-          pie: {
-            activeOpacity: 0.5,
-            activeRadius: 10,
-            offsetAngle: 0,
-            labelWidth: 15,
-            border: false,
-            borderWidth: 3,
-            borderColor: "#FFFFFF"
-          }
-        }
-      }
+        series: [
+              {
+                data:[]
+              }
+            ]
+      
       },
       //当年收入 柱状图
       currentYearIncome:{
@@ -212,8 +207,35 @@ export default {
   }
   },
   created(){
-    this.getServerData();
+    //this.getServerData();
+    this.getIncomeMonth();
+    this.getExpensesMonth();
+    this.getIncomeYear();
+
   },
+  computed:{
+    partialRefreshComName() {
+				return this.$store.state.partialRefreshComName;
+			}
+  },
+  watch: {
+			async partialRefreshComName(val) {
+				//下拉刷新
+				if (val == 'fm') {
+					console.log("局部刷新 gather")
+          this.getIncomeMonth();
+          this.getExpensesMonth();
+          this.getIncomeYear();
+					this.$store.commit("setPartialRefreshComName", "");
+					console.log("局部刷新完成")
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+				}
+			},
+			hotel_id() {
+				this.initData();
+			}
+		},
   methods:{
     getServerData() {
       //模拟从服务器获取数据时的延时
@@ -229,8 +251,30 @@ export default {
         this.chartData = JSON.parse(JSON.stringify(res));
       }, 500);
     },
-    getIncome(st,et){
+    //获取收入 月
+    async getIncomeMonth(){
+    const data = await FMService.getIncomeCurrentMonth(this.$store.state.hotel_id);
+    this.currentMonthIncome.series[0].data=data;
+    console.log("当月统计",data)
+    },
+    //获取支出月
+    async getExpensesMonth(){
+    const data = await FMService.getExpensesCurrentMonth(this.$store.state.hotel_id);
+    this.currentMonthExpenses.series[0].data=data;
+    console.log("当月统计支出",data)
+    },
+     //获取收入 年
+     async getIncomeYear(){
+      const res = await FMService.getRoomOrder(this.$store.state.hotel_id,this.yearFirst,this.yearLast);
+      const order = await FMService.getRoomOrder(this.$store.state.hotel_id,this.yearFirst,this.yearLast);
+      const other = await FMService.getIncomeAndExpenses(this.$store.state.hotel_id,'income',this.yearFirst,this.yearLast);
 
+      console.log("当年收入",order,other)
+      return res;
+    },
+     //获取支出
+     async getExpenses(st,et){
+      const res = await FMService.getRoomOrder()
     }
   }
 };
