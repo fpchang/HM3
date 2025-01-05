@@ -249,7 +249,9 @@ export default {
           };
         this.chartData = JSON.parse(JSON.stringify(res));
       }, 500);
-    }
+    },
+   
+
   }
 };
 </script>

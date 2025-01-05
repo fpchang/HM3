@@ -47,7 +47,7 @@
 				</view>
 			  </view>
 			<uni-section class="mb-10" title="其它支出明细" sub-title="" type="line"></uni-section>
-		  <scroll-view scroll-x="false" scroll-y="true" style="height: calc(100vh - 160px);">
+		  <scroll-view scroll-x="false" scroll-y="true" style="height: calc(100vh - 232px);">
 	
 			
 						 
