@@ -241,7 +241,9 @@ export default {
   display: flex;
   align-items: center;
   display: flex;
-  justify-content: space-around;
+  padding:0 15px;
+  box-sizing: border-box;
+  justify-content: space-between;
   max-width: 600px;
   .item{
 	border:1px solid #e0e0e0;
