@@ -32,21 +32,15 @@
         />
       </view>
       <view style="width: 120px">
-        <unicloud-db
-          ref="udbconfig"
-          v-slot:default="{ data, loading, error, options }"
-          collection="hm-incomeAndExpensesConfig"
-          :getone="false"
-          where="billType=='income'"
-          field="text , name as value"
-          orderby="name asc"
-        >
           <uni-data-select
             v-model="filter.type"
             placeholder="收入类型"
-            :localdata="data"
+            collection="hm-incomeAndExpensesConfig"
+            where="billType=='income'"
+            field="text , name as value"
+            orderby="name asc"
+            
           ></uni-data-select>
-        </unicloud-db>
       </view>
     </view>
     <unicloud-db
@@ -79,6 +73,28 @@
         style="height: calc(100vh - 232px)"
       >
         <xt-panal-list :count="data.length">
+          <!-- #ifdef MP -->
+				<view  v-for="(item, index) in data" slot="card{{index}}"> 
+          <view class="list">
+            <view class="list-item"
+              ><text>时间：</text
+              ><text>{{
+                new Date(item.ioeTime).Format("yyyy/MM/dd")
+              }}</text></view
+            >
+            <view class="list-item"
+              ><text>类型：</text><text>{{ item.type[0].text }}</text></view
+            >
+            <view class="list-item"
+              ><text>金额：</text><text>{{ item.amount }}</text></view
+            >
+            <view class="list-item"
+              ><text>备注：</text><text>{{ item.mark }}</text></view
+            >
+          </view>
+        </view>
+        <!-- #endif -->
+				  <!-- #ifdef H5 || APP-PLUS -->
           <template v-for="(item, index) in data" v-slot:[`card${index}`]>
             <view class="list">
               <view class="list-item"
@@ -98,6 +114,7 @@
               >
             </view>
           </template>
+           <!-- #endif -->
         </xt-panal-list>
       </scroll-view>
     </unicloud-db>
@@ -248,7 +265,7 @@ export default {
   .item{
 	border:1px solid #e0e0e0;
 	border-radius: 10px;
-	width: 120px;
+	width: 110px;
 	height: 70px;
 	box-sizing: border-box;
 	padding:8px;

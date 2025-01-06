@@ -8,7 +8,7 @@ class FMServiceClass{
   add(item){
     return DB.add("hm-incomeAndExpenses",item) ;
   }
-  //房费
+  //房费统计按店铺分类
   getRoomOrder(hotel_id,st,et){
     const db = uniCloud.database();
       const s1 = `hotel_id=='${hotel_id}'&&orderStatus==5`;
@@ -17,6 +17,15 @@ class FMServiceClass{
      
     return  db.collection("hm-order").where(w).groupBy('hotel_id').groupField('sum(totalAmount) as amount').get()
   }
+    //房费统计月分组统计
+    getRoomOrderOrderByMonth(hotel_id,st,et){
+      const db = uniCloud.database();
+        const s1 = `hotel_id=='${hotel_id}'&&orderStatus==5`;
+        const s2 = `checkInStartDateTimeStamp>=${st}&&checkInStartDateTimeStamp<${et}`;
+        let w = `${s1}&&${s2}`;
+       
+      return  db.collection("hm-order").where(w).groupBy('dateToString(timestampToDate(checkInStartDateTimeStamp),"%Y-%m") as month').groupField('sum(totalAmount) as amount').get()
+    }
   //获取收入与支出分类
   getIncomeAndExpenses(hotel_id,billType='income',st,et){
     const db = uniCloud.database();
@@ -66,8 +75,6 @@ class FMServiceClass{
       arr.push({name:item.type[0].text,value:item.value})
     })
     arr.push({name:"房费",value: res[0].result.data[0].amount})
-    console.log("1111",res)
-
     return arr;
   }
  
@@ -93,7 +100,75 @@ class FMServiceClass{
     console.log("222",res)
     return arr;
   }
- 
+  //获取当年收入统计
+async getIncomeCurrentYear(hotel_id){
+  const db = uniCloud.database();
+  const dbCmd = db.command;
+  const yearFirst = new Date(new Date().getFullYear(),0,1).getTime();
+  const yearLast = 	new Date(new Date().getFullYear(),12,1).getTime()-1;
+  const w = {
+    hotel_id:hotel_id,
+    billType:'income',
+    ioeTime:dbCmd.and(dbCmd.gte(yearFirst),dbCmd.lte(yearLast))
+  }
+  //房费
+  const order = this.getRoomOrderOrderByMonth(hotel_id,yearFirst,yearLast);
+  const mt = db.collection("hm-incomeAndExpenses").where(w).getTemp();
+  const other =db.collection(mt,"hm-incomeAndExpensesConfig").groupBy('dateToString(timestampToDate(ioeTime),"%Y-%m") as month').groupField('sum(amount) as amount').get(); 
+  const res = await Promise.all([order,other]);
+  let xlable=[],xValue=[],total=0;
+
+  for(let i=0;i<12;i++){
+    let xmonth = new Date(new Date().getFullYear(),i).Format("yyyy-MM");
+    let orderItem=res[0].result.data.find(item=>item.month==xmonth),
+      otherItem= res[1].result.data.find(item=>item.month==xmonth);
+      let val = (orderItem&&orderItem['amount']||0)+(otherItem&&otherItem['amount']||0)
+    xlable.push(xmonth);
+    xValue.push(val);
+    total+=val;
+
+  }
+  console.log(xlable,xValue)
+  return {
+    xlable,
+    xValue,
+    total
+  };
 }
+  //获取当年支出统计
+async getExpensesCurrentYear(hotel_id){
+  const db = uniCloud.database();
+  const dbCmd = db.command;
+  const yearFirst = new Date(new Date().getFullYear(),0,1).getTime();
+  const yearLast = 	new Date(new Date().getFullYear(),12,1).getTime()-1;
+  const w = {
+    hotel_id:hotel_id,
+    billType:'expenses',
+    ioeTime:dbCmd.and(dbCmd.gte(yearFirst),dbCmd.lte(yearLast))
+  }
+
+  const mt = db.collection("hm-incomeAndExpenses").where(w).getTemp();
+  const res =await db.collection(mt,"hm-incomeAndExpensesConfig").groupBy('dateToString(timestampToDate(ioeTime),"%Y-%m") as month').groupField('sum(amount) as amount').get(); 
+  let xlable=[],xValue=[],total=0;
+
+  for(let i=0;i<12;i++){
+    let xmonth = new Date(new Date().getFullYear(),i).Format("yyyy-MM");
+      let otherItem= res.result.data.find(item=>item.month==xmonth);
+      let val = otherItem&&otherItem['amount']||0
+    xlable.push(xmonth);
+    xValue.push(val);
+    total+=val;
+
+  }
+  console.log(xlable,xValue)
+  return {
+    xlable,
+    xValue,
+    total
+  };
+}
+}
+
+
 //module.exports =new AccountService();
 export var FMService=new FMServiceClass();

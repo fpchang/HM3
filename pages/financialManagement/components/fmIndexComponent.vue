@@ -33,7 +33,8 @@
           </view>
         </template>
         <template v-slot:["card1"]>
-          <view><text>当月收入</text></view>
+
+          <view class="label-area"><text>当月收入：</text><text class="am-color">{{currentMonthIncomeAmount}}</text>(元)</view>
           <view class="charts-box">
             <qiun-data-charts 
               type="pie"
@@ -43,7 +44,7 @@
           </view>
         </template>
         <template v-slot:["card2"]>
-          <view><text>当月支出</text></view>
+          <view class="label-area"><text>当月支出：</text><text class="am-color">{{currentMonthExpensesAmount}}</text>(元)</view>
           <view class="charts-box">
             <qiun-data-charts 
               type="pie"
@@ -53,29 +54,29 @@
           </view>
         </template>
         <template v-slot:["card3"]>
-          <view><text>当年收入</text></view>
-          <view> 
+          <view class="label-area"><text>当年收入<text class="am-color">{{currentYearIncome.total}}</text>(元)</text></view>
+          <view style="height:400px"> 
             <qiun-data-charts 
             type="bar"
-            :opts="currentYearIncome.opts"
+            :opts="barCofig.opts"
             :chartData="currentYearIncome.data"
           />
           </view>
          
         </template>
         <template v-slot:["card4"]>
-          <view><text>当年支出</text></view>
-          <view> 
+          <view class="label-area"><text>当年支出<text class="am-color">{{currentYearExpenses.total}}</text>(元)</text></view>
+          <view style="height:400px"> 
             <qiun-data-charts 
             type="bar"
-            :opts="currentYearExpenses.opts"
+            :opts="barCofig.opts"
             :chartData="currentYearExpenses.data"
           />
           </view>
         </template>
       </xt-panal-list>
     </view>
-    {{ currentMonthIncome }}
+  
   </view>
 </template>
 
@@ -111,6 +112,33 @@ export default {
         }
       }
       },
+      barCofig:{
+        opts: {
+        color: ["#1890FF","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
+        padding: [15,30,0,5],
+        enableScroll: false,
+        legend: {},
+        xAxis: {
+          boundaryGap: "justify",
+          disableGrid: false,
+          min: 0,
+          axisLine: false,
+          max: 70
+        },
+        yAxis: {},
+        extra: {
+          bar: {
+            type: "stack",
+            width: 30,
+            meterBorde: 1,
+            meterFillColor: "#FFFFFF",
+            activeBgColor: "#000000",
+            activeBgOpacity: 0.08,
+            categoryGap: 2
+          }
+        }
+      }
+      },
       //当月收入 饼图
       currentMonthIncome:{
         series: [
@@ -131,77 +159,30 @@ export default {
       },
       //当年收入 柱状图
       currentYearIncome:{
+        total:0,
         data: {
-            categories: ["2018","2019","2020","2021","2022","2023"],
+            categories: [],
             series: [
               {
-                name: "目标值",
-                data: [35,36,31,33,13,34]
+                name: "总计",
+                data: []
               }
             ]
-          },
-          opts: {
-        color: ["#1890FF","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
-        padding: [15,30,0,5],
-        enableScroll: false,
-        legend: {},
-        xAxis: {
-          boundaryGap: "justify",
-          disableGrid: false,
-          min: 0,
-          axisLine: false,
-          max: 70
-        },
-        yAxis: {},
-        extra: {
-          bar: {
-            type: "stack",
-            width: 30,
-            meterBorde: 1,
-            meterFillColor: "#FFFFFF",
-            activeBgColor: "#000000",
-            activeBgOpacity: 0.08,
-            categoryGap: 2
           }
-        }
-      }
+         
     },
     //当年支出 柱状图
     currentYearExpenses:{
+      total:0,
       data: {
-            categories: ["2018","2019","2020","2021","2022","2023"],
+            categories: [],
             series: [
               {
-                name: "目标值",
-                data: [35,36,31,33,13,34]
+                name: "总计",
+                data: []
               }
             ]
-          },
-          opts: {
-        color: ["#1890FF","#91CB74","#FAC858","#EE6666","#73C0DE","#3CA272","#FC8452","#9A60B4","#ea7ccc"],
-        padding: [15,30,0,5],
-        enableScroll: false,
-        legend: {},
-        xAxis: {
-          boundaryGap: "justify",
-          disableGrid: false,
-          min: 0,
-          axisLine: false,
-          max: 70
-        },
-        yAxis: {},
-        extra: {
-          bar: {
-            type: "stack",
-            width: 30,
-            meterBorde: 1,
-            meterFillColor: "#FFFFFF",
-            activeBgColor: "#000000",
-            activeBgOpacity: 0.08,
-            categoryGap: 2
           }
-        }
-      }
       
     }
   }
@@ -210,13 +191,29 @@ export default {
     //this.getServerData();
     this.getIncomeMonth();
     this.getExpensesMonth();
-    this.getIncomeYear();
+    this.getIncomeCurrentYear();
+    this.getExpensesCurrentYear();
 
   },
   computed:{
     partialRefreshComName() {
 				return this.$store.state.partialRefreshComName;
-			}
+			},
+      //当月总计
+      currentMonthIncomeAmount(){
+        let count =0;
+         this.currentMonthIncome.series[0].data.map(item=>{
+          count+=item.value;
+         })
+        return count;
+      },
+      currentMonthExpensesAmount(){
+        let count =0;
+         this.currentMonthExpenses.series[0].data.map(item=>{
+          count+=item.value;
+         })
+        return count;
+      }
   },
   watch: {
 			async partialRefreshComName(val) {
@@ -225,7 +222,8 @@ export default {
 					console.log("局部刷新 gather")
           this.getIncomeMonth();
           this.getExpensesMonth();
-          this.getIncomeYear();
+          this.getIncomeCurrentYear();
+          this.getExpensesCurrentYear();
 					this.$store.commit("setPartialRefreshComName", "");
 					console.log("局部刷新完成")
 					uni.hideLoading();
@@ -263,19 +261,45 @@ export default {
     this.currentMonthExpenses.series[0].data=data;
     console.log("当月统计支出",data)
     },
-     //获取收入 年
-     async getIncomeYear(){
-      const res = await FMService.getRoomOrder(this.$store.state.hotel_id,this.yearFirst,this.yearLast);
-      const order = await FMService.getRoomOrder(this.$store.state.hotel_id,this.yearFirst,this.yearLast);
-      const other = await FMService.getIncomeAndExpenses(this.$store.state.hotel_id,'income',this.yearFirst,this.yearLast);
-
-      console.log("当年收入",order,other)
+     //获取收入 当年
+     async getIncomeCurrentYear(){
+      const res = await FMService.getIncomeCurrentYear(this.$store.state.hotel_id)
+      console.log("当年收入",res)
+      this.currentYearIncome={
+        total:res.total,
+        data: {
+            categories: res.xlable,
+            series: [
+              {
+                name: "总计",
+                data:res.xValue
+              }
+            ]
+          }
+         
+    }
       return res;
     },
-     //获取支出
-     async getExpenses(st,et){
-      const res = await FMService.getRoomOrder()
+    //获取支出 当年
+    async getExpensesCurrentYear(){
+      const res = await FMService.getExpensesCurrentYear(this.$store.state.hotel_id)
+      console.log("当年支出",res)
+      this.currentYearExpenses={
+        total:res.total,
+        data: {
+            categories: res.xlable,
+            series: [
+              {
+                name: "总计",
+                data:res.xValue
+              }
+            ]
+          }
+         
     }
+      return res;
+    },
+     
   }
 };
 </script>
@@ -287,5 +311,15 @@ export default {
   align-items: center;
  
   gap:20px;
+}
+.label-area{
+  box-sizing: border-box;
+  padding:10px;
+  color:#646464;
+  font-size: 13px;
+  .am-color{
+    color:$theam-main-color;
+    padding:0 4px;
+  }
 }
 </style>

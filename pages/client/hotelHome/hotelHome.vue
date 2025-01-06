@@ -8,7 +8,7 @@
 				<showScenicSpot v-if="tabId=='b4'" :hotel_id="hotel._id"></showScenicSpot>			
 		</view>
 		<view class="flex-flex-page-bottom">
-			<xt-tabbar :count="tabbarList.length" @clickTab="clickTab" width="1200px"></xt-tabbar>
+			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
 		</view>
 		
 	</view>
@@ -18,7 +18,7 @@
 import introduce from './introduce/introduce';
 import roomType from './roomType/roomType';
 import orderDishes from './orderDishes/orderDishes';
-import showScenicSpot from './scenicSpot/showScenicSpot.vue';
+import showScenicSpot from './scenicSpot/showScenicSpot';
 import {useStore} from 'vuex';
 import {HotelServiceClient} from "../../../services/HotelServiceClient";
 	export default {

@@ -27,15 +27,15 @@
 					return-type="timestamp"  :clear-icon="false" style="z-index: 9999;" />			
 				</view>
 				<view style="width:120px">
-					<unicloud-db ref="udbconfig" v-slot:default="{data, loading, error, options}" collection="hm-incomeAndExpensesConfig"
-					:getone="false" where="billType=='expenses'" field="text , name as value" orderby="name asc">
 					<uni-data-select
 					v-model="filter.type"
 					placeholder="支出类型"
-					:localdata="data"
-				
+					collection="hm-incomeAndExpensesConfig"
+					where="billType=='expenses'"
+					field="text , name as value"
+					orderby="name asc"
+					
 				  ></uni-data-select>
-		   </unicloud-db>
 				</view>
 			</view> 
 			<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList"
@@ -47,20 +47,30 @@
 				</view>
 			  </view>
 			<uni-section class="mb-10" title="其它支出明细" sub-title="" type="line"></uni-section>
-		  <scroll-view scroll-x="false" scroll-y="true" style="height: calc(100vh - 232px);">
-	
-			
-						 
+		  <scroll-view scroll-x="false" scroll-y="true" style="height: calc(100vh - 232px);">				 
 						 <xt-panal-list :count="data.length">
-							<template v-for="(item,index) in data" v-slot:[`card${index}`]>
-								<view class="list">
-									<view class="list-item"><text>时间：</text><text>{{new Date(item.ioeTime).Format("yyyy/MM/dd")}}</text></view>
-									<view class="list-item"><text>类型：</text><text>{{item.type[0].text}}</text></view>
-									<view class="list-item"><text>金额：</text><text>{{item.amount}}</text></view>
-									<view class="list-item"><text>备注：</text><text>{{item.mark}}</text></view>
-								</view>
+							       <!-- #ifdef MP -->
+				<view  v-for="(item, index) in data" slot="card{{index}}"> 
+					<view class="list">
+						<view class="list-item"><text>时间：</text><text>{{new Date(item.ioeTime).Format("yyyy/MM/dd")}}</text></view>
+						<view class="list-item"><text>类型：</text><text>{{item.type[0].text}}</text></view>
+						<view class="list-item"><text>金额：</text><text>{{item.amount}}</text></view>
+						<view class="list-item"><text>备注：</text><text>{{item.mark}}</text></view>
+					</view>
+				  </view>
+				  <!-- #endif -->
+				<!-- #ifdef H5 || APP-PLUS -->
+				<template v-for="(item,index) in data" v-slot:[`card${index}`]>
+					<view class="list">
+						<view class="list-item"><text>时间：</text><text>{{new Date(item.ioeTime).Format("yyyy/MM/dd")}}</text></view>
+						<view class="list-item"><text>类型：</text><text>{{item.type[0].text}}</text></view>
+						<view class="list-item"><text>金额：</text><text>{{item.amount}}</text></view>
+						<view class="list-item"><text>备注：</text><text>{{item.mark}}</text></view>
+					</view>
+				
+					</template>
+					 <!-- #endif -->
 							
-								</template>
 							</xt-panal-list>	
 			
 			

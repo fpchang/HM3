@@ -2,8 +2,8 @@
     <view>
     <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
         <view class="scenicSpot">
-            <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList">
-                {{ console.log(data) }}          
+           <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList">
+              
                 <xt-panal-list :count="data.length" maxWidth=1200>
             
                             <!-- #ifdef MP -->
@@ -94,13 +94,14 @@
 import {useStore} from 'vuex';
 import {  computed, ref,getCurrentInstance  } from 'vue';
 export default {
-    props: {
+  props: {
     hotel_id:{
       type:String,
       default:""
     }
   },
   setup(props){
+    console.log("props::",props.hotel_id)
     const db = uniCloud.database();
    let hotel = computed(()=>{
     return useStore().state.hotelClientStore.hotel;

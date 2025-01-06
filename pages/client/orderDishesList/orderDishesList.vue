@@ -12,56 +12,57 @@
         <xt-panal-list :count="orderList.length">
           <!-- #ifdef MP -->
           <view v-for="(item, index) of orderList" slot="card{{index}}">
-			<view class="cart-area">
-				<view class="card-nav">
-				  <view class="card-nav-item">
-					<view class="tit"><text>就餐日期:</text></view>
-					<view style="flex: 1" class="text-overflow-ellipsis"
-					  ><text class="add-text-style">{{
-						item.mealDate
-					  }}</text></view
-					>
-				  </view>
-				</view>
-  
-				<view class="menu-detail-content">
-				  <view
-					class="menu-detail-content-item"
-					v-for="it of item.checkMenuList"
-				  >
-					<text class="itx-n"
-					  >{{ it.name
-					  }}<text v-if="it.checkCount > 1"
-						>（{{ it.checkCount }}）</text
-					  ></text
-					>
-					<view style="display: flex">
-					  <text class="itx-p">￥{{ it.price * it.checkCount }} </text>
-  
-					  <view class="icon-area"> </view>
-					</view>
-				  </view>
-				</view>
-				<view class="card-bottom">
-				  <view class="priceTotal">
-					<text style="font-weight: bold">总价:</text>
-					<text style="color: #ff0000; padding: 0 8px"
-					  >￥{{ totalPrice(item.checkMenuList) }}</text
-					></view
-				  >
-				</view>
-				<view class="actions">
-				  <view class="action-list"> 
-					  <view class="actions-item"> 
-						  <uni-icons type="plus-filled" size="13px"></uni-icons><text>加菜</text>
-					  </view>
-					  <view class="actions-item"> 
-						  <uni-icons type="trash-filled" size="13px"></uni-icons><text>撤销</text>
-					  </view>
-				  </view>
-				  
-				</view>
-			  </view>
+            <view class="cart-area">
+              <view class="card-nav">
+                <view class="card-nav-item">
+                  <view class="tit"><text>就餐日期:</text></view>
+                  <view style="flex: 1" class="text-overflow-ellipsis"
+                    ><text class="add-text-style">{{
+                      item.mealDate
+                    }}</text></view
+                  >
+                </view>
+              </view>
+
+              <view class="menu-detail-content">
+                <view
+                  class="menu-detail-content-item"
+                  v-for="it of item.checkMenuList"
+                >
+                  <text class="itx-n"
+                    >{{ it.name
+                    }}<text v-if="it.checkCount > 1"
+                      >（{{ it.checkCount }}）</text
+                    ></text
+                  >
+                  <view style="display: flex">
+                    <text class="itx-p">￥{{ it.price * it.checkCount }} </text>
+
+                    <view class="icon-area"> </view>
+                  </view>
+                </view>
+              </view>
+              <view class="card-bottom">
+                <view class="priceTotal">
+                  <text style="font-weight: bold">总价:</text>
+                  <text style="color: #ff0000; padding: 0 8px"
+                    >￥{{ totalPrice(item.checkMenuList) }}</text
+                  ></view
+                >
+              </view>
+              <view class="actions">
+                <view class="action-list">
+                  <view class="actions-item">
+                    <uni-icons type="plus-filled" size="13px"></uni-icons
+                    ><text>加菜</text>
+                  </view>
+                  <view class="actions-item">
+                    <uni-icons type="trash-filled" size="13px"></uni-icons
+                    ><text>撤销</text>
+                  </view>
+                </view>
+              </view>
+            </view>
           </view>
           <!--#endif-->
           <!-- #ifdef H5 || APP-PLUS -->
@@ -104,20 +105,19 @@
                   ></view
                 >
               </view>
-			  <view class="actions">
-				<view class="action-list"> 
-					<view class="actions-item"> 
-						<uni-icons type="plus-filled" size="13px"></uni-icons><text>加菜</text>
-					</view>
-					<view class="actions-item"> 
-						<uni-icons type="trash-filled" size="13px"></uni-icons><text>撤销</text>
-					</view>
-				</view>
-				
-			  </view>
+              <view class="actions">
+                <view class="action-list">
+                  <view class="actions-item">
+                    <uni-icons type="plus-filled" size="13px"></uni-icons
+                    ><text>加菜</text>
+                  </view>
+                  <view class="actions-item">
+                    <uni-icons type="trash-filled" size="13px"></uni-icons
+                    ><text>撤销</text>
+                  </view>
+                </view>
+              </view>
             </view>
-
-			
           </template>
           <!--#endif-->
         </xt-panal-list>
@@ -128,7 +128,7 @@
 
 <script>
 import { MenuService } from "../../../services/MenuService";
-import uniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
+import uniIcons from "../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue";
 export default {
   components: { uniIcons },
   data() {
@@ -188,23 +188,21 @@ export default {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-.actions{
-	display: flex;
-	align-items: flex-end;
-	.action-list{
-		border-top:2px solid #f7f7f7;
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		font-size: 13px;
-		padding:15px;
-		.actions-item{
-			padding:0 20px;
-		}
-	}
-
-}
-
+  .actions {
+    display: flex;
+    align-items: flex-end;
+    .action-list {
+      border-top: 2px solid #f7f7f7;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 13px;
+      padding: 15px;
+      .actions-item {
+        padding: 0 20px;
+      }
+    }
+  }
 }
 
 .card-nav {
