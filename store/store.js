@@ -18,6 +18,7 @@ const store = createStore({
   },
   state: {
     //存放状态
+    isLogin:false,
     config: null, //配置信息
     viewWidth: null, //可视宽度
     partialRefreshComName: "", //局部刷新组件值
@@ -38,6 +39,9 @@ const store = createStore({
   mutations: {
     settt(state,str){
       state.tt =str;
+    },
+    setIsLogin(state,bool){
+      state.isLogin=bool
     },
     //当前位置坐标
     setLocation(state, loc) {
@@ -222,9 +226,9 @@ const store = createStore({
     },
   },
   getters: {
-    hotelObj: (state) => {
-      return state.hotelList.find((item) => item._id == state.hotel_id);
-    },
+    // hotelObj: (state) => {
+    //   return state.hotelList.find((item) => item._id == state.hotel_id);
+    // },
   },
 });
 export default store;

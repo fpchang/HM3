@@ -283,6 +283,13 @@
 	{
 		"navigationBarTitleText" : ""
 	}
+},
+{
+	"path" : "pages/client/mine/collect/collect",
+	"style" : 
+	{
+		"navigationBarTitleText" : "我的收藏"
+	}
 }
 
 ],

@@ -7,12 +7,20 @@ export default{
 		hotelList:null,
 		hotel:null,
 		roomType:null,
-		searchCondition:{}
+		searchCondition:{
+			filterVal:"",
+			address:"",
+			location:[119.872549,30.55434],
+		},//过滤条件
+		searchDateRange:[Date.now(),Date.now()+1000*60*60*24] //查找 的日期范围
 	},
 
 	mutations: {
 		updateSearchCondition(state,obj){
 			state.searchCondition=obj;
+		},
+		updateSearchDateRange(state,range){
+			state.searchDateRange=range;
 		},
 		updateHotelList(state, list) {
 			console.log("client set")

@@ -93,12 +93,15 @@ export default {
      const res = await HotelServiceClient.getCollectHotel(this.user.phone);
      this.collectList=res.result.data;
     },
-    collectEvent(){
-      if(this.isCollect){
+    async collectEvent(){
+      await this.$store.dispatch("loginEvent",()=>{
+        if(this.isCollect){
         this.cancelCollectHotel();
         return;
       }
       this.addCollectHotel();
+      })
+ 
     },
     async addCollectHotel(){
       const res = await  HotelServiceClient.addCollectHotel(this.user.phone,this.hotel._id);

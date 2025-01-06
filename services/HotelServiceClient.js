@@ -90,9 +90,11 @@ class HotelServiceClientClass{
 getCollectHotel(phone){
   return DB.getCollection("hm-collect",{phone})
 }
+//店铺收藏
 addCollectHotel(phone,hotel_id){
   return DB.add("hm-collect",{phone,hotel_id});
 }
+//店铺取消收藏
 cancelCollectHotel(_id){
   return DB.remove("hm-collect",_id);
 }

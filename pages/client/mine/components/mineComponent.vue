@@ -47,53 +47,28 @@
 			<view class="t"> 
 				<xt-panal-list count="2">
 	
-					<!-- #ifdef MP -->
-					<view  slot="card0">
-						<view class="menu-card">
-							<view class="menu-card-list"> 
-								<view  class="menu-card-list-item">
-									<text>0</text>
-									<text>收藏</text>
-								</view>
-								<view  class="menu-card-list-item">
-									<text>0</text>
-									<text>浏览历史</text>
-								</view>
-								
-							</view>
-							
-						</view>
-	
-					</view>
-					<view  slot="card1">
-						<view class="menu-card">
-							<view class="menu-card-list"> 
-								<view  class="menu-card-list-item" @click="toOrder('all')">
-									<view><uv-icon name="order" color="#a1a1a1" size="28px"></uv-icon></view>
-									<text>全部订单</text>
-								</view>
-								<view  class="menu-card-list-item" @click="toOrder('pay')">
-									<view><uv-icon name="red-packet" color="#a1a1a1" size="28px"></uv-icon></view>
-									<text>待付款</text>
-								</view>
-								<view  class="menu-card-list-item" @click="toOrder('in')">
-									<view><uv-icon name="empty-favor" color="#a1a1a1" size="28px"></uv-icon></view>
-									<text>待入住</text>
-								</view>
-								
-							</view>
-							
-						</view>
-					</view>
-					<!-- #endif -->
-					<!-- #ifdef H5 || APP-PLUS -->
+			
 					<template  v-slot:[`card0`]>
 						<view class="menu-card">
 							<view class="menu-card-list"> 
+								<navigator url="/pages/client/mine/collect/collect">
+					
 								<view  class="menu-card-list-item">
-									<text>0</text>
+									<text>
+									<unicloud-db
+									v-slot:default="{ data, loading, error, options }"
+									field="_id"
+									collection="hm-collect"
+									:where="`phone=='${user.phone}'`"
+
+								  >
+								{{ console.log(data) }}
+								{{data.length}}</unicloud-db></text>
 									<text>收藏</text>
+								
+									
 								</view>
+							</navigator>
 								<view  class="menu-card-list-item">
 									<text>0</text>
 									<text>浏览历史</text>
@@ -123,7 +98,7 @@
 							
 						</view>
 					</template>
-					<!-- #endif -->
+					
 	
 	
 				</xt-panal-list>

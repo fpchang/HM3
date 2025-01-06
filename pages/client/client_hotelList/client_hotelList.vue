@@ -2,18 +2,18 @@
 	<view>
 		<view style="padding:0 20px">
 			<view class="search-style">
-				<view v-if="conditionForm['dateRange']">
-					<uni-datetime-picker v-model="conditionForm.dateRang" type="daterange" return-type="timestamp"
+				<view v-if="searchDateRange">
+					<uni-datetime-picker type="daterange" return-type="timestamp"
 						@change="dateConfim">
 						<view class="d1">
-							<text>{{foramtDateLabel(conditionForm['dateRange'][0]).de}}</text><text>{{foramtDateLabel(conditionForm['dateRange'][1]).de}}</text>
+							<text>{{foramtDateLabel(searchDateRange[0]).de}}</text><text>{{foramtDateLabel(searchDateRange[1]).de}}</text>
 						</view>
 
 					</uni-datetime-picker>
 
 				</view>
 				<!-- <input style="background-color:transparent;flex:1" placeholder="位置/品牌/酒店"></input> -->
-				 <view style="background-color:transparent;flex:1;color:#bbb" @click="toSearch"><text>{{conditionForm.filterVal||'位置/品牌/酒店'}}</text></view>
+				 <view style="background-color:transparent;flex:1;color:#bbb" @click="toSearch"><text>{{searchCondition.filterVal||'位置/品牌/酒店'}}</text></view>
 				<uni-icons type="search" size="22px"></uni-icons>
 			</view>
 
@@ -101,11 +101,32 @@
 	import xtDropdown from '../../../components/xt-dropdown/xt-dropdown.vue';
 	import UniEasyinput from '../../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue';
 	import UniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
+	import {useStore} from 'vuex';
+	import {  computed, ref,watch  } from 'vue';
+
 	export default {
 		components: {
 			xtDropdown,
 			UniEasyinput,
 			UniIcons
+		},
+		setup(){
+			const store = useStore();
+			const searchCondition = computed(()=>{
+				return store.state.hotelClientStore.searchCondition; 
+			});
+			const searchDateRange = computed(()=>{
+				return store.state.hotelClientStore.searchDateRange; 
+			});
+			
+			// watch(searchDateRange,(n,o)=>{
+			// 	console.log("watch,,,",n)
+			// })
+			return {
+				searchCondition,
+				searchDateRange
+
+			}
 		},
 		data() {
 			return {
@@ -127,12 +148,7 @@
 					}
 				],
 				
-				conditionForm: {
-					filterVal:"",
-          			address:"",//目标地址
-          			dateRange:[Date.now(),Date.now()+1000*60*60*24]
-          			
-				}
+				
 			}
 		},
 		computed: {
@@ -148,6 +164,12 @@
 				return this.$store.state.hotelClientStore.hotelList;
 			}
 		},
+		watch:{
+			searchDateRange(n,o){
+				//console.log("wwwwww",o)
+				this.getHotelList();
+			}
+		},
 		methods: {
 			foramtDateLabel(dateTime) {
 				let dyStr = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
@@ -157,15 +179,16 @@
 				}
 
 			},
+			dateConfim(e) {
+      console.log(e);
+      this.$store.commit("hotelClientStore/updateSearchDateRange",e);
+    },
 			toSearch(){
 				uni.navigateTo({
 					url:"/pages/client/hotelSearch/hotelSearch",
 					events:{
 						getAddress:obj=>{
 							console.log("ooooooooo",obj)
-							this.conditionForm.filterVal=obj.filterVal;
-							this.conditionForm.address=obj.address,
-							this.conditionForm.location=obj.location;
 							this.getHotelList();
 							}
 						}
@@ -178,9 +201,16 @@
 					return;
 				}
 				uni.showLoading();
-				console.log(">>>>>",this.conditionForm)
+				
 				try {
-					const res = await this.$store.dispatch("hotelClientStore/getHotelList",this.conditionForm);
+					let conditionForm= {
+						filterVal:this.searchCondition.filterVal,
+						address:this.searchCondition.address,
+						location:this.searchCondition.location,
+						dateRange:this.searchDateRange
+
+			}
+					const res = await this.$store.dispatch("hotelClientStore/getHotelList",conditionForm);
 					console.log("hotelList",res);
 					uni.hideLoading();
 				} catch (error) {
@@ -193,18 +223,9 @@
 					return;
 				}
 				this.isLoading=true;
-				console.log("111111111",this.conditionForm)
 				this.$store.commit("hotelClientStore/updateHotel",hotel);
-				this.$store.commit("hotelClientStore/updateSearchCondition",this.conditionForm);				
+				//this.$store.commit("hotelClientStore/updateSearchCondition",this.conditionForm);				
 				let href = `#/pages/client/hotelHome/hotelHome`;
-				// #ifdef H5
-				//window.open(href, "_blank");
-				//return;
-				// #endif
-				//// #ifndef H5
-				
-			
-				//// #endif
 				uni.navigateTo({
 					url:`/pages/client/hotelHome/hotelHome`,
 					complete:()=>{
@@ -235,7 +256,7 @@
 
 			console.log("传递参数错误，请检查！");
 
-			return false;
+			return '--';
 
 			}
 
@@ -261,10 +282,7 @@
 			console.log("参数传递", obj, obj.condition);
 			
 			try {
-				this.type = obj.type;
-				this.conditionForm = JSON.parse(decodeURIComponent(obj.condition));
-				console.log("conditionForm",this.conditionForm)
-				this.conditionForm.location= [119.882659, 30.626099];
+	
 				this.getHotelList();
 
 			} catch (error) {

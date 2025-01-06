@@ -104,6 +104,7 @@ import uniSection from '../../../uni_modules/uni-section/components/uni-section/
 							address:item.address,
 							location:item.location.split(",").map(Number)
 				}
+				this.$store.commit("hotelClientStore/updateSearchCondition",obj);
   				eventChannel.emit('getAddress',obj);
 				uni.navigateBack()
 			},
@@ -111,9 +112,10 @@ import uniSection from '../../../uni_modules/uni-section/components/uni-section/
 				const eventChannel = this.getOpenerEventChannel();
 				let obj={
 						filterVal:this.filterVal,
-							address:"",
-							location:this.$store.state.location
+						address:"",
+						location:this.$store.state.location
 				}
+				this.$store.commit("hotelClientStore/updateSearchCondition",obj);
 				console.log("返回参数",obj)
   				eventChannel.emit('getAddress',obj);
 				uni.navigateBack()

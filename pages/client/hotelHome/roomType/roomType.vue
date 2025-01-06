@@ -141,23 +141,31 @@
 <script>
 import {HotelServiceClient} from '@/services/HotelServiceClient';
 import uniIcons from '../../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
+import {useStore} from 'vuex';
+import {  computed, ref,watch  } from 'vue';
 export default {
   components: { uniIcons },
   name: "roomType",
   props: {
-    range:{
-      type:Array,
-      default:[Date.now(),Date.now()+1000*60*60*24]
-    },
     hotel_id:{
       type:String,
       default:""
     }
   },
+  setup(){
+    const store = useStore();
+    	const searchDateRange = computed(()=>{
+				return store.state.hotelClientStore.searchDateRange; 
+			});
+      let dateRange = ref([searchDateRange.value[0],searchDateRange.value[1]])
+      return {
+        dateRange
+      }
+  },
   data() {
     return {
       roomType:[],
-      dateRange:this.range,
+     // dateRange:this.range,
       remainTypeList:[]
     }
   },
@@ -181,7 +189,9 @@ export default {
           url: `/pages/client/roomDetail/roomDetail?roomType=${encodeURIComponent(JSON.stringify(item))}`,
         });
     },
-    dateConfim(){
+    dateConfim(e){
+      console.log(e)
+      this.dateRange=e;
       this.getRemainRoomType()
     },
     async getRemainRoomType(){

@@ -18,7 +18,7 @@
               <view class="xt-list">
                 <view class="xt-list-item">
                   <view class="item-con">
-                    <text>{{ address }}</text>
+                    <text>{{ searchCondition.address }}</text>
                     <text class="flex-center" @click="getLocation"
                       ><uni-icons type="location-filled" size="20"></uni-icons
                       ><text>我的位置</text></text
@@ -29,23 +29,23 @@
                   <view class="item-con">
                     <view>
                       <uni-datetime-picker
-                        v-model="dateRange"
+                     
                         type="daterange"
                         return-type="timestamp"
                         @change="dateConfim"
                       >
                         <text class="strong">{{
-                          foramtDateLabel(dateRange[0]).de
+                          foramtDateLabel(searchDateRange[0]).de
                         }}</text
                         ><text class="normal" style="padding: 0 10px">{{
-                          foramtDateLabel(dateRange[0]).dy
+                          foramtDateLabel(searchDateRange[0]).dy
                         }}</text>
                         <text style="padding: 0 25px">-</text>
                         <text class="strong">{{
-                          foramtDateLabel(dateRange[1]).de
+                          foramtDateLabel(searchDateRange[1]).de
                         }}</text
                         ><text class="normal" style="padding: 0 10px">{{
-                          foramtDateLabel(dateRange[1]).dy
+                          foramtDateLabel(searchDateRange[1]).dy
                         }}</text>
                       </uni-datetime-picker>
                     </view>
@@ -54,14 +54,9 @@
                 </view>
                 <view class="xt-list-item">
                   <view class="item-con" @click="toSearch">
-                    <!-- <uni-easyinput
-                v-model="filterVal"
-                placeholder="酒店名/品牌名/地标"
-                style="font-size: 18px; font-weight: bold"
-                :inputBorder="false"
-              /> -->
+
                     <text style="color: #a1a1a1">{{
-                      filterVal || "酒店名/品牌名/地标"
+                      searchCondition.filterVal || "酒店名/品牌名/地标"
                     }}</text>
                   </view>
                 </view>
@@ -82,7 +77,7 @@
         <mineComponent></mineComponent>
       </block>
     </view>
-    <view class="flex-flex-page-bottom">
+    <view class="flex-flex-page-bottom" v-if="user">
       <xt-tabbar
         :dataList="tabbarList"
         @clickTab="clickTab"
@@ -98,8 +93,37 @@ import { DB } from "../../../api/DB";
 import { HotelServiceClient } from "../../../services/HotelServiceClient";
 import UniIcons from "../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue";
 import mineComponent from "../mine/components/mineComponent.vue";
+
+import {useStore} from 'vuex';
+import {  computed, ref,getCurrentInstance ,watch } from 'vue';
 export default {
   components: { mineComponent, UniIcons },
+  setup(){
+    let showTabBar =uni.getStorageSync("hm_token")?true:false;
+    const store = useStore();
+			const searchCondition = computed(()=>{
+				return store.state.hotelClientStore.searchCondition; 
+			});
+			const searchDateRange = computed(()=>{
+				return store.state.hotelClientStore.searchDateRange; 
+			});
+			// let conditionForm= ref({
+			// 	filterVal:searchCondition.filterVal,
+			// 	address:searchCondition.address,
+			// 	location:searchCondition.location,
+			// 	dateRange:searchDateRange.value
+
+			// })
+      // watch(conditionForm,(n,o)=>{
+      //   console.error("改变",n)
+      // },{deep:true})
+    return {     
+        showTabBar ,
+        searchCondition,
+        searchDateRange
+      //  conditionForm  
+    }
+  },
   data() {
     return {
       isLoading: false,
@@ -119,14 +143,7 @@ export default {
         },
       ],
       tabId: "b1",
-      key: "a69cc73276ceb1a813f3be0d5d42c2aa",
-      filterVal: "",
-      address: "",
-      dateRange: [
-        new Date().getTime(),
-        new Date().getTime() + 1000 * 60 * 60 * 24,
-      ],
-      sarchLocation: [],
+      key: "a69cc73276ceb1a813f3be0d5d42c2aa", 
       location: [],
     };
   },
@@ -145,9 +162,9 @@ export default {
       //   this.getHotelList();
       // }
     },
-    filterVal(val) {
-      this.searchAddress(val);
-    },
+    // filterVal(val) {
+    //   this.searchAddress(val);
+    // },
   },
   onLoad() {
     uni.hideHomeButton();
@@ -160,12 +177,15 @@ export default {
     });
     await this.getLocation();
     this.isLoading = false;
+   
+    
   },
   async mounted() {
     //if(this.isPcShow){
     // #ifdef H5
     try {
       document.getElementsByTagName("uni-page-head")[0].style.display = "none";
+    
     } catch (error) {}
     // #endif
   },
@@ -192,6 +212,7 @@ export default {
     },
     dateConfim(e) {
       console.log(e);
+      this.$store.commit("hotelClientStore/updateSearchDateRange",e);
     },
     searchAddress(keywords) {
       this.amapPlugin.getInputtips({
@@ -209,7 +230,14 @@ export default {
     },
     getLocation() {
       // #ifdef H5
-      return true;
+          let obj={
+							filterVal:"",
+							address:"",
+							location:[119.872549,30.55434]
+				    }
+            this.$store.commit("setLocation", [119.872549,30.55434]);
+				    this.$store.commit("hotelClientStore/updateSearchCondition",obj);
+            return true;
       // #endif
       return new Promise((resolve, reject) => {
         uni.getLocation({
@@ -217,7 +245,14 @@ export default {
           success: (res) => {
             console.log("当前位置的经度：" + res.longitude);
             console.log("当前位置的纬度：" + res.latitude);
+            
+            let obj={
+							filterVal:"",
+							address:"",
+							location:[res.longitude, res.latitude]
+				    }
             this.$store.commit("setLocation", [res.longitude, res.latitude]);
+				    this.$store.commit("hotelClientStore/updateSearchCondition",obj);
             uni.hideLoading();
             resolve();
           },
@@ -248,8 +283,8 @@ export default {
         events: {
           getAddress: (obj) => {
             console.log("ooooooooo", obj);
-            this.filterVal = obj.filterVal;
-            (this.address = obj.address), (this.location = obj.location);
+            // this.filterVal = obj.filterVal;
+            // (this.address = obj.address), (this.location = obj.location);
             this.getHotelList();
           },
         },
@@ -258,26 +293,13 @@ export default {
     async getHotelList() {
       console.log("open", this.location);
       try {
-        await this.$store.dispatch("loginEvent", () => {
-          const condition = {
-            filterVal: this.filterVal,
-            address: this.address,
-            dateRange: this.dateRange,
-            location: this.location,
-          };
-          let href = `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(
-            JSON.stringify(condition)
-          )}`;
-          //#ifdef H5
-
-          //window.open(`#${href}`, "_blank");
-          //return;
-          //#endif
-          console.log("跳转-------------");
+        //await this.$store.dispatch("loginEvent", () => {
+  
+          let href = `/pages/client/client_hotelList/client_hotelList`;
           uni.navigateTo({
             url: href,
           });
-        });
+        //});
       } catch (error) {}
 
       // if (this.isLoading) {

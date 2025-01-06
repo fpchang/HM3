@@ -312,6 +312,7 @@ export default {
     //if(this.isPcShow){
     // #ifdef H5
     try {
+      
       document.getElementsByTagName("uni-page-head")[0].style.display = "none";
     } catch (error) {}
 
