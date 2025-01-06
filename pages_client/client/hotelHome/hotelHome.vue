@@ -126,7 +126,7 @@ import {HotelServiceClient} from "../../../services/HotelServiceClient";
 		return {
 			title: "议宿",
 			imageUrl: url,
-			path: `/pages/client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`,
+			path: `/pages_client/client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`,
 		};
 		}
 

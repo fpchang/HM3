@@ -445,7 +445,7 @@ export default {
       console.log(this.formData.orderType);
       //this.orderForm.bargainStatus=0;
       await this.submitForm();
-      uni.redirectTo({ url: "/pages/client/order/orderList/orderList" });
+      uni.redirectTo({ url: "/pages_client/client/order/orderList/orderList" });
     },
     //发起支付
     async payEvent() {
@@ -467,7 +467,7 @@ export default {
       }
       this.orderForm.payType = "offline";
       await this.submitForm();
-      uni.redirectTo({ url: "/pages/client/order/orderList/orderList" });
+      uni.redirectTo({ url: "/pages_client/client/order/orderList/orderList" });
       // const db = uniCloud.database();
       // db.collection('hm-order').remove()
     },

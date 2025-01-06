@@ -45,7 +45,7 @@ export default {
   methods: {
     toMap(){
       console.log(111);
-      uni.navigateTo({url:"/pages/client/map/pathPlaining/pathPlaining"})
+      uni.navigateTo({url:"/pages_client/client/map/pathPlaining/pathPlaining"})
     },
     toConcat(){
       if(!this.hotel.wechat){

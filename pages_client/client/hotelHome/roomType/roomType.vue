@@ -186,7 +186,7 @@ export default {
     },
     roomDetail(item){
       uni.navigateTo({
-          url: `/pages/client/roomDetail/roomDetail?roomType=${encodeURIComponent(JSON.stringify(item))}`,
+          url: `/pages_client/client/roomDetail/roomDetail?roomType=${encodeURIComponent(JSON.stringify(item))}`,
         });
     },
     dateConfim(e){
@@ -208,7 +208,7 @@ export default {
     async reserve(item,priceField){
       await this.$store.dispatch("loginEvent",()=>{
         uni.navigateTo({
-          url:`/pages/client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
+          url:`/pages_client/client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
         })
       })
    
@@ -216,7 +216,7 @@ export default {
     bargain(item,priceField){
       console.log("111111",this.dateRange)
        uni.navigateTo({
-      url:`/pages/client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=bargain&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
+      url:`/pages_client/client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=bargain&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
      })
     }
   },

@@ -51,7 +51,7 @@
 					<template  v-slot:[`card0`]>
 						<view class="menu-card">
 							<view class="menu-card-list"> 
-								<navigator url="/pages/client/mine/collect/collect">
+								<navigator url="/pages_client/client/mine/collect/collect">
 					
 								<view  class="menu-card-list-item">
 									<text>
@@ -240,7 +240,7 @@
 		   toOrder(type){			
 			
 			uni.navigateTo({
-				url:`/pages/client/order/orderList/orderList?type=${type}`
+				url:`/pages_client/client/order/orderList/orderList?type=${type}`
 			})
 		   }
 		

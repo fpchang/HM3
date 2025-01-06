@@ -279,7 +279,7 @@ export default {
 
     toSearch() {
       uni.navigateTo({
-        url: "/pages/client/hotelSearch/hotelSearch",
+        url: "/pages_client/client/hotelSearch/hotelSearch",
         events: {
           getAddress: (obj) => {
             console.log("ooooooooo", obj);
@@ -295,7 +295,7 @@ export default {
       try {
         //await this.$store.dispatch("loginEvent", () => {
   
-          let href = `/pages/client/client_hotelList/client_hotelList`;
+          let href = `/pages_client/client/client_hotelList/client_hotelList`;
           uni.navigateTo({
             url: href,
           });
@@ -324,7 +324,7 @@ export default {
       //     location:this.location,
       //   }
       //   uni.navigateTo({
-      //     url: `/pages/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`,
+      //     url: `/pages_client/client/client_hotelList/client_hotelList?condition=${encodeURIComponent(JSON.stringify(condition))}`,
       //   });
       //   uni.hideLoading();
       // } catch (error) {

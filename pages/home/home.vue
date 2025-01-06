@@ -458,7 +458,7 @@ export default {
     switchEvent() {
       uni.setStorageSync("userRole", "user");
       uni.reLaunch({
-        url: "/pages/client/client_index/client_index",
+        url: "/pages_client/client/client_index/client_index",
       });
     },
     async vaildToken(callback) {

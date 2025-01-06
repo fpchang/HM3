@@ -1,32 +1,29 @@
 {
-	"pages": [	
+	"pages": [
 
-	{
+		{
 			"path": "pages/index/index",
 			"style": {
-				
+
 				"enablePullDownRefresh": true
 			}
-		},	{
-			"path" : "pages/payTest/payTest",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
+		}, {
+			"path": "pages/payTest/payTest",
+			"style": {
+				"navigationBarTitleText": ""
 			}
-		},{
-			"path" : "pages/home/home",
-			"style" : 
-			{
+		}, {
+			"path": "pages/home/home",
+			"style": {
 				"enablePullDownRefresh": true,
-				"navigationBarTitleText" : ""
+				"navigationBarTitleText": ""
 			}
-		},{
-			"path" : "pages/permission/setPermission/setPermission",
-			"style" :
-			{
-				"navigationBarTitleText" : ""
+		}, {
+			"path": "pages/permission/setPermission/setPermission",
+			"style": {
+				"navigationBarTitleText": ""
 			}
-		},	{
+		}, {
 			"path": "pages/scenicSpot/showScenicSpot/showScenicSpot",
 			"style": {
 				"navigationBarTitleText": "景点价格"
@@ -34,11 +31,11 @@
 		},
 		{
 			"path": "pages/catering/orderDishes/orderDishes",
-			"style": {				
+			"style": {
 				"navigationBarTitleText": "定餐服务"
 			}
-		},	
-		
+		},
+
 		{
 			"path": "pages/mine/mine",
 			"style": {
@@ -46,11 +43,11 @@
 				"enablePullDownRefresh": true
 			}
 		},
-		
+
 		{
 			"path": "pages/login/login",
 			"style": {
-				
+
 			}
 		},
 		{
@@ -65,7 +62,7 @@
 				"navigationBarTitleText": "创建房型"
 			}
 		},
-		
+
 		{
 			"path": "pages/hotelManage/addEmployee/addEmployee",
 			"style": {
@@ -102,7 +99,7 @@
 				"navigationBarTitleText": "新增菜单详情"
 			}
 		},
-		
+
 		{
 			"path": "pages/common/success",
 			"style": {
@@ -111,196 +108,179 @@
 			}
 		},
 		{
-			"path" : "pages/mine/feedback/feedback",
-			"style" : 
-			{
-				"navigationBarTitleText" : "建议与反馈"
+			"path": "pages/mine/feedback/feedback",
+			"style": {
+				"navigationBarTitleText": "建议与反馈"
 			}
 		},
 		{
-			"path" : "pages/hotelManage/hotelList/hotelList",
-			"style" : 
-			{
-				"navigationBarTitleText" : "酒店管理"
+			"path": "pages/hotelManage/hotelList/hotelList",
+			"style": {
+				"navigationBarTitleText": "酒店管理"
 			}
 		}
+
+		, {
+			"path": "uni_modules/uni-pay/pages/success/success",
+			"style": {
+				"backgroundColor": "#F8F8F8",
+				"navigationBarTitleText": "支付成功"
+			}
+		}, {
+			"path": "uni_modules/uni-pay/pages/ad-interactive-webview/ad-interactive-webview",
+			"style": {
+				"backgroundColor": "#F8F8F8",
+				"navigationBarTitleText": "ad"
+			}
+		}, {
+			"path": "uni_modules/uni-pay/pages/pay-desk/pay-desk",
+			"style": {
+				"backgroundColor": "#F8F8F8",
+				"navigationBarTitleText": "收银台"
+			}
+		},
+		{
+			"path": "pages/mine/instructions/instructions",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/common/privacyPolicy/privacyPolicy",
+			"style": {
+				"navigationBarTitleText": "隐私政策"
+			}
+		},
+		{
+			"path": "pages/common/userAgreement/userAgreement",
+			"style": {
+				"navigationBarTitleText": "用户协议"
+			}
+		},
+		{
+			"path": "pages/mine/recharge/recharge",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/hotelManage/roomTypeImages/roomTypeImages",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
 		
-	,{
-    "path": "uni_modules/uni-pay/pages/success/success",
-    "style": {
-        "backgroundColor": "#F8F8F8",
-        "navigationBarTitleText": "支付成功"
-    }
-}
-,{
-    "path": "uni_modules/uni-pay/pages/ad-interactive-webview/ad-interactive-webview",
-    "style": {
-        "backgroundColor": "#F8F8F8",
-        "navigationBarTitleText": "ad"
-    }
-}
-,{
-    "path": "uni_modules/uni-pay/pages/pay-desk/pay-desk",
-    "style": {
-        "backgroundColor": "#F8F8F8",
-        "navigationBarTitleText": "收银台"
-    }
-},
-{
-	"path" : "pages/mine/instructions/instructions",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/common/privacyPolicy/privacyPolicy",
-	"style" : 
-	{
-		"navigationBarTitleText" : "隐私政策"
-	}
-},
-{
-	"path" : "pages/common/userAgreement/userAgreement",
-	"style" : 
-	{
-		"navigationBarTitleText" : "用户协议"
-	}
-},
-{
-	"path" : "pages/mine/recharge/recharge",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/hotelManage/roomTypeImages/roomTypeImages",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/client_index/client_index",
-	"style" : 
-	{
-		"navigationBarTitleText" : "",
-		"app-plus": {
-		                  "titleNView":false,
-		                  "scrollIndicator":"none",
-		                  "softinputMode": "adjustResize"
-		                }
-	}
-},
-{
-	"path" : "pages/client/client_hotelList/client_hotelList",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/hotelHome/hotelHome",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/roomDetail/roomDetail",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/orderDishesList/orderDishesList",
-	"style" : 
-	{
-		"navigationBarTitleText" : "餐饮订单"
-	}
-},
-{
-	"path" : "pages/roomPrice/roomPrice",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/hotelSearch/hotelSearch",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/order/orderList/orderList",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/order/createOrder/createOrder",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/map/pathPlaining/pathPlaining",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/financialManagement/income/income",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/financialManagement/expenses/expenses",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/financialManagement/income/createIncome/createIncome",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/financialManagement/expenses/createExpenses/createExpenses",
-	"style" : 
-	{
-		"navigationBarTitleText" : ""
-	}
-},
-{
-	"path" : "pages/client/mine/collect/collect",
-	"style" : 
-	{
-		"navigationBarTitleText" : "我的收藏"
-	}
-}
+		{
+			"path": "pages/financialManagement/income/income",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/financialManagement/expenses/expenses",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/financialManagement/income/createIncome/createIncome",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/financialManagement/expenses/createExpenses/createExpenses",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},	{
+					"path": "pages/roomPrice/roomPrice",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				}
+		
 
-],
-
+	],
+	"subPackages": [
+		{
+			"root": "pages_client",
+			"pages": [
+				{
+					"path": "client/client_index/client_index",
+					"style": {
+						"navigationBarTitleText": "",
+						"app-plus": {
+							"titleNView": false,
+							"scrollIndicator": "none",
+							"softinputMode": "adjustResize"
+						}
+					}
+				},
+				{
+					"path": "client/client_hotelList/client_hotelList",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "client/hotelHome/hotelHome",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "client/roomDetail/roomDetail",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "client/orderDishesList/orderDishesList",
+					"style": {
+						"navigationBarTitleText": "餐饮订单"
+					}
+				},
+			
+				{
+					"path": "client/hotelSearch/hotelSearch",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "client/order/orderList/orderList",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "client/order/createOrder/createOrder",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "client/map/pathPlaining/pathPlaining",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "client/mine/collect/collect",
+					"style": {
+						"navigationBarTitleText": "我的收藏"
+					}
+				}
+			]
+		}
+	],
 	"tabBar": {
 		"color": "#1d1d1f",
 		"selectedColor": "#0071e3",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
-		"list": [
-			{
+		"list": [{
 				"pagePath": "pages/home/home",
 				"iconPath": "static/img/home-black.png",
 				"selectedIconPath": "static/img/home-blue.png",
@@ -320,10 +300,10 @@
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF",
 		"app-plus": {
-		                  "titleNView":false,
-		                  "scrollIndicator":"none",
-		                  "softinputMode": "adjustResize"
-		                }
+			"titleNView": false,
+			"scrollIndicator": "none",
+			"softinputMode": "adjustResize"
+		}
 	},
 	"uniIdRouter": {}
 }

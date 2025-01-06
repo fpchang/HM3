@@ -319,7 +319,7 @@ export default {
 			}
 		},
 		openOrderDishesList(){
-			uni.navigateTo({url:`/pages/client/orderDishesList/orderDishesList?hotel_id=${this.hotel_id}`})
+			uni.navigateTo({url:`/pages_client/client/orderDishesList/orderDishesList?hotel_id=${this.hotel_id}`})
 		},
 		getMenuListFormat(menuList = []) {
 			try {

@@ -98,9 +98,9 @@
 				this.isLoading=true;
 				this.$store.commit("hotelClientStore/updateHotel",hotel);
 				//this.$store.commit("hotelClientStore/updateSearchCondition",this.conditionForm);				
-				let href = `#/pages/client/hotelHome/hotelHome`;
+				let href = `#/pages_client/client/hotelHome/hotelHome`;
 				uni.navigateTo({
-					url:`/pages/client/hotelHome/hotelHome`,
+					url:`/pages_client/client/hotelHome/hotelHome`,
 					complete:()=>{
 						this.isLoading=false;
 					}
