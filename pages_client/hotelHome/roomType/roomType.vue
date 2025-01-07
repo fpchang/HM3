@@ -221,7 +221,6 @@ export default {
    
     },
     bargain(item,priceField){
-      console.log("111111",this.dateRange)
        uni.navigateTo({
       url:`/pages_client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=bargain&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
      })
