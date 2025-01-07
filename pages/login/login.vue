@@ -12,7 +12,7 @@
         </uni-forms-item>
         <uni-forms-item name="smsCode">
           <view class="flex-center input-area" > 
-            <input  type="number"  v-model="userForm.smsCode" placeholder="请输入验证码" />
+            <input  type="number" maxlength="4" v-model="userForm.smsCode" placeholder="请输入验证码" />
             <text @click="getCode" :class="['smstext', sendSmsDisabled ? 'smstext-disable' : '']">{{tips}}</text>
           </view>
           
