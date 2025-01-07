@@ -202,8 +202,7 @@ export default {
     async getRoomType(){
       const res = await  HotelServiceClient.getRoomType(this.hotel_id);
 				console.log("房型列表 client",res);
-				this.roomType = res.result.data;
-      
+				this.roomType = res.result.data;     
     },
     async reserve(item,priceField){
       await this.$store.dispatch("loginEvent",()=>{
@@ -259,9 +258,7 @@ $showWidth:1200px;
 .scroll-style{
   height:calc(100vh - 110px);
 }
-
-.roomType{
-  
+.roomType{ 
   max-width: 100vw;
   width:$showWidth;
   margin:auto;

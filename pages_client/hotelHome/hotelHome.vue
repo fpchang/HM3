@@ -8,7 +8,7 @@
 				<showScenicSpot v-if="tabId=='b4'" :hotel_id="hotel._id"></showScenicSpot>			
 		</view>
 		<view class="flex-flex-page-bottom">
-			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab" width="1200px"></xt-tabbar>
+			<xt-tabbar :dataList="tabbarList" @clickTab="clickTab"  width="1200px"></xt-tabbar>
 		</view>
 		
 	</view>
@@ -20,9 +20,11 @@ import roomType from './roomType/roomType';
 import orderDishes from './orderDishes/orderDishes';
 import showScenicSpot from './scenicSpot/showScenicSpot';
 import {useStore} from 'vuex';
+import {ref } from "vue";
 import {HotelServiceClient} from "@/services/HotelServiceClient";
 	export default {
   components: { introduce,roomType ,orderDishes,showScenicSpot},
+
   setup(props){
 	const store = useStore();
 	let config = store.state.config;
@@ -34,6 +36,7 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 		{id:"b4",label:"景点",icon:`${imgUrl}scenicSpot-black.png`,activeIcon:`${imgUrl}scenicSpot-blue.png`}
 		
       ]
+	 
 	  return {
 		config,
 		tabbarList
@@ -88,10 +91,15 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 			}
 		},
 		onLoad(params){
-			console.log("hotelHome",params)
+
+			console.log("hotelHome onload",params,this.tabId);
 			if(params.hotel_id){//分享进来的页面
 					this.getHotel(params.hotel_id);
 					//this.dateRange = [Date.now(),Date.now()+1000*60*60*24];
+				}
+				if(params.tabId){//分享进来的页面
+					console.log("1111",params.tabId)
+					this.tabId=params.tabId;
 				}
 			
 		},

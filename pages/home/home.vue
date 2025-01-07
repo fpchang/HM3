@@ -332,11 +332,16 @@ export default {
 
     if (this.currentTab_index == 2) {
       //景区分享
+      // return {
+      //   title: `景点价格【${this.hotel.hotelName}】`,
+      //   imageUrl: `${this.$store.state.config.cloudUrl}/HM/images/sc.jpg`,
+      //   path: `/pages/scenicSpot/showScenicSpot/showScenicSpot?hotel_id=${this.hotel_id}`,
+      // };
       return {
-        title: `景点价格【${this.hotel.hotelName}】`,
-        imageUrl: `${this.$store.state.config.cloudUrl}/HM/images/sc.jpg`,
-        path: `/pages/scenicSpot/showScenicSpot/showScenicSpot?hotel_id=${this.hotel_id}`,
-      };
+			title: "议宿",
+			imageUrl: `${this.$store.state.config.cloudUrl}/HM/images/sc.jpg`,
+			path: `/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}&&tabId=b4`,
+		};
     }
     if (this.currentTab_index == 3) {
       //点菜分享
