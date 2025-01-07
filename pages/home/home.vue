@@ -362,7 +362,8 @@ export default {
     // 	this.clickTab({index:this.currentTab_index});
     // });
     await this.$store.dispatch("loginEvent");
-    this.initData();
+    await this.initData();
+    uni.stopPullDownRefresh();
   },
   computed: {
     isPcShow() {

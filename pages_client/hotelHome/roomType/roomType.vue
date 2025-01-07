@@ -171,7 +171,7 @@ export default {
   },
  async created(){
  // await this.getRoomType();
- this.getRemainRoomType();
+  this.getRemainRoomType();
   },
 
   computed: {},
@@ -208,7 +208,14 @@ export default {
     async reserve(item,priceField){
       await this.$store.dispatch("loginEvent",()=>{
         uni.navigateTo({
-          url:`/pages_client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`
+          url:`/pages_client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`,
+          events:{
+            updateData:()=>{
+              console.log("刷新一下剩余房间")
+              this.getRemainRoomType();
+             
+            }
+          }
         })
       })
    

@@ -445,6 +445,8 @@ export default {
       console.log(this.formData.orderType);
       //this.orderForm.bargainStatus=0;
       await this.submitForm();
+      const eventChannel = this.getOpenerEventChannel();
+      eventChannel.emit('updateData');
       uni.redirectTo({ url: "/pages_client/order/orderList/orderList" });
     },
     //发起支付
@@ -452,6 +454,8 @@ export default {
       return;
       this.orderForm.payType = "online";
       await this.submitForm();
+      const eventChannel = this.getOpenerEventChannel();
+      eventChannel.emit('updateData');
     },
     //线下预定
     async reserve() {
@@ -467,6 +471,8 @@ export default {
       }
       this.orderForm.payType = "offline";
       await this.submitForm();
+      const eventChannel = this.getOpenerEventChannel();
+      eventChannel.emit('updateData');
       uni.redirectTo({ url: "/pages_client/order/orderList/orderList" });
       // const db = uniCloud.database();
       // db.collection('hm-order').remove()

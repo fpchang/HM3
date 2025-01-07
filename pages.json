@@ -226,7 +226,8 @@
 				{
 					"path": "hotelHome/hotelHome",
 					"style": {
-						"navigationBarTitleText": ""
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh": true
 					}
 				},
 				{

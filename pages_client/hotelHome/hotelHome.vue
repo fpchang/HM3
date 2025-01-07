@@ -132,11 +132,18 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 
   },
   onPullDownRefresh() {
+	console.log("下拉刷新")
+	uni.showLoading();
 	let tabid=this.tabId;
 	this.tabId="";
 	this.$nextTick(()=>{
 		this.tabId = tabid;
-	})
+	});
+	setTimeout(() => {
+		uni.hideLoading();
+		uni.stopPullDownRefresh();
+	}, 1000);
+	
   },
 		methods: {
 			clickTab(id){
