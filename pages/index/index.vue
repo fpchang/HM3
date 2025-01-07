@@ -55,7 +55,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 				uni.switchTab({url:"/pages/home/home"});
 			}else{
 				uni.redirectTo({
-        		url:"/pages_client/client/client_index/client_index",
+        		url:"/pages_client/client_index/client_index",
       		});
 			}
 			
@@ -97,7 +97,7 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 					case "user":
 						uni.setStorageSync("userRole","user");
 						uni.reLaunch({
-							url:"/pages_client/client/client_index/client_index"
+							url:"/pages_client/client_index/client_index"
 						});
 					break;
 					case "hotel":

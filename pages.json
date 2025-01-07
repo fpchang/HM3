@@ -207,7 +207,7 @@
 			"root": "pages_client",
 			"pages": [
 				{
-					"path": "client/client_index/client_index",
+					"path": "client_index/client_index",
 					"style": {
 						"navigationBarTitleText": "",
 						"app-plus": {
@@ -218,58 +218,65 @@
 					}
 				},
 				{
-					"path": "client/client_hotelList/client_hotelList",
+					"path": "client_hotelList/client_hotelList",
 					"style": {
 						"navigationBarTitleText": ""
 					}
 				},
 				{
-					"path": "client/hotelHome/hotelHome",
+					"path": "hotelHome/hotelHome",
 					"style": {
 						"navigationBarTitleText": ""
 					}
 				},
 				{
-					"path": "client/roomDetail/roomDetail",
+					"path": "roomDetail/roomDetail",
 					"style": {
 						"navigationBarTitleText": ""
 					}
 				},
 				{
-					"path": "client/orderDishesList/orderDishesList",
+					"path": "orderDishesList/orderDishesList",
 					"style": {
 						"navigationBarTitleText": "餐饮订单"
 					}
 				},
 			
 				{
-					"path": "client/hotelSearch/hotelSearch",
+					"path": "hotelSearch/hotelSearch",
 					"style": {
 						"navigationBarTitleText": ""
 					}
 				},
 				{
-					"path": "client/order/orderList/orderList",
+					"path": "order/orderList/orderList",
 					"style": {
 						"navigationBarTitleText": ""
 					}
 				},
 				{
-					"path": "client/order/createOrder/createOrder",
+					"path": "order/createOrder/createOrder",
 					"style": {
 						"navigationBarTitleText": ""
 					}
 				},
 				{
-					"path": "client/map/pathPlaining/pathPlaining",
+					"path": "map/pathPlaining/pathPlaining",
 					"style": {
 						"navigationBarTitleText": ""
 					}
 				},
 				{
-					"path": "client/mine/collect/collect",
+					"path": "mine/collect/collect",
 					"style": {
 						"navigationBarTitleText": "我的收藏"
+					}
+				},
+				{
+					"path" : "mine/history/history",
+					"style" : 
+					{
+						"navigationBarTitleText" : ""
 					}
 				}
 			]

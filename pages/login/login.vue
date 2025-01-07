@@ -253,7 +253,7 @@ export default {
 					}
          
       uni.reLaunch({
-        url: userRole=="hotel"?"/pages/home/home":"/pages_client/client/client_index/client_index",
+        url: userRole=="hotel"?"/pages/home/home":"/pages_client/client_index/client_index",
       });
     },
   }

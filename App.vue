@@ -8,7 +8,7 @@
 	// 	"list": [
 	// 		{
 	// 			"index":0,
-	// 			"pagePath": "pages_client/client/client_index/client_index",
+	// 			"pagePath": "pages_client/client_index/client_index",
 	// 			"iconPath": "static/img/home-black.png",
 	// 			"selectedIconPath": "static/img/home-blue.png",
 	// 			"text": "首页",
