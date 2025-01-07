@@ -90,6 +90,14 @@ export default {
       return obj?true:false;
     }
   },
+  watch: {
+    user(n){
+      console.log("登录状态变更")
+      if(n.phone){
+        this.getCollectHotel();
+      }
+    }
+  },
   methods: {
     async getCollectHotel(){
       if(!this.user){
@@ -99,17 +107,23 @@ export default {
      this.collectList=res.result.data;
     },
     async collectEvent(){
-      await this.$store.dispatch("loginEvent",()=>{
-        if(this.isCollect){
+      if(!this.user.phone){
+         await this.$store.dispatch("loginEvent")
+         return;
+      }
+   
+      if(this.isCollect){
+        console.log("取消收藏 ")
         this.cancelCollectHotel();
         return;
       }
+      console.log("收藏 ")
       this.addCollectHotel();
-      })
  
     },
     async addCollectHotel(){
       const res = await  HotelServiceClient.addCollectHotel(this.user.phone,this.hotel._id);
+      console.log("添加成功")
       this.getCollectHotel();
     },
     async cancelCollectHotel(){
@@ -119,7 +133,7 @@ export default {
       console.log("取消成功")
     }
   },
-  watch: {},
+
 
   // 组件周期函数--监听组件挂载完毕
   mounted() {

@@ -298,9 +298,6 @@ export default {
       }
       this.$refs[popup].close();
     });
-    // this.vaildToken(() => {
-    // 	this.initData();
-    // });
     await this.$store.dispatch("loginEvent");
     this.initData();
   },
@@ -363,9 +360,6 @@ export default {
   },
   async onPullDownRefresh() {
     console.log("index veu refrush");
-    // this.vaildToken(() => {
-    // 	this.clickTab({index:this.currentTab_index});
-    // });
     await this.$store.dispatch("loginEvent");
     await this.initData();
     uni.stopPullDownRefresh();

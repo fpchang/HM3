@@ -239,22 +239,22 @@ export default {
       this.$store.commit("setUser", userRes.result.data[0]);
       this.submitLoading=false;
       let userRole =uni.getStorageSync("userRole");
+      const eventChannel = this.getOpenerEventChannel();
+      eventChannel.emit('loginSuccess');
       
-      if(getCurrentPages().length>1){
-        const eventChannel = this.getOpenerEventChannel();
-						uni.navigateBack({
-              success(){
-                console.log("succes>>>>>>>>")
-               
-                eventChannel.emit('loginSuccess');
-              }
-            });
-						return;
-					}
+      // if(getCurrentPages().length>1){
+        
+			// 			uni.navigateBack({
+      //         success(){
+                
+      //         }
+      //       });
+			// 			return;
+			// 		}
          
-      uni.reLaunch({
-        url: userRole=="hotel"?"/pages/home/home":"/pages_client/client_index/client_index",
-      });
+      // uni.reLaunch({
+      //   url: userRole=="hotel"?"/pages/home/home":"/pages_client/client_index/client_index",
+      // });
     },
   }
 };

@@ -153,12 +153,16 @@ export default {
     }
   },
   setup(){
-    const store = useStore();
+      const store = useStore();
     	const searchDateRange = computed(()=>{
 				return store.state.hotelClientStore.searchDateRange; 
 			});
-      let dateRange = ref([searchDateRange.value[0],searchDateRange.value[1]])
+      let dateRange = ref([searchDateRange.value[0],searchDateRange.value[1]]);
+      const user =computed(()=>{
+        return store.state.user;
+      })
       return {
+        user,
         dateRange
       }
   },
@@ -206,8 +210,26 @@ export default {
 				this.roomType = res.result.data;     
     },
     async reserve(item,priceField){
-      await this.$store.dispatch("loginEvent",()=>{
-        uni.navigateTo({
+      const f = ()=>{
+        console.log("fffffff");
+      
+      }
+      if(!this.user.phone){
+         await this.$store.dispatch("loginEvent",()=>{
+          console.log("登录流程完成")
+          uni.redirectTo({
+          url:`/pages_client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`,
+          events:{
+            updateData:()=>{
+              this.getRemainRoomType()
+             
+            }
+          }
+        })  
+        })
+        return;
+      }
+      uni.navigateTo({
           url:`/pages_client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`,
           events:{
             updateData:()=>{
@@ -216,7 +238,6 @@ export default {
             }
           }
         })
-      })
    
     },
     bargain(item,priceField){

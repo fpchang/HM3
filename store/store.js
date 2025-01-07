@@ -18,7 +18,7 @@ const store = createStore({
   },
   state: {
     //存放状态
-    isLogin:false,
+    isLogin: false,
     config: null, //配置信息
     viewWidth: null, //可视宽度
     partialRefreshComName: "", //局部刷新组件值
@@ -33,15 +33,15 @@ const store = createStore({
     hotel_id: "",
     roomType: [],
     location: [],
-    tt:"11"
+    tt: "11",
   },
 
   mutations: {
-    settt(state,str){
-      state.tt =str;
+    settt(state, str) {
+      state.tt = str;
     },
-    setIsLogin(state,bool){
-      state.isLogin=bool
+    setIsLogin(state, bool) {
+      state.isLogin = bool;
     },
     //当前位置坐标
     setLocation(state, loc) {
@@ -55,7 +55,7 @@ const store = createStore({
       state.viewWidth = w;
     },
     setConfig(state, obj) {
-      uni.setStorageSync("config",obj);
+      uni.setStorageSync("config", obj);
       state.config = obj;
     },
     setShareObj(state, obj) {
@@ -162,64 +162,84 @@ const store = createStore({
         }
       } catch (error) {}
     },
-    loginEvent(context,loginSuccess) {
-		return new Promise(async (resolve,reject)=>{
-			if (!uni.getStorageSync("hm_token")) {
-				//未登录
-				console.log("未登录");
-				context.dispatch("clearCache");
-				uni.navigateTo({ url: "/pages/login/login",events:{
-          loginSuccess(){
-            loginSuccess&&loginSuccess();
-          }
-        } });
-				reject("未登录");
-				return;
-			  }
-			const res = await AccountService.validToken();
-			if (res.result.code) {
-				res.result.msg && uni.showToast({
-					title: res.result.msg,
-					duration: 2000,
-					icon: "error",
-				});
-				context.dispatch("clearCache");
-				uni.navigateTo({ url: "/pages/login/login" });
-				reject("token校验不通过");
-				return;
-			}
-			resolve();
-      loginSuccess&&loginSuccess();
-		})
-      
-	 
+    loginEvent(context, loginSuccess,fun) {
+      return new Promise(async (resolve, reject) => {
+        if (!uni.getStorageSync("hm_token")) {
+          //未登录
+          console.log("未登录");
+          context.dispatch("clearCache");
+          context.dispatch("navPageLogin",loginSuccess);
+          reject("未登录");
+          return;
+        };
+        const res = await AccountService.validToken();
+        if (res.result.code) {
+          res.result.msg &&
+            uni.showToast({
+              title: res.result.msg,
+              duration: 2000,
+              icon: "error",
+            });
+          context.dispatch("clearCache");
+          context.dispatch("navPageLogin",loginSuccess);
+          reject("token校验不通过");
+          return;
+        }
+        console.log("token验证通过");
+        fun&&fun();
+        resolve();
+        
+      });
     },
-	async vaildToken(context) {		
-			const res = await AccountService.validToken();
-			if (res.result.code) {
-				res.result.msg && uni.showToast({
-					title: res.result.msg,
-					duration: 2000,
-					icon: "error",
-				});
-				//this.$store.dispatch("loginOut");
-				return Promise.reject;
-			}
-			console.log("token验证通过")
-			return Promise.resolve;
-			
-			
-		
-	},
-	clearCache(context){
-		  uni.removeStorageSync("hm_token");
+    async vaildToken(context) {
+      const res = await AccountService.validToken();
+      if (res.result.code) {
+        res.result.msg &&
+          uni.showToast({
+            title: res.result.msg,
+            duration: 2000,
+            icon: "error",
+          });
+        //this.$store.dispatch("loginOut");
+        return Promise.reject;
+      }
+      console.log("token验证通过");
+      return Promise.resolve;
+    },
+    navPageLogin(context, loginSuccess) {
+      uni.navigateTo({
+        url: "/pages/login/login",
+        events: {
+          loginSuccess() {
+            console.log("执行loginsuccess");
+            if (loginSuccess) {
+              loginSuccess();
+              return;
+            }
+            if (getCurrentPages().length > 1) {
+              uni.navigateBack();
+              return;
+            }
+
+            uni.reLaunch({
+              url:
+                userRole == "hotel"
+                  ? "/pages/home/home"
+                  : "/pages_client/client_index/client_index",
+            });
+          },
+        },
+      });
+    },
+    clearCache(context) {
+      uni.removeStorageSync("hm_token");
       uni.removeStorageSync("user");
-      	context.commit("setUser", {});
-      	context.commit("setHotelId", "");
-	},
+      context.commit("setUser", {});
+      context.commit("setHotelId", "");
+    },
     loginOut(context) {
       console.log("退出登录");
-      context.dispatch("clearCache")
+      context.dispatch("clearCache");
       uni.reLaunch({
         url: "/pages/login/login",
       });
