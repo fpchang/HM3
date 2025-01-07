@@ -1,9 +1,9 @@
 <template>
     <view>
-    <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
-        <view class="scenicSpot">
-           <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList">
-              
+      <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList">
+            
+    <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true" refresher-enabled  @refresherrefresh="refreshData" :refresher-triggered="loading">
+      <view class="scenicSpot">
                 <xt-panal-list :count="data.length" maxWidth=1200>
             
                             <!-- #ifdef MP -->
@@ -83,10 +83,11 @@
                           
                             
                         </xt-panal-list>
-                        </unicloud-db>   
+                        
      
     </view>
       </scroll-view>
+      </unicloud-db>  
     </view>
 </template>
 
@@ -103,6 +104,7 @@ export default {
   setup(props){
     console.log("props::",props.hotel_id)
     const db = uniCloud.database();
+    const udb =ref(null);
    let hotel = computed(()=>{
     return useStore().state.hotelClientStore.hotel;
    })
@@ -147,10 +149,16 @@ result = Math.round(num * 100) / 100;
 return result;
 
 }
+
+const refreshData=()=>{  
+  udb.value.refresh();
+}
     return {
         colList,
         hotel,
-        getDistance
+        udb,
+        getDistance,
+        refreshData
     }
   }
 }

@@ -1,4 +1,5 @@
 <template>
+  <view>
   <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
     <view class="introduce"> 
       <view class="share-area">
@@ -57,6 +58,7 @@
     </view>
   </view>
   </scroll-view>
+</view>
 </template>
 
 <script>

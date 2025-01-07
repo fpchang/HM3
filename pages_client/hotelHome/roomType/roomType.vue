@@ -9,7 +9,7 @@
         ><text class="normal" style="padding: 0 10px">{{foramtDateLabel(dateRange[1]).dy}}</text>
       </uni-datetime-picker>
     </view>
-    <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
+    <scroll-view class="scroll-style" scroll-x="false" scroll-y="true" refresher-enabled  @refresherrefresh="getRemainRoomType" :refresher-triggered="isLoading">
       <view class="roomType">   
     <xt-panal-list :count="remainTypeList.length" maxWidth=1200>
           
@@ -164,6 +164,7 @@ export default {
   },
   data() {
     return {
+      isLoading:false,
       roomType:[],
      // dateRange:this.range,
       remainTypeList:[]
@@ -190,14 +191,14 @@ export default {
         });
     },
     dateConfim(e){
-      console.log(e)
       this.dateRange=e;
       this.getRemainRoomType()
     },
     async getRemainRoomType(){
+      this.isLoading=true;
       const list = await  HotelServiceClient.getRemainRoomType(this.hotel_id,this.dateRange[0],this.dateRange[1]);
-      console.log("房型价格列表 client",list);
       this.remainTypeList=list;
+      this.isLoading=false;
     },
     async getRoomType(){
       const res = await  HotelServiceClient.getRoomType(this.hotel_id);
@@ -210,8 +211,7 @@ export default {
           url:`/pages_client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`,
           events:{
             updateData:()=>{
-              console.log("刷新一下剩余房间")
-              this.getRemainRoomType();
+              this.getRemainRoomType()
              
             }
           }
