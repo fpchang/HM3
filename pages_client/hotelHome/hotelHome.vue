@@ -2,7 +2,7 @@
 	<view class="home flex-page">
 		<view class="flex-page-content">
 
-				<introduce v-show="tabId=='b1'" :hotel="hotel"></introduce>	
+				<introduce v-if="tabId=='b1'" :hotel="hotel"></introduce>	
 				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id" :range="searchCondition['dateRange']"></roomType>
 				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>
 				<showScenicSpot v-if="tabId=='b4'" :hotel_id="hotel._id"></showScenicSpot>			
@@ -130,6 +130,13 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 		};
 		}
 
+  },
+  onPullDownRefresh() {
+	let tabid=this.tabId;
+	this.tabId="";
+	this.$nextTick(()=>{
+		this.tabId = tabid;
+	})
   },
 		methods: {
 			clickTab(id){

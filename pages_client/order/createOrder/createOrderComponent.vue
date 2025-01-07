@@ -509,20 +509,6 @@ export default {
       console.log("添加成功");
       this.submitLoading = false;
       uni.hideLoading();
-      // try {
-
-      // 	//this.$emit("closePopup");
-
-      // } catch (error) {
-      // 	console.error("添加失败", error);
-      // 	this.submitLoading = false;
-      // 	uni.hideLoading();
-      // 	uni.showToast({
-      // 		title: '添加失败，请稍候再试',
-      // 		duration: 2000,
-      // 		icon: "error"
-      // 	});
-      // }
     },
   },
 };

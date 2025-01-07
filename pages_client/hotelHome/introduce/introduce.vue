@@ -90,6 +90,9 @@ export default {
   },
   methods: {
     async getCollectHotel(){
+      if(!this.user){
+        return;
+      }
      const res = await HotelServiceClient.getCollectHotel(this.user.phone);
      this.collectList=res.result.data;
     },
