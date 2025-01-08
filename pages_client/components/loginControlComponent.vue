@@ -1,7 +1,7 @@
 <template>
     <view class="loginControlComponent" v-if="!user">
         <view class="login-control">
-            <text style="flex:1">登录后体验更佳</text>
+            <text style="flex:1">登录后可使用全部功能</text>
             <view class="b-area"><button size="mini" class="btn"  @click="toLogin">登录</button></view>
           </view>
     </view>

@@ -90,12 +90,12 @@
 			return {
 				avatar: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png',
 				menuList: [
-					{
-						key: "instructions",
-						unicode: "\ue8cc",
-						title: "使用说明",
-						showArrow: true
-					},
+					// {
+					// 	key: "instructions",
+					// 	unicode: "\ue8cc",
+					// 	title: "使用说明",
+					// 	showArrow: true
+					// },
 					
 					{
 						key: "feedback",

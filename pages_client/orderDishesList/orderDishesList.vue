@@ -3,7 +3,7 @@
     <block v-if="orderList && orderList.length < 1">
       <noData text_content="没有订单数据"></noData>
     </block>
-    <block v-if="orderList.length">
+    <block v-if="orderList && orderList.length">
       <scroll-view
         style="height: calc(100vh - 84px)"
         scroll-x="false"
@@ -52,13 +52,13 @@
               </view>
               <view class="actions">
                 <view class="action-list">
-                  <view class="actions-item">
+                  <!-- <view class="actions-item">
                     <uni-icons type="plus-filled" size="13px"></uni-icons
                     ><text>加菜</text>
-                  </view>
+                  </view> -->
                   <view class="actions-item">
                     <uni-icons type="trash-filled" size="13px"></uni-icons
-                    ><text>撤销</text>
+                    ><text @click="cancelOrder(item)">撤销</text>
                   </view>
                 </view>
               </view>
@@ -168,7 +168,9 @@ export default {
       }
     },
     async getOrderDishesList() {
-      console.log("参数", this.hotel_id, this.user.phone);
+      if(!this.user){
+        return;
+      }
       const res = await MenuService.getOrderDishesListByCondition({
         hotel_id: this.hotel_id,
         phone: this.user.phone,
@@ -176,6 +178,23 @@ export default {
       console.log("请求orderdishes", res);
       this.orderList = res.result.data;
     },
+    async cancelOrder(item){
+      const conf = await uni.showModal({
+        title: "确认删除订单",
+        content: "删除后无法恢复,确认删除吗?",
+        cancelText: "取消",
+        confirmText: "确认",
+      });
+      if (conf["cancel"]) {
+        return;
+      }
+     await MenuService.removeOrderDishes(item._id);
+     this.getOrderDishesList();
+     uni.showToast({
+      title: '删除成功',
+      icon: 'none'
+     })
+    }
   },
 };
 </script>

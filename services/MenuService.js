@@ -75,6 +75,7 @@ class MenuServiceClass{
     }
     /**条件选择已下订单列表 */
     getOrderDishesListByCondition(w={}){
+        console.log("查找 条件",w)
         return DB.getCollectionGroupBy("hm-orderDishes",w,"mealDateTimestamp asc")
     }
      /**已下订单列表 今天及以后 */

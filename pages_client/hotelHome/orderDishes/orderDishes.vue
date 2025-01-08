@@ -164,6 +164,7 @@
         </view>
         <view style="display: flex; min-width: 103px">
           <view
+          
             @click="openOrderDishesList"
             class="order-commit-style btn btn-normal"
           >
@@ -186,256 +187,260 @@
 </template>
 
 <script>
-import {
-	HotelService
-} from '@/services/HotelService';
-import {
-	MenuService
-} from '@/services/MenuService';
+import { HotelService } from "@/services/HotelService";
+import { MenuService } from "@/services/MenuService";
 
 export default {
-	props: {
-		hotel_id: {
-			type: String,
-			default: ""
-		}
-	},
-	data() {
-		return {
-			hotel: null,
-			mealTypeItems: [{
-				value: "lunch",
-				text: "午餐",
-			}, {
-				value: "dinner",
-				text: "晚餐",
-			}],
-			goodsListPanalHeight: 0,
-			orderDishesForm: {
-				mealDate: '',
-				mealDateTimestamp: 0,
-				mealType: 'dinner',
-				userName: "",
-				phone: "",
-			},
-			menuList: []
-		}
-	},
-	computed: {
-		windowHeight() {
-			const sys = uni.getSystemInfoSync();
-			let h = sys['windowHeight'];
-			// #ifdef MP-WEIXIN ||APP-PLUS
-			h = uni.getWindowInfo().windowHeight;
-			// #endif
-			return h;
-		},
-		vtabsHeight() {
-			//#ifdef H5
-			return this.windowHeight - 70 - 60;
-			//#endif
-			return this.windowHeight - 70 - 60 - 44;
-		},
-		user(){
-			return this.$store.state.user;
-		},
-		checkMenuList() {
-			let resultArray = [];
-			this.menuList.map(item => {
-				let arr = item._id['hm-menuDetail'].filter(it => it.checkCount > 0);
-				if (arr.length) {
-					resultArray.push(arr);
-				}
-				return item;
-			});
-			return resultArray.flat();
-		},
-		checMenuCount() {
-			if (!this.checkMenuList.length) {
-				return 0;
-			}
-			let count = 0;
-			this.checkMenuList.map(item => {
-				count += item.checkCount;
-			})
-			return count;
-		},
-		checMenuPriceTotal() {
-			if (!this.checkMenuList.length) {
-				return 0;
-			}
-			let priceTotal = 0;
-			this.checkMenuList.map(item => {
-				priceTotal += item.checkCount * item.price;
-			})
-			return priceTotal;
-		}
-	},
-	watch: {
-		checMenuCount(newval) {
-			if (newval < 1) {
-				this.goodsListPanalHeight = 0
-			}
+  props: {
+    hotel_id: {
+      type: String,
+      default: "",
+    },
+  },
+  data() {
+    return {
+      hotel: null,
+      mealTypeItems: [
+        {
+          value: "lunch",
+          text: "午餐",
+        },
+        {
+          value: "dinner",
+          text: "晚餐",
+        },
+      ],
+      goodsListPanalHeight: 0,
+      orderDishesForm: {
+        mealDate: "",
+        mealDateTimestamp: 0,
+        mealType: "dinner",
+        userName: "",
+        phone: "",
+      },
+      menuList: [],
+    };
+  },
+  computed: {
+    windowHeight() {
+      const sys = uni.getSystemInfoSync();
+      let h = sys["windowHeight"];
+      // #ifdef MP-WEIXIN ||APP-PLUS
+      h = uni.getWindowInfo().windowHeight;
+      // #endif
+      return h;
+    },
+    vtabsHeight() {
+      //#ifdef H5
+      return this.windowHeight - 70 - 60;
+      //#endif
+      return this.windowHeight - 70 - 60 - 44;
+    },
+    user() {
+      return this.$store.state.user;
+    },
+    checkMenuList() {
+      let resultArray = [];
+      this.menuList.map((item) => {
+        let arr = item._id["hm-menuDetail"].filter((it) => it.checkCount > 0);
+        if (arr.length) {
+          resultArray.push(arr);
+        }
+        return item;
+      });
+      return resultArray.flat();
+    },
+    checMenuCount() {
+      if (!this.checkMenuList.length) {
+        return 0;
+      }
+      let count = 0;
+      this.checkMenuList.map((item) => {
+        count += item.checkCount;
+      });
+      return count;
+    },
+    checMenuPriceTotal() {
+      if (!this.checkMenuList.length) {
+        return 0;
+      }
+      let priceTotal = 0;
+      this.checkMenuList.map((item) => {
+        priceTotal += item.checkCount * item.price;
+      });
+      return priceTotal;
+    },
+  },
+  watch: {
+    checMenuCount(newval) {
+      if (newval < 1) {
+        this.goodsListPanalHeight = 0;
+      }
+    },
+  },
+  mounted() {
+    console.log("hotel", this.hotel);
+    this.getData();
+  },
+  methods: {
+    async getData() {
+      if (!this.hotel_id) {
+        return;
+      }
+      try {
+        //uni.showLoading();
 
-		}
-	},
-	mounted() {
-		console.log("hotel",this.hotel)
-		this.getData();
+        const hotelRes = await HotelService.getHotelInfoById(this.hotel_id);
+        const res = await MenuService.getMenuList(this.hotel_id);
+        console.log("酒店信息", hotelRes);
+        console.log("菜单列表", res);
+        this.hotel = hotelRes.result.data[0];
+        this.menuList = this.getMenuListFormat(res.result.data);
+        console.log("menulist", this.menuList);
 
-	},
-	methods: {
-		async getData() {
-			if (!this.hotel_id) {
-				return;
-			}
-			try {
-				//uni.showLoading();
+        uni.hideLoading();
+      } catch (error) {
+        console.error(error);
+        uni.hideLoading();
+        uni.showModal({
+          content: "系统异常，请稍候再试！",
+          confirmText: "确认",
+        });
+      }
+    },
+    //重选
+    resetMenuList() {
+      for (let i = 0; i < this.menuList.length; i++) {
+        for (let j = 0; j < this.menuList[i]._id["hm-menuDetail"].length; j++) {
+          this.menuList[i]._id["hm-menuDetail"][j].checkCount == 0;
+        }
+      }
+    },
+    async openOrderDishesList() {
+      if (!this.user) {
+        await this.$store.dispatch("loginEvent", () => {
+          uni.redirectTo({
+            url: `/pages_client/orderDishesList/orderDishesList?hotel_id=${this.hotel_id}`,
+          });
+        });
+        return;
+      }
+      uni.navigateTo({
+        url: `/pages_client/orderDishesList/orderDishesList?hotel_id=${this.hotel_id}`,
+      });
+    },
+    getMenuListFormat(menuList = []) {
+      try {
+        let arr = menuList.map((item) => {
+          item._id["hm-menuDetail"].map((it) => {
+            it.checkCount = 0;
+            return it;
+          });
+          item.childrens = {
+            name: item.name,
+            list: item._id["hm-menuDetail"],
+          };
 
-				const hotelRes = await HotelService.getHotelInfoById(this.hotel_id);
-				const res = await MenuService.getMenuList(this.hotel_id);
-				console.log("酒店信息", hotelRes)
-				console.log("菜单列表", res)
-				this.hotel = hotelRes.result.data[0];
-				this.menuList = this.getMenuListFormat(res.result.data);
-				console.log("menulist", this.menuList)
+          return item;
+        });
+        return arr;
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    },
+    addMenuCount(itObj) {
+      console.log(itObj);
+      this.menuList = this.menuList.map((item) => {
+        item._id["hm-menuDetail"].map((it) => {
+          if (it._id == itObj._id) {
+            let count = it.checkCount || 0;
+            it.checkCount = count + 1;
+          }
+          return it;
+        });
+        return item;
+      });
+    },
+    loseMenuCount(itObj) {
+      this.menuList = this.menuList.map((item) => {
+        item._id["hm-menuDetail"].map((it) => {
+          if (it._id == itObj._id) {
+            it.checkCount--;
+          }
+          return it;
+        });
+        return item;
+      });
+    },
+    openGoodsList() {
+      console.log("1111");
+      if (!this.checkMenuList.length) {
+        this.goodsListPanalHeight = 0;
+        return;
+      }
+      this.goodsListPanalHeight =
+        this.goodsListPanalHeight == "0" ? "calc(100vh - 60px)" : 0;
+      //this.$refs.goodsItemPopup.open();
+      console.log(this.goodsListPanalHeight);
+    },
+    closeGoodsList() {
+      //this.goodsListPanalHeight='0'
+    },
 
-				uni.hideLoading();
-			} catch (error) {
-				console.error(error);
-				uni.hideLoading();
-				uni.showModal({
-					content: "系统异常，请稍候再试！",
-					confirmText: "确认",
-				});
-			}
-		},
-		//重选
-		resetMenuList(){
-			for(let i =0;i<this.menuList.length;i++){
-				for(let j =0;j<this.menuList[i]._id['hm-menuDetail'].length;j++){
-					this.menuList[i]._id['hm-menuDetail'][j].checkCount==0;
-				}
-			}
-		},
-		openOrderDishesList(){
-			uni.navigateTo({url:`/pages_client/orderDishesList/orderDishesList?hotel_id=${this.hotel_id}`})
-		},
-		getMenuListFormat(menuList = []) {
-			try {
+    async submit() {
+      if (this.checMenuCount < 1 || this.isLoading) {
+        return;
+      }
+      if (!this.orderDishesForm.mealDate) {
+        uni.showToast({ title: "请选择用餐日期", icon: "none" });
+        return;
+      }
+      const f = async () => {
+        this.isLoading = true;
+        //uni.showLoading();
+        let orderDishesObj = Object.assign(this.orderDishesForm, {
+          phone: this.user.phone,
+          userName: this.user.userName,
+          hotel_id: this.hotel._id,
+          checkMenuList: this.checkMenuList,
+        });
+        console.log(orderDishesObj, this.user);
+        orderDishesObj.mealDateTimestamp = new Date(
+          orderDishesObj.mealDate
+        ).getTime();
+        try {
+          const res = await MenuService.addOrderDishes(orderDishesObj);
+          this.isLoading = false;
+          this.resetMenuList();
+          this.openOrderDishesList();
+          uni.hideLoading();
+        } catch (error) {
+          let errobj = JSON.parse(JSON.stringify(error));
+          console.log("1111", error);
+          this.isLoading = false;
+          uni.hideLoading();
+          const text = errobj.errMsg.includes("exists")
+            ? "请不要重复提交"
+            : "请确认是否已经下单！";
+          uni.showModal({
+            content: text,
+            confirmText: "确认",
+          });
+        }
+      };
+      if (!this.user) {
+        await this.$store.dispatch("loginEvent", () => {
+          uni.navigateBack();
+          f && f();
+        });
+        return;
+      }
 
-				let arr = menuList.map(item => {
-					item._id['hm-menuDetail'].map(it => {
-						it.checkCount = 0;
-						return it;
-					});
-					item.childrens = {
-						name: item.name,
-						list: item._id['hm-menuDetail']
-					}
-
-					return item;
-				});
-				return arr
-			} catch (error) {
-				console.error(error)
-				return []
-			}
-
-		},
-		addMenuCount(itObj) {
-			console.log(itObj)
-			this.menuList = this.menuList.map(item => {
-				item._id['hm-menuDetail'].map(it => {
-					if (it._id == itObj._id) {
-						let count = it.checkCount || 0;
-						it.checkCount = count + 1;
-					}
-					return it;
-				});
-				return item;
-			});
-
-		},
-		loseMenuCount(itObj) {
-			this.menuList = this.menuList.map(item => {
-				item._id['hm-menuDetail'].map(it => {
-					if (it._id == itObj._id) {
-						it.checkCount--;
-
-					}
-					return it;
-				});
-				return item;
-			});
-
-		},
-		openGoodsList() {
-			console.log("1111")
-			if (!this.checkMenuList.length) {
-				this.goodsListPanalHeight = 0;
-				return;
-			}
-			this.goodsListPanalHeight = this.goodsListPanalHeight == '0' ? 'calc(100vh - 60px)' : 0;
-			//this.$refs.goodsItemPopup.open();
-			console.log(this.goodsListPanalHeight)
-		},
-		closeGoodsList() {
-			//this.goodsListPanalHeight='0'
-		},
-
-		async submit() {
-			if (this.checMenuCount < 1 || this.isLoading) {
-				return;
-			}
-			if(!this.orderDishesForm.mealDate){
-				uni.showToast({title:"请选择用餐日期",icon:"none"})
-				return;
-			}
-			await this.$store.dispatch("loginEvent",async () => {
-//http://localhost:8080/#/pages/catering/orderDishes/orderDishes?hotel_id=66f4d677e4ec9dbeca1f8ff9
-
-			
-				this.isLoading = true;
-				//uni.showLoading();
-				let orderDishesObj = Object.assign(this.orderDishesForm, {
-					phone:this.user.phone,
-					userName:this.user.userName,
-					hotel_id: this.hotel._id,
-					checkMenuList: this.checkMenuList
-				})
-				console.log(orderDishesObj,this.user);
-				orderDishesObj.mealDateTimestamp = new Date(orderDishesObj.mealDate).getTime();
-				try {
-					const res = await MenuService.addOrderDishes(orderDishesObj);
-					this.isLoading = false;
-					this.resetMenuList();
-					// uni.navigateTo({
-					// 	url:`/pages/common/success?hotel=${JSON.stringify(this.hotel)}`,
-					// });
-					this.openOrderDishesList();
-					uni.hideLoading();
-
-				} catch (error) {
-					let errobj = JSON.parse(JSON.stringify(error));
-					console.log("1111", error);
-					this.isLoading = false;
-					uni.hideLoading();
-					const text = errobj.errMsg.includes("exists") ? '请不要重复提交' : "系统异常，请稍候再试！"
-					uni.showModal({
-						content: text,
-						confirmText: "确认",
-					});
-
-				}
-			});
-
-
-
-
-		}
-	}
-}
+      f && f();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
