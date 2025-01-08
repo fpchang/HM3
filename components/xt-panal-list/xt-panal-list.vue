@@ -3,11 +3,13 @@
 		<view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view class="card" v-for="(item,index) in count" :style="{width: `${cardWidth}px`}">
+				
 					<view class="card-item">
 						<!-- #ifdef MP -->
 						<slot name="card{{index}}"></slot>
 						<!-- #endif -->
 						<!-- #ifdef H5 || APP-PLUS -->
+						
 						<slot :name="`card${index}`" :cardWidth="cardWidth -20"></slot>
 						<!-- #endif -->
 					</view>

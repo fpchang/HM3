@@ -234,14 +234,14 @@ const store = createStore({
     clearCache(context) {
       uni.removeStorageSync("hm_token");
       uni.removeStorageSync("user");
-      context.commit("setUser", {});
+      context.commit("setUser",null);
       context.commit("setHotelId", "");
     },
     loginOut(context) {
       console.log("退出登录");
       context.dispatch("clearCache");
       uni.reLaunch({
-        url: "/pages/login/login",
+        url: "/pages/index/index",
       });
     },
   },

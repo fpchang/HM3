@@ -107,7 +107,7 @@ export default {
      this.collectList=res.result.data;
     },
     async collectEvent(){
-      if(!this.user.phone){
+      if(!this.user){
          await this.$store.dispatch("loginEvent")
          return;
       }

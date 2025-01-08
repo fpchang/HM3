@@ -303,7 +303,7 @@ export default {
   },
   onShow() {
     console.log("index onshow");
-    if (this.$store.state.isPcShow) {
+    if (this.$store.state.isPcShow ||!this.$store.state.user) {
       uni.hideTabBar();
     }
     //if(this.isPcShow){

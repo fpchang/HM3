@@ -44,11 +44,9 @@
 					</view>
 				</view>
 			</view>
-			<view class="t"> 
-				<xt-panal-list count="2">
-	
-			
-					<template  v-slot:[`card0`]>
+			<view class="t" style="height:400px"> 
+				<xt-panal-list :count="2">			
+					<template  v-slot:["card0"]>
 						<view class="menu-card">
 							<view class="menu-card-list"> 
 								<navigator url="/pages_client/mine/collect/collect">
@@ -79,7 +77,7 @@
 							
 						</view>
 					</template>
-					<template  v-slot:[`card1`]>
+					<template  v-slot:["card1"] v-if="user">
 						<view class="menu-card">
 							<view class="menu-card-list"> 
 								<view  class="menu-card-list-item" @click="toOrder('all')">
@@ -160,7 +158,7 @@
 			},
 			user() {
 				//return uni.getStorageSync("user");
-				return this.$store.state.user||uni.getStorageSync("user");
+				return this.$store.state.user;
 			}
 		},
 		onShow() {

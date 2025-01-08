@@ -77,6 +77,8 @@
         <mineComponent></mineComponent>
       </block>
     </view>
+
+    
     <view class="flex-flex-page-bottom" v-if="user">
       <xt-tabbar
         :dataList="tabbarList"
@@ -84,6 +86,7 @@
         width="1200px"
       ></xt-tabbar>
     </view>
+    <loginControlComponent></loginControlComponent>
   </view>
 </template>
 
@@ -93,11 +96,11 @@ import { DB } from "@/api/DB";
 import { HotelServiceClient } from "@/services/HotelServiceClient";
 import UniIcons from "@/uni_modules/uni-icons/components/uni-icons/uni-icons.vue";
 import mineComponent from "../mine/components/mineComponent.vue";
-
+import loginControlComponent from "../components/loginControlComponent"
 import {useStore} from 'vuex';
 import {  computed, ref,getCurrentInstance ,watch } from 'vue';
 export default {
-  components: { mineComponent, UniIcons },
+  components: {loginControlComponent, mineComponent, UniIcons },
   setup(){
     let showTabBar =uni.getStorageSync("hm_token")?true:false;
     const store = useStore();

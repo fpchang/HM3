@@ -149,6 +149,9 @@ export default{
 				return 	store.state.user;
 			})
 			let colList=computed(()=>{
+				if(!user){
+					return ;
+				}
 				return [
           		db.collection('hm-order').where(`fromClient==true && createrPhone=='${store.state.user.phone}'`).getTemp(),
           		db.collection('hm-hotel').field("_id,hotelName,hotelAddress,payType").getTemp()

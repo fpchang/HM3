@@ -214,7 +214,7 @@ export default {
         console.log("fffffff");
       
       }
-      if(!this.user.phone){
+      if(!this.user){
          await this.$store.dispatch("loginEvent",()=>{
           console.log("登录流程完成")
           uni.redirectTo({
