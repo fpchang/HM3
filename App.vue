@@ -60,7 +60,7 @@
 				this.$store.commit("setPcShow",flag);					
 				this.$store.commit("updateUser");
 				this.$store.dispatch("initViewWidth");
-				
+				this.$store.commit("setUser", uni.getStorageSync("user"));
 				
 			},
 			getEnv(){

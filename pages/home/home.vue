@@ -87,7 +87,11 @@
             :scroll-x="false"
             show-scrollbar="false"
             :scroll-top="0"
+            :throttl="false"
             :style="{ height: scrollHeight }"
+            refresher-enabled 
+             @refresherrefresh="scrollRefrush" 
+             :refresher-triggered="isLoading"
           >
             <view v-if="dataHasRead">
               <gatherComponent
@@ -264,6 +268,7 @@ export default {
   },
   data() {
     return {
+      isLoading:false,
       title: "Hello",
       isSticky: false,
       opacityVal: 1,
@@ -445,11 +450,8 @@ export default {
       this.initTabMenu();
     },
     user(val,oldVal){
-      
-      if(val.phone!=oldVal.phone&&val.phone){
-		console.log("user改变",val,oldVal);
         this.initData();
-      }
+     
      
     }
   
@@ -486,7 +488,7 @@ export default {
     async initData() {
       console.log("init Data for home page");
       try {
-        this.$store.commit("setUser", uni.getStorageSync("user"));
+        //this.$store.commit("setUser", uni.getStorageSync("user"));
         await this.$store.dispatch("getHotelList");
         this.$store.commit("setBaseDatahasLoad", true);
         this.initTabMenu();
@@ -588,7 +590,17 @@ export default {
       this.showDrawer = false;
       this.$refs.showLeft.close();
     },
+    scrollRefrush(){
+      this.isLoading=true;
+      setTimeout(() => {
+        this.isLoading=false;
+      }, 1000);
+      this.clickTab({index:this.currentTab_index});
+   
+      
+    },
     clickTab(e) {
+      console.log("clickTab",e)
       if (this.currentTab_index == e.index) {
         //只触发刷新
         if (this.$store.state.partialRefreshComName) {
@@ -596,10 +608,12 @@ export default {
           return;
         }
         uni.showLoading();
+        
         this.$store.commit(
           "setPartialRefreshComName",
           this.tabList[e.index].ComponentName
         );
+      
         return;
       }
       this.currentTab_index = e.index;
