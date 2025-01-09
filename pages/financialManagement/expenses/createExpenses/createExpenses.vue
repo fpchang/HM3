@@ -17,7 +17,7 @@
             </uni-forms-item>
             <uni-forms-item label="金额" name="amount" required>
                 <view>
-					<uni-easyinput type="number" v-model="expensesForm.amount"  placeholder="请输入金额" ></uni-easyinput>
+					<uni-easyinput type="digit" v-model="expensesForm.amount"  placeholder="请输入金额" ></uni-easyinput>
                 </view>
             </uni-forms-item>
 		

@@ -84,10 +84,10 @@
 									<text><uv-icon name="order" color="#a1a1a1" size="28"></uv-icon></text>
 									<text>全部订单</text>
 								</view>
-								<view  class="menu-card-list-item" @click="toOrder('pay')">
+								<!-- <view  class="menu-card-list-item" @click="toOrder('pay')">
 									<text><uv-icon name="red-packet" color="#a1a1a1" size="28"></uv-icon></text>
 									<text>待付款</text>
-								</view>
+								</view> -->
 								<view  class="menu-card-list-item" @click="toOrder('in')">
 									<text><uv-icon name="empty-favor" color="#a1a1a1" size="28"></uv-icon></text>
 									<text>待入住</text>

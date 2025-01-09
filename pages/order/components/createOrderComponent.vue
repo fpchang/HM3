@@ -50,14 +50,14 @@
 			<uni-forms-item label="手机号">
 				<uni-easyinput v-model="orderForm.phone" type="number" placeholder="请输入手机号" />
 			</uni-forms-item>
-			<uni-forms-item label="微信号">
-				<uni-easyinput v-model="orderForm.wxNickName" placeholder="请输入微信号或昵称" />
+			<uni-forms-item label="通讯方式">
+				<uni-easyinput v-model="orderForm.wxNickName" placeholder="请输入通讯号或昵称" />
 			</uni-forms-item>
 			<uni-forms-item label="定金">
-				<uni-easyinput v-model="orderForm.downPayment" type="number" placeholder="请输入定金" />
+				<uni-easyinput v-model="orderForm.downPayment" type="digit" placeholder="请输入定金" />
 			</uni-forms-item>
 			<uni-forms-item label="总金额">
-				<uni-easyinput v-model="orderForm.totalAmount" type="number" placeholder="请输入总金额" />
+				<uni-easyinput v-model="orderForm.totalAmount" type="digit" placeholder="请输入总金额" />
 			</uni-forms-item>
 			<uni-forms-item label="备注">
 				<uni-easyinput type="textarea" v-model="orderForm.mark" placeholder="备注内容"></uni-easyinput>

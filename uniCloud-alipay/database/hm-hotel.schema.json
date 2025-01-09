@@ -87,8 +87,13 @@
 			"bsonType": "array",
 			"defaultValue":[]
 		},
+		"onlineReserve":{
+			"description": "开通在线预定",
+			"bsonType": "bool",
+			"defaultValue":false
+		},
 		"onlinePayment":{
-			"description": "开通在线订房，开通后可支持在线支付，未开通只能线下支付",
+			"description": "开通在线付款订房，开通后可支持在线支付，未开通只能线下支付",
 			"bsonType": "bool",
 			"defaultValue":false
 		},		

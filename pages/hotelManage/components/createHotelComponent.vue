@@ -103,8 +103,8 @@
 			<uni-forms-item label="客服电话">
 				<uni-easyinput v-model="hotelForm.serviceTel" placeholder="请输入客服电话" :disabled="type==2" />
 			</uni-forms-item>
-			<uni-forms-item label="微信">
-				<uni-easyinput v-model="hotelForm.wechat" placeholder="请输入微信号" :disabled="type==2" />
+			<uni-forms-item label="客服WX">
+				<uni-easyinput v-model="hotelForm.wechat" placeholder="请输入WX" :disabled="type==2" />
 			</uni-forms-item>
 			<uni-forms-item label="备注">
 				<uni-easyinput type="textarea" v-model="hotelForm.hotelIntroduction" placeholder="备注内容"
