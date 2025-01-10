@@ -51,6 +51,7 @@
 								<view class="titleContent"> 
 									<view class="titleContent-item">{{ `【店主：${item.belong}】` }}</view>
 									<view class="titleContent-item">{{ `【角色：${this.roleFormat(item.curRole)}】` }}</view>
+									1111
 								</view>
 								
 						   	</view>
@@ -65,7 +66,9 @@
 									<view class="titleContent-item">{{ `【店主：${item.belong}】` }}</view>
 									<view class="titleContent-item">{{ `【角色：${this.roleFormat(item.curRole)}】` }}</view>
 								</view>
+								<view style="padding:10px 0"></view>
 							   </template>
+					
 						   </xt-panal-card>
 					   </template>
 				 <!-- #endif -->

@@ -62,6 +62,7 @@
         </view>
       </view>    
         <slot name="content"></slot>
+        <slot name="bottom"></slot>
       </view>
     </view>
 </template>

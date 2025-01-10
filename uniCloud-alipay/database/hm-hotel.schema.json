@@ -77,6 +77,11 @@
 			"bsonType": "array",
 			"defaultValue":[]
 		},
+		"baseFacility":{
+			"description": "公共设施",
+			"bsonType": "array",
+			"defaultValue":[]
+		},
 		"recreationFacility":{
 			"description": "休闲设施",
 			"bsonType": "array",

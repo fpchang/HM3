@@ -64,6 +64,24 @@
 				</checkbox-group>
 
 			</uni-forms-item>
+			<uni-forms-item label="基础设施" >
+				<checkbox-group @change="baseCheckboxChange">
+					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig"
+						field="name" :getone="false" where="type=='base'">
+
+						<view :class="[this.type==2?'disabled-style':'','flex-center']"
+							style="justify-content:start;flex-wrap:wrap; gap:8px">
+							<view style="" v-for="(item,index) in data" :key="item.name">
+								<checkbox
+									:checked="hotelForm.baseFacility&&hotelForm.baseFacility.includes(item._id)"
+									:disabled="type==2" :value="item._id" />{{ item.name }}
+							</view>
+							<view style="height:0;width:50px" v-for="item in 5">
+							</view>
+						</view>
+					</unicloud-db>
+				</checkbox-group>
+			</uni-forms-item>
 			<uni-forms-item label="休闲设施" required>
 				<checkbox-group @change="recreationCheckboxChange">
 					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig"
@@ -165,6 +183,7 @@
 					"firstImages": this.targetObj.firstImages || "",
 					"imagesList": this.targetObj.imagesList || [],
 					"cateringServices": this.targetObj.cateringServices,
+					baseFacility:this.targetObj.baseFacility,
 					"recreationFacility": this.targetObj.recreationFacility,
 					"athleticFacility": this.targetObj.athleticFacility,
 					serviceTel: this.targetObj.serviceTel,
@@ -181,6 +200,7 @@
 					"firstImages": "",
 					"imagesList": [],
 					"cateringServices": [],
+					baseFacility:[],
 					"recreationFacility": [],
 					"athleticFacility": [],
 					serviceTel: "",
@@ -288,9 +308,13 @@
 			cateringCheckboxChange(e) {
 				this.hotelForm.cateringServices = e.detail.value;
 			},
+			baseCheckboxChange(e) {
+				this.hotelForm.baseFacility = e.detail.value;
+			},
 			recreationCheckboxChange(e) {
 				this.hotelForm.recreationFacility = e.detail.value;
 			},
+			
 			athleticFacilityCheckboxChange(e) {
 				this.hotelForm.athleticFacility = e.detail.value;
 			},
