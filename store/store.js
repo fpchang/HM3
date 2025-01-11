@@ -45,7 +45,6 @@ const store = createStore({
     },
     //当前位置坐标
     setLocation(state, loc) {
-      //console.log("store 设置location",loc)
       state.location = loc;
     },
     setPartialRefreshComName(state, comName) {
@@ -74,7 +73,6 @@ const store = createStore({
       state.hotel_id = hotel_id;
     },
     checkHotel(state, hotel_id) {
-      console.log("checkhotel>>>>>");
       uni.setStorageSync("hotel_id", hotel_id);
       store.commit("setHotelId", hotel_id);
     },
@@ -95,7 +93,6 @@ const store = createStore({
     },
 
     setDefaultHotel(state) {
-      console.log("setDefaultHotle");
       if (!state.hotelList.length) {
         return;
       }

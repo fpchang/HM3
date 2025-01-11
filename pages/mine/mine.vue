@@ -201,14 +201,14 @@
 						break;
 					case "recharge":
 						if (this.isPcShow) {
-							uni.$emit("closeRightDrawer");
-							uni.$emit("showPopupPivot","popupRecharge",1);
+							//uni.$emit("closeRightDrawer");
+							//uni.$emit("showPopupPivot","popupRecharge",1);
 							break;
 						}
 						// uni.navigateTo({
 						// 	url: `/pages/mine/recharge/recharge`
 						// });
-						this.$refs.popupRecharge.open();
+						//this.$refs.popupRecharge.open();
 						break;
 
 				}

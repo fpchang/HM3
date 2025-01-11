@@ -148,7 +148,7 @@
 
 		},
 		activated() {
-			console.log("tableList active....");
+			//console.log("tableList active....");
 		},
 		mounted() {
 			this.testData(['t1', 't2'])
@@ -168,7 +168,6 @@
 				 let date = this.selectCondition.dateRangeArray;
 				try {
 					const res = await OrderService.getOrderListByCondition(this.hotel_id,date[0],date[1]);
-					console.log("res",res);
 					this.checkInOrderList = res.result.data||[];
 								
 				} catch (error) {

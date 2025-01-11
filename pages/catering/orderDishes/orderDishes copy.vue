@@ -122,7 +122,6 @@ import uniList from '../../../uni_modules/uni-list/components/uni-list/uni-list.
 			},
 			      // 获取与顶部之间的距离  https://www.jianshu.com/p/8a01c9a1775d
 				  getRectInfo() {
-					console.log(11111);
                 var top = 0;
                 var bottom = 0;
                 var temp = 0;

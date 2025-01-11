@@ -187,7 +187,6 @@ beforeDestroy() {},
 					const location = await this.searchAddress(addressStr);
 					console.log("获取的坐标", location);
 					this.scenicSpotForm.location = location;
-          console.log("1111", this.scenicSpotForm)
        
         if(this.type==1){
           this.editScenicSpot();

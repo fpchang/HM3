@@ -354,7 +354,6 @@ export function debounce(fn, interval) {
 }
 export function hasPageRoute(pageRoute){
   let pages =getCurrentPages(); 
-  console.log("111111111111",pages,pageRoute)
   let pageObj =pages.find(item=>item.route==pageRoute);
   return pageObj?true:false;
 }

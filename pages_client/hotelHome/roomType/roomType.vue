@@ -215,7 +215,7 @@ export default {
     },
     async reserve(item,priceField){
       const f = ()=>{
-        console.log("fffffff");
+       
       
       }
       if(!this.user){

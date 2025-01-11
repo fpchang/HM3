@@ -1,11 +1,11 @@
 <template>
 	<view class="container">
-		<view class="title"><text>莫干管家用户服务协议</text></view>
+		<view class="title"><text>议宿用户服务协议</text></view>
 		<view><text>版本更新日期：2024年11月15日</text></view>
 		<view><text>生效日期：2024年11月15日</text></view>
 		<view><text>版本号：【2024v1】</text></view>
 
-		<view><text>欢迎您使用我们的小程序[莫干管家]，本协议是由 您 以下称 "用户" 与 "湖州玄天科技有限公司" 以下简称”玄天“之间缔结。在使用我们的小程序之前，请您仔细阅读并理解本协议。</text></view>
+		<view><text>欢迎您使用我们的小程序[议宿]，本协议是由 您 以下称 "用户" 与 "湖州玄天科技有限公司" 以下简称”玄天“之间缔结。在使用我们的小程序之前，请您仔细阅读并理解本协议。</text></view>
 		<view v-for="(item,index) of pList">
 			<view class="p-title"><text>{{index+1}},{{item.title}}</text></view>
 			<view class="p" v-for="i of item.content">{{i}}</view>
@@ -20,7 +20,7 @@
 			return {
 				pList:[
 					{
-						title:'关于 "莫干管家" 小程序',content:[
+						title:'关于 "议宿" 小程序',content:[
 						" 本小程序作为民宿，酒店管理工具类，提供订单记录，景点价格展示，餐饮点单等功能",
 						"注册与使用：本小程序使用手机号+验证码登录使用，手机号仅作为店铺绑定凭证。"
 					]},

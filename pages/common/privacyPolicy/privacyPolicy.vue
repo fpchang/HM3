@@ -1,10 +1,10 @@
 <template>
 	<view class="container">
-		<view class="title"><text>莫干管家隐私保护政策</text></view>
+		<view class="title"><text>议宿隐私保护政策</text></view>
 		<view><text>版本发布日期：2024年11月15日</text></view>
 		<view><text>生效日期：2024年11月15日</text></view>
 
-		<view><text>本隐私政策旨在说明我们（莫干管家）如何收集、使用、存储及保护您的个人信息。我们承诺将严格遵守相关法律法规，确保您的个人信息安全</text></view>
+		<view><text>本隐私政策旨在说明我们（议宿）如何收集、使用、存储及保护您的个人信息。我们承诺将严格遵守相关法律法规，确保您的个人信息安全</text></view>
 		<view v-for="item of pList">
 			<view class="p-title"><text>{{item.title}}</text></view>
 			<view class="p" v-for="i of item.content">{{i}}</view>

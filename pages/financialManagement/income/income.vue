@@ -66,13 +66,20 @@
 			<view class="num-area"><text class="num">{{ amountSum(data) }}</text></view>
 		</view>
       </view>
+      <block v-if="!data||!data.length">
+        <noData  text_content="当前无收入数据"></noData>
+      </block>
+      <block v-if="data&&data.length">
 	  <uni-section class="mb-10" title="其它收入明细" sub-title="" type="line"></uni-section>
       <scroll-view
         scroll-x="false"
         scroll-y="true"
         style="height: calc(100vh - 232px)"
       >
+    
+     
         <xt-panal-list :count="data.length">
+        
           <!-- #ifdef MP -->
 				<view  v-for="(item, index) in data" slot="card{{index}}"> 
           <view class="list">
@@ -116,7 +123,9 @@
           </template>
            <!-- #endif -->
         </xt-panal-list>
+    
       </scroll-view>
+    </block>
     </unicloud-db>
   </view>
 </template>

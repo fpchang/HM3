@@ -30,7 +30,6 @@
 			                js_code: code.code       //wx.login 登录成功后的code  
 			                },  
 			                success: (cts) => {  
-			                    console.log(cts);
 			                    // cts.data.openid 拿到openid
 			                    //3:调用云函数 统一下单
 			                    uniCloud.callFunction({

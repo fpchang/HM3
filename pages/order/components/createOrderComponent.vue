@@ -227,7 +227,6 @@
 				this.dateConfim(obj.range.data);
 			},
 			dateConfim(e) {
-				console.log(e);
 				let range = e;
 				if (e[0] == e[1]) {
 					this.remainRoomTypeList = [];
@@ -242,7 +241,6 @@
 			},
 			//初始化可用的房型
 			initValidRoomTypeData(e) {
-				console.log(e)
 				uni.showLoading();
 				let startTime = this.dateRangeArrayFormat[0],
 					endTime = this.dateRangeArrayFormat[1];
@@ -281,7 +279,6 @@
 				//uni.showLoading();
 				this.submitLoading = true;
 				let dateRange = this.dateRangeArrayFormat;
-				console.log("333333333",this.dateRangeArrayFormat)
 				let sourceObj = this.source.find(
 					(item) => item.value == this.orderForm.orderSource
 				);

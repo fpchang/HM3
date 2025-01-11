@@ -54,7 +54,10 @@
     <view class="dev-line"></view>
     <view class="panal">
       <view class="label-title">设施服务</view>
-      <servicesFacilities :hotel="hotel"></servicesFacilities>
+      <view> 
+        <servicesFacilities></servicesFacilities>
+      </view>
+      
     </view>
   </view>
   </scroll-view>
@@ -92,7 +95,6 @@ export default {
   },
   watch: {
     user(n){
-      console.log("登录状态变更")
       if(n.phone){
         this.getCollectHotel();
       }
@@ -113,24 +115,20 @@ export default {
       }
    
       if(this.isCollect){
-        console.log("取消收藏 ")
         this.cancelCollectHotel();
         return;
       }
-      console.log("收藏 ")
       this.addCollectHotel();
  
     },
     async addCollectHotel(){
       const res = await  HotelServiceClient.addCollectHotel(this.user.phone,this.hotel._id);
-      console.log("添加成功")
       this.getCollectHotel();
     },
     async cancelCollectHotel(){
       let obj = this.collectList.find(item=>item.hotel_id == this.hotel._id);
       const res = await  HotelServiceClient.cancelCollectHotel(obj._id);
       this.getCollectHotel();
-      console.log("取消成功")
     }
   },
 

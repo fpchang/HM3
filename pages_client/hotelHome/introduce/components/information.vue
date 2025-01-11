@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     toMap(){
-      console.log(111);
       uni.navigateTo({url:"/pages_client/map/pathPlaining/pathPlaining"})
     },
     toConcat(){

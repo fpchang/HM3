@@ -211,9 +211,9 @@
 					"style": {
 						"navigationBarTitleText": "",
 						"app-plus": {
-							"titleNView": false,
-							"scrollIndicator": "none",
-							"softinputMode": "adjustResize"
+							// "titleNView": false,
+							// "scrollIndicator": "none",
+							// "softinputMode": "adjustResize"
 						}
 					}
 				},
@@ -308,9 +308,9 @@
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF",
 		"app-plus": {
-			"titleNView": false,
-			"scrollIndicator": "none",
-			"softinputMode": "adjustResize"
+			// "titleNView": false,
+			// "scrollIndicator": "none",
+			// "softinputMode": "adjustResize"
 		}
 	},
 	"uniIdRouter": {}

@@ -138,7 +138,8 @@
         "usingComponents" : true,
         "appid" : "tt2b365d8bb403f7fe01",
         "setting" : {
-            "es6" : true
+            "es6" : true,
+            "minified" : false
         }
     },
     "uniStatistics" : {

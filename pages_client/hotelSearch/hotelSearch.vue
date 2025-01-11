@@ -66,7 +66,6 @@ import uniSection from '@/uni_modules/uni-section/components/uni-section/uni-sec
 			}
 		},
 		onLoad() {
-			console.log("config",this.$store.state.config)
 			this.amapPlugin = new amap.AMapWX({
 				key: this.$store.state.config.miniProgramKey,
 			});

@@ -1,7 +1,7 @@
 <template>
 	<view class="home flex-page">
-		<view class="flex-page-content">
 
+		<view class="flex-page-content">
 				<introduce v-if="tabId=='b1'" :hotel="hotel"></introduce>	
 				<roomType v-if="tabId=='b2'" :hotel_id="hotel._id" :range="searchCondition['dateRange']"></roomType>
 				<orderDishes v-if="tabId=='b3'" :hotel_id="hotel._id"></orderDishes>

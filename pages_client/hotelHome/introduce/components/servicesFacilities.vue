@@ -1,6 +1,18 @@
 <template>
   <view class="rec">
-    <block v-for="item of servicesFacilities_data">
+    <unicloud-db ref="servicesFacilitiesUdb"
+		v-slot:default="{ data, loading, error, options }"
+		collection="hm-facilityConfig"
+    field="name"
+    :page-size="200"
+	
+	   
+	  >
+    <!-- <view v-if="error">{{error.message}}</view>  
+        <view v-else>  
+          {{ data }}
+        </view> -->
+     <block v-for="item of servicesFacilities_data">
       <view class="rec-item">
         <view class="rec-item-lab">
           <image
@@ -12,13 +24,7 @@
         <view class="right-area">
           <view class="rec-item-list">
             <view class="rec-item-list-item" v-for="it of item.support">
-            
-              <unicloud-db
-                v-slot:default="{ data, loading, error, options }"
-                collection="hm-facilityConfig"
-                field="name"
-                :where="`type=='${item.type}'`"
-              >
+             
               <block  v-if="data&&data.length"> 
                 <uni-icons
                 type="checkbox-filled"
@@ -28,36 +34,39 @@
                   <text>{{ parseStr(data, it) || it }}</text>
               </block>
             
-              </unicloud-db>
+             
             </view>
             <view class="rec-item-list-item" v-for="it in 3" style="height:0;"></view>
           </view>
           <view class="dev"></view>
         </view>
       </view>
-      <!-- <van-divider textColor="#1989fa" style="width: 70%;"></van-divider> -->
-    </block>
+    </block> 
+	</unicloud-db>
   </view>
 </template>
 
 <script>
 import uniIcons from "@/uni_modules/uni-icons/components/uni-icons/uni-icons.vue";
 import { HotelServiceClient } from "@/services/HotelServiceClient";
+import {ref,computed} from "vue";
+import {useStore} from 'vuex';
 export default {
   components: { uniIcons },
   name: "servicesFacilities",
   props: {
-    hotel: {
-      type: Object,
-    },
+   
   },
   setup(props) {
-
+    const store = useStore();
+    const hotel = computed(()=>{
+      return store.state.hotelClientStore.hotel;
+    });
+    return {hotel}
   },
   data() {
     return {
-      roomTypeList:null,
-      servicesFacilities_data:null
+      roomTypeList:null
 
     };
   },
