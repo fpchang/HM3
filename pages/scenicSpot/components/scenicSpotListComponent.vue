@@ -256,6 +256,7 @@ button {
 				padding: 10px 20px;
 				box-shadow: 0 0 4px 4px #e4e0e0;
 				border-radius: 8px;
+				color: #646464;
 
 			}
 		}
