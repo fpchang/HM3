@@ -1,109 +1,112 @@
 <template>
 	 <scroll-view class="roomDetail" :scroll-x="false" :scroll-y="true" v-if="roomType">
-		<view class="barner">
-			  <swiper class="barner-swiper"  :indicator-dots="true" :autoplay="true"  :duration="duration" :circular="true" indicator-color="#FFF">
-			  <swiper-item v-for="item of roomType.imagesList">
-				 <image show-menu-by-longpress :src="item" class="barner-image" mode="aspectFill"></image>						
-			  </swiper-item>
-			</swiper>
-		</view>
-		<view> 
-			<view class="room-info-label">房型信息</view>
-			<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name , type , icon" :getone="false" where="type=='roomType'" orderby="name asc"> 
-			<view class="room-info-list">
-
-			  <view class="room-info-list-item">
-				<uni-icons type="personadd-filled" size="30px" color="#000"></uni-icons>
-				<view class="la">宜住{{roomType.guestNumber||2}}人</view>
-			  </view>      
-			  
-			  <!-- <view class="room-info-list-item">
-				<image :src="`${imgsrc}bashroom.svg`" style="width: 30px;height:30px;"></image>
-				<view class="la">独立卫生间</view>
-			  </view>   -->
-			  <view class="room-info-list-item">
-				<image :src="`${imgsrc}area.svg`" style="width: 30px;height:30px;"></image>
-				<view>{{roomType.area}}m</view>
-			  </view> 
-		
-			 <block v-for="item of data"> 
-				<view class="room-info-list-item" v-if="roomType.facility.includes(item._id)">
-					<image :src="item.icon" style="width: 30px;height:30px;"></image>
-					<view class="la">{{item.name}}</view>
-				  </view>
-			 </block>
-				 
+		<view class="container"> 
+			<view class="barner">
+				<swiper class="barner-swiper"  :indicator-dots="true" :autoplay="true"  :duration="duration" :circular="true" indicator-color="#FFF">
+				<swiper-item v-for="item of roomType.imagesList">
+				   <image show-menu-by-longpress :src="item" class="barner-image" mode="aspectFill"></image>						
+				</swiper-item>
+			  </swiper>
+		  </view>
+		  <view> 
+			  <view class="room-info-label">房型信息</view>
+			  <unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name , type , icon" :getone="false" where="type=='roomType'" orderby="name asc"> 
+			  <view class="room-info-list">
+  
+				<view class="room-info-list-item">
+				  <uni-icons type="personadd-filled" size="30px" color="#000"></uni-icons>
+				  <view class="la">宜住{{roomType.guestNumber||2}}人</view>
+				</view>      
 				
-			  <!-- <view class="room-info-list-item">
-				<image :src="`${imgsrc}balcony.svg`" style="width: 30px;height:30px;"></image>
-				<view class="la">观景阳台</view>
-			  </view>  
-			  <view class="room-info-list-item">
-				<image :src="`${imgsrc}tv2.svg`" style="width: 30px;height:30px;"></image>
-				<view class="la">{{roomType.tvSize}}寸电视</view>
-			  </view>
-			  <view class="room-info-list-item" v-if="1">
-				<image :src="`${imgsrc}soundBox.svg`" style="width: 30px;height:30px;"></image>
-				<view class="la">影院音箱</view>
-			  </view>  
-			  <view class="room-info-list-item" v-if="1">
-				<image :src="`${imgsrc}bathrobe2.svg`" style="width: 30px;height:30px;"></image>
-				<view class="la">浴袍</view>
-			  </view> 
-			  <view class="room-info-list-item" v-if="1">
-				<image :src="`${imgsrc}toiletries.svg`" style="width: 30px;height:30px;"></image>
-				<view class="la">洗漱护理</view>
-			  </view> 
-			   -->
-			  <view class="room-info-list-item">
-				<image :src="`${imgsrc}bed.svg`" style="width: 30px;height:30px;"></image>
-				<view class="la">
-					<view v-for="item of roomType.bedList">{{item.name}}*{{item.count}}</view>				  	
+				<!-- <view class="room-info-list-item">
+				  <image :src="`${imgsrc}bashroom.svg`" style="width: 30px;height:30px;"></image>
+				  <view class="la">独立卫生间</view>
+				</view>   -->
+				<view class="room-info-list-item">
+				  <image :src="`${imgsrc}area.svg`" style="width: 30px;height:30px;"></image>
+				  <view>{{roomType.area}}m</view>
+				</view> 
+		  
+			   <block v-for="item of data"> 
+				  <view class="room-info-list-item" v-if="roomType.facility.includes(item._id)">
+					  <image :src="item.icon" style="width: 30px;height:30px;"></image>
+					  <view class="la">{{item.name}}</view>
+					</view>
+			   </block>
+				   
+				  
+				<!-- <view class="room-info-list-item">
+				  <image :src="`${imgsrc}balcony.svg`" style="width: 30px;height:30px;"></image>
+				  <view class="la">观景阳台</view>
+				</view>  
+				<view class="room-info-list-item">
+				  <image :src="`${imgsrc}tv2.svg`" style="width: 30px;height:30px;"></image>
+				  <view class="la">{{roomType.tvSize}}寸电视</view>
 				</view>
-			  </view>
+				<view class="room-info-list-item" v-if="1">
+				  <image :src="`${imgsrc}soundBox.svg`" style="width: 30px;height:30px;"></image>
+				  <view class="la">影院音箱</view>
+				</view>  
+				<view class="room-info-list-item" v-if="1">
+				  <image :src="`${imgsrc}bathrobe2.svg`" style="width: 30px;height:30px;"></image>
+				  <view class="la">浴袍</view>
+				</view> 
+				<view class="room-info-list-item" v-if="1">
+				  <image :src="`${imgsrc}toiletries.svg`" style="width: 30px;height:30px;"></image>
+				  <view class="la">洗漱护理</view>
+				</view> 
+				 -->
+				<view class="room-info-list-item">
+				  <image :src="`${imgsrc}bed.svg`" style="width: 30px;height:30px;"></image>
+				  <view class="la">
+					  <view v-for="item of roomType.bedList">{{item.name}}*{{item.count}}</view>				  	
+				  </view>
+				</view>
+				
+				  <view class="room-info-list-item" style="height: 0;" v-for="i in 5">
+					</view>
 			  
-				<view class="room-info-list-item" style="height: 0;" v-for="i in 5">
-				  </view>
-			
-			</view>
-		</unicloud-db>
-			<view class="room-info-label">价格信息</view>
-			<view class="p-list" v-if="roomType.remainCount>0"> 
-				<view class="p-list-item" v-if="roomType.priceBase>0">
-				  <view class="title-area"> 
-					<text>{{roomType.priceBase_name||'标准价格'}}</text>
-				  </view>
-				  <view class="pr-area"> 
-					<text class="pr-text">￥{{roomType.priceBase}}</text>
-					<text class="edit-text-btn-style" @click="reserve('priceBase')" v-if="roomType.remainCount>0">预定</text>
-					<text class="edit-text-btn-style" @click="bargain('priceBase')" v-if="roomType.remainCount>0&&roomType.isBargain">议价</text>
-				  </view>
-				  
-				</view>
-				<view class="p-list-item" v-if="roomType.priceA>0">
-				  <view class="title-area"> 
-					<text>{{roomType.priceA_name}}</text>
-				  </view>
-				  <view class="pr-area"> 
-					<text class="pr-text">￥{{roomType.priceA}}</text>
-					<text class="edit-text-btn-style" @click="reserve('priceA')" v-if="roomType.remainCount>0">预定</text>
-					<text class="edit-text-btn-style" @click="bargain('priceA')" v-if="roomType.remainCount>0&&roomType.isBargain">议价</text>
-				  </view>
-				</view>
-				<view class="p-list-item" v-if="roomType.priceB>0">
-				  <view class="title-area"> 
-					<text>{{roomType.priceB_name}}</text>
-					<text class="text-overflow-ellipsis"></text>
-				  </view>
-				  
-				  <view class="pr-area"> 
-					<text class="pr-text">￥{{roomType.priceB}}</text>
-					<text class="edit-text-btn-style" @click="reserve('priceB')" v-if="roomType.remainCount>0">预定</text>
-					<text class="edit-text-btn-style" @click="bargain('priceB')" v-if="roomType.remainCount>0&&roomType.isBargain">议价</text>
-				  </view>
-				</view>
 			  </view>
+		  </unicloud-db>
+			  <view class="room-info-label">价格信息</view>
+			  <view class="p-list" v-if="roomType.remainCount>0"> 
+				  <view class="p-list-item" v-if="roomType.priceBase>0">
+					<view class="title-area"> 
+					  <text>{{roomType.priceBase_name||'标准价格'}}</text>
+					</view>
+					<view class="pr-area"> 
+					  <text class="pr-text">￥{{roomType.priceBase}}</text>
+					  <text class="edit-text-btn-style" @click="reserve('priceBase')" v-if="hotel.onlineReserve&&roomType.remainCount>0">预定</text>
+					  <text class="edit-text-btn-style" @click="bargain('priceBase')" v-if="hotel.onlineReserve&&roomType.remainCount>0&&roomType.isBargain">议价</text>
+					</view>
+					
+				  </view>
+				  <view class="p-list-item" v-if="roomType.priceA>0">
+					<view class="title-area"> 
+					  <text>{{roomType.priceA_name}}</text>
+					</view>
+					<view class="pr-area"> 
+					  <text class="pr-text">￥{{roomType.priceA}}</text>
+					  <text class="edit-text-btn-style" @click="reserve('priceA')" v-if="hotel.onlineReserve&&roomType.remainCount>0">预定</text>
+					  <text class="edit-text-btn-style" @click="bargain('priceA')" v-if="hotel.onlineReserve&&roomType.remainCount>0&&roomType.isBargain">议价</text>
+					</view>
+				  </view>
+				  <view class="p-list-item" v-if="roomType.priceB>0">
+					<view class="title-area"> 
+					  <text>{{roomType.priceB_name}}</text>
+					  <text class="text-overflow-ellipsis"></text>
+					</view>
+					
+					<view class="pr-area"> 
+					  <text class="pr-text">￥{{roomType.priceB}}</text>
+					  <text class="edit-text-btn-style" @click="reserve('priceB')" v-if="hotel.onlineReserve&&roomType.remainCount>0">预定</text>
+					  <text class="edit-text-btn-style" @click="bargain('priceB')" v-if="hotel.onlineReserve&&roomType.remainCount>0&&roomType.isBargain">议价</text>
+					</view>
+				  </view>
+				</view>
+		  </view>
 		</view>
+	
 	
 	</scroll-view>
 </template>
@@ -156,16 +159,20 @@ import uniIcons from '@/uni_modules/uni-icons/components/uni-icons/uni-icons.vue
 <style lang="scss" scoped>
 $showWidth:1200px;
 .roomDetail{
-	width: $showWidth;
-	max-width: 100vw;
+	
 	height: 100vh;
-	margin: auto;
+	
+	.container{
+		width: $showWidth;
+	max-width: 100vw;
+		margin: auto;
+	}
 }
 .barner{
 	max-width: 100vw;
 	max-height:56.25vw ;
 	  height: $showWidth*0.0625*9;
-	max-width: 100vw;
+	max-width: 1200px;
   }
   .barner-swiper{
 	max-width: 100vw;
