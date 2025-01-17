@@ -6,7 +6,20 @@
 		</view> -->
 		<view class="add-content-style">
 			<view class="control-panal">
-			<uv-icon
+				<navigator url="/pages/roomPrice/roomPrice" hover-class="navigator-hover">
+
+					<uv-icon
+					name="plus-circle-fill"
+					color="#000"
+					size="22"
+					label="房价维护"
+					labelPos="bottom"
+					labelSize="12px"
+					
+				  ></uv-icon>
+				</navigator>
+			
+			 <uv-icon
 			   name="plus-circle-fill"
 			   color="#000"
 			   size="22"

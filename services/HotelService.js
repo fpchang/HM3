@@ -51,6 +51,13 @@ class HotelServiceClass{
    getEmployeeList(hotel_id){
     return DB.getCollectionGroupBy("hm-employee",{hotel_id},"role asc")
    }
+   /**
+    * 房价添加
+    * @param {*} data 
+    */
+   addRoomTypePrice(list){
+     return DB.add("hm-roomTypePrice",list)
+   }
 }
 //module.exports =new HotelService();
 export var HotelService=new HotelServiceClass();

@@ -225,4 +225,6 @@ $label-normal:#a1a1a1;
   .flex-page-bottom-shadow{
 	   box-shadow: 0 0 12px 0px #e8e8e8;;
   }
-
+page{
+	-webkit-user-select: text;
+}
