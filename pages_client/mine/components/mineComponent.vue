@@ -113,7 +113,7 @@
 				placeholder="请输入名称" @close="closeNameUpdate" @confirm="submitNameUpdate"></uni-popup-dialog>
 		
 			</uni-popup>
-		<uni-pay ref="pay"></uni-pay>
+		<!-- <uni-pay ref="pay"></uni-pay> -->
 		<uni-popup ref="popupRecharge" background-color="#fff" type="bottom">
 			<view class="popup-content">
 				<view class="create-order-title-style">充值中心</view>

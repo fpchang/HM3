@@ -36,7 +36,7 @@
 		onLaunch: async function(ob) {
 			console.log("参数信息",ob)
 			console.log('App Launch XXXXXXXXXX',uni.getSystemInfoSync());	
-				#// #ifdef APP-PLUS
+				// #ifdef APP-PLUS
 					plus.navigator.closeSplashscreen();//关闭启动图
 				// #endif
 			this.getEnv();
