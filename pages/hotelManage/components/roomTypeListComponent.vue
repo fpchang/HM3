@@ -6,7 +6,7 @@
 		</view> -->
 		<view class="add-content-style">
 			<view class="control-panal">
-				<navigator url="/pages/roomPrice/roomPrice" hover-class="navigator-hover">
+				<!-- <navigator url="/pages/roomPrice/roomPrice" hover-class="navigator-hover">
 
 					<uv-icon
 					name="plus-circle-fill"
@@ -17,7 +17,7 @@
 					labelSize="12px"
 					
 				  ></uv-icon>
-				</navigator>
+				</navigator> -->
 			
 			 <uv-icon
 			   name="plus-circle-fill"
