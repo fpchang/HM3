@@ -139,7 +139,7 @@
 					console.log("isloading....");
 					return;
 				}
-				uni.showLoading();
+				//uni.showLoading();
 				
 				try {
 					let conditionForm= {
@@ -151,10 +151,10 @@
 			}
 					const res = await this.$store.dispatch("hotelClientStore/getHotelList",conditionForm);
 					console.log("hotelList",res);
-					uni.hideLoading();
+					//uni.hideLoading();
 				} catch (error) {
 					console.log(error);
-					uni.hideLoading();
+					//uni.hideLoading();
 				}
 			},
 			openHotel(hotel){

@@ -29,7 +29,7 @@ import addMenuDetailComponent from '../components/addMenuDetailComponent.vue'
     console.log("参数传递", obj);
     try {
       this.type = obj.type;
-      this.targetObj = JSON.parse(obj.targetObj);
+      this.targetObj = JSON.parse(decodeURIComponent(obj.targetObj));
 	  console.log("解析",this.targetObj)
       uni.setNavigationBarTitle({
         title: obj.type == "1" ? "修改菜单" : "新增菜单",
