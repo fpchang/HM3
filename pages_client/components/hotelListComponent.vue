@@ -12,7 +12,7 @@
 						<!-- #ifdef MP -->
 						<view v-for="(item,index) of hotelList" slot="card{{index}}">
 							 <view style="display:flex;" class="zcard" @click="openHotel(item)">
-								<view style="width:160px;min-height:120px">
+								<view style="width:160px;height:120px">
 									<image style="width:100%;height:100%" mode="aspectFill" :src="item.firstImages" />
 								</view>
 								<view style="padding:10px" class="zcard-right">
@@ -34,7 +34,7 @@
 						<!-- #ifdef H5 || APP-PLUS -->
 						<template v-for="(item,index) of hotelList" v-slot:[`card${index}`]>
 							<view style="display:flex;" class="zcard" @click="openHotel(item)">
-								<view style="width:160px;min-height:120px">
+								<view style="width:160px;height:120px">
 									<image style="width:100%;height:100%" mode="aspectFill" :src="item.firstImages" />
 								</view>
 								<view style="padding:10px" class="zcard-right">

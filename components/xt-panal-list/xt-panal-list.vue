@@ -123,10 +123,7 @@
 				box-shadow: 2px 4px 12px #00000014;
 				overflow: hidden;
 
-				&:hover {
-					box-shadow: 2px 4px 12px #0000006e;
-
-				}
+				
 			}
 		}
 	}
