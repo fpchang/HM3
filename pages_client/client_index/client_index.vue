@@ -288,7 +288,7 @@ export default {
             console.log("ooooooooo", obj);
             // this.filterVal = obj.filterVal;
             // (this.address = obj.address), (this.location = obj.location);
-            this.getHotelList();
+           // this.getHotelList();
           },
         },
       });
