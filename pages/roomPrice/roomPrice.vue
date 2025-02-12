@@ -1,6 +1,10 @@
 <template>
 	<view class="roomPrice">
-		<uni-forms ref="priceForm" :modelValue="priceForm" label-width="60px">
+		<uni-forms ref="priceForm" :modelValue="priceForm" label-width="80px">
+			<uni-forms-item label="价格预览"></uni-forms-item>
+			<!-- <view>							 
+			<uni-calendar class="uni-calendar--hook" :selected="calendarConfig.selected" :showMonth="true" @change="change" @monthSwitch="monthSwitch" />						
+			</view> -->
 			<uni-forms-item label="日期">
 				<view class="daterange">
 					<uni-datetime-picker v-model="daterange" type="daterange" return-type="timestamp"
@@ -24,11 +28,14 @@
 						:where="`hotel_id=='${hotel_id}'`" orderby="name asc" @load="getRoomType">
 						<view v-for="item of roomTypeList">
 							<checkbox-group @change="checkboxChange(item)">
-								<view class="" style="display: flex">
+								<view class="itm">
+									<view  style="display: flex;align-items:center">
 									<view>
 										<checkbox :value="item._id" emptyText="" :checked="item.checked" />
 									</view>
 									<text>{{ item.name }}</text>
+								</view>
+									<text class="edit-text-btn-style" style="font-size:13px" @click="showPrice(item)">价格预览</text>
 								</view>
 								<view class="pr-area">
 									<view class="pr-area-item" style="display: flex">
@@ -62,6 +69,8 @@
 					:loading="submitLoading" ></uv-button>
 			</uni-forms-item>
 		</uni-forms>
+		<uni-calendar ref="calendar" class="uni-calendar--hook" :clear-date="true" :date="calendarConfig.date" :insert="calendarConfig.insert" :lunar="calendarConfig.lunar" :startDate="calendarConfig.startDate"
+		 :endDate="calendarConfig.endDate" :range="calendarConfig.range" @confirm="confirm" @close="close"/>
 	</view>
 </template>
 
@@ -125,6 +134,13 @@ import { HotelService } from '../../services/HotelService';
 				return noSelectDate
 			})
 			const submitLoading = ref(false);
+			let calendarConfig= ref({
+					lunar: true,
+					range: true,
+					insert: false,
+					selected: [{date: '2025-02-12', info: '422' }]
+				})
+			let priceForm=ref({})
 			return {
 				hotel_id,
 				daterange,
@@ -132,13 +148,18 @@ import { HotelService } from '../../services/HotelService';
 				submitDisabled,
 				noSelectDate,
 				formatRoomTypeList,
-				submitLoading
+				submitLoading,
+				priceForm,
+				calendarConfig
 			};
 		},
 		data() {
 			return {};
 		},
 		methods: {
+			showPrice(item){
+				console.log("1111",item);
+			},
 			foramtDateLabel(dateTime) {
 				let dyStr = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 				return {
@@ -226,7 +247,9 @@ import { HotelService } from '../../services/HotelService';
 		}
 
 	}
-
+	.itm{
+		display: flex;justify-content:space-between;padding-bottom:15px
+	}
 	.pr-area {
 		display: flex;
 		flex-direction: column;
@@ -240,6 +263,7 @@ import { HotelService } from '../../services/HotelService';
 
 			.digit-style {
 				width: 100px;
+			
 			}
 		}
 	}
