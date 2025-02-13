@@ -158,7 +158,7 @@ import { HotelService } from '../../services/HotelService';
 		},
 		methods: {
 			showPrice(item){
-				console.log("1111",item);
+				
 			},
 			foramtDateLabel(dateTime) {
 				let dyStr = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];

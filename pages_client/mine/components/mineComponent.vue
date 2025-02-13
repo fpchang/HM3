@@ -1,7 +1,16 @@
 <template>
 	<view class="mine">
 		<view class="card-list">
-			<view class="card" style="padding: 15px">
+			<view class="card">
+				<view style="display:flex;justify-content:right;padding:10px">
+					<navigator url="/pages/set/set" hover-class="navigator-hover">
+						<uni-icons type="gear-filled" size="30"></uni-icons>
+					</navigator>
+					
+				</view>
+				
+			</view>
+			<view class="card">
 				<view style="display:flex;">
 					<view class="flex-center">
 						<uni-icons  fontFamily="iconfont" size="60">	
@@ -128,8 +137,12 @@
 <script>
 
 	import  {AccountService} from "@/services/AccountService";
+import UniIcons from '../../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue';
+import UniNavBar from '../../../uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.vue';
 	export default {
 		components: {
+UniIcons,
+UniNavBar
 
 		},
 		setup(){
@@ -284,7 +297,7 @@
 			box-sizing: border-box;
 			background: #fff;
 			padding: 0 15px;
-			box-shadow: 0 0 6px 0px #e4e0e0;
+			/*box-shadow: 0 0 6px 0px #e4e0e0;*/
 			border-radius: 8px;
 			margin-bottom: 15px;
 			display: flex;

@@ -120,7 +120,7 @@
 				background: #fff;
 				/* box-shadow: 0 0 4px 4px #e4e0e0;*/
 				border-radius: 10px;
-				box-shadow: 2px 4px 12px #00000014;
+				box-shadow: 0px 0px 9px #00000014;
 				overflow: hidden;
 
 				

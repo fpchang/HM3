@@ -198,6 +198,13 @@
 					"style": {
 						"navigationBarTitleText": "房价维护"
 					}
+				},
+				{
+					"path" : "pages/set/set",
+					"style" : 
+					{
+						"navigationBarTitleText" : "设置"
+					}
 				}
 		
 
