@@ -22,11 +22,17 @@ class HotelServiceClass{
       return   DB.callFunction("hm_deleteHotel",{hotel_id});
     }
     /** 
-     * 获取当前用户酒店列表
+     * 获取当前用户关联酒店列表(包括老板与用户)
     */
       getHotelList(){
             return DB.callFunction("hm_getHotelList");
          
+    }
+/**
+ *所属于 当前用户酒店
+ */
+    getHotelListOfUser(phone){
+      return DB.getCollection("hm-hotel",{belong:phone})
     }
     /**
      * 根据id获取酒店信息

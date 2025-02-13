@@ -15,6 +15,15 @@ class AccountServiceClass{
   login(userForm){    
     return DB.callFunction("hm_login", { userForm})
   }
+  /**
+   * 注销账号
+   */
+  closeAccount(){
+    return DB.callFunction("hm_closeAccount") ;
+  }
+  recoverAccount(_id){
+    return DB.update("hm-user",_id,{accountStatus:1})
+  }
   getuserByToken(){
     return DB.getCollection("hm-user",{hm_token:uni.getStorageSync("hm_token")});
   }

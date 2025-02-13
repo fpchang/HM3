@@ -77,7 +77,7 @@
 			"defaultValue":1
 		},
 		"closeAccountDateTime":{
-			"description": "注销执行日期，注销后7天开始注销",
+			"description": "注销日期，注销后7天开始注销",
 			"bsonType": "timestamp"
 		},
 		"blongEmployment": {

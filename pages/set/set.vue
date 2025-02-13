@@ -4,7 +4,7 @@
 			<template v-slot:["card0"]>
 				<uni-list>
 					<uni-list-item title="意见反馈" clickable  @click="onClick" ></uni-list-item>
-					<uni-list-item title="账号安全" link to="/pages/vue/index/index" @click="onClick($event,1)" ></uni-list-item>
+					<uni-list-item title="账号安全" link to="/pages/set/accountSafe/accountSafe" @click="onClick($event,1)" ></uni-list-item>
 					<uni-list-item title="清除缓存" link to="/pages/vue/index/index" @click="onClick($event,1)" ></uni-list-item>
 					<uni-list-item title="关于议宿" link to="/pages/vue/index/index" @click="onClick($event,1)" ></uni-list-item>
 					
@@ -41,6 +41,10 @@
 <script>
 	export default {
   components: {},
+  setup(){
+	
+
+  },
 		data() {
 			return {
 				
