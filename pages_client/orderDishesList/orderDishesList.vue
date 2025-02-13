@@ -56,7 +56,7 @@
                     <uni-icons type="plus-filled" size="13px"></uni-icons
                     ><text>加菜</text>
                   </view> -->
-                  <view class="actions-item">
+                  <view class="actions-item"  v-if="item.mealDateTimestamp>Date.now()">
                     <uni-icons type="trash-filled" size="13px"></uni-icons
                     ><text @click="cancelOrder(item)">撤销</text>
                   </view>
@@ -107,13 +107,13 @@
               </view>
               <view class="actions">
                 <view class="action-list">
-                  <view class="actions-item">
+                  <!-- <view class="actions-item">
                     <uni-icons type="plus-filled" size="13px"></uni-icons
                     ><text>加菜</text>
-                  </view>
-                  <view class="actions-item">
+                  </view> -->
+                  <view class="actions-item" v-if="item.mealDateTimestamp>Date.now()">
                     <uni-icons type="trash-filled" size="13px"></uni-icons
-                    ><text>撤销</text>
+                    ><text @click="cancelOrder(item)">撤销</text>
                   </view>
                 </view>
               </view>
@@ -173,7 +173,8 @@ export default {
       }
       const res = await MenuService.getOrderDishesListByCondition({
         hotel_id: this.hotel_id,
-        phone: this.user.phone,
+        phone: this.user.phone
+        
       });
       console.log("请求orderdishes", res);
       this.orderList = res.result.data;

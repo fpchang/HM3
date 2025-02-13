@@ -1,7 +1,7 @@
 <template>
 	<view class="orderDishes content">
 		<view class="flex-center top-area">
-			<view style="background: #fff; padding: 5px; width: 140px">
+			<view style="background: #fff; padding: 5px; width: 180px">
 				<uni-datetime-picker v-model="orderDishesForm.mealDate" type="date" @change="dateConfim">
 					<view class="flex-center">
 						<uni-icons type="calendar" size="24" color="#60626680"></uni-icons><text :style="{
@@ -48,7 +48,7 @@
                     </view>
                   </view>
                 </view>
-                <view style="height:1px;background:#94949429"></view>
+                <view style="height:1px;background:#eee"></view>
               </block>
 							
 						</view>
@@ -399,7 +399,7 @@
 		.top-area {
 			height: 44px;
 			display: flex;
-			justify-content: space-around;
+			justify-content: space-between;
 			background-color: #f3f4f6;
 		}
 	}
