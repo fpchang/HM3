@@ -27,6 +27,7 @@ class HotelServiceClientClass{
       }
         
         ),{
+          "dataStatus":dbCmd.neq(10),
         "hotelCoordinate": dbCmd.geoNear({
           geometry: new db.Geo.Point(location[0], location[1]),
           distanceField:"distance",

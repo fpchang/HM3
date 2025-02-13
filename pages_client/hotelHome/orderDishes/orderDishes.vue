@@ -26,7 +26,7 @@
                 <view  class="menuDetail-item">
                   <view class="l">
                     <image
-                      src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/nofoodImage.png"
+                      :src="i.imgsrc||'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/nofoodImage.png'"
                       style="width: 100px; height: 100px"></image>
                   </view>
                   <view class="r">

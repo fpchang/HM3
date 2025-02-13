@@ -196,7 +196,14 @@
 		},	{
 					"path": "pages/roomPrice/roomPrice",
 					"style": {
-						"navigationBarTitleText": ""
+						"navigationBarTitleText": "房价维护"
+					}
+				},
+				{
+					"path" : "pages/set/set",
+					"style" : 
+					{
+						"navigationBarTitleText" : "设置"
 					}
 				}
 		

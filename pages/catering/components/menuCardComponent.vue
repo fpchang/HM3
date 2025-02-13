@@ -176,7 +176,7 @@ created(){
       uni.navigateTo({
         url: `/pages/catering/addMenuDetail/addMenuDetail?type=${
           this.type
-        }&&targetObj=${JSON.stringify(this.menuItem)}`,
+        }&&targetObj=${encodeURIComponent(JSON.stringify(this.targetObj))}`,
       });
     },
     editMenuDetail(item) {
@@ -193,7 +193,7 @@ created(){
       uni.navigateTo({
         url: `/pages/catering/addMenuDetail/addMenuDetail?type=${
           this.type
-        }&&targetObj=${JSON.stringify(item)}`,
+        }&&targetObj=${encodeURIComponent(JSON.stringify(this.targetObj))}`,
       });
     },
     async deleteMenuDetail(item) {

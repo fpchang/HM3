@@ -9,6 +9,10 @@
       <uni-forms-item label="价格" name="price">
         <uni-easyinput type="digit" v-model="menuDetailForm.price" placeholder="价格" />
       </uni-forms-item>
+      <uni-forms-item label="菜品图案" style="margin-bottom:0"></uni-forms-item>
+				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccess"
+					:imagesList="[menuDetailForm.imgsrc]" max="1"
+					:disabled="type==2"></xt-file-picker>
       <uni-forms-item label="正常供应" name="isOffer">
         <!-- <checkbox @change="isOfferChange()" :checked="menuDetailForm.isOffer" />正常供应 -->
          <view style="display:flex;align-items:center;height:100%"> 
@@ -44,15 +48,18 @@ export default{
     return {
       submitLoading: false,
       menuList:[],
+      cloudPath: `/${this.$store.state.hotel_id}/catering/`,
       menuDetailForm:this.type==1?{
        // "menuType_id":this.targetObj.menuType_id,
         "name": this.targetObj.name,
         "price": this.targetObj.price,
+        imgsrc:this.targetObj.imgsrc,
         "isOffer":this.targetObj.isOffer,
         "mark":this.targetObj.mark
       }:{
         "name": "",
         "price": "",
+        imgsrc:"",
         "isOffer":true,
         "mark":""
       },
@@ -99,12 +106,13 @@ export default{
 			},
       menuDetailFormParse(){
         try {
-          let {name,price,isOffer,mark}= this.menuDetailForm;
+          let {name,price,isOffer,imgsrc,mark}= this.menuDetailForm;
        return {
         menuType_id:this.targetObj._id._value,
         name:name,
         isOffer:isOffer,
         price:Number(price),
+        imgsrc:imgsrc,
         mark:mark
        }
         } catch (error) {
@@ -133,6 +141,9 @@ deactivated() {},
 // 组件周期函数--监听组件销毁之前
 beforeDestroy() {},
   methods: {
+    uploadSuccess(list) {
+				this.menuDetailForm.imgsrc = list[0];
+			},
     isOfferChange(e){
       console.log(e)
       let {value} = e.detail;

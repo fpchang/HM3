@@ -173,7 +173,7 @@ export default {
       uni.navigateTo({
         url: `/pages/catering/addMenuDetail/addMenuDetail?type=${
           this.type
-        }&&targetObj=${JSON.stringify(this.orderDishesItem)}`,
+        }&&targetObj=${encodeURIComponent(JSON.stringify(this.targetObj))}`,
       });
     },
     editMenuDetail(item) {
@@ -186,7 +186,7 @@ export default {
       uni.navigateTo({
         url: `/pages/catering/addMenuDetail/addMenuDetail?type=${
           this.type
-        }&&targetObj=${JSON.stringify(item)}`,
+        }&&targetObj=${encodeURIComponent(JSON.stringify(this.targetObj))}`,
       });
     },
     async deleteMenuDetail(item) {
