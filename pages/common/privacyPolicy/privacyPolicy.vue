@@ -2,8 +2,7 @@
 	<view class="container">
 		<view class="title"><text>议宿隐私保护政策</text></view>
 		<view><text>版本发布日期：2024年11月15日</text></view>
-		<view><text>生效日期：2024年11月15日</text></view>
-
+		<view><text>生效日期：2024年11月15日</text></view>		
 		<view><text>本隐私政策旨在说明我们（议宿）如何收集、使用、存储及保护您的个人信息。我们承诺将严格遵守相关法律法规，确保您的个人信息安全</text></view>
 		<view v-for="item of pList">
 			<view class="p-title"><text>{{item.title}}</text></view>
@@ -59,6 +58,7 @@
 					,{
 						title:"联系方式",content:[
 						"如果您对本隐私政策有任何疑问或建议，请通过以下方式联系我们：",
+						"开发者名称：湖州玄天科技有限公司",
 						"邮箱：xtst2023@outlook.com",
 						"电话：18516285834",
 						"我们承诺将尽快回复您的咨询和投诉。"

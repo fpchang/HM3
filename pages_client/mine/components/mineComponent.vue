@@ -1,16 +1,17 @@
 <template>
 	<view class="mine">
-		<view class="card-list">
-			<view class="card">
-				<view style="display:flex;justify-content:right;padding:10px">
-					<navigator url="/pages/set/set" hover-class="navigator-hover">
-						<uni-icons type="gear-filled" size="30"></uni-icons>
-					</navigator>
-					
-				</view>
+		<view>
+			<view style="display:flex;justify-content:flex-end;padding:10px">
+				<navigator url="/pages/set/set" hover-class="navigator-hover">
+					<uni-icons type="gear-filled" size="30"></uni-icons>
+				</navigator>
 				
 			</view>
-			<view class="card">
+			
+		</view>
+		<view class="card-list">
+		
+			<view class="card"  style="padding: 15px">
 				<view style="display:flex;">
 					<view class="flex-center">
 						<uni-icons  fontFamily="iconfont" size="60">	
@@ -292,12 +293,12 @@ UniNavBar
 		display: flex;
 		flex-direction: column;
 		box-sizing: border-box;
-
+		padding: 15px;
 		.card {
 			box-sizing: border-box;
 			background: #fff;
 			padding: 0 15px;
-			/*box-shadow: 0 0 6px 0px #e4e0e0;*/
+			box-shadow: 0 0 6px 0px #e4e0e0;
 			border-radius: 8px;
 			margin-bottom: 15px;
 			display: flex;

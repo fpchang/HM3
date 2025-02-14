@@ -1,14 +1,7 @@
 <template>
   <view>
-    <block v-if="noData">
-      <noData
-        text_content="您还没有酒店"
-        :showControl="true"
-        text_control_add="创建一个"
-        @Event_one="addNewHotel"
-      ></noData>
-    </block>
-    <block v-if="!noData">
+   
+    
       <view class="top-container">
         <view class="scroll-content">
           <!-- <view :style="{height:navTopHeight}"></view> -->
@@ -75,6 +68,15 @@
           </view>
         </view>
       </view>
+      <block v-if="noData">
+        <noData
+          text_content="您还没有酒店"
+          :showControl="true"
+          text_control_add="创建一个"
+          @Event_one="addNewHotel"
+        ></noData>
+      </block>
+      <block v-if="!noData">
       <swiper
         :style="{ height: scrollHeight }"
         :current="currentTab_index"

@@ -1,22 +1,31 @@
 <template>
 	<view>
 		<view>
-			<xt-panal-list :count="1"> 
+			<xt-panal-list :count="1">
 				<template v-slot:["card0"]>
 					<uni-list>
-						<uni-list-item  v-if="accountIsValid" title="账号注销" note="注销后无法恢复" link  @click="closeAccount" ></uni-list-item>
-						<uni-list-item  clickable  @click="onClick" v-if="!accountIsValid">
+						<uni-list-item title="会员名" :rightText="user.userName||'--'"></uni-list-item>
+						<uni-list-item title="手机号" :rightText="geTel('13122998844')"></uni-list-item>
+						<uni-list-item v-if="accountIsValid" title="账号注销" note="注销后无法恢复" link
+							@click="closeAccount"></uni-list-item>
+						<uni-list-item clickable @click="onClick" v-if="!accountIsValid">
 							<template v-slot:body>
-								<view style="text-align:center;flex:1;color:#3b4144" @click="recoverAccount"> 
-									<text class="slot-box slot-text" >恢复账号</text>
+								<view style="text-align:center;flex:1;color:#3b4144" @click="recoverAccount">
+									<view style="display:flex;flex-direction:column;justify-content:space-around">
+										<text class="slot-box slot-text">恢复账号</text>
+										<text class="slot-box slot-text" style="font-size: 12px;">将在 {{new
+											Date(user.closeAccountDateTime+1000*60*60*24*7).Format("yyyy-MM-dd")}}
+											注销</text>
+
+									</view>
 								</view>
-								
+
 							</template>
 						</uni-list-item>
 					</uni-list>
 				</template>
-				</xt-panal-list>
-				</view>
+			</xt-panal-list>
+		</view>
 	</view>
 </template>
 
@@ -42,6 +51,12 @@ import {useStore} from "vuex";
 			}
 		},
 		methods: {
+		 geTel(tel) {
+			tel=""+tel;
+			var reg=/(\d{3})\d{4}(\d{4})/;
+			var result = tel.replace(reg, "$1****$2")
+			return result;
+		},
 			async recoverAccount(){
 				const conf = await uni.showModal({
 					title: '确认恢复',
@@ -93,6 +108,4 @@ import {useStore} from "vuex";
 	}
 </script>
 
-<style>
-	
-</style>
+<style></style>

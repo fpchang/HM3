@@ -212,6 +212,13 @@
 					{
 						"navigationBarTitleText" : ""
 					}
+				},
+				{
+					"path" : "pages/set/aboutYisu/aboutYisu",
+					"style" : 
+					{
+						"navigationBarTitleText" : ""
+					}
 				}
 		
 

@@ -1,6 +1,16 @@
 <template>
 	<view class="mine">
+		<view>
+			<view style="display:flex;justify-content:flex-end;padding:10px">
+				<navigator url="/pages/set/set" hover-class="navigator-hover">
+					<uni-icons type="gear-filled" size="30"></uni-icons>
+				</navigator>
+				
+			</view>
+			
+		</view>
 		<view class="card-list">
+		
 			<view class="card" style="padding: 15px">
 				<view style="display:flex;">
 					<view class="flex-center">
@@ -58,7 +68,7 @@
 			</view>
 		</view>
 		<view class="flex-center"> 
-			<text style="padding:10px;color:#ececec">浙ICP备2024130639号</text>
+			
 		</view>
 		
 		<uni-popup ref="nameDialog" type="dialog">
@@ -103,12 +113,12 @@
 						title: "意见反馈",
 						showArrow: true
 					},
-					{
-						key: "loginOut",
-						unicode: "\ue625",
-						title: "退出登录",
-						showArrow: true
-					}
+					// {
+					// 	key: "loginOut",
+					// 	unicode: "\ue625",
+					// 	title: "退出登录",
+					// 	showArrow: true
+					// }
 				]
 			}
 		},
