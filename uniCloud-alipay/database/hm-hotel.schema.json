@@ -39,11 +39,13 @@
 		},
 		"serviceTel":{
 			"description": "客服电话",
-			"bsonType": "string"
+			"bsonType": "string",
+			"defaultValue":""
 		},
 		"wechat":{
 			"description": "客服电话",
-			"bsonType": "string"
+			"bsonType": "string",
+			"defaultValue":""
 		},
 		"hotelCoordinate": {
 			"description": "酒店坐标",
@@ -103,7 +105,7 @@
 			"defaultValue":false
 		},		
 		"dataStatus":{
-			"description": "数据状态",
+			"description": "数据状态 0待上线，1上线 10删除",
 			"bsonType": "int",
 			"defaultValue":0,
 			"enum":[0,1,2,3,4,5,6,7,8,9,10]

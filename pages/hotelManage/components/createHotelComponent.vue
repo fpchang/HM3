@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-forms ref="hotelFormRef" :modelValue="hotelForm" :rules="hotelFormRules">
+		<uni-forms ref="hotelFormRef" label-width="80px" :modelValue="hotelForm" :rules="hotelFormRules">
 
 			<uni-forms-item label="酒店名" required name="hotelName">
 				<uni-easyinput v-model="hotelForm.hotelName" placeholder="请输入酒店名称" :disabled="type==2" />
@@ -118,11 +118,11 @@
 					</unicloud-db>
 				</checkbox-group>
 			</uni-forms-item>
-			<uni-forms-item label="客服电话">
+			<uni-forms-item label="客服电话" name="serviceTel">
 				<uni-easyinput v-model="hotelForm.serviceTel" placeholder="请输入客服电话" :disabled="type==2" />
 			</uni-forms-item>
-			<uni-forms-item label="客服WX">
-				<uni-easyinput v-model="hotelForm.wechat" placeholder="请输入WX" :disabled="type==2" />
+			<uni-forms-item label="客服微信" required name="wechat">
+				<uni-easyinput v-model="hotelForm.wechat" placeholder="请输入客服微信" :disabled="type==2" />
 			</uni-forms-item>
 			<uni-forms-item label="备注">
 				<uni-easyinput type="textarea" v-model="hotelForm.hotelIntroduction" placeholder="备注内容"
@@ -143,6 +143,7 @@
 				<uv-button v-if="type!=2" type="success" text="保存" color="#007aff" @click="submitForm()"
 					:disabled="submitDisabled" :loading="submitLoading"></uv-button>
 			</uni-forms-item>
+			
 		</uni-forms>
 		<uni-popup ref="featureDialog" type="dialog">
 			<uni-popup-dialog v-if="showPopup" ref="inputClose" before-close mode="input" title="添加特色" v-model="tabval"
@@ -226,6 +227,12 @@
 								}
 							}
 						],
+					},
+					wechat:{
+						rules: [{
+								required: true,
+								errorMessage: '请输入联系方式',
+							}]
 					},
 					hotelAddress: {
 						rules: [{

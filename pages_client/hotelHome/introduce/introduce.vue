@@ -15,6 +15,8 @@
             @click="collectEvent"
                 ></uv-icon>
           </view>
+          <!-- #ifdef MP -->
+           
 					<view class="icon-item">
 
             <button class="clearBtn" :plain="true" open-type="share">
@@ -30,6 +32,7 @@
 				</button> 
 		
               </view>
+              <!-- #endif -->
 				</view>
 			</view>
     <view class="barner">

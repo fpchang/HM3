@@ -10,8 +10,8 @@
          <uni-icons type="location-filled" size="20px" color="green"></uni-icons>
          <view class="la">{{hotel.hotelAddressArea}}{{hotel.hotelAddress}}</view>
       </view>
-      <uni-icons style="margin-left: 30rpx;" type="weixin" size="30px" color="green" @click="toConcat"></uni-icons>
-      <uni-icons style="margin-left: 30rpx;"  type="phone-filled" size="30px" color="green" @click="makePhone"></uni-icons>
+      <uni-icons v-if="hotel.wechat" style="margin-left: 30rpx;" type="weixin" size="30px" color="green" @click="toConcat"></uni-icons>
+      <uni-icons v-if="hotel.serviceTel" style="margin-left: 30rpx;"  type="phone-filled" size="30px" color="green" @click="makePhone"></uni-icons>
     </view>
   </view>
   
