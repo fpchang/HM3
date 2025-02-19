@@ -291,8 +291,10 @@ export default {
     };
   },
   onLoad(e) {
+	  //#ifndef APP
     console.log("home onload");
     uni.hideHomeButton();
+	//#endif
   },
   async created() {
     console.log("index create....>>>", uni.getSystemInfoSync());
@@ -305,8 +307,12 @@ export default {
       }
       this.$refs[popup].close();
     });
-    await this.$store.dispatch("loginEvent");
-    this.initData();
+    await this.$store.dispatch("loginEvent",()=>{
+		this.initData();
+	},()=>{
+		this.initData()
+	});
+    
   },
   onShow() {
     console.log("index onshow");

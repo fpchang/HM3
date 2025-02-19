@@ -108,8 +108,11 @@ export default {
   
   },
   onLoad() {
+	  // #ifndef APP
 	  console.log("login onload>>>>");
-    uni.hideHomeButton();
+	  uni.hideHomeButton();
+	  //#endif
+	
   },
   onShow(){
     console.log("login onShow>>>>");
