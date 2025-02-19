@@ -7,7 +7,7 @@
           <!-- <view :style="{height:navTopHeight}"></view> -->
           <view :class="['top-area', isSticky ? 'sticky-style' : '']">
             <view class="title-area" :style="{ opacity: opacityVal }">
-              <view class="check-area" @click="showCheckHotel">
+              <view class="check-area" @click="showCheckHotel" v-if="hotel">
                 <text class="$uni-font-size-lg h-n-style">{{
                   hotel.hotelName
                 }}</text>
@@ -291,8 +291,7 @@ export default {
     };
   },
   onLoad(e) {
-	  //#ifndef APP
-    console.log("home onload");
+	  //#ifdef MP
     uni.hideHomeButton();
 	//#endif
   },
@@ -307,11 +306,8 @@ export default {
       }
       this.$refs[popup].close();
     });
-    await this.$store.dispatch("loginEvent",()=>{
-		this.initData();
-	},()=>{
-		this.initData()
-	});
+    await this.$store.dispatch("loginEvent");
+    this.initData();
     
   },
   onShow() {
@@ -410,7 +406,7 @@ export default {
       try {
         return this.hotelList.find((item) => item._id == this.hotel_id);
       } catch (error) {
-        return {};
+        return null;
       }
     },
     permissionList() {
@@ -494,7 +490,7 @@ export default {
       } catch (error) {}
     },
     async initData() {
-      console.log("init Data for home page");
+      console.error("init Data for home page");
       try {
         //this.$store.commit("setUser", uni.getStorageSync("user"));
         await this.$store.dispatch("getHotelList");

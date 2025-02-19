@@ -108,10 +108,9 @@ export default {
   
   },
   onLoad() {
-	  // #ifndef APP
-	  console.log("login onload>>>>");
-	  uni.hideHomeButton();
-	  //#endif
+	  //#ifdef MP
+    uni.hideHomeButton();
+	//#endif
 	
   },
   onShow(){
@@ -241,24 +240,24 @@ export default {
       uni.setStorageSync("user", userRes.result.data[0]);
       this.$store.commit("setUser", userRes.result.data[0]);
       this.submitLoading=false;
-      let userRole =uni.getStorageSync("userRole");
+     
       const eventChannel = this.getOpenerEventChannel();
       eventChannel.emit('loginSuccess');
-      
-      // if(getCurrentPages().length>1){
-        
-			// 			uni.navigateBack({
-      //         success(){
-                
-      //         }
-      //       });
-			// 			return;
-			// 		}
-         
-      // uni.reLaunch({
-      //   url: userRole=="hotel"?"/pages/home/home":"/pages_client/client_index/client_index",
-      // });
+      this.routerPage();
+    
     },
+    routerPage(){
+      let userRole =uni.getStorageSync("userRole");
+      if(getCurrentPages().length>1){
+        
+						uni.navigateBack();
+						return;
+					}
+         
+      uni.reLaunch({
+        url: userRole=="hotel"?"/pages/home/home":"/pages_client/client_index/client_index",
+      });
+    }
   }
 };
 </script>

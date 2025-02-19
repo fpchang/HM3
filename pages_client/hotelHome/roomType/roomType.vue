@@ -219,8 +219,7 @@ export default {
       
       }
       if(!this.user){
-         await this.$store.dispatch("loginEvent",()=>{
-          console.log("登录流程完成")
+         await this.$store.dispatch("loginEvent")
           uni.redirectTo({
           url:`/pages_client/order/createOrder/createOrder?st=${this.dateRange[0]}&&et=${this.dateRange[1]}&&orderType=normal&&priceField=${priceField}&&roomType=${encodeURIComponent(JSON.stringify(item))}`,
           events:{
@@ -229,8 +228,7 @@ export default {
              
             }
           }
-        })  
-        })
+        }) 
         return;
       }
       uni.navigateTo({

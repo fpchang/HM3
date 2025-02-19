@@ -262,11 +262,10 @@
 			},
 			async openOrderDishesList() {
 				if (!this.user) {
-					await this.$store.dispatch("loginEvent", () => {
-						uni.redirectTo({
+					await this.$store.dispatch("loginEvent");
+					uni.redirectTo({
 							url: `/pages_client/orderDishesList/orderDishesList?hotel_id=${this.hotel_id}`,
 						});
-					});
 					return;
 				}
 				uni.navigateTo({
@@ -375,10 +374,8 @@
 					}
 				};
 				if (!this.user) {
-					await this.$store.dispatch("loginEvent", () => {
-						uni.navigateBack();
-						f && f();
-					});
+					await this.$store.dispatch("loginEvent");
+					f && f();
 					return;
 				}
 

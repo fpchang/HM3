@@ -159,15 +159,16 @@ const store = createStore({
         }
       } catch (error) {}
     },
-    loginEvent(context, loginSuccess,fun) {
+    loginEvent(context, loginSuccess) {
+      console.error("111111",arguments)
       return new Promise(async (resolve, reject) => {
         if (!uni.getStorageSync("hm_token")) {
           //未登录
-          console.log("未登录");
+          console.log("未登录11111111");
           context.dispatch("clearCache");
-          context.dispatch("navPageLogin",loginSuccess);
-          reject("未登录");
-          return;
+          await context.dispatch("navPageLogin",loginSuccess);
+          reject("未登录222222222");
+          return; 
         };
         const res = await AccountService.validToken();
         if (res.result.code) {
@@ -183,7 +184,6 @@ const store = createStore({
           return;
         }
         console.log("token验证通过");
-        fun&&fun();
         resolve();
         
       });
@@ -204,29 +204,39 @@ const store = createStore({
       return Promise.resolve;
     },
     navPageLogin(context, loginSuccess) {
+     return new Promise((resolve,reject)=>{
+      let userRole = uni.getStorageSync("userRole");
+      console.log("userRole",userRole)
+      let events ={
+        loginSuccess() {
+          console.log("执行loginsuccess");
+          if (loginSuccess) {
+            loginSuccess();
+            resolve();
+            return;
+          }
+          resolve();
+        },
+      };
+      if(userRole=='hotel'){
+        console.log("后端登录")
+        uni.redirectTo({        
+          url: "/pages/login/login",
+          events: {
+            loginSuccess(){
+              uni.reLaunch({url:"/pages/home/home"})
+            }
+          }
+        });
+        return;
+      }
+      console.log("客户端登录")
       uni.navigateTo({
         url: "/pages/login/login",
-        events: {
-          loginSuccess() {
-            console.log("执行loginsuccess");
-            if (loginSuccess) {
-              loginSuccess();
-              return;
-            }
-            if (getCurrentPages().length > 1) {
-              uni.navigateBack();
-              return;
-            }
-
-            uni.reLaunch({
-              url:
-                userRole == "hotel"
-                  ? "/pages/home/home"
-                  : "/pages_client/client_index/client_index",
-            });
-          },
-        },
+        events: events
       });
+     })
+     
     },
     clearCache(context) {
       uni.removeStorageSync("hm_token");

@@ -170,7 +170,9 @@ export default {
     // },
   },
   onLoad() {
-    uni.hideHomeButton();
+   //#ifdef MP
+   uni.hideHomeButton();
+	//#endif
   },
   async created() {
     console.log("client created", this.config);
