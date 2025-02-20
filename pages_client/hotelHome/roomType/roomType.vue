@@ -9,73 +9,19 @@
         ><text class="normal" style="padding: 0 10px">{{foramtDateLabel(dateRange[1]).dy}}</text>
       </uni-datetime-picker>
     </view>
-    <scroll-view class="scroll-style" scroll-x="false" scroll-y="true" refresher-enabled  @refresherrefresh="getRemainRoomType" :refresher-triggered="isLoading">
-      <view class="roomType">   
-    <xt-panal-list :count="remainTypeList.length" maxWidth=1200>
-          
-      <!-- #ifdef MP -->
-      <view v-for="(item,index) of remainTypeList" slot="card{{index}}">
-        <view class="roomCard">
-          <view class="img-area" style=""> 
-            <image :src="item.firstImages" mode="widthFix" style="width:100%;height:100%"  @click="roomDetail(item)"/>
-          </view>
-          
-          <view  class="label-area" @click="roomDetail(item)">
-            <view class="name-sytle">
-              <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
-              <text class="label-item">{{item.area}}m²</text>
-              <text v-if="item.remainCount>0">剩余{{item.remainCount}}间</text>
-                <text v-if="item.remainCount<1" style="color:#ED9121;font-weight:bold">满房</text>
-            </view>
-            <view>
-              <text>可住{{item.guestNumber||2}}人</text>
-              <uni-icons type="forward"></uni-icons>
-            </view>
+    <block v-if="remainTypeList.length<1">
+			<noData text_content="无房型数据"></noData>
+		</block>
+		<block v-if="remainTypeList&&remainTypeList.length">
+      <scroll-view class="scroll-style" scroll-x="false" scroll-y="true" refresher-enabled  @refresherrefresh="getRemainRoomType" :refresher-triggered="isLoading">
+        <view class="roomType">   
+      <xt-panal-list :count="remainTypeList.length" maxWidth=1200>
             
-          </view>
-          <view class="p-list" v-if="item.remainCount>0"> 
-            <view class="p-list-item" v-if="item.priceBase>0">
-              <view class="title-area"> 
-                <text>{{item.priceBase_name||'标准价格'}}</text>
-              </view>
-              <view class="pr-area"> 
-                <text class="pr-text">￥{{item.priceBase}}</text>
-                <text  class="edit-text-btn-style" @click="reserve(item,'priceBase')" v-if="hotel.onlineReserve&&item.remainCount>0">预定</text>
-                <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
-              </view>
-              
-            </view>
-            <view class="p-list-item" v-if="item.priceA>0">
-              <view class="title-area"> 
-                <text>{{item.priceA_name}}</text>
-              </view>
-              <view class="pr-area"> 
-                <text class="pr-text">￥{{item.priceA}}</text>
-                <text class="edit-text-btn-style" @click="reserve(item,'priceA')" v-if="hotel.onlineReserve&&item.remainCount>0">预定</text>
-                <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
-              </view>
-            </view>
-            <view class="p-list-item" v-if="item.priceB>0">
-              <view class="title-area"> 
-                <text>{{item.priceB_name}}</text>
-                <text class="text-overflow-ellipsis"></text>
-              </view>
-              
-              <view class="pr-area"> 
-                <text class="pr-text">￥{{item.priceB}}</text>
-                <text  class="edit-text-btn-style" @click="reserve(item,'priceB')" v-if="hotel.onlineReserve&&item.remainCount>0">预定</text>
-                <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-      <!-- #endif -->
-      <!-- #ifdef H5 || APP-PLUS -->
-       <template v-for="(item,index) of remainTypeList" v-slot:[`card${index}`]="data">
+        <!-- #ifdef MP -->
+        <view v-for="(item,index) of remainTypeList" slot="card{{index}}">
           <view class="roomCard">
-            <view class="img-area" :style="{'height':`${data.cardWidth*3/4}px`}"> 
-              <image :src="item.firstImages" mode="aspectFill" style="width:100%;height:100%"  @click="roomDetail(item)"/>
+            <view class="img-area" style=""> 
+              <image :src="item.firstImages" mode="widthFix" style="width:100%;height:100%"  @click="roomDetail(item)"/>
             </view>
             
             <view  class="label-area" @click="roomDetail(item)">
@@ -83,7 +29,7 @@
                 <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
                 <text class="label-item">{{item.area}}m²</text>
                 <text v-if="item.remainCount>0">剩余{{item.remainCount}}间</text>
-                <text v-if="item.remainCount<1" style="color:#ED9121;font-weight:bold">满房</text>
+                  <text v-if="item.remainCount<1" style="color:#ED9121;font-weight:bold">满房</text>
               </view>
               <view>
                 <text>可住{{item.guestNumber||2}}人</text>
@@ -109,7 +55,7 @@
                 </view>
                 <view class="pr-area"> 
                   <text class="pr-text">￥{{item.priceA}}</text>
-                  <text  class="edit-text-btn-style" @click="reserve(item,'priceA')" v-if="hotel.onlineReserve&&item.remainCount>0">预定</text>
+                  <text class="edit-text-btn-style" @click="reserve(item,'priceA')" v-if="hotel.onlineReserve&&item.remainCount>0">预定</text>
                   <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
                 </view>
               </view>
@@ -127,13 +73,73 @@
               </view>
             </view>
           </view>
-       </template>
-       <!-- #endif -->
-    
+        </view>
+        <!-- #endif -->
+        <!-- #ifdef H5 || APP-PLUS -->
+         <template v-for="(item,index) of remainTypeList" v-slot:[`card${index}`]="data">
+            <view class="roomCard">
+              <view class="img-area" :style="{'height':`${data.cardWidth*3/4}px`}"> 
+                <image :src="item.firstImages" mode="aspectFill" style="width:100%;height:100%"  @click="roomDetail(item)"/>
+              </view>
+              
+              <view  class="label-area" @click="roomDetail(item)">
+                <view class="name-sytle">
+                  <text class="label-item" style="color:#323233;font-weight:bold">{{item.name}}</text>
+                  <text class="label-item">{{item.area}}m²</text>
+                  <text v-if="item.remainCount>0">剩余{{item.remainCount}}间</text>
+                  <text v-if="item.remainCount<1" style="color:#ED9121;font-weight:bold">满房</text>
+                </view>
+                <view>
+                  <text>可住{{item.guestNumber||2}}人</text>
+                  <uni-icons type="forward"></uni-icons>
+                </view>
+                
+              </view>
+              <view class="p-list" v-if="item.remainCount>0"> 
+                <view class="p-list-item" v-if="item.priceBase>0">
+                  <view class="title-area"> 
+                    <text>{{item.priceBase_name||'标准价格'}}</text>
+                  </view>
+                  <view class="pr-area"> 
+                    <text class="pr-text">￥{{item.priceBase}}</text>
+                    <text  class="edit-text-btn-style" @click="reserve(item,'priceBase')" v-if="hotel.onlineReserve&&item.remainCount>0">预定</text>
+                    <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceBase')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
+                  </view>
+                  
+                </view>
+                <view class="p-list-item" v-if="item.priceA>0">
+                  <view class="title-area"> 
+                    <text>{{item.priceA_name}}</text>
+                  </view>
+                  <view class="pr-area"> 
+                    <text class="pr-text">￥{{item.priceA}}</text>
+                    <text  class="edit-text-btn-style" @click="reserve(item,'priceA')" v-if="hotel.onlineReserve&&item.remainCount>0">预定</text>
+                    <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceA')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
+                  </view>
+                </view>
+                <view class="p-list-item" v-if="item.priceB>0">
+                  <view class="title-area"> 
+                    <text>{{item.priceB_name}}</text>
+                    <text class="text-overflow-ellipsis"></text>
+                  </view>
+                  
+                  <view class="pr-area"> 
+                    <text class="pr-text">￥{{item.priceB}}</text>
+                    <text  class="edit-text-btn-style" @click="reserve(item,'priceB')" v-if="hotel.onlineReserve&&item.remainCount>0">预定</text>
+                    <!-- <text class="edit-text-btn-style" @click="bargain(item,'priceB')" v-if="item.remainCount>0&&item.isBargain">议价</text> -->
+                  </view>
+                </view>
+              </view>
+            </view>
+         </template>
+         <!-- #endif -->
       
-  </xt-panal-list>
-  </view>
-    </scroll-view>
+        
+    </xt-panal-list>
+    </view>
+      </scroll-view>
+    </block>
+   
   </view>
   
 </template>
@@ -175,7 +181,7 @@ export default {
       isLoading:false,
       roomType:[],
      // dateRange:this.range,
-      remainTypeList:[]
+      remainTypeList:null
     }
   },
  async created(){
@@ -194,6 +200,7 @@ export default {
 				
     },
     roomDetail(item){
+    console.error("11111",item);
       uni.navigateTo({
           url: `/pages_client/roomDetail/roomDetail?roomType=${encodeURIComponent(JSON.stringify(item))}`,
         });

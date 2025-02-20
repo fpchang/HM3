@@ -128,7 +128,11 @@ import uniIcons from '@/uni_modules/uni-icons/components/uni-icons/uni-icons.vue
 			},
 			config(){
 				return this.$store.state.config
+			},
+			hotel(){
+				return this.$store.state.hotelClientStore.hotel;
 			}
+			
 		},
 		methods: {
 			reserve(p){
