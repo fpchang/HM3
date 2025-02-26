@@ -1,186 +1,226 @@
 <template>
   <view>
-  <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
-    <view class="introduce"> 
-      <view class="share-area">
-				<view class="container">
-          <view class="icon-item"> 
-            <uv-icon 
-            :name="isCollect?'star-fill':'star'"
-            color="#fff"
-            labelColor="#fff"
-            size="24"
-            labelPos="bottom"
-            labelSize="12px"
-            @click="collectEvent"
+    <scroll-view class="scroll-style" :scroll-x="false" :scroll-y="true">
+      <view class="introduce">
+        <view class="share-area">
+          <view class="container">
+            <view class="icon-item">
+              <uv-icon
+                :name="isCollect ? 'star-fill' : 'star'"
+                color="#fff"
+                labelColor="#fff"
+                size="24"
+                labelPos="bottom"
+                labelSize="12px"
+                @click="collectEvent"
+              ></uv-icon>
+            </view>
+            <!-- #ifdef MP -->
+
+            <view class="icon-item">
+              <button class="clearBtn" :plain="true" open-type="share">
+                <uv-icon
+                  name="share"
+                  color="#fff"
+                  size="24"
+                  labelColor="#fff"
+                  labelPos="bottom"
+                  labelSize="12px"
+                  @click="shareHotel"
                 ></uv-icon>
+              </button>
+            </view>
+            <!-- #endif -->
+            <!-- #ifdef APP -->
+
+            <view class="icon-item">
+              <button class="clearBtn" :plain="true" @click="shareWx()">
+                <uv-icon
+                  name="share"
+                  color="#fff"
+                  size="24"
+                  labelColor="#fff"
+                  labelPos="bottom"
+                  labelSize="12px"
+                  @click="shareHotel"
+                ></uv-icon>
+              </button>
+            </view>
+            <!-- #endif -->
           </view>
-          <!-- #ifdef MP -->
-           
-					<view class="icon-item">
-
-            <button class="clearBtn" :plain="true" open-type="share">
-							<uv-icon 
-					name="share"
-					color="#fff"
-					size="24"
-					labelColor="#fff"
-					labelPos="bottom"
-					labelSize="12px"
-          @click="shareHotel"
-        			></uv-icon>
-				</button> 
-		
-              </view>
-              <!-- #endif -->
-               <!-- #ifdef APP -->
-           
-					<view class="icon-item">
-
-            <button class="clearBtn" :plain="true"  @click="shareWx()">
-							<uv-icon 
-					name="share"
-					color="#fff"
-					size="24"
-					labelColor="#fff"
-					labelPos="bottom"
-					labelSize="12px"
-          @click="shareHotel"
-        			></uv-icon>
-				</button> 
-		
-              </view>
-              <!-- #endif -->
-				</view>
-			</view>
-    <view class="barner">
-      <swiper class="barner-swiper"  :indicator-dots="true" :autoplay="true"   :circular="true" indicator-color="#FFF">
-      <swiper-item v-for="item of hotel.imagesList">
-         <image show-menu-by-longpress :src="item" class="barner-image" mode="aspectFill"></image>						
-      </swiper-item>
-    </swiper>
-    </view>
-    <view class="panal">
-      <information :hotel="hotel"></information>
-    </view>
-    <view class="dev-line"></view>
-    <view class="panal">
-      <view class="label-title">民宿介绍</view>
-      <view style="text-indent:40rpx">
-        <text>
-          {{ hotel.hotelIntroduction }}
-        </text>
-    </view>
-    </view>
-    <view class="dev-line"></view>
-    <view class="panal">
-      <view class="label-title">设施服务</view>
-      <view> 
-        <servicesFacilities></servicesFacilities>
+        </view>
+        <view class="barner">
+          <swiper
+            class="barner-swiper"
+            :indicator-dots="true"
+            :autoplay="true"
+            :circular="true"
+            indicator-color="#FFF"
+          >
+            <swiper-item v-for="item of hotel.imagesList">
+              <image
+                show-menu-by-longpress
+                :src="item"
+                class="barner-image"
+                mode="aspectFill"
+              ></image>
+            </swiper-item>
+          </swiper>
+        </view>
+        <view class="panal">
+          <information :hotel="hotel"></information>
+        </view>
+        <view class="dev-line"></view>
+        <view class="panal">
+          <view class="label-title">民宿介绍</view>
+          <view style="text-indent: 40rpx">
+            <text>
+              {{ hotel.hotelIntroduction }}
+            </text>
+          </view>
+        </view>
+        <view class="dev-line"></view>
+        <view class="panal">
+          <view class="label-title">设施服务</view>
+          <view>
+            <servicesFacilities></servicesFacilities>
+          </view>
+        </view>
       </view>
-      
-    </view>
+    </scroll-view>
   </view>
-  </scroll-view>
-</view>
 </template>
 
 <script>
-import information from './components/information';
-import servicesFacilities from './components/servicesFacilities';
-import {HotelServiceClient} from "@/services/HotelServiceClient";
+import information from "./components/information";
+import servicesFacilities from "./components/servicesFacilities";
+import { HotelServiceClient } from "@/services/HotelServiceClient";
 export default {
   name: "introduce",
-  components:{
+  components: {
     information,
-    servicesFacilities
+    servicesFacilities,
   },
   props: {
-    hotel:{
-      type:Object
-    }
+    hotel: {
+      type: Object,
+    },
   },
   data() {
     return {
-      collectList:[]
-    }
+      collectList: [],
+      tempFilePath:""
+    };
   },
   computed: {
-    user(){
+    user() {
       return this.$store.state.user;
     },
-    isCollect(){
-      let obj = this.collectList.find(item=>item.hotel_id == this.hotel._id);
-      return obj?true:false;
-    }
+    isCollect() {
+      let obj = this.collectList.find(
+        (item) => item.hotel_id == this.hotel._id
+      );
+      return obj ? true : false;
+    },
   },
   watch: {
-    user(n){
-      if(n.phone){
+    user(n) {
+      if (n.phone) {
         this.getCollectHotel();
       }
-    }
+    },
+  },
+  created(){
+    this.getShareImgUrl();
   },
   methods: {
-   
+    getShareImgUrl(){
+      uni.downloadFile({
+        url: `${this.hotel.firstImages}`, //仅为示例，并非真实的资源
+        success: (res) => {
+          if (res.statusCode === 200) {
+            console.log("下载成功", res);
+            this.tempFilePath=res.tempFilePath;
+          }
+        },
+      });
+    },
     shareWx() {
-      //wxb92dbe50c4655b46
-      console.log("1111",this.hotel);
-     uni.share({
-       provider: "weixin", //分享服务提供商（即weixin|qq|sinaweibo）
-       type: 5, //小程序
-       scene: "WXSceneSession", //provider 为 weixin 时必选 WXSceneSession分享到聊天界面，WXSceneTimeline分享到朋友圈，WXSceneFavorite分享到微信收藏
-       title: `${this.hotel.hotelName}`, //分享内容的标题
-       summary: `${this.hotel.hotelAddress}`, //分享内容的摘要
-        miniProgram:{
-        id:"gh_5557133bdd5e",
-        type:0,
-        webUrl:"",
-        path:`/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`
-      },
-      //imageUrl:`../../../static/img/home-black.png`, 
-      imageUrl:`${this.hotel.firstImages}`, //图片地址，type 为 0、2、5 时必选
-       success(res) {
-         //成功返回的参数
-         console.log(res);
-       },
-       fail(err) {
-         //失败返回的参数
-         console.log(err);
-       },
-     });
-   },
-    async getCollectHotel(){
-      if(!this.user){
+      
+      uni.share({
+              provider: "weixin", //分享服务提供商（即weixin|qq|sinaweibo）
+              type: 5, //小程序
+              scene: "WXSceneSession", //provider 为 weixin 时必选 WXSceneSession分享到聊天界面，WXSceneTimeline分享到朋友圈，WXSceneFavorite分享到微信收藏
+              title: `${this.hotel.hotelName}`, //分享内容的标题
+              summary: `${this.hotel.hotelAddress}`, //分享内容的摘要
+              miniProgram: {
+                id: "gh_5557133bdd5e",
+                type: 0,
+                webUrl: "http://uniapp.dcloud.io",
+                path: `/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`,
+              },
+              imageUrl: `${this.tempFilePath}`,
+              //imageUrl:`${this.hotel.firstImages}`, //图片地址，type 为 0、2、5 时必选
+              success(r) {
+                //成功返回的参数
+                console.log(r);
+              },
+              fail(err) {
+                //失败返回的参数
+                console.log(err);
+              },
+            });
+      //     uni.share({
+      //     provider: 'weixin',
+      //     scene: "WXSceneSession",
+      //     type: 5,
+      //     imageUrl: 'https://env-00jxh1m2dpmq.normal.cloudstatic.cn/HM/client/66f4d677e4ec9dbeca1f8ff9/hotel/1732803122705jss1.jpg?expire_at=1732803725&er_sign=bc8c58e59ff2093cf16b15472d6622ab',
+      //     title: '欢迎体验uniapp',
+      //     miniProgram: {
+      //         id: 'gh_5557133bdd5e',
+      //         path: 'pages/index/index',
+      //         type: 0,
+      //         webUrl: 'http://uniapp.dcloud.io'
+      //     },
+      //     success: ret => {
+      //         console.log(JSON.stringify(ret));
+      //     }
+      // });
+    },
+    async getCollectHotel() {
+      if (!this.user) {
         return;
       }
-     const res = await HotelServiceClient.getCollectHotel(this.user.phone);
-     this.collectList=res.result.data;
+      const res = await HotelServiceClient.getCollectHotel(this.user.phone);
+      this.collectList = res.result.data;
     },
-    async collectEvent(){
-      if(!this.user){
-         await this.$store.dispatch("loginEvent")
-         return;
+    async collectEvent() {
+      if (!this.user) {
+        await this.$store.dispatch("loginEvent");
+        return;
       }
-   
-      if(this.isCollect){
+
+      if (this.isCollect) {
         this.cancelCollectHotel();
         return;
       }
       this.addCollectHotel();
- 
     },
-    async addCollectHotel(){
-      const res = await  HotelServiceClient.addCollectHotel(this.user.phone,this.hotel._id);
+    async addCollectHotel() {
+      const res = await HotelServiceClient.addCollectHotel(
+        this.user.phone,
+        this.hotel._id
+      );
       this.getCollectHotel();
     },
-    async cancelCollectHotel(){
-      let obj = this.collectList.find(item=>item.hotel_id == this.hotel._id);
-      const res = await  HotelServiceClient.cancelCollectHotel(obj._id);
+    async cancelCollectHotel() {
+      let obj = this.collectList.find(
+        (item) => item.hotel_id == this.hotel._id
+      );
+      const res = await HotelServiceClient.cancelCollectHotel(obj._id);
       this.getCollectHotel();
-    }
+    },
   },
-
 
   // 组件周期函数--监听组件挂载完毕
   mounted() {
@@ -196,85 +236,84 @@ export default {
   deactivated() {},
   // 组件周期函数--监听组件销毁之前
   beforeDestroy() {},
-}
+};
 </script>
 
 <style scoped lang="scss">
-$showWidth:800px;
-.scroll-style{
-  height:calc(100vh - 70px);
+$showWidth: 800px;
+.scroll-style {
+  height: calc(100vh - 70px);
 }
-.introduce{
+.introduce {
   max-width: 100vw;
-  width:$showWidth;
-  margin:auto;
+  width: $showWidth;
+  margin: auto;
   position: relative;
-  background-color:#f1f1f1
+  background-color: #f1f1f1;
 }
-.share-area{
-	position: absolute;
-	width: 100%;
-	top:0;
-	left: 0;
-	height: 55px;
-	padding:0 20px;
-	box-sizing: border-box;
-	background-color: transparent;
-	z-index: 999;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	.container{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap:12px;
-    .icon-item{
+.share-area {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 55px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  background-color: transparent;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    .icon-item {
       cursor: pointer;
-      background-color: rgba(0,0,0,0.3);
-      padding:5px;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 5px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      &:hover{
-        background-color: rgba(0,0,0,0.5);
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.5);
       }
     }
-	}
+  }
 }
-.barner{
+.barner {
   max-width: 100vw;
-  max-height:56.25vw ;
-	height:$showWidth*0.0625*9;
+  max-height: 56.25vw;
+  height: $showWidth * 0.0625 * 9;
   max-width: 100vw;
 }
-.barner-swiper{
+.barner-swiper {
   max-width: 100vw;
-  max-height:56.25vw ;
+  max-height: 56.25vw;
   width: $showWidth;
-	height: $showWidth*0.0625*9;
+  height: $showWidth * 0.0625 * 9;
   box-sizing: border-box;
 }
-.barner-image{
+.barner-image {
   max-width: 100vw;
-  max-height:56.25vw ;
-	width: $showWidth;
-	height: $showWidth*0.0625*9;
+  max-height: 56.25vw;
+  width: $showWidth;
+  height: $showWidth * 0.0625 * 9;
 }
-.panal{
+.panal {
   padding: 20px;
   background: #fff;
   box-sizing: border-box;
-  .label-title{
+  .label-title {
     margin-bottom: 10px;
     font-size: 40rpx;
     font-weight: bolder;
     color: rgb(177, 90, 31);
-    
   }
 }
-.dev-line{
+.dev-line {
   height: 15px;
   background-color: transparent;
 }
