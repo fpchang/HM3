@@ -18,9 +18,9 @@
         },
         /* 模块配置 */
         "modules" : {
-            "Share" : {},
             "Payment" : {},
-            "Maps" : {}
+            "Maps" : {},
+            "Share" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -56,7 +56,7 @@
             "sdkConfigs" : {
                 "share" : {
                     "weixin" : {
-                        "appid" : "wx1e656e3fd064719a",
+                        "appid" : "wxb92dbe50c4655b46",
                         "UniversalLinks" : ""
                     }
                 },
@@ -64,7 +64,12 @@
                     "alipay" : {
                         "__platform__" : [ "ios", "android" ]
                     },
-                    "appleiap" : {}
+                    "appleiap" : {},
+                    "weixin" : {
+                        "__platform__" : [ "android" ],
+                        "appid" : "wxb92dbe50c4655b46",
+                        "UniversalLinks" : ""
+                    }
                 },
                 "maps" : {
                     "amap" : {
@@ -72,7 +77,8 @@
                         "appkey_ios" : "fcda0c29e3679748e0f59ddb18b94960",
                         "appkey_android" : "fcda0c29e3679748e0f59ddb18b94960"
                     }
-                }
+                },
+                "ad" : {}
             },
             "icons" : {
                 "android" : {

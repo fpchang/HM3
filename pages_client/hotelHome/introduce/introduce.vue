@@ -33,6 +33,24 @@
 		
               </view>
               <!-- #endif -->
+               <!-- #ifdef APP -->
+           
+					<view class="icon-item">
+
+            <button class="clearBtn" :plain="true"  @click="shareWx()">
+							<uv-icon 
+					name="share"
+					color="#fff"
+					size="24"
+					labelColor="#fff"
+					labelPos="bottom"
+					labelSize="12px"
+          @click="shareHotel"
+        			></uv-icon>
+				</button> 
+		
+              </view>
+              <!-- #endif -->
 				</view>
 			</view>
     <view class="barner">
@@ -104,6 +122,34 @@ export default {
     }
   },
   methods: {
+   
+    shareWx() {
+      //wxb92dbe50c4655b46
+      console.log("1111",this.hotel);
+     uni.share({
+       provider: "weixin", //分享服务提供商（即weixin|qq|sinaweibo）
+       type: 5, //小程序
+       scene: "WXSceneSession", //provider 为 weixin 时必选 WXSceneSession分享到聊天界面，WXSceneTimeline分享到朋友圈，WXSceneFavorite分享到微信收藏
+       title: `${this.hotel.hotelName}`, //分享内容的标题
+       summary: `${this.hotel.hotelAddress}`, //分享内容的摘要
+        miniProgram:{
+        id:"gh_5557133bdd5e",
+        type:0,
+        webUrl:"",
+        path:`/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`
+      },
+      //imageUrl:`../../../static/img/home-black.png`, 
+      imageUrl:`${this.hotel.firstImages}`, //图片地址，type 为 0、2、5 时必选
+       success(res) {
+         //成功返回的参数
+         console.log(res);
+       },
+       fail(err) {
+         //失败返回的参数
+         console.log(err);
+       },
+     });
+   },
     async getCollectHotel(){
       if(!this.user){
         return;

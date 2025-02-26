@@ -90,8 +90,29 @@ async function recursiveDelete(initialUrl, { headers: initialHeaders }) {
     await processFolder(initialUrl);  
     console.log('递归删除过程完成');  
   }  
- //assets 开发
-  // recursiveDelete("https://unicloud-api.dcloud.net.cn/unicloud/api/host/file-list?appid=&provider=alipay&spaceId=env-00jxh1m2dpmq&end_at=2025-07-15+23:59:59&page=0&pageSize=100&marker=&folder=%2Fassets", {
+ //assets 开发 node deletecloud.js
+
+ recursiveDelete("https://unicloud-api.dcloud.net.cn/unicloud/api/host/file-list?appid=&provider=alipay&spaceId=env-00jxh1m2dpmq&end_at=2025-07-15+23:59:59&page=0&pageSize=100&marker=&folder=%2Fassets", {
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+    "sec-ch-ua": "\"Not(A:Brand\";v=\"99\", \"Microsoft Edge\";v=\"133\", \"Chromium\";v=\"133\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "token": "a7f7a84869cebef17d5d873493dda401"
+  },
+  "referrer": "https://unicloud.dcloud.net.cn/",
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": null,
+  "method": "GET",
+  "mode": "cors",
+  "credentials": "include"
+});
+  //生产
+  // recursiveDelete("https://unicloud-api.dcloud.net.cn/unicloud/api/host/file-list?appid=&provider=alipay&spaceId=env-00jxhfhjd231&end_at=2025-10-18+23:59:59&page=0&pageSize=100&marker=&folder=%2Fassets", {
   //   "headers": {
   //     "accept": "application/json, text/plain, */*",
   //     "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
@@ -110,23 +131,3 @@ async function recursiveDelete(initialUrl, { headers: initialHeaders }) {
   //   "mode": "cors",
   //   "credentials": "include"
   // });
-  //生产
-  recursiveDelete("https://unicloud-api.dcloud.net.cn/unicloud/api/host/file-list?appid=&provider=alipay&spaceId=env-00jxhfhjd231&end_at=2025-10-18+23:59:59&page=0&pageSize=100&marker=&folder=%2Fassets", {
-    "headers": {
-      "accept": "application/json, text/plain, */*",
-      "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
-      "sec-ch-ua": "\"Not(A:Brand\";v=\"99\", \"Microsoft Edge\";v=\"133\", \"Chromium\";v=\"133\"",
-      "sec-ch-ua-mobile": "?0",
-      "sec-ch-ua-platform": "\"Windows\"",
-      "sec-fetch-dest": "empty",
-      "sec-fetch-mode": "cors",
-      "sec-fetch-site": "same-site",
-      "token": "e54051de151a7ef576690c05cc6308fb"
-    },
-    "referrer": "https://unicloud.dcloud.net.cn/",
-    "referrerPolicy": "strict-origin-when-cross-origin",
-    "body": null,
-    "method": "GET",
-    "mode": "cors",
-    "credentials": "include"
-  });
