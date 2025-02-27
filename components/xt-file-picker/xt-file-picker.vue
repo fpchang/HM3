@@ -95,13 +95,15 @@ export default{
 					sourceType: ['album'], //从相册选择
 					success: (res) => {
 						this.uploadComplement=false;
-						console.log(res)
+						console.log("选择文件。。。",res)
 						//this.imageValue = res.tempFilePaths;
             let len =Math.min(res.tempFilePaths.length,(this.max- this.selectImageList.length)) ;
             for(let i=0;i<len;i++){
-              this.selectImageList.push({
+				let fileName =res.tempFiles[i].name|| `img${i}.${res.tempFiles[i].path.split(".")[1]}`||`img${i}.jpg`;
+				console.log("ffname",fileName);
+			  this.selectImageList.push({
                 filePath:res.tempFilePaths[i],
-                fileName:res.tempFiles[i].name||`img${i}`,
+                fileName:fileName,
                 percentCompleted:0,
                 uploadStatus:0
               });
@@ -122,10 +124,12 @@ export default{
             continue;
           }
           task.push(new Promise((resolve,reject)=>{
+			  console.log("1111",item)
             let path= `/HM/client${this.cloudPath}${Date.now()}_${item.fileName}`;
             uniCloud.uploadFile({
                 filePath: item.filePath,
                 cloudPath:path ,
+				name:"file",
                 onUploadProgress: function(progressEvent) {
                   item.percentCompleted = Math.round(
                     (progressEvent.loaded * 100) / progressEvent.total
@@ -133,7 +137,9 @@ export default{
                 },
                 success:async (e) =>{
                     item.uploadStatus=1;
+					console.log("item",item)
                     const res = await uniCloud.getTempFileURL({fileList:[e.fileID]});
+					console.log("获取真实地址",res)
                     item.filePath=res.fileList[0].tempFileURL;
                     resolve(e);
                           },
@@ -152,7 +158,7 @@ export default{
           }
           const res = await Promise.all(task);
         this.uploadComplement=true;
-        console.log("全部上传成功",res);
+        console.log("全部上传成功",res, this.selectImageList);
           this.getReturnValueList();
         } catch (error) {
           console.log("全部上传error",error);

@@ -240,9 +240,13 @@ export default {
       uni.setStorageSync("user", userRes.result.data[0]);
       this.$store.commit("setUser", userRes.result.data[0]);
       this.submitLoading=false;
-     
+     try {
       const eventChannel = this.getOpenerEventChannel();
       eventChannel.emit('loginSuccess');
+     } catch (error) {
+      
+     }
+      
       this.routerPage();
     
     },

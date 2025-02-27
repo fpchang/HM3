@@ -130,23 +130,25 @@ export default {
       }
     },
   },
-  created(){
-    this.getShareImgUrl();
-  },
+  
   methods: {
     getShareImgUrl(){
-      uni.downloadFile({
-        url: `${this.hotel.firstImages}`, //仅为示例，并非真实的资源
-        success: (res) => {
-          if (res.statusCode === 200) {
-            console.log("下载成功", res);
-            this.tempFilePath=res.tempFilePath;
-          }
-        },
-      });
+		console.log("开始下载。。。。。。")
+		// console.log("111111",this.hotel.firstImages);
+    //   uni.downloadFile({
+    //     url: `${this.hotel.firstImages}`, //仅为示例，并非真实的资源
+    //     success: (res) => {
+    //       if (res.statusCode === 200) {
+    //         console.log("下载成功", res);
+    //         this.tempFilePath=res.tempFilePath;
+    //       }
+    //     },
+    //   });
     },
     shareWx() {
-      
+      let imgurl = this.hotel.firstImages.split("?")[0];
+      console.log("imgurl>>>",imgurl);
+	  console.log("333",this.hotel.firstImages)
       uni.share({
               provider: "weixin", //分享服务提供商（即weixin|qq|sinaweibo）
               type: 5, //小程序
@@ -159,7 +161,7 @@ export default {
                 webUrl: "http://uniapp.dcloud.io",
                 path: `/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`,
               },
-              imageUrl: `${this.tempFilePath}`,
+              imageUrl: `https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png`,
               //imageUrl:`${this.hotel.firstImages}`, //图片地址，type 为 0、2、5 时必选
               success(r) {
                 //成功返回的参数
@@ -174,7 +176,7 @@ export default {
       //     provider: 'weixin',
       //     scene: "WXSceneSession",
       //     type: 5,
-      //     imageUrl: 'https://env-00jxh1m2dpmq.normal.cloudstatic.cn/HM/client/66f4d677e4ec9dbeca1f8ff9/hotel/1732803122705jss1.jpg?expire_at=1732803725&er_sign=bc8c58e59ff2093cf16b15472d6622ab',
+      //     imageUrl: `${this.tempFilePath}`,
       //     title: '欢迎体验uniapp',
       //     miniProgram: {
       //         id: 'gh_5557133bdd5e',
@@ -225,6 +227,7 @@ export default {
   // 组件周期函数--监听组件挂载完毕
   mounted() {
     this.getCollectHotel();
+	this.getShareImgUrl();
   },
   // 组件周期函数--监听组件数据更新之前
   beforeUpdate() {},
