@@ -51,7 +51,7 @@
 								<view class="titleContent"> 
 									<view class="titleContent-item">{{ `【店主：${item.belong}】` }}</view>
 									<view class="titleContent-item">{{ `【角色：${this.roleFormat(item.curRole)}】` }}</view>
-									1111
+									
 								</view>
 								
 						   	</view>
