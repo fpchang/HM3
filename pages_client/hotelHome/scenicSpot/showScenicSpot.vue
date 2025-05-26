@@ -22,7 +22,7 @@
                                   </view>
                                   <view>
                                    
-                                    <uni-icons type="forward"></uni-icons>
+                                    <!-- <uni-icons type="forward"></uni-icons> -->
                                   </view>
                                   
                                 </view>
@@ -59,7 +59,7 @@
                                       </view>
                                       <view>
                                        
-                                        <uni-icons type="forward"></uni-icons>
+                                        <!-- <uni-icons type="forward"></uni-icons> -->
                                       </view>
                                       
                                     </view>
