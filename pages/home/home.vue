@@ -1,7 +1,5 @@
 <template>
   <view>
-   
-    
       <view class="top-container">
         <view class="scroll-content">
           <!-- <view :style="{height:navTopHeight}"></view> -->
@@ -19,52 +17,8 @@
                   top="2"
                 ></uv-icon>
               </view>
-              <view class="right-area">
-                <view class="switch" @click="switchEvent">
-                  <image
-                    v-if="config.cloudUrl"
-                    :src="`${config['cloudUrl']}/HM/images/miniprogram/line_switch_white.png`"
-                    style="width: 20px; height: 20px"
-                  ></image
-                  ><text>切换客户端</text>
-                </view>
-                <view
-                  class="more-menu-area"
-                  style="cursor: pointer"
-                  v-if="isPcShow"
-                >
-                  <uni-icons
-                    type="bars"
-                    size="30"
-                    @click="openRightPanal"
-                  ></uni-icons>
-                </view>
-              </view>
             </view>
-            <view class="navbar">
-              <view class="nav-content">
-                <uv-tabs
-                  @click="clickTab"
-                  :list="tabList"
-                  lineWidth="0"
-                  lineColor="#f56c6c"
-                  :current="currentTab_index"
-                  :activeStyle="{
-                    color: '#303133',
-                    fontWeight: 'bold',
-                    fontSize: '18px',
-                    transform: 'scale(1.15)',
-                  }"
-                  :inactiveStyle="{
-                    color: '#606266',
-                    fontSize: '18px',
-                    transform: 'scale(1)',
-                  }"
-                  itemStyle="padding-left: 15px; padding-right: 15px; height: 34px;"
-                >
-                </uv-tabs>
-              </view>
-            </view>
+ 
           </view>
         </view>
       </view>
@@ -77,7 +31,9 @@
         ></noData>
       </block>
       <block v-if="!noData">
-      <swiper
+		  <gatherComponent>
+		  </gatherComponent>
+      <!-- <swiper
         :style="{ height: scrollHeight }"
         :current="currentTab_index"
         @change="swiperContentEvent"
@@ -148,7 +104,7 @@
             </view>
           </scroll-view>
         </swiper-item>
-      </swiper>
+      </swiper> -->
     </block>
     <uni-drawer ref="showLeft" mode="left" :width="320">
       <view class="left-container">
@@ -313,13 +269,13 @@ export default {
   onShow() {
     console.log("index onshow");
     if (this.$store.state.isPcShow ||!this.$store.state.user) {
-      uni.hideTabBar();
+      //uni.hideTabBar();
     }
     //if(this.isPcShow){
     // #ifdef H5
     try {
       
-      document.getElementsByTagName("uni-page-head")[0].style.display = "none";
+     // document.getElementsByTagName("uni-page-head")[0].style.display = "none";
     } catch (error) {}
 
     // #endif
@@ -360,7 +316,7 @@ export default {
   },
   beforeMounted() {
     if (this.isPcShow) {
-      uni.hideTabBar();
+      //uni.hideTabBar();
     }
     console.log("before mounted....>>>");
   },
@@ -625,7 +581,7 @@ export default {
     scrollEvent(e) {
       let { scrollTop } = e.detail;
       //	this.opacityVal = 1 - (Math.min(scrollTop / 60, 1));
-      //	this.isSticky = (scrollTop >= 60 ? true : false);
+      //	this.isSticky = (scrollTop >= 60 ? true : false);   
     },
     swiperContentEvent(e) {
       this.currentTab_index = e.detail.current;

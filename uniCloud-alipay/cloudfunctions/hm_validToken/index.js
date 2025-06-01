@@ -8,6 +8,7 @@ exports.main = async (event, context) => {
 		event,context
 	});
 	try{
+		return {code:0,msg:""};
 		const {$token} = event;
 		if(!$token){
 			return {code:9992,msg:""}

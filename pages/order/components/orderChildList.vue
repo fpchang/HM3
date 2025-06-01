@@ -4,9 +4,9 @@
 		<view> 
 				<!-- <uni-segmented-control :current="current" :values="items"
 				active-color="#ED9121" @clickItem="onClickItem" /> -->
-				<xt-subsection :items="items" @checkTab="onClickItem" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>
+				<!-- <xt-subsection :items="items" @checkTab="onClickItem" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>
 				
-				
+				 -->
 			</view>
 			
 			<view>
@@ -146,7 +146,7 @@
 		data() {
 			return {
 				accordionVal:1,
-				current:0,
+				current:1,
 				items: ['待处理', '待入住']
 			}
 		},
@@ -443,6 +443,9 @@
 				.btn-red{
 					background-color: #B33F22;
 				}
+			}
+			.price{
+				display: none;
 			}
 		
 		}

@@ -45,19 +45,23 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 		async onLoad(e) {
 			// const { proxy } = getCurrentInstance();
 			// await proxy.$onLaunched;
-			await this.setConfig();			
+			await this.setConfig();		
+				uni.switchTab({url:"/pages/home/home"});
+			return;
 			let userRole =uni.getStorageSync("userRole");			
 			if(!userRole){
 				this.isLoading=false;
 				return;
 			}
-			if(userRole=="hotel"){
-				uni.switchTab({url:"/pages/home/home"});
-			}else{
-				uni.redirectTo({
-        		url:"/pages_client/client_index/client_index",
-      		});
-			}
+			// if(userRole=="hotel"){
+			// 	uni.switchTab({url:"/pages/home/home"});
+			// }else{
+			// 	uni.redirectTo({
+        	// 	url:"/pages_client/client_index/client_index",
+      		// });
+			
+			//}
+			
 			
 
 		},

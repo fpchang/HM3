@@ -16,7 +16,7 @@
 			"path": "pages/home/home",
 			"style": {
 				"enablePullDownRefresh": true,
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "议宿"
 			}
 		}, {
 			"path": "pages/permission/setPermission/setPermission",
@@ -219,6 +219,20 @@
 					{
 						"navigationBarTitleText" : ""
 					}
+				},
+				{
+					"path" : "pages/homeMenu/homeMenu",
+					"style" : 
+					{
+						"navigationBarTitleText" : "功能"
+					}
+				},
+				{
+					"path" : "pages/order/orderIndex/orderIndex",
+					"style" : 
+					{
+						"navigationBarTitleText" : "订单房态"
+					}
 				}
 		
 
@@ -314,6 +328,18 @@
 				"iconPath": "static/img/home-black.png",
 				"selectedIconPath": "static/img/home-blue.png",
 				"text": "首页"
+			},
+			{
+				"pagePath": "pages/order/orderIndex/orderIndex",
+				"iconPath": "static/img/order-black.png",
+				"selectedIconPath": "static/img/order-blue.png",
+				"text": "房态"
+			},
+			{
+				"pagePath": "pages/homeMenu/homeMenu",
+				"iconPath": "static/img/menu-black.png",
+				"selectedIconPath": "static/img/menu-blue.png",
+				"text": "功能"
 			},
 			{
 				"pagePath": "pages/mine/mine",

@@ -115,25 +115,27 @@ import orderChildCalendarList from './orderChildCalendarList';
 				return this.$store.state.roomTypeList;
 			},
 			tabitems(){
-				if(this.isPcShow){
+				//if(this.isPcShow){
 					return [{
 					value:0,
-					text:'日历'
+					text:'房态'
 				}, {
 					value:1,
 					text:'订单'
-				},{
+				 }
+				 ,{
 					value:2,
-					text:'表格'
-				}]
+					text:'历史'
 				}
-				return [{
-					value:0,
-					text:'日历'
-				}, {
-					value:1,
-					text:'列表'
-				}]
+				]
+				//}
+				// return [{
+				// 	value:0,
+				// 	text:'房态'
+				// }, {
+				// 	value:1,
+				// 	text:'订单'
+				// }]
 			} 
 		},
 		watch:{
