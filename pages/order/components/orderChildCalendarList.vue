@@ -4,18 +4,44 @@
       <noData text_content="当前无订单数据"></noData>
     </block>
     <block v-if="!noData">
-      <view>
+<view> 
+  {{ console.log("1211",checkInOrderListFormat,orderDateRangeFormat) }}
+  <uni-table ref="table" :loading="loading" border stripe  emptyText="暂无更多数据">
+				<uni-tr>
+          <uni-th width="100px" align="center" class="fixed" >日历图标</uni-th>				
+					<uni-th align="center" v-for="item of orderDateRangeFormat">
+            <view> 
+              <view>{{item.de}}</view>
+              <view>{{item.dy}}</view>
+              <view style="color:#bbb">(空4间)</view>
+            </view>
+            
+          </uni-th>
+				</uni-tr>
+        <uni-tr v-for="(item,key) of checkInOrderListFormat"> 
+          <uni-td class="fixed">{{ roomType[key].name }}
+          </uni-td>
+          <un-td v-for="it of item">
+            <view class="inner-table"> 
+                 <view class="inner-table-tr" v-for="i of it.orderList"> {{i.userName}}</view>
+            </view>
+              
+           </un-td>
+        </uni-tr>
+        </uni-table>
+</view>
+      <!-- <view>
         <zb-table
           :show-header="true"
-          :columns="column"
+          :columns="orderDateRangeFormat"
           :stripe="true"
           :fit="false"
-          show-summary
+          :show-summary="false"
           sum-text="合计"
           :border="true"
-          :data="data"
+          :data="checkInOrderListFormat2"
         ></zb-table>
-      </view>
+      </view> -->
 
       <view style="display: none">
         <view class="left-table-style">
@@ -79,13 +105,19 @@
 <script>
 import { OrderService } from "../../../services/OrderService";
 import uniTable from "../../../uni_modules/uni-table/components/uni-table/uni-table.vue";
+import {ref} from "vue";
+import UniTr from '../../../uni_modules/uni-table/components/uni-tr/uni-tr.vue';
 export default {
-  components: { uniTable },
-  props: {},
+  components: { uniTable, UniTr },
+  setup(){
+    let columnRoom=ref([]);
+
+  },
   data() {
     return {
+
       column: [
-        { type: "selection", fixed: true, width: 50 },
+        {name:"roomName",  fixed: true, width: 90 },
         {
           name: "name",
           label: "姓名",
@@ -120,6 +152,7 @@ export default {
       ],
       data: [
         {
+          roomName:"大床房",
           date: "2016-05-02",
           name: "王小虎1",
           province: "上海",
@@ -170,6 +203,7 @@ export default {
           address: "上海市普",
           zip: 200333,
         },
+        
       ],
     };
   },
@@ -226,12 +260,17 @@ export default {
         "星期五",
         "星期六",
       ];
-      return this.orderDateRange.map((item) => {
-        return {
+     // let arr=[{name:"roomName",  fixed: true, width: 90 }];
+       let arr=[]
+       this.orderDateRange.map((item) => {
+        arr.push({
           de: new Date(item).Format("MM-dd"),
           dy: dyStr[new Date(item).getDay()],
-        };
+          name:item+"",
+          label: new Date(item).Format("MM-dd")+dyStr[new Date(item).getDay()]
+        });
       });
+      return arr;
     },
     checkInOrderListFormat() {
       if (this.checkInOrderList.length < 1 || this.roomType.length < 1) {
@@ -264,11 +303,56 @@ export default {
             return flag;
           });
           let obt = { orderList: objArray, count: countT };
+         obt[or[j]+""]=countT;
           fillArray.push(obt);
           //fillObj.orderList.push(objArray || []);
         }
         //fillObj.orderList=fillArray;
         return fillArray;
+      }
+
+      return result;
+    },
+    checkInOrderListFormat2() {
+      if (this.checkInOrderList.length < 1 || this.roomType.length < 1) {
+        return [];
+      }
+      let that =this;
+      let result = [];
+      let or = this.orderDateRange;
+      let checkInOrderList = this.checkInOrderList;
+      for (let i = 0; i < this.roomType.length; i++) {
+        let roomType_id = this.roomType[i]._id;
+        result.push(fillRoomType(roomType_id));
+      };
+    
+      function fillRoomType(roomType_id) {
+        let fillArray = [];
+        let fillObj ={}
+        for (let j = 0; j < or.length; j++) {
+          let countT = 0;
+          let objArray = checkInOrderList.filter((item) => {
+            let o = item.roomTypeArray.find(
+              (is) => is.roomType_id == roomType_id
+            );
+            let flag =
+              o &&
+              or[j] >= item.checkInStartDateTimeStamp &&
+              or[j] < item.checkInEndDateTimeStamp;
+            if (flag) {
+              countT += o.count;
+            }
+            return flag;
+          });
+          let obt = { orderList: objArray, count: countT };
+          fillObj['roomName']=that.roomType.find(item=>item._id==roomType_id)['name'];
+          fillObj[or[j]+""]=countT;
+          fillArray.push(obt);
+         
+        }
+        
+       // return fillArray;
+       return fillObj;
       }
 
       return result;
@@ -395,6 +479,22 @@ export default {
       white-space: nowrap;
       padding: 0 4px;
     }
+  }
+}
+.fixed {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: #ffffff;
+}
+.inner-table{
+  .inner-table-tr{
+    
+    
+    padding:5px;
+    box-sizing: border-box;
+    color: #666;
+    font-size: 13px;
   }
 }
 </style>
