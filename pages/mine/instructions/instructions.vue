@@ -56,7 +56,7 @@
 	}
 }
 .control{
-	color:#06c;
+	color:#0765ae;
 	cursor: pointer;
 }
 </style>

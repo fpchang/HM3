@@ -87,7 +87,7 @@
 				cursor: pointer;
 
 				.active_text {
-					color: #06c;
+					color: #0765ae;
 				}
 
 				.tab-item-group {

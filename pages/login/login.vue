@@ -1,19 +1,32 @@
 <template>
+    <view class="top-banar"> 
+       <view class="flex-center"> 
+   	        <image  style="width: 200px; height: 150px; vertical-align: middle;"  src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.svg"></image>
+		
+       </view>
+      <view class="subtitle flex-center">酒店助手</view>
+      <view style="height: 40px"></view>
+      </view>
   <view class="container">
     <view class="panel">
-      <view class="title">欢迎使用 [议宿平台]</view>
-      <view class="subtitle">手机号快捷登录/注册</view>
-      <view style="height: 80px"></view>
+    
+      
       <uni-forms ref="userForm" :modelValue="userForm" :rules="rules">
         <uni-forms-item name="phone">
-          <view class="flex-center input-area">
+          
+          <view class="flex-between input-area">   
+            <view style="padding-right: 15px;"><l-icon name="material-symbols:phone-android-rounded" size="25px" color="#0765ae"/></view>        
             <input  type="tel" maxlength="11" v-model="userForm.phone" placeholder="请输入手机号" />       
           </view>
         </uni-forms-item>
         <uni-forms-item name="smsCode">
-          <view class="flex-center input-area" > 
-            <input  type="number" maxlength="4" v-model="userForm.smsCode" placeholder="请输入验证码" />
+          <view class="flex-between input-area" > 
+             <view style="padding-right: 15px;"><l-icon name="material-symbols:lock" size="25px" color="#0765ae"/></view> 
+            <view class="flex-between">
+                <input  type="number" maxlength="4" v-model="userForm.smsCode" placeholder="请输入验证码" />
             <text @click="getCode" :class="['smstext', sendSmsDisabled ? 'smstext-disable' : '']">{{tips}}</text>
+            </view>
+          
           </view>
           
         </uni-forms-item>
@@ -21,7 +34,7 @@
           <button  :class="['submit-btn',submitDisabled?'submit-btn-disabled':'']"  :disabled="submitDisabled" @click="submit":loading="submitLoading">登录</button>
         </uni-forms-item> <uni-forms-item >
          <view class="up">
-          <uni-icons :type="isAgree?'checkbox-filled':'circle'" @click="agreeEvent" size="20" color="#06c"></uni-icons> <text>我已阅读并同意<text class="edit-text-btn-style ct" @click="openUserAgreement">《用户协议》</text>和<text class="edit-text-btn-style ct" @click="openUserPrivacyPolicy">《隐私政策》</text></text>
+          <uni-icons :type="isAgree?'checkbox-filled':'circle'" @click="agreeEvent" size="20" color="#0765ae"></uni-icons> <text>我已阅读并同意<text class="edit-text-btn-style ct" @click="openUserAgreement">《用户协议》</text>和<text class="edit-text-btn-style ct" @click="openUserPrivacyPolicy">《隐私政策》</text></text>
         </view>
         </uni-forms-item>
         <!-- <uni-forms-item > <button open-type="getPhoneNumber" @getphonenumber="decryptPhoneNumber">微信登录</button></uni-forms-item> -->
@@ -267,12 +280,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.top-banar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: #0765ae;
+ 
+
+    .subtitle {
+      font-size: 16px;
+      color: #fff;
+    
+  }
+}
 .input-area{
   width: 298px;
-  background-color: #eee;
+  background-color: #ebebeb70;
   height: 45px;
-  padding: 18px;
-  border-radius: 22.5px;
+  padding: 15px;
+ /* border-radius: 22.5px;*/
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -284,26 +311,26 @@ export default {
 }
 
 .submit-btn{
-  background:#ED9121;
-  border-radius: 22.5px;
+  background:#0765ae;
+  /*border-radius: 22.5px;*/
   color: #fff!important;
   cursor: pointer;
   
 }
 .submit-btn-disabled{
-  background:#ed912178!important;
+  background:rgba(7,101,174,0.5)!important;
   color: #eee!important;
 }
 .sms-btn {
   border-radius: 22.5px;
   color: #fff;
-  background-color:#06c ;
+  background-color:#0765ae ;
   cursor: pointer;
 
 }
 
 .smstext {
-  color: #06c;
+  color: #0765ae;
   margin-right: 6px;
   cursor: pointer;
 }
@@ -314,8 +341,8 @@ export default {
 
 .container {
   width: 100vw;
-  height: 100vh;
-  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+padding-top: 120px;
+  /* background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -326,12 +353,12 @@ export default {
     .title {
       font-size: 25px;
       padding: 15px 0;
-      color: #fff;
+      color: #434343;
     }
 
     .subtitle {
       font-size: 16px;
-      color: #f7f7f7;
+      color: #424242;
     }
   }
 }

@@ -55,6 +55,7 @@ export default{
 		},
         	//获取当天开始的订单
 		 async getOrderListTodayAfter(context,hotel_id) {
+			console.log("99999999999999999999",hotel_id)
 			const res = await OrderService.getOrderListTodayAfter(hotel_id);
 			console.log("获取当天开始的订单",res)
 				context.commit("updateOrderListTodayAfter", res.result.data);

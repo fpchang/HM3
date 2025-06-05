@@ -199,7 +199,7 @@ $showWidth:1200px;
     min-width: 86px;
     gap:8px;
     .pr-text{
-      color: #ED9121;
+      color: #0765ae;
       font-weight: bold;
       padding:0 4px;
     }
@@ -249,7 +249,7 @@ $showWidth:1200px;
 		}
 		.pr-text{
 			padding:0 10px;
-			color: #ED9121;
+			color: #0765ae;
 			font-weight: bold;
 		}
 		}

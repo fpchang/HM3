@@ -5,11 +5,19 @@
     </block>
     <block v-if="!noData">
 <view> 
-  {{ console.log("1211",checkInOrderListFormat,orderDateRangeFormat) }}
   <uni-table ref="table" :loading="loading" border stripe  emptyText="暂无更多数据">
 				<uni-tr>
-          <uni-th width="100px" align="center" class="fixed" >日历图标</uni-th>				
-					<uni-th align="center" v-for="item of orderDateRangeFormat">
+          <uni-th width="100px" align="center" class="fixed" >
+            <view>
+              <view>
+                <l-icon name="material-symbols:calendar-today-rounded" size="40px" color="#0765ae"/>
+               
+              </view>
+              <view> <text style="color:#0765ae">{{new Date().Format("MM-dd")}}</text></view>
+              
+            </view>
+            </uni-th>				
+					<uni-th align="center"  v-for="item of orderDateRangeFormat">
             <view> 
               <view>{{item.de}}</view>
               <view>{{item.dy}}</view>
@@ -21,12 +29,13 @@
         <uni-tr v-for="(item,key) of checkInOrderListFormat"> 
           <uni-td class="fixed">{{ roomType[key].name }}
           </uni-td>
-          <un-td v-for="it of item">
+          <uni-td v-for="it of item">
+           
             <view class="inner-table"> 
                  <view class="inner-table-tr" v-for="i of it.orderList"> {{i.userName}}</view>
             </view>
               
-           </un-td>
+           </uni-td>
         </uni-tr>
         </uni-table>
 </view>
@@ -62,7 +71,7 @@
               <view class="checkIntable-h-list">
                 <view
                   class="th-style checkIntable-h-list-h"
-                  style="background-color: #f4f4f4"
+                  style="background-color: #f7f7f7"
                   v-for="item in orderDateRangeFormat"
                 >
                   <view style="display: flex; flex-direction: column">
@@ -208,6 +217,7 @@ export default {
     };
   },
   created() {
+    console.log("房态created")
     this.getOrderList();
   },
   activated() {},
@@ -382,7 +392,9 @@ export default {
       //uni.showLoading();
       try {
         await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
-      } catch (error) {}
+      } catch (error) {
+        console.error("err",error)
+      }
       uni.hideLoading();
     },
     numRoom(arr = []) {
@@ -496,5 +508,9 @@ export default {
     color: #666;
     font-size: 13px;
   }
+}
+ .uni-table-th,.uni-table-tr .uni-table-td:first-child { 
+     height: 100% !important;
+     vertical-align: middle !important;
 }
 </style>

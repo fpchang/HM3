@@ -233,6 +233,20 @@
 					{
 						"navigationBarTitleText" : "订单房态"
 					}
+				},
+				{
+					"path" : "pages/hotelManage/roomType/roomType",
+					"style" : 
+					{
+						"navigationBarTitleText" : "房型管理"
+					}
+				},
+				{
+					"path" : "pages/hotelManage/employee/employee",
+					"style" : 
+					{
+						"navigationBarTitleText" : ""
+					}
 				}
 		
 
@@ -320,7 +334,7 @@
 	],
 	"tabBar": {
 		"color": "#1d1d1f",
-		"selectedColor": "#0071e3",
+		"selectedColor": "#0765ae",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{

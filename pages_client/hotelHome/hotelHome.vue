@@ -91,8 +91,6 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 			}
 		},
 		onLoad(params){
-
-			console.log("hotelHome onload",params,this.tabId);
 			if(params.hotel_id){//分享进来的页面
 					this.getHotel(params.hotel_id);
 					//this.dateRange = [Date.now(),Date.now()+1000*60*60*24];
@@ -104,7 +102,6 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 			
 		},
 		created(){
-			console.log("hotelHome created",this.hotel,this.searchCondition)
 			try {
 					uni.setNavigationBarTitle({
         			title:`【${this.hotel.hotelName}】简介` ,
@@ -116,12 +113,12 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 		},
 		onShow(){
 			if(this.$store.state.isPcShow){
-				uni.hideTabBar();
+				//uni.hideTabBar();
 			}
 			//if(this.isPcShow){
 			// #ifdef H5
 			try {
-				document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
+				//document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
 			} catch (error) {
 				
 			}

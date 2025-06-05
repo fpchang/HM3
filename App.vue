@@ -2,7 +2,7 @@
 	// "tabBar": {
 	// 	"height": "0",
 	// 	"color": "#1d1d1f",
-	// 	"selectedColor": "#0071e3",
+	// 	"selectedColor": "#0765ae",
 	// 	"borderStyle": "black",
 	// 	"backgroundColor": "#ffffff",
 	// 	"list": [

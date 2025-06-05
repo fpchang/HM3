@@ -45,7 +45,7 @@ methods:{
         padding:0;
         
         .btn{
-            background-color: #ED9121!important;
+            background-color: #0765ae!important;
             color: #fff;
             display: block;
         }

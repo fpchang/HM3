@@ -32,26 +32,29 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { ref,computed } from "vue";
+import {useStore} from "vuex";
+import hotelList from '@/pages/hotelManage/hotelList/hotelList';
 export default {
   setup() {
+    const store = new useStore();
     const menuList: Object = [
       {
         title: "业务",
         list: [
           {
-            title: "房型",
-            icon: "bi:display-fill",
-            href: "/pages/ppi/ppi",
+            title: "房型管理",
+            icon: "cbi:living-room",
+            href: "/pages/hotelManage/roomType/roomType",
           },
           {
-            title: "员工",
-            icon: "solar:projector-bold-duotone",
-            href: "/pages/projectiveRatio/projectiveRatio",
+            title: "员工管理",
+            icon: "clarity:employee-group-solid",
+            href: "/pages/hotelManage/employee/employee",
           },
 		  {
-		    title: "餐饮",
-		    icon: "solar:projector-bold-duotone",
+		    title: "餐饮管理",
+		    icon: "bx:bxs-food-menu",
 		    href: "/pages/doubleColorBall/doubleColorBall",
 		  }
         ],
@@ -60,9 +63,9 @@ export default {
         title: "推广",
         list: [
           {
-            title: "客户展示",
-            icon: "bi:display-fill",
-            href: "/pages/ppi/ppi",
+            title: "酒店展示",
+            icon: "ri:hotel-fill",
+            href: "/pages_client/hotelHome/hotelHome",
           }
         ],
       },
@@ -71,29 +74,56 @@ export default {
         list: [
           {
             title: "收入管理",
-            icon: "material-symbols:account-balance-wallet",
-            href: "/pages/travelExpense/travelExpense",
+            icon: "icon-park:income",
+            href: "/pages/financialManagement/income/income",
           },
            {
             title: "支出管理",
-            icon: "material-symbols:account-balance-wallet",
-            href: "/pages/travelExpense/travelExpense",
+            icon: "icon-park:expenses",
+            href: "/pages/financialManagement/expenses/expenses",
           }
         ],
       },
     ];
+      const hotelList = computed(()=>{
+        return store.state.hotelList;
+      });
+      const hotel_id = computed(()=>{
+        return store.state.hotel_id;
+      });
 
-    return { menuList };
+    return {hotelList,hotel_id, menuList };
   },
   data() {
     return {
       title: "Hello",
     };
   },
+  created(){
+     let hotel = this.hotelList.find(item=>{return item._id = this.hotel_id});
+				this.$store.commit("hotelClientStore/updateHotel", hotel);
+        console.log(hotel);
+  },
   onLoad() {
  
+		
   },
-  methods: {},
+  methods: {
+    openHotel() {
+			//	this.isLoading = true;
+        let hotel = this.hotelList.find(item=>{item._id = this.hotel_id});
+				this.$store.commit("hotelClientStore/updateHotel", hotel);
+				//this.$store.commit("hotelClientStore/updateSearchCondition",this.conditionForm);				
+				let href = `#/pages_client/hotelHome/hotelHome`;
+        console.log(hotel);
+				uni.navigateTo({
+					url: `/pages_client/hotelHome/hotelHome`,
+					complete: () => {
+						this.isLoading = false;
+					}
+				})
+			}
+  },
 };
 </script>
 

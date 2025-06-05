@@ -18,7 +18,7 @@
                                     <text class="label-item" style="color:#323233;font-weight:bold">{{item.scenicSport_name}}</text>
                                     <text class="label-item">{{item.scenicSport_address}}</text>
                                     <text class="label-item" style="font-size:14px">距离{{hotel.hotelName}} 
-                                      <text style="padding:0 10px;color:#ED9121">{{getDistance(hotel.hotelCoordinate,item.location)}}KM</text></text>
+                                      <text style="padding:0 10px;color:#0765ae">{{getDistance(hotel.hotelCoordinate,item.location)}}KM</text></text>
                                   </view>
                                   <view>
                                    
@@ -55,7 +55,7 @@
                                         <text class="label-item" style="color:#323233;font-weight:bold">{{item.scenicSport_name}}</text>
                                         <text class="label-item">{{item.scenicSport_address}}</text>
                                         <text class="label-item" style="font-size:14px">距离{{hotel.hotelName}} 
-                                          <text style="padding:0 10px;color:#ED9121">{{getDistance(hotel.hotelCoordinate,item.location)}}KM</text></text>
+                                          <text style="padding:0 10px;color:#0765ae">{{getDistance(hotel.hotelCoordinate,item.location)}}KM</text></text>
                                       </view>
                                       <view>
                                        
@@ -234,7 +234,7 @@ $showWidth:1200px;
         font-size: 14px;
     }
     .pr-text{
-      color: #ED9121;
+      color: #0765ae;
       font-weight: bold;
       padding:0 4px;
     }

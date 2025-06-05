@@ -4,7 +4,7 @@
       <view class="dp-label-area"> 
         <view  v-for="item of dataList" class="dp-item" @click="clickTab(item.id)"> 
           <text style="padding:0 5px" :class="[item.id==active_id?'active_text':'']">{{item.label}}</text>
-          <uv-icon  name="arrow-down-fill" :color="item.id==active_id?'#06c':'#a1a1a1'" size="12px"
+          <uv-icon  name="arrow-down-fill" :color="item.id==active_id?'#0765ae':'#a1a1a1'" size="12px"
 									top="2"></uv-icon>
         </view> 
       </view>
@@ -89,7 +89,7 @@ export default{
         color: #313131;
       }
       .active_text{
-        color:#06c;
+        color:#0765ae;
       }
     }
   }

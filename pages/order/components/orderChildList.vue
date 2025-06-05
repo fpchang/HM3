@@ -3,8 +3,8 @@
 	
 		<view> 
 				<!-- <uni-segmented-control :current="current" :values="items"
-				active-color="#ED9121" @clickItem="onClickItem" /> -->
-				<!-- <xt-subsection :items="items" @checkTab="onClickItem" activeBgColor="#ED9121" activeFColor="#fff"></xt-subsection>
+				active-color="#0765ae" @clickItem="onClickItem" /> -->
+				<!-- <xt-subsection :items="items" @checkTab="onClickItem" activeBgColor="#0765ae" activeFColor="#fff"></xt-subsection>
 				
 				 -->
 			</view>
@@ -428,7 +428,7 @@
 				justify-content: flex-end;
 				gap:10px;
 				.btn{
-					background-color: #ED9121;
+					background-color: #0765ae;
 					color:#fff;
 					width: 86px;
 					height: 40px;

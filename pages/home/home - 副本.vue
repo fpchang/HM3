@@ -166,7 +166,7 @@
                   <uni-icons
                     :type="item._id == hotel_id ? 'checkbox' : 'circle'"
                     size="22"
-                    color="#06c"
+                    color="#0765ae"
                   ></uni-icons>
                   <view class="i-area">
                     <text>{{ item.hotelName }}</text>

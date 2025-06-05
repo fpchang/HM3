@@ -39,10 +39,10 @@
         ></uv-icon>
         <uv-icon
         name="grid-fill"
-        :color="isEdit?'#06c':'#000'"
+        :color="isEdit?'#0765ae':'#000'"
         size="22"
         label="编辑模式"
-        :labelColor="isEdit?'#06c':'#000'"
+        :labelColor="isEdit?'#0765ae':'#000'"
         labelPos="bottom"
         labelSize="12px"
         @click="moreControl"

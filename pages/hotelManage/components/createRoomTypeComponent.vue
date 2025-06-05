@@ -135,7 +135,7 @@
 		   </view>
 		   </view>
 	   </view>
-	   <view><text style="color:#a1a1a1;color:#ED9121">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>	
+	   <view><text style="color:#a1a1a1;color:#0765ae">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>	
 				
 				
 				

@@ -23,14 +23,14 @@
                 <uni-icons
                   type="minus-filled"
                   size="24"
-                  color="#ED9121"
+                  color="#0765ae"
                   @click="loseCount()"
                 ></uni-icons>
                 <text style="padding: 0 8px">{{ selectCount }}</text>
                 <uni-icons
                   type="plus-filled"
                   size="24"
-                  color="#ED9121"
+                  color="#0765ae"
                   @click="addCount()"
                 ></uni-icons>
               </view>
@@ -88,7 +88,7 @@
 							<view class="flex-center" style="flex:1;color:#a1a1a1">
 									<text>￥{{minPrice}}</text>
 									<view style="flex:1"> 
-										<slider  activeColor="#ED9121" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="#ED9121" /> 
+										<slider  activeColor="#0765ae" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="#0765ae" /> 
 									</view>
 									<text>￥{{priceTotal}}</text>
 							</view>	
@@ -151,14 +151,14 @@
                 <uni-icons
                   type="minus-filled"
                   size="24"
-                  color="#ED9121"
+                  color="#0765ae"
                   @click="loseCount()"
                 ></uni-icons>
                 <text style="padding: 0 8px">{{ selectCount }}</text>
                 <uni-icons
                   type="plus-filled"
                   size="24"
-                  color="#ED9121"
+                  color="#0765ae"
                   @click="addCount()"
                 ></uni-icons>
               </view>
@@ -216,7 +216,7 @@
 							<view class="flex-center" style="flex:1;color:#a1a1a1">
 									<text>￥{{minPrice}}</text>
 									<view style="flex:1"> 
-										<slider  activeColor="#ED9121" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="#ED9121" /> 
+										<slider  activeColor="#0765ae" :value="bargainPrice" @change="bargainPriceChange" :min="minPrice" :max="priceTotal" block-color="#0765ae" /> 
 									</view>
 									<text>￥{{priceTotal}}</text>
 							</view>	
@@ -582,13 +582,13 @@ export default {
   align-items: center;
   font-size: 14px;
   .rmb {
-    color: #ed9121;
+    color: #0765ae;
     font-weight: bold;
     font-size: 20px;
     padding: 0 10px;
   }
   .btn {
-    background-color: #ed9121;
+    background-color: #0765ae;
     color: #fff;
     width: 86px;
     height: 40px;

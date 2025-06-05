@@ -158,7 +158,7 @@ import {useStore} from 'vuex';
 	justify-content: flex-end;
 	padding: 0 20px;
 	box-sizing: border-box;
-	background: #f4f4f4;
+	background: #f7f7f7;
 	.left-panal{
 		flex: 1;
 		display: flex;
@@ -202,7 +202,7 @@ import {useStore} from 'vuex';
 	  .num-area{
 		  text-align: center;
 		  .num{
-			  color:#ED9121;
+			  color:#0765ae;
 			  padding:0 4px;
 			  font-weight: bold;
 			  font-size: 20px;

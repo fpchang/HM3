@@ -18,7 +18,7 @@
     </view>
    <view class="text-container"> 
     <view><text>【{{hotel.hotelName}}】</text></view>
-    <view><text>如有疑问，请联系</text><text style="cursor:pointer;color:#06c;padding-left:8px" @click="makePhoneCallEvent(hotel.contactPhone)">{{hotel.contactPhone}}</text></view>
+    <view><text>如有疑问，请联系</text><text style="cursor:pointer;color:#0765ae;padding-left:8px" @click="makePhoneCallEvent(hotel.contactPhone)">{{hotel.contactPhone}}</text></view>
     
    </view>
   </view>
@@ -112,7 +112,7 @@ export default{
         padding:8px 30px;
         flex-direction: column;
         justify-content: center;
-        color: #ED9121;
+        color: #0765ae;
       }
     }
     .text-container{

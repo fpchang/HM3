@@ -37,12 +37,12 @@
                       <view class="price-style"><text>￥</text><text>{{ i.price }}</text>
                       </view>
                       <view class="ad-lose-num flex-center">
-                        <uni-icons type="minus-filled" size="24" color="#ED9121"
+                        <uni-icons type="minus-filled" size="24" color="#0765ae"
                           @click="loseMenuCount(i)" v-if="i.checkCount > 0"></uni-icons>
                         <text style="padding: 0 8px" v-if="i.checkCount > 0">{{
                           i.checkCount
                         }}</text>
-                        <uni-icons type="plus-filled" size="24" color="#ED9121"
+                        <uni-icons type="plus-filled" size="24" color="#0765ae"
                           @click="addMenuCount(i)"></uni-icons>
                       </view>
                     </view>
@@ -70,12 +70,12 @@
 					<view class="list-item" v-for="item of checkMenuList">
 						<view class="list-item-name">{{ item.name }}</view>
 						<view class="ad-lose-num flex-center">
-							<uni-icons type="minus-filled" size="24" color="#ED9121" @click="loseMenuCount(item)"
+							<uni-icons type="minus-filled" size="24" color="#0765ae" @click="loseMenuCount(item)"
 								v-if="item.checkCount > 0"></uni-icons>
 							<text style="padding: 0 8px" v-if="item.checkCount > 0">{{
                 item.checkCount
               }}</text>
-							<uni-icons type="plus-filled" size="24" color="#ED9121"
+							<uni-icons type="plus-filled" size="24" color="#0765ae"
 								@click="addMenuCount(item)"></uni-icons>
 						</view>
 					</view>
@@ -91,7 +91,7 @@
 				<view class="btn-l control-area-left" @click="openGoodsList">
 					<view style="display: flex; align-items: center">
 						<view style="position: relative">
-							<uni-icons type="cart-filled" size="30" :color="checMenuCount ? '#ED9121' : '#616161'">
+							<uni-icons type="cart-filled" size="30" :color="checMenuCount ? '#0765ae' : '#616161'">
 							</uni-icons>
 							<uni-badge :text="checMenuCount" absolute="rightTop"
 								style="position: absolute; right: 0; top: 0"></uni-badge>
@@ -101,10 +101,10 @@
 						订单为空
 					</text> -->
 						<!-- <text style="padding-left:8px" v-if="checMenuCount>0">
-						已选<text style="color:#ED9121;padding:0 4px">{{ checMenuCount }}</text>道菜
+						已选<text style="color:#0765ae;padding:0 4px">{{ checMenuCount }}</text>道菜
 					</text> -->
 						<text style="color: red; font-weight: bold; padding-left: 12px">￥{{ checMenuPriceTotal }}</text>
-						<text style="color: #ed9121" v-if="checMenuPriceTotal > 0">*（不包含餐具等其它费用）</text>
+						<text style="color: #0765ae" v-if="checMenuPriceTotal > 0">*（不包含餐具等其它费用）</text>
 					</view>
 					<!-- <view> 
 					
@@ -515,7 +515,7 @@
 			height: 60px;
 			font-size: 14px;
 			cursor: pointer;
-			background-color: #ed9121;
+			background-color: #0765ae;
 
 			&:hover {
 				color: #fff;
@@ -524,7 +524,7 @@
 
 		.btn-normal {
 			background-color: #fff;
-			color: #06c;
+			color: #0765ae;
 
 			&:hover {
 				color: rgb(1, 96, 190);
