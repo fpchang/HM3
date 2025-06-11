@@ -5,7 +5,8 @@
         <view class="share-area">
           <view class="container">
             <view class="icon-item">
-              <uv-icon
+          
+              <!-- <uv-icon
                 :name="isCollect ? 'star-fill' : 'star'"
                 color="#fff"
                 labelColor="#fff"
@@ -13,7 +14,7 @@
                 labelPos="bottom"
                 labelSize="12px"
                 @click="collectEvent"
-              ></uv-icon>
+              ></uv-icon> -->
             </view>
             <!-- #ifdef MP -->
 

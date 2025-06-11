@@ -22,9 +22,12 @@
         <uni-forms-item name="smsCode">
           <view class="flex-between input-area" > 
              <view style="padding-right: 15px;"><l-icon name="material-symbols:lock" size="25px" color="#0765ae"/></view> 
-            <view class="flex-between">
-                <input  type="number" maxlength="4" v-model="userForm.smsCode" placeholder="请输入验证码" />
-            <text @click="getCode" :class="['smstext', sendSmsDisabled ? 'smstext-disable' : '']">{{tips}}</text>
+            <view class="flex-between" >
+				<view style="flex:1">  <input  type="number" maxlength="4" v-model="userForm.smsCode" placeholder="请输入验证码" /></view>
+				<view style="width:80px;text-align: right;"> 
+					<text @click="getCode" :class="['smstext', sendSmsDisabled ? 'smstext-disable' : '']">{{tips}}</text>
+				</view>
+				
             </view>
           
           </view>

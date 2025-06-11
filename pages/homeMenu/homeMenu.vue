@@ -3,8 +3,21 @@
     <scroll-view overflow-x="false" overflow-y="true">
       <xt-panal-list :count="menuList.length">
         <!-- #ifdef MP -->
-        <view v-for="item of menuList" slot="card{{index}}">
-          <text>{{ item.title }}</text>
+        <view v-for="(item, index) of menuList" slot="card{{index}}">
+                <view class="h">{{ item.title }}</view>
+                    <view class="li">
+                      <view class="menu-list">
+                        <view v-for="it of item.list">
+                          <navigator :url="it.href" hover-class="navigator-hover">
+                            <view class="menu-item">
+                                <view class="flex-center"><l-icon :name="it.icon" size="30px" color="#a1a1a1"></l-icon></view>
+                   
+                              <text class="tx">{{ it.title }}</text>
+                            </view>
+                          </navigator>
+                        </view>
+                      </view>
+                    </view>
         </view>
         <!-- #endif -->
         <!-- #ifdef H5 || APP-PLUS -->
@@ -15,9 +28,7 @@
               <view v-for="it of item.list">
                 <navigator :url="it.href" hover-class="navigator-hover">
                   <view class="menu-item">
-                    <text class="tx"
-                      ><l-icon :name="it.icon" size="30px" color="#a1a1a1"
-                    /></text>
+                    <view class="flex-center"><l-icon :name="it.icon" size="30px" color="#a1a1a1"></l-icon></view>
                     <text class="tx">{{ it.title }}</text>
                   </view>
                 </navigator>

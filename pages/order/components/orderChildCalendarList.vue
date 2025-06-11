@@ -4,10 +4,10 @@
       <noData text_content="当前无订单数据"></noData>
     </block>
     <block v-if="!noData">
-<view> 
+<view class="uni-container"> 
   <uni-table ref="table" :loading="loading" border stripe  emptyText="暂无更多数据">
-				<uni-tr>
-          <uni-th width="100px" align="center" class="fixed" >
+				<uni-tr  class="table-header">
+          <uni-th width="100" align="center">
             <view>
               <view>
                 <l-icon name="material-symbols:calendar-today-rounded" size="40px" color="#0765ae"/>
@@ -27,7 +27,7 @@
           </uni-th>
 				</uni-tr>
         <uni-tr v-for="(item,key) of checkInOrderListFormat"> 
-          <uni-td class="fixed">{{ roomType[key].name }}
+          <uni-td>{{ roomType[key].name }}
           </uni-td>
           <uni-td v-for="it of item">
            
@@ -121,6 +121,9 @@ export default {
   setup(){
     let columnRoom=ref([]);
 
+  },
+   options: {
+    styleIsolation: 'shared', // 解除样式隔离
   },
   data() {
     return {
@@ -410,6 +413,44 @@ export default {
 
 <style lang="scss">
 /* pages/management/checkIn/checkIn.wxss */
+.uni-container {
+		width: 100%;
+		height: 100vh;
+	}
+
+
+	.table-header {
+		position: sticky;
+		left: 0;
+		top: 0;
+		z-index: 100;
+		background-color: #fff;
+	}
+
+	/*冻结表头第一列*/
+	::v-deep .uni-table-tr .uni-table-td:first-child {
+		position: sticky;
+		left: 0;
+		top: 0;
+		background-color: #fff;
+		z-index: 100;
+	}
+
+	::v-deep .uni-table-tr {
+		overflow: visible;
+		background-color: #fff;
+	}
+
+	::v-deep .uni-table-tr .uni-table-th:first-child {
+		position: sticky;
+		left: 0;
+		top: 0;
+		background-color: #fff;
+		z-index: 100;
+	}
+
+
+/*
 .checkIntable-content-scroll {
   width: calc(100vw - 100px);
   height: 100%;
@@ -478,9 +519,7 @@ export default {
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  /**&:nth-child(even){
-			background-color: #f0efef
-		};*/
+
   .tx-content {
     &:nth-child(n + 4) {
       display: none;
@@ -508,7 +547,7 @@ export default {
     color: #666;
     font-size: 13px;
   }
-}
+}*/
  .uni-table-th,.uni-table-tr .uni-table-td:first-child { 
      height: 100% !important;
      vertical-align: middle !important;

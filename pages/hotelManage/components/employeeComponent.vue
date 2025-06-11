@@ -101,7 +101,7 @@
               <view class="list-item" style="justify-content: flex-end">
                 <view class="list-item-c" style="width: 150px">
                   <button
-                    class="uni-button"
+                    class="uni-button edit-text-btn-style"
                     size="mini"
                     type="primary"
                     @click="editEmployee(item)"

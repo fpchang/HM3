@@ -218,7 +218,7 @@ const store = createStore({
           resolve();
         },
       };
-      if(userRole=='hotel'){
+      //if(userRole=='hotel'){
         console.log("后端登录")
         uni.redirectTo({        
           url: "/pages/login/login",
@@ -229,12 +229,12 @@ const store = createStore({
           }
         });
         return;
-      }
-      console.log("客户端登录")
-      uni.navigateTo({
-        url: "/pages/login/login",
-        events: events
-      });
+      //}
+      // console.log("客户端登录")
+      // uni.navigateTo({
+      //   url: "/pages/login/login",
+      //   events: events
+      // });
      })
      
     },

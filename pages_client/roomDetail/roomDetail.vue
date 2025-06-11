@@ -11,7 +11,7 @@
 		  <view> 
 			  <view class="room-info-label">房型信息</view>
 			  <unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name , type , icon" :getone="false" where="type=='roomType'" orderby="name asc"> 
-			  <view class="room-info-list">
+				<view class="room-info-list">
   
 				<view class="room-info-list-item">
 				  <uni-icons type="personadd-filled" size="30px" color="#000"></uni-icons>
@@ -28,7 +28,7 @@
 				</view> 
 		  
 			   <block v-for="item of data"> 
-				  <view class="room-info-list-item" v-if="roomType.facility.includes(item._id)">
+				  <view class="room-info-list-item" v-if="roomType.facility&&roomType.facility.includes(item._id)">
 					  <image :src="item.icon" style="width: 30px;height:30px;"></image>
 					  <view class="la">{{item.name}}</view>
 					</view>

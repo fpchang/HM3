@@ -47,6 +47,9 @@ import UniIcons from '../../uni_modules/uni-icons/components/uni-icons/uni-icons
 			// await proxy.$onLaunched;
 			await this.setConfig();		
 				uni.switchTab({url:"/pages/home/home"});
+				// uni.navigateTo({
+				// 	url:"/pages/tt/tt"
+				// })
 			return;
 			let userRole =uni.getStorageSync("userRole");			
 			if(!userRole){

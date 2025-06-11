@@ -259,6 +259,19 @@
 		},
 
 		mounted() {
+// uni.downloadFile({
+//   url: '../../../static/img/社交头像.pdf',
+//   success: function (res) {
+//     var filePath = res.tempFilePath;
+//     uni.openDocument({
+//       filePath: filePath,
+//       showMenu: true,
+//       success: function (res) {
+//         console.log('打开文档成功');
+//       }
+//     });
+//   }
+// });
 
 			this.option = {
 				grid: {

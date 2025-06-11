@@ -31,9 +31,9 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 	let imgUrl=`${config.cloudUrl}/HM/images/miniprogram/`;
 	let 	tabbarList=[
         {id:"b1",label:"首页",icon:`${imgUrl}introduce-line-black.svg`,activeIcon:`${imgUrl}introduce-line-blue.svg`},
-        {id:"b2",label:"房型",icon:`${imgUrl}bed-line-black.svg`,activeIcon:`${imgUrl}bed-line-blue.svg`},
-        {id:"b3",label:"餐饮",icon:`${imgUrl}food.svg`,activeIcon:`${imgUrl}food-blue.svg`},
-		{id:"b4",label:"景点",icon:`${imgUrl}scenicSpot-black.png`,activeIcon:`${imgUrl}scenicSpot-blue.png`}
+        {id:"b2",label:"房型",icon:`${imgUrl}bed-line-black.svg`,activeIcon:`${imgUrl}bed-line-blue.svg`}
+        // {id:"b3",label:"餐饮",icon:`${imgUrl}food.svg`,activeIcon:`${imgUrl}food-blue.svg`},
+		// {id:"b4",label:"景点",icon:`${imgUrl}scenicSpot-black.png`,activeIcon:`${imgUrl}scenicSpot-blue.png`}
 		
       ]
 	 

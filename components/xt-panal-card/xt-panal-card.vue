@@ -170,6 +170,7 @@ export default{
   display: flex;
     flex-direction: column;
     gap: 10px;
+    padding-bottom:15px;
 }
 .header-style {
   display: flex;

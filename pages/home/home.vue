@@ -252,7 +252,6 @@ export default {
 	//#endif
   },
   async created() {
-    console.log("index create....>>>", uni.getSystemInfoSync());
     uni.$on("showPopupPivot", (popup, eventType) => {
       //popup开发枢纽，0 关闭，1打开
       console.log("开关枢纽", arguments);
