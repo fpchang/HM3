@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="income">
     <view class="add-content-style">
       <view class="left-panal">
       
@@ -234,6 +234,9 @@ export default {
 </script>
 
 <style lang="scss">
+.income{
+  /* background-color:#eeeeee33; */
+}
 .add-content-style {
   height: 60px;
   display: flex;
@@ -272,7 +275,7 @@ export default {
   justify-content: space-between;
   max-width: 600px;
   .item{
-	border:1px solid #e0e0e0;
+	background-color: #ccac02;
 	border-radius: 10px;
 	width: 110px;
 	height: 70px;
@@ -281,10 +284,11 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+  color: #fff;
 	.num-area{
 		text-align: center;
 		.num{
-			color:#0765ae;
+			color:#FFF;
 			padding:0 4px;
 			font-weight: bold;
 			font-size: 20px;
@@ -296,9 +300,10 @@ export default {
 .list {
   color: #6a6a6a;
   font-size: 13px;
+  padding:4px;
   .list-item {
     box-sizing: border-box;
-    padding: 4px 15px;
+    padding: 6px 15px;
     display: flex;
     align-items: center;
   }

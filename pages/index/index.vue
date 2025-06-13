@@ -93,7 +93,7 @@ export default {
       return this.$store.state.hotelList;
     },
     noData() {
-      return !this.hotelList || this.hotelList.length < 1;
+      return !this.isLoading&&( !this.hotelList || this.hotelList.length < 1);
     },
   },
   watch: {
@@ -102,7 +102,6 @@ export default {
       let o = oarr || [];
 
       if (o.length < 1 && n.length > 0) {
-        console.log("有店铺了》》》》》》》》》");
         uni.switchTab({
           url: "/pages/home/home",
         });
@@ -114,6 +113,7 @@ export default {
       try {
         await this.$store.dispatch("getHotelList");
         this.$store.commit("setBaseDatahasLoad", true);
+        this.isLoading=false;
         if (!this.hotelList || this.hotelList.length < 1) {
           uni.hideLoading();
 

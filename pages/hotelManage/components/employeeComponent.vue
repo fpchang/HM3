@@ -14,7 +14,7 @@
 		   </view>
 		   </view>
 
-    <view class="phone-show-style" style="max-width: 450px" v-if="!isPcShow">
+    <view class="phone-show-style" style="max-width: 450px">
       <uni-collapse v-model="accordionVal">
         <uni-collapse-item v-for="item of employeeList">
           <template v-slot:title>

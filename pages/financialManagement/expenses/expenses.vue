@@ -180,46 +180,47 @@ import {useStore} from 'vuex';
 	padding:0 15px;
 }
 .info-area {
-	color: #6a6a6a;
-	font-size: 12px;
-	display: flex;
-	align-items: center;
-	display: flex;
-	padding:0 15px;
+  color: #6a6a6a;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  padding:0 15px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  max-width: 600px;
+  .item{
+	background-color: #ccac02;
+	border-radius: 10px;
+	width: 110px;
+	height: 70px;
 	box-sizing: border-box;
+	padding:8px;
+	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
-	max-width: 600px;
-	.item{
-	  border:1px solid #e0e0e0;
-	  border-radius: 10px;
-	  width: 110px;
-	  height: 70px;
-	  box-sizing: border-box;
-	  padding:8px;
-	  display: flex;
-	  flex-direction: column;
-	  justify-content: space-between;
-	  .num-area{
-		  text-align: center;
-		  .num{
-			  color:#0765ae;
-			  padding:0 4px;
-			  font-weight: bold;
-			  font-size: 20px;
-			}
-	  }
+  color: #fff;
+	.num-area{
+		text-align: center;
+		.num{
+			color:#FFF;
+			padding:0 4px;
+			font-weight: bold;
+			font-size: 20px;
+		  }
 	}
-	
   }
-.list{
-	color: #6a6a6a;
-	font-size: 13px;
-	.list-item{
-		box-sizing: border-box;
-		padding:4px 15px;
-		display: flex;
-		align-items: center;
-		
-	}
+  
+}
+.list {
+  color: #6a6a6a;
+  font-size: 13px;
+  padding:4px;
+  .list-item {
+    box-sizing: border-box;
+    padding: 6px 15px;
+    display: flex;
+    align-items: center;
+  }
 }
 </style>

@@ -86,6 +86,7 @@ export default {
 		},
 		methods: {
 			submit(){
+				console.log("权限》》》",this.$store.state.permissionStore.permissionList);
 				if(!this.$store.state.permissionStore.permissionList.includes('FM_CREATE')){
 					 alert.alertNoPermisson();
 					return;

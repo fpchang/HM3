@@ -75,6 +75,7 @@ const store = createStore({
     checkHotel(state, hotel_id) {
       uni.setStorageSync("hotel_id", hotel_id);
       store.commit("setHotelId", hotel_id);
+       store.dispatch("getPermissionList", hotel_id);
     },
     //调用 this.$store.commit('updateHotelList',[])
     updateHotelList(state, list) {

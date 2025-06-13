@@ -400,7 +400,7 @@ export default {
       console.log("index watch hotel_id", val);
   
 	  if(val!=oldVal){
-		await this.$store.dispatch("getPermissionList", val);
+		 // await this.$store.dispatch("getPermissionList", val);
 
 	  }
     
