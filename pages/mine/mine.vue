@@ -1,5 +1,6 @@
 <template>
 	<view class="mine">
+		
 		<view>
 			<view style="display: flex; justify-content: flex-end; padding: 10px">
 				<navigator url="/pages/set/set" hover-class="navigator-hover">
@@ -42,7 +43,7 @@
 			</view>
 			<view class="card jd" style="">
 				<view class="jd-item" style="font-weight: bold; font-size: 20px">{{
-					hotel.hotelName
+					hotel['hotelName']
 				}}</view>
 				<view class="jd-item flex-between">
 					<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="navigator-hover">
@@ -141,12 +142,11 @@ export default {
     },
     hotel() {
 		const hotelList = this.$store.state.hotelList||[];
-      return this.$store.state.hotelList.find(
+      return hotelList.length?(hotelList.find(
         (item) => item._id == this.hotel_id
-      );
+      )):{}
     },
     user() {
-      //return uni.getStorageSync("user");
       return this.$store.state.user || uni.getStorageSync("user");
     },
   },
@@ -160,7 +160,7 @@ export default {
   methods: {
     login() {
       uni.navigateTo({
-        url: "/uni_modules/uni-id-pages/pages/login/login-smscode?phoneNumber=18516285834",
+        url: "/uni_modules/uni-id-pages/pages/login/login-smscode?phoneNumber=19083441181",
       });
     },
     vipDate(d) {

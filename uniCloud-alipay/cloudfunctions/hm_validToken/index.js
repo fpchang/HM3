@@ -8,7 +8,7 @@ exports.main = async (event, context) => {
 		event,context
 	});
 	try{
-		return {code:0,msg:""};
+		
 		const {$token} = event;
 		if(!$token){
 			return {code:9992,msg:""}
@@ -34,7 +34,7 @@ exports.main = async (event, context) => {
 		
 	}catch(e){
 		console.log(e)
-			//throw new Error("数据异常",e)
+		throw new Error("数据异常",e)
 	}
 	//返回数据给客户端
 	//return event

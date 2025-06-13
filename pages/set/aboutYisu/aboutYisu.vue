@@ -6,7 +6,7 @@
 			</view>
 			<uni-list>
 				<uni-list-item title="企业"   right-text="湖州玄天科技有限公司"></uni-list-item>
-				<uni-list-item title="联系人"  right-text="18516285834"> </uni-list-item>
+				<uni-list-item title="联系人"  right-text="19083441181"> </uni-list-item>
 				<uni-list-item title="备案号"  right-text="浙ICP备2024130639号-3A"></uni-list-item>
 				
 			</uni-list>

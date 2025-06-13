@@ -1,18 +1,5 @@
 <template>
   <view class="employee-component">
-    <!-- <view class="add-content-style" style="">
-      <view>
-       
-        <button
-          class="uni-button"
-          size="mini"
-          type="primary"
-          @click="addEmployee()"
-        >
-          添加员工
-        </button>
-        </view>
-    </view> -->
     <view class="add-content-style">
 			<view class="control-panal">
 			<uv-icon
@@ -26,46 +13,7 @@
 			 ></uv-icon>
 		   </view>
 		   </view>
-    <view v-if="isPcShow">
-      <uni-table border stripe emptyText="暂无更多数据">
-        <!-- 表头行 -->
-        <uni-tr>
-          <uni-th align="center">用户手机</uni-th>
-          <uni-th align="center">员工名称</uni-th>
-          <uni-th align="center">角色</uni-th>
-          <uni-th align="center" width="200px">操作</uni-th>
-        </uni-tr>
-        <!-- 表格数据行 -->
-        <uni-tr v-for="item of employeeList">
-          <uni-td>{{ item.phone }}</uni-td>
-          <uni-td>{{ item.employee_name }}</uni-td>
-          <uni-td>{{ roleFormat(item.role) }}</uni-td>
-          <uni-td align="center">
-            <view class="uni-group" style="justify-content:space-around">
-              <text  class="edit-text-btn-style" @click="editEmployee(item)">修改</text>
-            	<text v-if="item.role!='administrator'" class="edit-text-btn-style" @click="deleteEmployee(item)">删除</text>
-              <!-- <button
-                class="uni-button"
-                @click="editEmployee(item)"
-                size="mini"
-                type="primary"
-              >
-                修改
-              </button>
-              <button
-                class="uni-button"
-                size="mini"
-                type="warn"
-                @click="deleteEmployee(item)"
-                :loading="submitLoading"
-              >
-                删除
-              </button> -->
-            </view>
-          </uni-td>
-        </uni-tr>
-      </uni-table>
-    </view>
+
     <view class="phone-show-style" style="max-width: 450px" v-if="!isPcShow">
       <uni-collapse v-model="accordionVal">
         <uni-collapse-item v-for="item of employeeList">

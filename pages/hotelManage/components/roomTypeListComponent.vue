@@ -64,6 +64,15 @@
 
 			</uni-table>
 		</view>
+			  <block v-if="noData">
+      <noData
+        text_content="没有数据"
+        :showControl="true"
+        text_control_add="添加房型"
+        @Event_one="addRoomType"
+      ></noData>
+    </block>
+		<block  v-if="!noData">
 		<view class="mobile-show-style">
 			<xt-panal-list :count="roomType.length">
 				
@@ -132,6 +141,7 @@
 
 			</uni-collapse> -->
 		</view>
+		</block>
 		<uni-popup ref="popupCreateRoomType" background-color="transprant">
 			<view class="popup-content">
 				<view class="create-order-title-style">{{type==1?"修改房型":"创建房型"}}</view>
@@ -183,6 +193,9 @@ import  {DB} from '../../../api/DB';
 			},
 			showAddBtn(){
 				return this.$store.state.permissionStore.permissionList.includes('ROOMTYPE_CREATE');
+			},
+			noData(){
+				return !this.roomType||this.roomType.length<1;
 			}
 		},
 		async created() {

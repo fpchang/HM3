@@ -27,7 +27,7 @@ const store = createStore({
     topHeight: 90,
     tabHeight: 44,
     isPcShow: false,
-    user: "",
+    user: {},
     hotelList: null,
     employeeList: [],
     hotel_id: "",
@@ -110,7 +110,9 @@ const store = createStore({
       store.dispatch("getRoomType");
     },
     updateUser(state) {
+     
       const user = uni.getStorageSync("user");
+       console.warn("kkkkk",user)
       if (user) {
         store.commit("setUser", user);
       }
@@ -131,6 +133,7 @@ const store = createStore({
     },
     async getUser(context) {
       const res = await AccountService.getuserByToken();
+      console.log("用户信息？？？？？",res)
       if (res.result.data[0]) {
         uni.setStorageSync("user", res.result.data[0]);
         context.commit("setUser", res.result.data[0]);
@@ -160,14 +163,12 @@ const store = createStore({
       } catch (error) {}
     },
     loginEvent(context, loginSuccess) {
-      console.error("111111",arguments)
       return new Promise(async (resolve, reject) => {
         if (!uni.getStorageSync("hm_token")) {
           //未登录
-          console.log("未登录11111111");
           context.dispatch("clearCache");
           await context.dispatch("navPageLogin",loginSuccess);
-          reject("未登录222222222");
+          reject("未登录");
           return; 
         };
         const res = await AccountService.validToken();
@@ -180,10 +181,12 @@ const store = createStore({
             });
           context.dispatch("clearCache");
           context.dispatch("navPageLogin",loginSuccess);
+		      console.log("token校验不通过");
           reject("token校验不通过");
           return;
         }
         console.log("token验证通过");
+        await context.dispatch("getUser");
         resolve();
         
       });

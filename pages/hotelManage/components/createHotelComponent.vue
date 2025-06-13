@@ -140,8 +140,13 @@
 			</view>
 
 			<uni-forms-item>
-				<uv-button v-if="type!=2" type="success" text="保存" color="#007aff" @click="submitForm()"
-					:disabled="submitDisabled" :loading="submitLoading"></uv-button>
+				<view class="flex-end" >
+					<view style="width:130px">
+						<button v-if="type!=2" type="primary"  @click="submitForm()":disabled="submitDisabled" :loading="submitLoading">保存</button>
+					</view> 
+					
+				</view>
+				
 			</uni-forms-item>
 			
 		</uni-forms>
@@ -266,7 +271,7 @@
 				return this.$store.state.hotelList;
 			},
 			submitDisabled() {
-				return false
+				return !this.hotelForm.hotelName
 			}
 		},
 		methods: {
@@ -382,6 +387,7 @@
 					// })
 					await this.$store.dispatch("getHotelList");
 					this.$emit('closePopup');
+					
 				}).catch(er => {
 					console.log("添加失败", er);
 					uni.hideLoading();

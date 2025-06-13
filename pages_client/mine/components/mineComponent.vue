@@ -191,7 +191,7 @@ UniNavBar
 			},
 			login() {
 				uni.navigateTo({
-					url: "/uni_modules/uni-id-pages/pages/login/login-smscode?phoneNumber=18516285834"
+					url: "/uni_modules/uni-id-pages/pages/login/login-smscode?phoneNumber=19083441181"
 
 				})
 			},

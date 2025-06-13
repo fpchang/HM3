@@ -41,6 +41,17 @@
 
 			</uni-table>
 		</view>
+		  <block v-if="noData">
+      <noData
+        text_content="您还没有酒店"
+        :showControl="true"
+        text_control_add="创建一个"
+        @Event_one="addNewHotel"
+      ></noData>
+    </block>
+		<block  v-if="!noData">
+
+		
 		<view class="mobile-show-style">
 			<xt-panal-list :count="hotelList.length">
 				
@@ -124,6 +135,7 @@
 
 			</uni-collapse> -->
 		</view>
+		</block>
 		<uni-popup ref="popupaddHotel" background-color="transprant" @change="popupChange">
 			<view class="popup-content">
 				<view class="create-order-title-style">{{["新增酒店","修改酒店信息","酒店详情"][type]}}</view>
@@ -170,6 +182,9 @@ import {alert} from "@/alert";
 			},
 			partialRefreshComName(){
 				return this.$store.state.partialRefreshComName;
+			},
+			noData(){
+				return !this.hotelList||this.hotelList.length<1;
 			}
 		},
 		async created() {
@@ -266,6 +281,9 @@ import {alert} from "@/alert";
 						await this.$store.dispatch("getHotelList");
 						this.submitLoading = false;
 						uni.hideLoading();
+						if(!this.hotelList||this.hotelList.length<1){
+							  uni.reLaunch({url: "/pages/index/index"});
+						}
 							
 				}).catch(er => {
 						console.log("删除失败",er);

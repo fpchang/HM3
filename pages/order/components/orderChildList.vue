@@ -194,7 +194,7 @@
 				return this.$store.state.orderStore.orderListTodayAfter ||[];
 			},
 			noData(){
-				return this.checkInOrderList&&this.checkInOrderList.length<1;
+				return !this.checkInOrderList|| this.checkInOrderList.length<1;
 			},
 			updateOrderPermission(){
 				return this.$store.state.permissionStore.permissionList.includes('ORDER_UPDATE')

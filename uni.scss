@@ -121,6 +121,10 @@ $label-normal:#a1a1a1;
 	display: flex;
 	align-items: center;
 }
+.flex-end{
+	display: flex;
+	justify-content: flex-end;
+}
 .flex-between{
 	display: flex;
 	align-items: center;
@@ -180,6 +184,11 @@ $label-normal:#a1a1a1;
 	  border-radius: 8px;
 	  gap: 20px;
 	}
+  }
+  /* 提交button*/
+  .submit-btn{
+	  background-color: $font-color-control ;
+	  color: #fff;
   }
   //字体btn
   .edit-text-btn-style{

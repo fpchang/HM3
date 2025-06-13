@@ -400,7 +400,7 @@ export default {
       return this.$store.state.hotelList;
     },
     noData() {
-      return this.hotelList && this.hotelList.length < 1;
+      return !this.hotelList || this.hotelList.length < 1;
     },
     hotel() {
       try {

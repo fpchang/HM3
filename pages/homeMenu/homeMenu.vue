@@ -10,7 +10,7 @@
                         <view v-for="it of item.list">
                           <navigator :url="it.href" hover-class="navigator-hover">
                             <view class="menu-item">
-                                <view class="flex-center"><l-icon :name="it.icon" size="30px" color="#a1a1a1"></l-icon></view>
+                                <view class="flex-center"><l-icon :name="it.icon" size="30px" :color="it.iconColor"></l-icon></view>
                    
                               <text class="tx">{{ it.title }}</text>
                             </view>
@@ -28,7 +28,7 @@
               <view v-for="it of item.list">
                 <navigator :url="it.href" hover-class="navigator-hover">
                   <view class="menu-item">
-                    <view class="flex-center"><l-icon :name="it.icon" size="30px" color="#a1a1a1"></l-icon></view>
+                    <view class="flex-center"><l-icon :name="it.icon" size="30px" :color="it.iconColor"></l-icon></view>
                     <text class="tx">{{ it.title }}</text>
                   </view>
                 </navigator>
@@ -57,17 +57,20 @@ export default {
             title: "房型管理",
             icon: "cbi:living-room",
             href: "/pages/hotelManage/roomType/roomType",
+            iconColor:"#8166fe"
           },
           {
             title: "员工管理",
             icon: "clarity:employee-group-solid",
             href: "/pages/hotelManage/employee/employee",
-          },
-		  {
-		    title: "餐饮管理",
-		    icon: "bx:bxs-food-menu",
-		    href: "/pages/doubleColorBall/doubleColorBall",
-		  }
+            iconColor:"#88d188"
+          }
+		  // {
+		  //   title: "餐饮管理",
+		  //   icon: "bx:bxs-food-menu",
+		  //   href: "/pages/doubleColorBall/doubleColorBall",
+      //   iconColor:"#0765ae"
+		  // }
         ],
       },
        {
@@ -77,6 +80,7 @@ export default {
             title: "酒店展示",
             icon: "ri:hotel-fill",
             href: "/pages_client/hotelHome/hotelHome",
+            iconColor:"#ff4534"
           }
         ],
       },
@@ -87,11 +91,13 @@ export default {
             title: "收入管理",
             icon: "icon-park:income",
             href: "/pages/financialManagement/income/income",
+            iconColor:"gold"
           },
            {
             title: "支出管理",
             icon: "icon-park:expenses",
             href: "/pages/financialManagement/expenses/expenses",
+            iconColor:"#d3b304"
           }
         ],
       },
@@ -140,7 +146,7 @@ export default {
 
 <style lang="scss">
 .h {
-  font-size: 35px;
+  font-size: 25px;
   padding: 10px 20px;
 }
 
@@ -158,6 +164,7 @@ export default {
       text-align: center;
       font-size: 14px;
       color: #a1a1a1;
+      padding-top:10px;
     }
   }
 }

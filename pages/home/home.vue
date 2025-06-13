@@ -22,7 +22,7 @@
           </view>
         </view>
       </view>
-      <block v-if="noData">
+   <!--   <block v-if="noData">
         <noData
           text_content="您还没有酒店"
           :showControl="true"
@@ -30,7 +30,7 @@
           @Event_one="addNewHotel"
         ></noData>
       </block>
-      <block v-if="!noData">
+      <block  v-if="!noData"> -->
 		  <gatherComponent>
 		  </gatherComponent>
       <!-- <swiper
@@ -105,7 +105,7 @@
           </scroll-view>
         </swiper-item>
       </swiper> -->
-    </block>
+    <!-- </block> -->
     <uni-drawer ref="showLeft" mode="left" :width="320">
       <view class="left-container">
         <view style="flex: 1; min-height: 330px">
@@ -261,14 +261,15 @@ export default {
       }
       this.$refs[popup].close();
     });
+ 
     await this.$store.dispatch("loginEvent");
-    this.initData();
+    //this.initData();
     
   },
   onShow() {
     console.log("index onshow");
     if (this.$store.state.isPcShow ||!this.$store.state.user) {
-      //uni.hideTabBar();
+     // uni.hideTabBar();
     }
     //if(this.isPcShow){
     // #ifdef H5
@@ -325,7 +326,7 @@ export default {
   async onPullDownRefresh() {
     console.log("index veu refrush");
     await this.$store.dispatch("loginEvent");
-    await this.initData();
+   // await this.initData();
     uni.stopPullDownRefresh();
   },
   computed: {
@@ -355,7 +356,7 @@ export default {
       return this.$store.state.hotelList;
     },
     noData() {
-      return this.hotelList && this.hotelList.length < 1;
+      return !this.hotelList || this.hotelList.length < 1;
     },
     hotel() {
       try {
@@ -397,19 +398,19 @@ export default {
   watch: {
     async hotel_id(val,oldVal) {
       console.log("index watch hotel_id", val);
+  
 	  if(val!=oldVal){
 		await this.$store.dispatch("getPermissionList", val);
+
 	  }
     
     },
-    hotelList(narr, oarr) {
-      //this.setDefaultHotel()
-    },
+ 
     permissionList() {
       this.initTabMenu();
     },
     user(val,oldVal){
-        this.initData();
+        //this.initData();
      
      
     }
@@ -591,26 +592,26 @@ export default {
       });
     },
     addNewHotel() {
-      if (!this.isPcShow) {
+      //if (!this.isPcShow) {
         uni.navigateTo({
           url: "/pages/hotelManage/createHotel/createHotel",
         });
         return;
-      }
-      this.$refs.popupHotelCreate.open();
+     // }
+     // this.$refs.popupHotelCreate.open();
     },
     closePopup() {
       try {
-        this.$refs.popupHotelCreate.close();
+       // this.$refs.popupHotelCreate.close();
         //  this.$refs.orderChildTableListRef.getOrderListByCondition();
         //  this.$refs.orderChildCalendarList.getOrderList();
         // this.$refs.orderChildListRef.getOrderList();
       } catch (e) {
         //TODO handle the exception
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss">

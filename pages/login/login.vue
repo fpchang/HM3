@@ -4,7 +4,7 @@
    	        <image  style="width: 200px; height: 150px; vertical-align: middle;"  src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.svg"></image>
 		
        </view>
-      <view class="subtitle flex-center">酒店助手</view>
+      <view class="subtitle flex-center">酒店助手<text style="padding:0 4px">/</text><text>经营管理</text><text style="padding:0 4px">/</text><text>宣传推广</text></view>
       <view style="height: 40px"></view>
       </view>
   <view class="container">
@@ -130,18 +130,15 @@ export default {
 	
   },
   onShow(){
-    console.log("login onShow>>>>");
 	  // #ifdef H5
 				document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
 			// #endif
   },
   created(){
-    console.log("login created>>>>");
     
   },
   methods: {
     decryptPhoneNumber(e){
-      console.log(e)
     },
     agreeEvent(){
       this.isAgree = !this.isAgree;
@@ -267,15 +264,18 @@ export default {
     
     },
     routerPage(){
-      let userRole =uni.getStorageSync("userRole");
-      if(getCurrentPages().length>1){
+      // let userRole =uni.getStorageSync("userRole");
+      // if(getCurrentPages().length>1){
         
-						uni.navigateBack();
-						return;
-					}
+			// 			uni.navigateBack();
+			// 			return;
+			// 		}
          
+      // uni.reLaunch({
+      //   url: userRole=="hotel"?"/pages/home/home":"/pages_client/client_index/client_index",
+      // });
       uni.reLaunch({
-        url: userRole=="hotel"?"/pages/home/home":"/pages_client/client_index/client_index",
+        url: "/pages/index/index",
       });
     }
   }
@@ -302,7 +302,7 @@ export default {
   background-color: #ebebeb70;
   height: 45px;
   padding: 15px;
- /* border-radius: 22.5px;*/
+  border-radius: 8px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -315,7 +315,7 @@ export default {
 
 .submit-btn{
   background:#0765ae;
-  /*border-radius: 22.5px;*/
+  border-radius: 8px;
   color: #fff!important;
   cursor: pointer;
   
