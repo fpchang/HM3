@@ -407,7 +407,7 @@ export default {
     },
  
     permissionList() {
-      this.initTabMenu();
+    // this.initTabMenu();
     },
     user(val,oldVal){
         //this.initData();
@@ -445,85 +445,7 @@ export default {
         callback && callback();
       } catch (error) {}
     },
-    async initData() {
-      console.error("init Data for home page");
-      try {
-        //this.$store.commit("setUser", uni.getStorageSync("user"));
-        await this.$store.dispatch("getHotelList");
-        this.$store.commit("setBaseDatahasLoad", true);
-        this.initTabMenu();
-        uni.hideLoading();
-      } catch (error) {
-        console.log("initData .....error,", error);
-        uni.hideLoading();
-      }
-    },
-    initTabMenu() {
-      if (this.permissionList.length < 1) {
-        return;
-      }
-      let arr = [
-        {
-          //index: 0,
-          name: "关注",
-          time: 0,
-          permission: "MENU_GATHER",
-          ComponentName: "gatherComponent",
-        },
-        {
-          //index: 1,
-          name: "订房管理",
-          time: 0,
-          permission: "MENU_ORDER",
-          ComponentName: "orderComponent",
-        },
-        {
-          //index: 2,
-          name: "合作景点",
-          time: 0,
-          permission: "MENU_SCENICSPOT",
-          ComponentName: "scenicSpotListComponent",
-        },
-        {
-          //index: 3,
-          name: "订餐",
-          time: 0,
-          permission: "MENU_CATERING",
-          ComponentName: "menuListComponent",
-        },
-
-        {
-          //index: 4,
-          name: "房型管理",
-          time: 0,
-          permission: "MENU_ROOMTYPE",
-          ComponentName: "roomTypeListComponent",
-        },
-        {
-          //index: 5,
-          name: "人员管理",
-          time: 0,
-          permission: "MENU_EMPLOYEE",
-          ComponentName: "employeeComponent",
-        },
-        {
-          //index: 7,
-          name: "酒店管理",
-          time: 0,
-          permission: "MENU_HOTELMANAGE",
-          ComponentName: "hotelList",
-        }, {
-          //index: 8,
-          name: "财务管理",
-          time: 0,
-          permission: "MENU_FM",
-          ComponentName: "fm",
-        }
-      ];
-      this.tabList = arr.filter((item) => {
-        return this.permissionList.includes(item.permission);
-      });
-    },
+  
     showCheckHotel() {
       this.showDrawerEvent();
     },
