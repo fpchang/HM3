@@ -8,11 +8,15 @@
 				</view>
 			</uni-forms-item>
 			<uni-forms-item label="日期时间">
-				<block v-if="isPcShow">
+				<view class="example-body">
+					<uni-datetime-picker v-model="orderForm.dateRangeArray" type="daterange" :start="startDate" return-type="timestamp" @change="dateConfim" />
+				</view>
+
+				<!-- <block>
 					<uni-datetime-picker v-model="orderForm.dateRangeArray" rangeSeparator="/" type="daterange"
 						return-type="timestamp" @change="dateConfim" :clear-icon="false" style="z-index: 9999;" />
-				</block>
-				<block v-if="!isPcShow">
+				</block> -->
+				<!-- <block v-if="!isPcShow">
 					<view class="form-item-content-container">
 						<view class="calendar-container" @click="showDateSelect">
 							<uni-icons type="calendar" size="22" color="#60626680"></uni-icons>
@@ -23,7 +27,7 @@
 						<uv-calendars ref="calendars" mode="range" :startDate="startDate" @close="dateClose"
 							@confirm="dateConfimEvent" style="z-index:999"></uv-calendars>
 					</view>
-				</block>
+				</block> -->
 
 
 			</uni-forms-item>
