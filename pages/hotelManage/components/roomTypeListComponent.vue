@@ -81,7 +81,7 @@
 					  <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)" :subtitle="getSubtitle(item)">
 					  		 <view slot=titleRight>
 					  			<!-- <uni-badge class="uni-badge-left-margin" :text="item.count" /> -->
-								  <text style="font-size:13px">({{item.count}})</text>
+								  <text style="font-size:13px">{{item.count}} 间</text>
 							 </view>
 					  	</xt-panal-card>
 					</view>
@@ -91,7 +91,7 @@
 						 <xt-panal-card :logoUrl="item.firstImages" :title="item.name"  @edit_event="editRoomType(item)" @delete_event="deleteRoomType(item)" @view_event="viewDetail(item)" :subtitle="getSubtitle(item)">
 						 		<template v-slot:titleRight>
 						 			<!-- <uni-badge class="uni-badge-left-margin" :text="item.count" /> -->
-									  <text style="font-size:13px">({{item.count}})</text>
+									  <text style="font-size:13px">{{item.count}} 间</text>
 						 		</template>
 						 	</xt-panal-card>
 						 </template>
@@ -249,8 +249,6 @@ import  {DB} from '../../../api/DB';
 					this.$refs.popupCreateRoomType.open();
 					return;
 				}
-				console.log("转换前1：",rt)	
-				console.log("转换前2：",JSON.stringify(this.rt))
 				uni.navigateTo({
 					url:`/pages/hotelManage/createRoomType/createRoomType?type=${this.type}&&rt=${encodeURIComponent(JSON.stringify(this.rt))}`
 				})

@@ -55,13 +55,13 @@ export default {
         list: [
           {
             title: "房型管理",
-            icon: "cbi:living-room",
+            icon: "material-symbols:nest-multi-room",
             href: "/pages/hotelManage/roomType/roomType",
             iconColor:"#8166fe"
           },
           {
             title: "员工管理",
-            icon: "clarity:employee-group-solid",
+            icon: "clarity:employee-solid",
             href: "/pages/hotelManage/employee/employee",
             iconColor:"#88d188"
           }
@@ -89,15 +89,15 @@ export default {
         list: [
           {
             title: "收入管理",
-            icon: "icon-park:income",
+            icon: "healthicons:low-income-level",
             href: "/pages/financialManagement/income/income",
             iconColor:"gold"
           },
            {
             title: "支出管理",
-            icon: "icon-park:expenses",
+            icon: "icon-park:expenses-one",
             href: "/pages/financialManagement/expenses/expenses",
-            iconColor:"#d3b304"
+            iconColor:"#000"
           }
         ],
       },

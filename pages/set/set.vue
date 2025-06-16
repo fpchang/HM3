@@ -3,7 +3,7 @@
 		<xt-panal-list :count="3"> 
 			<template v-slot:["card0"]>
 				<uni-list>
-					<uni-list-item title="意见反馈" link to="/pages/mine/feedback/feedback" ></uni-list-item>
+					<!-- <uni-list-item title="意见反馈" link to="/pages/mine/feedback/feedback" ></uni-list-item> -->
 					<uni-list-item title="账号安全" link to="/pages/set/accountSafe/accountSafe" @click="onClick($event,1)" ></uni-list-item>
 					<uni-list-item title="清除缓存" clickable   @click="clearCache"  ></uni-list-item>
 					<uni-list-item title="关于议宿" link to="/pages/set/aboutYisu/aboutYisu" @click="onClick($event,1)" ></uni-list-item>

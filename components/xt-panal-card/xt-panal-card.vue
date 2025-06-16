@@ -3,8 +3,26 @@
     <view  class="xt-panal-card-container">
       <view class="header-style">
 
-        <view v-if="showControl" style="flex: 1; display: flex; justify-content: flex-end; gap: 15px;padding:5px 10px">
-          <uv-icon 
+        <view v-if="showControl" style="flex: 1; display: flex; justify-content: flex-end; gap: 20px;padding:10px 10px 0 10px">
+         <view class="btn-area" v-if="control_add"  @click="add_event"> 
+          <view><l-icon name="material-symbols:add-box-outline-rounded" size="22px" color="#7a7878"/></view>
+          <view class="flex-center ft">添加</view>
+         </view>
+
+<view class="btn-area" v-if="control_edit" @click="edit_event"> 
+          <view><l-icon name="material-symbols:edit-square-outline" size="22px" color="#7a7878"/></view>
+          <view class="flex-center ft">编辑</view>
+         </view>
+         <view class="btn-area"  v-if="control_delete" @click="delete_event"> 
+          <view><l-icon name="material-symbols:delete-outline" size="22px" color="#7a7878"/></view>
+          <view class="flex-center ft">删除</view>
+         </view>
+         <view class="btn-area"  v-if="control_view" @click="view_event"> 
+          <view><l-icon name="material-symbols:eye-tracking-outline" size="22px" color="#7a7878"/></view>
+          <view class="flex-center ft">查看</view>
+         </view>
+
+          <!-- <uv-icon 
           v-if="control_add"
           name="plus-circle-fill"
           color="#000"
@@ -43,7 +61,7 @@
         labelPos="bottom"
         labelSize="12px"
         @click="view_event"
-      ></uv-icon>
+      ></uv-icon> -->
       <slot name="control"></slot>
         </view>
       </view>
@@ -201,6 +219,14 @@ export default{
       font-size:14px ;
       overflow: hidden;
     }
+  }
+}
+.btn-area{
+  display: flex;
+  flex-direction: column;
+  .ft{
+    font-size: 13px;
+    color: #7a7878;
   }
 }
 </style>
