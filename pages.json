@@ -16,7 +16,8 @@
 			"path": "pages/home/home",
 			"style": {
 				"enablePullDownRefresh": true,
-				"navigationBarTitleText": "议宿"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": ""
 			}
 		}, {
 			"path": "pages/permission/setPermission/setPermission",
@@ -253,7 +254,7 @@
 					"path" : "pages/financialManagement/financiaHome/financiaHome",
 					"style" : 
 					{
-						"navigationBarTitleText" : ""
+						"navigationBarTitleText" : "财务管理"
 					}
 				}
 		

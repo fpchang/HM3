@@ -2,7 +2,7 @@
   <view class="home">
       <view class="top-container">
         <view class="scroll-content">
-          <!-- <view :style="{height:navTopHeight}"></view> -->
+           <view :style="{height:navTopHeight}"></view>
           <view :class="['top-area', isSticky ? 'sticky-style' : '']">
             <view class="title-area" :style="{ opacity: opacityVal }">
               <view class="check-area" @click="showCheckHotel" v-if="hotel">
@@ -110,7 +110,7 @@
     <uni-drawer ref="showLeft" mode="left" :width="320">
       <view class="left-container">
         <view style="flex: 1; min-height: 330px">
-          <!-- <view style="height:70px" v-if="!isPc"></view> -->
+           <view style="height:70px"></view>
           <uni-section title="酒店列表" type="line"></uni-section>
           <view class="card-panal">
             <view class="card">
@@ -387,7 +387,7 @@ export default {
       // #endif
 
       //return this.isPcShow? "0px" : "70px";
-      return "0px";
+      return "70px";
     },
 
     disHeightVal() {
