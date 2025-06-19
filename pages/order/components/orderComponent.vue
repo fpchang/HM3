@@ -123,10 +123,10 @@ import orderChildCalendarList from './orderChildCalendarList';
 					value:1,
 					text:'订单'
 				 }
-				 ,{
-					value:2,
-					text:'历史'
-				}
+				//  ,{
+				// 	value:2,
+				// 	text:'历史'
+				// }
 				]
 				//}
 				// return [{
