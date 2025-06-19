@@ -1,5 +1,5 @@
 <template>
-  <view> 
+  <view v-if="!isLoading"> 
     <view class="search"> 
       <uni-datetime-picker v-model="dateRange" type="daterange" return-type="timestamp" @change="dateConfim" >
         <text class="strong">{{foramtDateLabel(dateRange[0]).de}}</text
@@ -178,7 +178,7 @@ export default {
   },
   data() {
     return {
-      isLoading:false,
+      isLoading:true,
       roomType:[],
      // dateRange:this.range,
       remainTypeList:null

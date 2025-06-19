@@ -98,20 +98,12 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 					//this.dateRange = [Date.now(),Date.now()+1000*60*60*24];
 				}
 				if(params.tabId){//分享进来的页面
-					console.log("1111",params.tabId)
 					this.tabId=params.tabId;
 				}
 			
 		},
 		created(){
-			try {
-					uni.setNavigationBarTitle({
-        			title:`【${this.hotel.hotelName}】简介` ,
-      				});				
-				
-			} catch (error) {
-				
-			}
+			
 		},
 		onShow(){
 			if(this.$store.state.isPcShow){
@@ -154,7 +146,7 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
   },
 		methods: {
 			clickTab(id){
-				console.log(id);
+	
 				this.tabId=id;
 			},
 			async getHotel(hotel_id){

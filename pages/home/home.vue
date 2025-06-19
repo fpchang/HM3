@@ -256,7 +256,7 @@ export default {
   async created() {
     uni.$on("showPopupPivot", (popup, eventType) => {
       //popup开发枢纽，0 关闭，1打开
-      console.log("开关枢纽", arguments);
+     
       if (eventType == 1) {
         this.$refs[popup].open();
         return;
@@ -363,7 +363,6 @@ export default {
     },
     hotel() {
         let h= this.hotelList.find((item) => item._id == this.hotel_id);
-        console.log(">>>>>>>>>>>>>>>>",h);
         return h;
       
     },
@@ -610,7 +609,7 @@ export default {
 
     .check-area {
       cursor: pointer;
-      max-width: 200px;
+      max-width: 300px;
 
       height: 24px;
       display: flex;
