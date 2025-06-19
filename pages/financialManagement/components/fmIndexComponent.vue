@@ -226,7 +226,11 @@
 				}
 			},
 			hotel_id() {
-				this.initData();
+				//this.initData();
+					this.getIncomeMonth();
+					this.getExpensesMonth();
+					this.getIncomeCurrentYear();
+					this.getExpensesCurrentYear();
 			}
 		},
 		methods: {

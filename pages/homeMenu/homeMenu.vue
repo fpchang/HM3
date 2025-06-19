@@ -45,11 +45,15 @@
 <script lang="ts">
 import { ref,computed } from "vue";
 import {useStore} from "vuex";
-import hotelList from '@/pages/hotelManage/hotelList/hotelList';
 export default {
   setup() {
     const store = new useStore();
-    const menuList: Object = [
+    let hotel_id = computed(()=>{
+      return store.state.hotel_id;
+    });
+    console.log("88888",hotel_id.value)
+    let menuList = computed(()=>{
+      return [
       {
         title: "业务",
         list: [
@@ -79,7 +83,7 @@ export default {
           {
             title: "酒店展示",
             icon: "ri:hotel-fill",
-            href: "/pages_client/hotelHome/hotelHome",
+            href: `/pages_client/hotelHome/hotelHome?hotel_id=${hotel_id.value}`,
             iconColor:"#ff4534"
           }
         ],
@@ -100,14 +104,15 @@ export default {
             iconColor:"#000"
           }
         ],
-      },
-    ];
-      const hotelList = computed(()=>{
+      }
+    ]
+    })
+    
+    
+      let hotelList = computed(()=>{
         return store.state.hotelList;
       });
-      const hotel_id = computed(()=>{
-        return store.state.hotel_id;
-      });
+    
 
     return {hotelList,hotel_id, menuList };
   },
@@ -117,9 +122,9 @@ export default {
     };
   },
   created(){
-     let hotel = this.hotelList.find(item=>{return item._id = this.hotel_id});
-				this.$store.commit("hotelClientStore/updateHotel", hotel);
-        console.log(hotel);
+    // let hotel = this.hotelList.find(item=>{return item._id = this.hotel_id});
+				//this.$store.commit("hotelClientStore/updateHotel", hotel);
+       // console.log(hotel);
   },
   onLoad() {
  
@@ -129,7 +134,7 @@ export default {
     openHotel() {
 			//	this.isLoading = true;
         let hotel = this.hotelList.find(item=>{item._id = this.hotel_id});
-				this.$store.commit("hotelClientStore/updateHotel", hotel);
+				//this.$store.commit("hotelClientStore/updateHotel", hotel);
 				//this.$store.commit("hotelClientStore/updateSearchCondition",this.conditionForm);				
 				let href = `#/pages_client/hotelHome/hotelHome`;
         console.log(hotel);

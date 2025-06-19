@@ -34,6 +34,7 @@
       <block  v-if="!noData"> -->
 		  <gatherComponent ref="gather">
 		  </gatherComponent>
+      
       <!-- <swiper
         :style="{ height: scrollHeight }"
         :current="currentTab_index"
@@ -361,11 +362,10 @@ export default {
       return !this.hotelList || this.hotelList.length < 1;
     },
     hotel() {
-      try {
-        return this.hotelList.find((item) => item._id == this.hotel_id);
-      } catch (error) {
-        return null;
-      }
+        let h= this.hotelList.find((item) => item._id == this.hotel_id);
+        console.log(">>>>>>>>>>>>>>>>",h);
+        return h;
+      
     },
     permissionList() {
       return this.$store.state.permissionStore.permissionList;
