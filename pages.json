@@ -231,7 +231,8 @@
 					"path" : "pages/order/orderIndex/orderIndex",
 					"style" : 
 					{
-						"navigationBarTitleText" : "订单房态"
+						"navigationBarTitleText" : "订单房态",
+						"enablePullDownRefresh": true
 					}
 				},
 				{

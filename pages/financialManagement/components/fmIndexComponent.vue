@@ -112,13 +112,20 @@
 						enableScroll: false,
 						legend: {},
 						xAxis: {
+							disabled:false,
 							boundaryGap: "justify",
-							disableGrid: false,
+							disableGrid: true,
+							axisLine:false,
 							min: 0,
 							axisLine: false,
+							calibration:false,
 							max: 70
 						},
-						yAxis: {},
+						yAxis: {
+							disabled:false,
+							axisLine:false,
+							calibration:false
+						},
 						extra: {
 							bar: {
 								type: "stack",

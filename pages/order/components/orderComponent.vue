@@ -152,6 +152,10 @@ import orderChildCalendarList from './orderChildCalendarList';
 			
 		},
 		methods: {
+			async initData(){
+					await this.$refs.orderChildCalendarListRef.getOrderList();					
+					return;
+			},
 			dataConfigEvent(){
 
 			},

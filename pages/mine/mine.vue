@@ -256,13 +256,14 @@ export default {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
+	
 }
 
 .card-list {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	padding: 15px;
+	padding:0 15px;
 	box-sizing: border-box;
 
 	.card {

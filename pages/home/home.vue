@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="home">
       <view class="top-container">
         <view class="scroll-content">
           <!-- <view :style="{height:navTopHeight}"></view> -->
@@ -9,13 +9,14 @@
                 <text class="$uni-font-size-lg h-n-style">{{
                   hotel.hotelName
                 }}</text>
-                <uv-icon
+                <!-- <uv-icon
                   v-if="hotel.hotelName"
                   name="arrow-down-fill"
                   color="#606266"
                   size="14px"
                   top="2"
-                ></uv-icon>
+                ></uv-icon> -->
+                <l-icon name="ic:sharp-expand-more" size="30px" color="#fff"></l-icon>
               </view>
             </view>
  
@@ -31,7 +32,7 @@
         ></noData>
       </block>
       <block  v-if="!noData"> -->
-		  <gatherComponent>
+		  <gatherComponent ref="gather">
 		  </gatherComponent>
       <!-- <swiper
         :style="{ height: scrollHeight }"
@@ -325,8 +326,9 @@ export default {
   },
   async onPullDownRefresh() {
     console.log("index veu refrush");
-    await this.$store.dispatch("loginEvent");
+    //await this.$store.dispatch("loginEvent");
    // await this.initData();
+    await this.$refs.gather.initData();
     uni.stopPullDownRefresh();
   },
   computed: {
@@ -537,6 +539,10 @@ export default {
 </script>
 
 <style lang="scss">
+.home{
+  height: 100vh;
+  background: #fff;
+}
 .right-area {
   display: flex;
   align-items: center;
@@ -564,6 +570,7 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: $uni-font-size-lgs;
+  background-image: linear-gradient(to right, rgb(94 138 233), #3793d8, #5395e3);
 }
 
 .more-menu-area {
@@ -590,7 +597,7 @@ export default {
   height: 90px;
   box-sizing: border-box;
   z-index: 999;
-  background-color: #fff;
+
 
   .title-area {
     position: relative;
@@ -614,8 +621,8 @@ export default {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-        color: #606266;
-        padding-right: 14px;
+        color: #fff;
+        
       }
 
       .check-panal {

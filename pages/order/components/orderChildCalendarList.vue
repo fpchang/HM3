@@ -10,10 +10,10 @@
           <uni-th width="100" align="center">
             <view>
               <view>
-                <l-icon name="material-symbols:calendar-today-rounded" size="40px" color="#0765ae"/>
+                <l-icon name="material-symbols:calendar-today-rounded" size="40px" color="#5395e3"/>
                
               </view>
-              <view> <text style="color:#0765ae">{{new Date().Format("MM-dd")}}</text></view>
+              <view> <text style="color:#5395e3">{{new Date().Format("MM-dd")}}</text></view>
               
             </view>
             </uni-th>				
@@ -21,7 +21,7 @@
             <view> 
               <view>{{item.de}}</view>
               <view>{{item.dy}}</view>
-              <view style="color:#bbb">(空4间)</view>
+              <!-- <view style="color:#bbb">(空4间)</view> -->
             </view>
             
           </uni-th>
