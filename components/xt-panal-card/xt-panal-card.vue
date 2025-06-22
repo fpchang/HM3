@@ -9,7 +9,7 @@
           <view class="flex-center ft">添加</view>
          </view>
 
-<view class="btn-area" v-if="control_edit" @click="edit_event"> 
+        <view class="btn-area" v-if="control_edit" @click="edit_event"> 
           <view><l-icon name="material-symbols:edit-square-outline" size="22px" color="#7a7878"/></view>
           <view class="flex-center ft">编辑</view>
          </view>
