@@ -1,24 +1,8 @@
 <template>
 
 	<view class="roomType-component">
-		<!-- <view class="add-content-style" style="">
-			<view><button class="uni-button" size="mini" type="primary" @click="addRoomType()">添加房型</button></view>
-		</view> -->
 		<view class="add-content-style">
-			<view class="control-panal">
-				<!-- <navigator url="/pages/roomPrice/roomPrice" hover-class="navigator-hover">
-
-					<uv-icon
-					name="plus-circle-fill"
-					color="#000"
-					size="22"
-					label="房价维护"
-					labelPos="bottom"
-					labelSize="12px"
-					
-				  ></uv-icon>
-				</navigator> -->
-			
+			<view class="control-panal">			
 			 <uv-icon
 			   name="plus-circle-fill"
 			   color="#000"
@@ -30,40 +14,6 @@
 			 ></uv-icon>
 		   </view>
 		   </view>
-		<view v-if="false&&isPcShow">
-			<uni-table border stripe emptyText="暂无更多数据">
-				<!-- 表头行 -->
-				<uni-tr>
-					<uni-th align="center" width="120px">房型名称</uni-th>
-					<uni-th align="center" width="80px">数量</uni-th>
-					<uni-th align="center">房间号</uni-th>
-					<uni-th align="center" width="180px">操作</uni-th>
-				</uni-tr>
-				<!-- 表格数据行 -->
-				<uni-tr v-for="item of roomType">
-					<uni-td>{{item.name}}</uni-td>
-					<uni-td>{{item.count}}</uni-td>
-					<uni-td>
-						<text v-for="it of sortRoomList(item.roomList)" v-if="item.roomList.length<=20">【{{it}}】</text>
-						<uni-collapse ref="collapse"  :border="false" v-if="item.roomList.length>20">
-							<uni-collapse-item title="显示房间号" >
-								<view class="content">
-									<text v-for="it of sortRoomList(item.roomList)">【{{it}}】</text>
-								</view>
-							</uni-collapse-item>
-							</uni-collapse>												
-					</uni-td>
-					<uni-td align="center">
-						<view class="uni-group" style="justify-content:space-around">
-							  <text class="edit-text-btn-style" @click="editRoomType(item)">修改</text>
-            				  <text class="edit-text-btn-style" @click="deleteRoomType(item)">删除</text>
-						</view>
-					</uni-td>
-				</uni-tr>
-
-
-			</uni-table>
-		</view>
 			  <block v-if="noData">
       <noData
         text_content="没有数据"

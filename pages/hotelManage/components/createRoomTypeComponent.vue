@@ -85,7 +85,7 @@
 				   <view class="price-list-item" >
 					   <view class="group">
 					   <text>名称：</text> 
-					   <input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" focus class="in" type="textarea" :disabled="type==2"></input> 
+					   <input placeholder="基本价格" v-model="roomTypeForm.priceBase_name"  class="in" type="textarea" :disabled="type==2"></input> 
 					   </view>
 					   <view class="group">
 						   <text>价格：</text> 
@@ -104,7 +104,7 @@
 			   <view class="price-list-item" >
 				   <view class="group">
 				   <text>名称：</text> 
-				   <input placeholder="套餐A" v-model="roomTypeForm.priceA_name" focus class="in" type="textarea" :disabled="type==2"></input> 
+				   <input placeholder="套餐A" v-model="roomTypeForm.priceA_name"  class="in" type="textarea" :disabled="type==2"></input> 
 				   </view>
 				   <view class="group">
 					   <text>价格：</text> 
@@ -122,7 +122,7 @@
 		   <view class="price-list-item" >
 			   <view class="group">
 			   <text>名称：</text> 
-			   <input placeholder="套餐B" v-model="roomTypeForm.priceB_name" focus class="in" type="textarea" :disabled="type==2"></input> 
+			   <input placeholder="套餐B" v-model="roomTypeForm.priceB_name"  class="in" type="textarea" :disabled="type==2"></input> 
 			   </view>
 			   <view class="group">
 				   <text>价格：</text> 
@@ -144,7 +144,7 @@
 			<view style="display:flex;justify-content:space-between"> 
 				<view class="group flex-center">
 					<text>名称：</text> 
-					<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" focus class="in" :disabled="type==2"></input> 
+					<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name"  class="in" :disabled="type==2"></input> 
 				</view>
 				<view class="group flex-center">
 					<text>价格：</text> 
