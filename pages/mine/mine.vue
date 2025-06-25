@@ -4,7 +4,9 @@
 		<view>
 			<view style="display: flex; justify-content: flex-end; padding: 10px">
 				<navigator url="/pages/set/set" hover-class="navigator-hover">
-					<uni-icons type="gear-filled" size="30"></uni-icons>
+					<!-- <uni-icons type="gear-filled" size="30"></uni-icons> -->
+					 	<l-icon  name="material-symbols:settings-outline-rounded" size="24px" color="#7a7878"></l-icon>
+							
 				</navigator>
 			</view>
 		</view>
@@ -13,9 +15,10 @@
 			<view class="card" style="padding: 15px">
 				<view style="display: flex">
 					<view class="flex-center">
-						<uni-icons fontFamily="iconfont" size="60">
+						<!-- <uni-icons fontFamily="iconfont" size="60">
 							{{"&#xe62c;"}}
-						</uni-icons>
+						</uni-icons> -->
+						<l-icon name="carbon:user-avatar-filled" size="50px" color="#7a7878"></l-icon>
 					</view>
 					<view class="flx-column name-style" style="flex: 1">
 						<view class="flex-left">
@@ -29,14 +32,22 @@
 				</view>
 				<view>
 					<view class="flex-between vip-style" style="padding: 12px 8px 0 0" @click="menuEvent('recharge')">
-						<view><uni-icons type="vip-filled" color="gold"></uni-icons>
-							<text>订阅期：<text style="color: gold">{{
+						<view style="display: flex;align-items:flex-start">
+							<view class="flex-center" style="padding-right:8px"> 
+									<l-icon  name="pepicons-pencil:crown-circle-filled" size="20px" color="gold" ></l-icon>
+							
+							</view>
+							<view> 
+							<text style="color:#7a7878">订阅期：<text style="color: gold">{{
 								vipDate(user.vipEndDateStamp)
 							}}</text></text>
+							</view>
+						
 						</view>
 
 						<view class="flex-center">
-							<uni-icons type="forward"></uni-icons>
+								<l-icon  name="material-symbols:arrow-forward-ios" size="18px" color="#7a7878"></l-icon>
+							
 						</view>
 					</view>
 				</view>
@@ -67,13 +78,18 @@
 				<view class="menu-list">
 					<view class="menu-list-item" v-for="item in menuList" @click="menuEvent(item.key)">
 						<view class="icon-area flex-center">
-							<uni-icons fontFamily="iconfont" size="24">
+							<!-- <uni-icons fontFamily="iconfont" size="24">
 								{{item.unicode}}
-							</uni-icons>
+							</uni-icons> -->
+							<l-icon :name="item.imgName" size="20px" color="#7a7878"></l-icon>
 						</view>
 						<view class="content-area">
 							<text>{{item.title}}</text>
-							<uni-icons v-if="item.showArrow" type="forward" size="22"></uni-icons>
+							<text> 
+	<l-icon v-if="item.showArrow" name="material-symbols:arrow-forward-ios" size="18px" color="#7a7878"></l-icon>
+							
+							</text>
+						
 						</view>
 					</view>
 				</view>
@@ -104,7 +120,7 @@ import { AccountService } from "../../services/AccountService";
 export default {
   components: {
     feedback,
-    recharge,
+    recharge
   },
   data() {
     return {
@@ -121,6 +137,7 @@ export default {
         {
           key: "feedback",
           unicode: "\ue6c0",
+		  imgName:"streamline:mail-send-envelope-envelope-email-message-unopened-sealed-close",
           title: "意见反馈",
           showArrow: true,
         },
@@ -299,7 +316,7 @@ export default {
 		justify-content: space-between;
 
 		.icon-area {
-			padding-right: 12px;
+			padding-right: 8px;
 		}
 
 		.content-area {
@@ -310,6 +327,7 @@ export default {
 			border-bottom: 1px solid #d5d4d4;
 			box-sizing: border-box;
 			font-size: 14px;
+			color: #7a7878;
 		}
 
 		&:last-child {

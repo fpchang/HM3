@@ -156,7 +156,7 @@
 			</view>
 			
 		</uni-forms-item>  -->
-			<uni-forms-item label="是否议价"> 
+			<!-- <uni-forms-item label="是否议价"> 
 				<radio-group @change="isBargainChange" >
 					<radio :disabled="type==2" :value="true" :checked="roomTypeForm.isBargain" /><text style="padding-right:10px">是</text>
 					<radio :disabled="type==2" :value="false" :checked="!roomTypeForm.isBargain" /><text style="padding-right:10px">否</text>
@@ -167,7 +167,7 @@
 				  <view class="flex-center">
 					<view style="flex:1"><slider :disabled="type==2" :value="roomTypeForm.bargainMinPercent" @change="bargainMinPercentChange" min="50" max="100" show-value /> </view><text>（最低{{roomTypeForm.bargainMinPercent}}%）</text>
 				</view>				
-			  </uni-forms-item>
+			  </uni-forms-item> -->
 			  <uni-forms-item label="屋内设施" required>				
 				<checkbox-group @change="facilityCheckboxChange">
 					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name" :getone="false" where="type=='roomType'" orderby="name asc"> 
