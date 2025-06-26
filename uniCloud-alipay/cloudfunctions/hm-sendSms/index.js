@@ -7,8 +7,8 @@ exports.main = async (event, context) => {
 	let {appid,phone,templateId='uni_sms_test'} =event;
 	const db = uniCloud.database();
 	const smsCode =randomSms();
-	if(context.SPACEINFO.spaceId=="env-00jxh1m2dpmq"){//开发环境0000
-		const newToken = tokenEvent.getToken({phone:phone,smsCode:'0000'},tokenEvent.getSecret(),300);
+	if(context.SPACEINFO.spaceId=="env-00jxh1m2dpmq" ||isTestAccount(phone)){//开发环境0000
+		const newToken = tokenEvent.getToken({phone:phone,smsCode:1234},tokenEvent.getSecret(),300);
 		//console.log("生成。。。",newToken)
 		return {code:0,tk:newToken};
 	}
@@ -42,6 +42,14 @@ exports.main = async (event, context) => {
 	  }
 	
 };
+function isTestAccount(phone="",smsCode){
+	const testAccountList=[
+	{phone:"18516285834",smsCode:"1234"},
+	{phone:"13122905834",smsCode:"1234"}]
+	
+	let t = testAccountList.find(item=>item.phone==phone);
+	return t?true:false;
+}
 //随机6位短信验证码
 function randomSms() {
 	let res = '';

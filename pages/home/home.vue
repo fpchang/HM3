@@ -16,7 +16,10 @@
                   size="14px"
                   top="2"
                 ></uv-icon> -->
-                <l-icon name="ic:sharp-expand-more" size="30px" color="#fff"></l-icon>
+                <view> 
+          <l-icon name="ic:sharp-expand-more" size="30px" color="#fff"></l-icon>
+                </view>
+               
               </view>
             </view>
  
@@ -609,7 +612,7 @@ export default {
 
     .check-area {
       cursor: pointer;
-      max-width: 300px;
+      max-width: calc(100vw - 40px);
 
       height: 24px;
       display: flex;

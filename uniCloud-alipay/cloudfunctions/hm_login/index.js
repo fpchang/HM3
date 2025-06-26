@@ -19,13 +19,16 @@ exports.main = async (event, context) => {
 			event,
 			context
 		});
-		//检验短信正确性
-		const verifT = tokenEvent.verifyToken(tk,secret);
-		console.log("aaa",verifT)
-		if(!verifT||verifT.value.smsCode!=smsCode){
-			//短信验证码校验通过
-			 return {code:4001,msg:"短信验证码不正确"};			
+		if(!isTestAccount(phone)){
+			//检验短信正确性
+			const verifT = tokenEvent.verifyToken(tk,secret);
+			console.log("aaa",verifT)
+			if(!verifT||verifT.value.smsCode!=smsCode){
+				//短信验证码校验通过
+				 return {code:4001,msg:"短信验证码不正确"};			
+			}
 		}
+	
 		
 		try{
 			const userRes = await dbJQL.collection('hm-user').where(`phone=='${phone}'`).get();	
@@ -60,6 +63,14 @@ exports.main = async (event, context) => {
 };
 async function validToken(token){
 	return false
+}
+function isTestAccount(phone="",smsCode){
+	const testAccountList=[
+	{phone:"18516285834",smsCode:"1234"},
+	{phone:"13122905834",smsCode:"1234"}]
+	
+	let t = testAccountList.find(item=>item.phone==phone);
+	return t?true:false;
 }
 function getUser(phone,token) {
 	let vipStartDateStamp = new Date().getTime();
