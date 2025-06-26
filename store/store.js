@@ -76,6 +76,7 @@ const store = createStore({
       uni.setStorageSync("hotel_id", hotel_id);
       store.commit("setHotelId", hotel_id);
        store.dispatch("getPermissionList", hotel_id);
+        store.dispatch("getRoomType");
     },
     //调用 this.$store.commit('updateHotelList',[])
     updateHotelList(state, list) {
@@ -108,7 +109,7 @@ const store = createStore({
         return;
       }
       store.commit("checkHotel", n_hotel_id);
-      store.dispatch("getRoomType");
+     
     },
     updateUser(state) {
      
