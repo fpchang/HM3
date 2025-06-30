@@ -162,8 +162,8 @@ export default {
                 webUrl: "http://uniapp.dcloud.io",
                 path: `/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`,
               },
-              imageUrl: `https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png`,
-              //imageUrl:`${this.hotel.firstImages}`, //图片地址，type 为 0、2、5 时必选
+              //imageUrl: `https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png`,
+              imageUrl:`${this.hotel.firstImages}`, //图片地址，type 为 0、2、5 时必选
               success(r) {
                 //成功返回的参数
                 console.log(r);

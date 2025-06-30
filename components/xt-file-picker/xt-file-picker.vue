@@ -97,11 +97,11 @@
 					success:async (res) => {
 						this.uploadComplement = false;
 						console.log("选择文件。。。", res)
-						//this.imageValue = res.tempFilePaths;
 						let len = Math.min(res.tempFilePaths.length, (this.max - this.selectImageList.length));
 						for (let i = 0; i < len; i++) {
-							let fileName = res.tempFiles[i].name || `img${i}.${res.tempFiles[i].path.split(".")[1]}` || `img${i}.jpg`;
-							console.log("ffname", fileName);
+						let _nameList =res.tempFiles[i].path.split("."); 
+							let fileName = res.tempFiles[i].name || `img${i}.${_nameList[_nameList.length-1]}` || `img${i}.jpg`;
+							console.log("ffname", fileName,res.tempFilePaths[i]);
 							const path =await this.compressImage(res.tempFilePaths[i]);
 							console.log("压缩后的图片路径》》》",path)
 							this.selectImageList.push({
@@ -172,6 +172,10 @@
 			//压缩图片
 			compressImage(imgSrc : string) {
 				return new Promise((resolve, reject) => {
+					// #ifdef H5 
+						resolve(imgSrc)
+					// #endif
+					// #ifndef  H5 
 					uni.compressImage({
 						src: imgSrc,
 						compressedWidth: 450,
@@ -183,6 +187,8 @@
 							reject(e)
 						}
 					})
+					//#endif
+				
 				})
 
 
