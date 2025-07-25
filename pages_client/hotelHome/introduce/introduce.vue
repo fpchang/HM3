@@ -147,9 +147,7 @@ export default {
     //   });
     },
     shareWx() {
-      let imgurl = this.hotel.firstImages.split("?")[0];
-      console.log("imgurl>>>",imgurl);
-	  console.log("333",this.hotel.firstImages)
+      let imgurl = this.hotel.firstImages.split("?")[0]||'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png';
       uni.share({
               provider: "weixin", //分享服务提供商（即weixin|qq|sinaweibo）
               type: 5, //小程序
@@ -163,7 +161,7 @@ export default {
                 path: `/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}`,
               },
               //imageUrl: `https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png`,
-              imageUrl:`${this.hotel.firstImages}`, //图片地址，type 为 0、2、5 时必选
+              imageUrl:`${imgurl}`, //图片地址，type 为 0、2、5 时必选
               success(r) {
                 //成功返回的参数
                 console.log(r);
