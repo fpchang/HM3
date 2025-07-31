@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<fmIndexComponent></fmIndexComponent>
+		<fmIndexComponent ref="fmIndexComponent"></fmIndexComponent>
 	</view>
 </template>
 
@@ -15,6 +15,10 @@
 				
 			}
 		},
+		async onPullDownRefresh() {
+			await this.$refs.fmIndexComponent.refrushData();
+    		uni.stopPullDownRefresh();
+  		},
 		methods: {
 			
 		}

@@ -7,7 +7,7 @@
 			<uni-forms-item label="收入类型" required name="type">
 				<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="hm-incomeAndExpensesConfig"
 						 :getone="false" where="billType=='income'" field="text , name as value" orderby="name asc">
-						 {{ console.log(data) }}
+						
 						 <uni-data-select
 						 v-model="incomeForm.type"
 						 :localdata="data"

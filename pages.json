@@ -254,7 +254,8 @@
 					"path" : "pages/financialManagement/financiaHome/financiaHome",
 					"style" : 
 					{
-						"navigationBarTitleText" : "财务管理"
+						"navigationBarTitleText" : "财务管理",
+						"enablePullDownRefresh": true
 					}
 				}
 		

@@ -234,6 +234,14 @@
 			}
 		},
 		methods: {
+			refrushData(){
+				console.log("222222")
+				let task = [this.getIncomeMonth(),
+					this.getExpensesMonth(),
+					this.getIncomeCurrentYear(),
+					this.getExpensesCurrentYear()]
+				return  Promise.all(task)
+			},
 			addNewHotel(){
 				uni.navigateTo({
 				  url: "/pages/hotelManage/createHotel/createHotel",
@@ -271,12 +279,14 @@
 				const data = await FMService.getIncomeCurrentMonth(this.$store.state.hotel_id);
 				this.currentMonthIncome.series[0].data = data;
 				console.log("当月统计", data)
+				return data;
 			},
 			//获取支出月
 			async getExpensesMonth() {
 				const data = await FMService.getExpensesCurrentMonth(this.$store.state.hotel_id);
 				this.currentMonthExpenses.series[0].data = data;
-				console.log("当月统计支出", data)
+				console.log("当月统计支出", data);
+				return data;
 			},
 			//获取收入 当年
 			async getIncomeCurrentYear() {
