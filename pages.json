@@ -225,7 +225,8 @@
 					"path" : "pages/homeMenu/homeMenu",
 					"style" : 
 					{
-						"navigationBarTitleText" : "功能"
+						"navigationBarTitleText" : "",
+						"navigationStyle": "custom"
 					}
 				},
 				{
@@ -347,6 +348,10 @@
 		"selectedColor": "#0765ae",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
+		"spacing":"5px",
+		"fontSize":"12px",
+		"iconWidth":"28px",
+		"height":"80px",
 		"list": [{
 				"pagePath": "pages/home/home",
 				"iconPath": "static/img/home-black.png",

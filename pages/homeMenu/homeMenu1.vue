@@ -1,31 +1,43 @@
 <template>
   <view class="content">
     <scroll-view overflow-x="false" overflow-y="true">
-      <view class="menu-one">
-        <view class="subtitle">业务管理</view>
-        <view class="item-list"> 
-          <view class="item">
-            <view>
-              <l-icon name="material-symbols:house-rounded" size="80px" color="#722ED1"/>
-              <view style="text-align:center">房型管理</view>
-            </view>
-            
-          </view>
-          <view class="item">
-            <view>
-              <l-icon name="ic:baseline-man" size="80px" color="#00B42A"/>
-              <view style="text-align:center">员工管理</view>
-            </view>
-          </view>
-          <view class="item item_">
-            <view>
-              <l-icon name="bx:bxl-invision" size="110px" color="#f64653"/>
-              <view style="text-align:center">酒店展示</view>
-            </view>
-          </view>
+      <xt-panal-list :count="menuList.length">
+        <!-- #ifdef MP -->
+        <view v-for="(item, index) of menuList" slot="card{{index}}">
+                <view class="h">{{ item.title }}</view>
+                    <view class="li">
+                      <view class="menu-list">
+                        <view v-for="it of item.list">
+                          <navigator :url="it.href" hover-class="navigator-hover">
+                            <view class="menu-item">
+                                <view class="flex-center"><l-icon :name="it.icon" size="30px" :color="it.iconColor"></l-icon></view>
+                   
+                              <text class="tx">{{ it.title }}</text>
+                            </view>
+                          </navigator>
+                        </view>
+                      </view>
+                    </view>
         </view>
-          
-      </view>
+        <!-- #endif -->
+        <!-- #ifdef H5 || APP-PLUS -->
+        <template v-for="(item, index) of menuList" v-slot:[`card${index}`]>
+          <view class="h">{{ item.title }}</view>
+          <view class="li">
+            <view class="menu-list">
+              <view v-for="it of item.list">
+                <navigator :url="it.href" hover-class="navigator-hover">
+                  <view class="menu-item">
+                    <view class="flex-center"><l-icon :name="it.icon" size="30px" :color="it.iconColor"></l-icon></view>
+                    <text class="tx">{{ it.title }}</text>
+                  </view>
+                </navigator>
+              </view>
+            </view>
+          </view>
+        </template>
+        <!-- #endif -->
+      </xt-panal-list>
     </scroll-view>
   </view>
 </template>
@@ -33,9 +45,7 @@
 <script lang="ts">
 import { ref,computed } from "vue";
 import {useStore} from "vuex";
-import lIcon from '../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 export default {
-  components: { lIcon },
   setup() {
     const store = new useStore();
     let hotel_id = computed(()=>{
@@ -140,43 +150,6 @@ export default {
 </script>
 
 <style lang="scss">
-.menu-one{
-  
-  
-  background: linear-gradient(to bottom, #87b7f5,#9ec3fa,#bdd6f5);
-  border-bottom-left-radius: 18px;
-   border-bottom-right-radius: 18px;
-   padding-bottom: 40px;
-  .subtitle{
-    color: #fff;
-    padding:25px;
-    font-weight: bold;
-  }
-   .item-list{
-     display: flex;
-   justify-content: center;
-   flex-wrap: wrap;
-   gap:30px;
-   
-.item{
-    width: 150px;
-    height: 175px;
-    background: #e1eafd;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color:#1D2129;
-    font-weight: 500;
-   }
-   .item_{
-    width: 205px;
-    height: 225px;
-   }
-   }
-   
-  
-}
 .h {
   font-size: 25px;
   padding: 10px 20px;
