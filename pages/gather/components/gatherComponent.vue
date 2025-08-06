@@ -3,7 +3,7 @@
 		<xt-panal-list count="2">			
 			<template  v-slot:[`card0`]>
 <!-- 7a7878  5395e3 -->
-				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab" activeBgColor="#5395e3" activeFColor="#fff"></xt-subsection>
+				<xt-subsection :items="['今天','明天']" @checkTab="changeGatgerTab" activeBgColor="#0765ae" activeFColor="#fff"></xt-subsection>
 				<view class="grid-container" v-if="GatgerTab_index==0">
 					<view v-for="(it,ind) in showDataListToday" class="grid-item">
 						<view class="grid-item-c">

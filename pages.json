@@ -234,7 +234,10 @@
 					"style" : 
 					{
 						"navigationBarTitleText" : "订单房态",
-						"enablePullDownRefresh": true
+						"enablePullDownRefresh": true,
+						"navigationBarBackgroundColor": "#0765ae",
+						"navigationBarTextStyle": "#fff"
+							
 					}
 				},
 				{

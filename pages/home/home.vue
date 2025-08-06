@@ -572,7 +572,7 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: $uni-font-size-lgs;
-  background-image: linear-gradient(to right, rgb(94 138 233), #3793d8, #5395e3);
+  background:#0765ae;
 }
 
 .more-menu-area {

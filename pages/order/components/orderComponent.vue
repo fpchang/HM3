@@ -3,28 +3,30 @@
 	<view class="order-component">
 		<view class="add-content-style">
 			<view class="left-panal">
-				<uni-data-checkbox v-model="tabRadioVal" :localdata="tabitems"></uni-data-checkbox>				
+				<view class="switch-group"> 
+					<view><text style="color:#fff">房态</text></view>
+					<view><switch color="#FFCC33" style="transform:scale(0.8)"/></view>
+					<view><text style="color:#FFCC33">订单</text></view>
+				</view>
+				
+				<!-- <uni-data-checkbox selectedTextColor="#fff"  selectedColor="#87b7f5" v-model="tabRadioVal" :localdata="tabitems"></uni-data-checkbox>				 -->
 			</view>
 			<view class="control-panal">
-				<uv-icon
-				v-if="false"
-			   name="file-text-fill"
-			   color="#000"
-			   size="22"
-			   label="数据配置"
-			   labelPos="bottom"
-			   labelSize="12px"
-			   @click="dataConfigEvent"
-			 ></uv-icon>
-			<uv-icon
+			<!-- <uv-icon
 			   name="plus-circle-fill"
-			   color="#000"
+			   color="#fff"
 			   size="22"
 			   label="创建订单"
 			   labelPos="bottom"
 			   labelSize="12px"
+			   
 			   @click="createOrderEvent"
-			 ></uv-icon>
+			 ></uv-icon> -->
+			 <view class="control-item-group" @click="createOrderEvent">
+				<view><l-icon name="solar:add-circle-bold" size="22px" color="#fff"/></view>
+				<view><text style="color:#fff">创建订单</text></view>
+			 </view>
+			 
 		   </view>
 		   </view>
 		<view style="height: 15px;"></view>
@@ -71,13 +73,15 @@ import orderChildCalendarList from './orderChildCalendarList';
 	import createOrderComponent from './createOrderComponent';
 	import orderChildList from './orderChildList.vue';
 	import {alert} from "@/alert";
+import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 	export default {
 		components: {
     	CreateOrder,
 			createOrderComponent,
 			orderChildCalendarList,
 			orderChildTableList,
-			orderChildList
+			orderChildList,
+LIcon
 		},
 		props: {
 			disHeightVal:0,
@@ -197,6 +201,20 @@ import orderChildCalendarList from './orderChildCalendarList';
 </script>
 
 <style lang="scss">
+.add-content-style{
+	 background: #0765ae;
+	 .switch-group{
+		display: flex;
+		gap: 4px;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		    
+			padding: 5px 12px;
+			border-radius: 26px;
+			background: #919191;
+	 }
+}
 .order-component {
 	box-sizing: border-box;
 }

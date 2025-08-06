@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="orderChildCalendar">
     <block v-if="noData">
       <noData text_content="当前无订单数据"></noData>
     </block>
@@ -10,10 +10,10 @@
           <uni-th width="100" align="center">
             <view>
               <view>
-                <l-icon name="material-symbols:calendar-today-rounded" size="40px" color="#5395e3"/>
+                <l-icon name="material-symbols:calendar-today-rounded" size="40px" color="#42A5F5"/>
                
               </view>
-              <view> <text style="color:#5395e3">{{new Date().Format("MM-dd")}}</text></view>
+              <view> <text style="color:#42A5F5">{{new Date().Format("MM-dd")}}</text></view>
               
             </view>
             </uni-th>				
@@ -413,9 +413,13 @@ export default {
 
 <style lang="scss">
 /* pages/management/checkIn/checkIn.wxss */
+.orderChildCalendar{
+  
+}
 .uni-container {
 		width: 100%;
 		height: 100vh;
+    
 	}
 
 
