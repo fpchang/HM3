@@ -1,89 +1,34 @@
 <template>
-
 	<view class="order-component">
 		<view class="add-content-style">
-			<view class="left-panal" v-if="false">
-				<!-- <view class="switch-group"> 
-					<view><text style="color:#fff">房态</text></view>
-					<view><switch color="#FFCC33" style="transform:scale(0.8)"/></view>
-					<view><text style="color:#FFCC33">订单</text></view>
-				</view> -->
-				
-				<!-- <uni-data-checkbox selectedTextColor="#fff"  selectedColor="#87b7f5" v-model="tabRadioVal" :localdata="tabitems"></uni-data-checkbox>				 -->
-			</view>
 			<view class="control-panal">
-			<!-- <uv-icon
-			   name="plus-circle-fill"
-			   color="#fff"
-			   size="22"
-			   label="创建订单"
-			   labelPos="bottom"
-			   labelSize="12px"
-			   
-			   @click="createOrderEvent"
-			 ></uv-icon> -->
-			 <view class="control-item-group" @click="createOrderEvent">
-				<view><l-icon name="solar:add-circle-bold" size="22px" color="#fff"/></view>
-				 <!-- <view><l-icon name="solar:reorder-bold" size="22px" color="#fff"/></view> -->
-				
-				<view><text style="color:#fff">添加订单</text></view>
-			 </view>
-			 
-		   </view>
-		   </view>
-		<view style="height: 15px;"></view>
-		<view class="content">
-			<!-- <keep-alive> -->
-			<!-- <view v-if="tabRadioVal===0">
+				<navigator url="/pages/order/orderIndex/orderIndex" hover-class="navigator-hover">
+					<view class="control-item-group" @click="createOrderEvent">
 
-				<orderChildCalendarList :disHeightVal="disHeightVal" ref="orderChildCalendarListRef">
-				</orderChildCalendarList>
-			</view> -->
-			<!-- </keep-alive> -->
+						<view><l-icon name="solar:reorder-bold" size="22px" color="#fff" /></view>
+						<view><text style="color:#fff">订单管理</text></view>
 
-			<view v-if="tabRadioVal===1">
-				<orderChildList ref="orderChildListRef"></orderChildList>
 
+					</view>
+				</navigator>
 			</view>
-			<!-- <keep-alive> -->
-			<!-- <view v-if="tabRadioVal===2">
-				<orderChildTableList ref="orderChildTableListRef"></orderChildTableList>
-			</view> -->
-			<!-- </keep-alive> -->
-
-
 		</view>
-		<uni-popup ref="popup" background-color="transprant">
-			<view class="popup-content">
-				<view class="create-order-title-style">创建订单</view>
-				<view class="comContent">
-					
-					<createOrderComponent @closePopup="closePopup"></createOrderComponent>
-					<!-- </keep-alive> -->
-
-				</view>
-
-			</view>
-		</uni-popup>
+		<view style="height: 15px"></view>
+		<view class="content">
+			<orderChildCalendarList :disHeightVal="disHeightVal" ref="orderChildCalendarListRef">
+			</orderChildCalendarList>
+		</view>
 	</view>
 </template>
 
 <script>
-	import CreateOrder from '../createOrder/createOrder'
-import orderChildCalendarList from './orderChildCalendarList';
-	import orderChildTableList from './orderChildTableList';
-	import createOrderComponent from './createOrderComponent';
-	import orderChildList from './orderChildList.vue';
+import orderChildCalendarList from '../components/orderChildCalendarList';
 	import {alert} from "@/alert";
 import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 	export default {
 		components: {
-    	CreateOrder,
-			createOrderComponent,
 			orderChildCalendarList,
-			orderChildTableList,
-			orderChildList,
-LIcon
+			LIcon
 		},
 		props: {
 			disHeightVal:0,
@@ -93,8 +38,8 @@ LIcon
 			return {
 				ss: 15868865907,
 				current: 2,
-				tabRadioVal:1,
-				
+				tabRadioVal:0,
+
 				selectCondition: {
 					dateRangeArray: [new Date().getTime(), new Date().getTime() + (1000 * 60 * 60 * 24 * 30)], //默认30天
 					userName: ''
@@ -142,10 +87,10 @@ LIcon
 				// 	value:1,
 				// 	text:'订单'
 				// }]
-			} 
+			}
 		},
 		watch:{
-			
+
 	},
 		created() {
 			console.log('orderComponent create');
@@ -155,11 +100,11 @@ LIcon
 			console.log('orderComponent Show')
 		},
 		mounted() {
-			
+
 		},
 		methods: {
 			async initData(){
-					await this.$refs.orderChildCalendarListRef.getOrderList();					
+					await this.$refs.orderChildCalendarListRef.getOrderList();
 					return;
 			},
 			dataConfigEvent(){
@@ -203,20 +148,22 @@ LIcon
 </script>
 
 <style lang="scss">
-.add-content-style{
-	 background: #0765ae;
-	 .switch-group{
+.add-content-style {
+	background: #0765ae;
+
+	.switch-group {
 		display: flex;
 		gap: 4px;
 		align-items: center;
 		justify-content: center;
 		font-size: 12px;
-		    
-			padding: 5px 12px;
-			border-radius: 26px;
-			background: #919191;
-	 }
+
+		padding: 5px 12px;
+		border-radius: 26px;
+		background: #919191;
+	}
 }
+
 .order-component {
 	box-sizing: border-box;
 }

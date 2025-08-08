@@ -1,146 +1,97 @@
 <template>
   <view class="home">
-      <view class="top-container">
-        <view class="scroll-content">
-           <view :style="{height:navTopHeight}"></view>
-          <view :class="['top-area', isSticky ? 'sticky-style' : '']">
-            <view class="title-area" :style="{ opacity: opacityVal }">
-              <view class="check-area" @click="showCheckHotel" v-if="hotel">
-                <text class="$uni-font-size-lg h-n-style">{{
-                  hotel.hotelName
-                }}</text>
-                <!-- <uv-icon
-                  v-if="hotel.hotelName"
-                  name="arrow-down-fill"
-                  color="#606266"
-                  size="14px"
-                  top="2"
-                ></uv-icon> -->
-                <view> 
-          <l-icon name="ic:sharp-expand-more" size="30px" color="#fff"></l-icon>
-                </view>
-               
+    <view class="top-container">
+      <view class="scroll-content">
+        <view :style="{height: navTopHeight}"></view>
+        <view :class="['top-area', isSticky? 'sticky-style':'']">
+          <view class="title-area" :style="{opacity: opacityVal}">
+            <view class="check-area" @click="showCheckHotel" v-if="hotel">
+              <text class="$uni-font-size-lg h-n-style">{{
+                hotel.hotelName
+              }}</text>
+              <view>
+                <l-icon name="ic:sharp-expand-more" size="30px" color="#fff"></l-icon>
               </view>
+
             </view>
- 
           </view>
+
         </view>
       </view>
-   <!--   <block v-if="noData">
-        <noData
-          text_content="您还没有酒店"
-          :showControl="true"
-          text_control_add="创建一个"
-          @Event_one="addNewHotel"
-        ></noData>
-      </block>
-      <block  v-if="!noData"> -->
-		  <gatherComponent ref="gather">
-		  </gatherComponent>
-      
-      <!-- <swiper
-        :style="{ height: scrollHeight }"
-        :current="currentTab_index"
-        @change="swiperContentEvent"
-      >
-        <swiper-item v-for="item in tabList">
-          <scroll-view
-            class="swiper-container-scroll"
-            :scroll-y="true"
-            :scroll-x="false"
-            show-scrollbar="false"
-            :scroll-top="0"
-            :throttl="false"
-            :style="{ height: scrollHeight }"
-            refresher-enabled 
-             @refresherrefresh="scrollRefrush" 
-             :refresher-triggered="isLoading"
-          >
-            <view v-if="dataHasRead">
-              <gatherComponent
-                :key="item.time"
-                :createTime="item.time"
-                :disHeightVal="disHeightVal"
-                v-if="item.ComponentName == 'gatherComponent'"
-              >
-              </gatherComponent>
-              <orderComponent
-                :key="item.time"
-                :createTime="item.time"
-                :disHeightVal="disHeightVal"
-                v-if="item.ComponentName == 'orderComponent'"
-              >
-              </orderComponent>
-              <roomTypeListComponent
-                :key="item.time"
-                :createTime="item.time"
-                v-if="item.ComponentName == 'roomTypeListComponent'"
-              >
-              </roomTypeListComponent>
-              <employeeComponent
-                :key="item.time"
-                :createTime="item.time"
-                v-if="item.ComponentName == 'employeeComponent'"
-              ></employeeComponent>
-
-              <menuListComponent
-                :key="item.time"
-                :createTime="item.time"
-                v-if="item.ComponentName == 'menuListComponent'"
-              ></menuListComponent>
-              <scenicSpotListComponent
-                :key="item.time"
-                :createTime="item.time"
-                v-if="item.ComponentName == 'scenicSpotListComponent'"
-              ></scenicSpotListComponent>
-
-              <hotelList
-                :key="item.time"
-                :createTime="item.time"
-                v-if="item.ComponentName == 'hotelList'"
-              >
-              </hotelList>
-              <fm
-                :key="item.time"
-                :createTime="item.time"
-                v-if="item.ComponentName == 'fm'"
-              >
-            </fm>
-            </view>
-          </scroll-view>
-        </swiper-item>
-      </swiper> -->
-    <!-- </block> -->
+    </view>
+    <gatherComponent ref="gather">
+    </gatherComponent>
     <uni-drawer ref="showLeft" mode="left" :width="320">
       <view class="left-container">
         <view style="flex: 1; min-height: 330px">
-           <view style="height:70px"></view>
-          <uni-section title="酒店列表" type="line"></uni-section>
-          <view class="card-panal">
-            <view class="card">
-              <view class="list-panal">
-                <view
-                  class="list-panal-item"
-                  v-for="item of hotelList"
-                  @click="checkHotel(item._id)"
-                >
-                  <uni-icons
-                    :type="item._id == hotel_id ? 'checkbox' : 'circle'"
-                    size="22"
-                    color="#0765ae"
-                  ></uni-icons>
-                  <view class="i-area">
-                    <text>{{ item.hotelName }}</text>
-                    <uni-icons
-                      type="forward"
-                      size="22"
-                      color="#3333335c"
-                    ></uni-icons>
+          <view  class="black-area">
+            <text>
+                <l-icon name="line-md:confirm-square-filled" size="35px" color="#1E88E5" />
+            </text>
+           
+          </view>
+          <view class="title-area">
+            <view class="title">
+              <tiext>酒店列表</tiext>
+            </view>
+            <navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="navigator-hover">
+              <view class="btn"><text>管理</text></view>
+            </navigator>
+            
+
+          </view>
+          <scroll-view :style="{'height': scrollHeight}" scroll-x="false" scroll-y="true">
+
+            <view>
+              <view v-for="(item, index) of hotelList" style="padding:10px" @click="checkHotel(item._id)">
+                <view style="display:flex;" :class="['zcard', item._id==hotel_id? 'zcard-active':'']"
+                  @click="openHotel(item)">
+                  <view class="select">
+                    <l-icon v-if="item._id==hotel_id" name="line-md:circle-filled-to-confirm-circle-filled-transition"
+                      size="35px" color="#fff" />
+                    <l-icon v-if="item._id!=hotel_id" name="line-md:confirm-circle-twotone-to-circle-transition"
+                      size="35px" color="#eee" />
+
+                  </view>
+                  <view style="width:80px;height:80px">
+
+                    <image v-if="item.firstImages" style="width:100%;height:100%" mode="aspectFill"
+                      :src="item.firstImages" />
+                    <image v-if="!item.firstImages&&item._id!=hotel_id" style="width:100%;height:100%" mode="aspectFill"
+                      :src="item.firstImages||'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png'" />
+                    <image v-if="!item.firstImages&&item._id==hotel_id" style="width:100%;height:100%" mode="aspectFill"
+                      :src="item.firstImages||'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.jpg'" />
+
+                  </view>
+                  <view style="padding:15px 10px" class="zcard-right">
+                    <view class="item"><text class="title">{{item.hotelName}}</text></view>
+                    <view class="item"><text class="subtitle">{{item.hotelAddress}}</text></view>
+
                   </view>
                 </view>
               </view>
+
+
+
             </view>
-          </view>
+
+          </scroll-view>
+          <!-- <view class="add-content-style">
+			<view class="control-panal">
+				<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="navigator-hover">
+					<view class="control-item-group" @click="createOrderEvent">
+						<view><l-icon name="ri:hotel-fill" size="25px" color="#288fff" /></view>
+						<view><text style="color:#288fff">管理</text></view>
+					</view>
+				</navigator>
+        <navigator url="/pages/hotelManage/createHotel/createHotel" hover-class="navigator-hover">
+					<view class="control-item-group" @click="createOrderEvent">
+						<view><l-icon name="solar:add-circle-bold" size="25px" color="#288fff" /></view>
+						<view><text style="color:#288fff">添加</text></view>
+					</view>
+				</navigator>
+			</view>
+		</view> -->
         </view>
       </view>
     </uni-drawer>
@@ -202,7 +153,6 @@ import feedback from "@/pages/mine/feedback/feedback";
 import recharge from "@/pages/mine/recharge/rechargeComponent";
 import intructions from "@/pages/mine/instructions/instructions";
 import { AccountService } from "@/services/AccountService";
-import hotelList from "@/pages/hotelManage/hotelList/hotelList";
 import {useStore} from 'vuex';
 export default {
   components: {
@@ -213,7 +163,6 @@ export default {
     employeeComponent,
     menuListComponent,
     scenicSpotListComponent,
-    hotelList,
     mine,
     fm,
     feedback,
@@ -389,11 +338,11 @@ export default {
       // #endif
 
       //return this.isPcShow? "0px" : "70px";
-      return "70px";
+      return "100px";
     },
 
     disHeightVal() {
-      return "90px";
+      return "20px";
     },
     scrollHeight() {
       return `calc(100vh - ${this.disHeightVal} - ${this.navTopHeight} )`;
@@ -541,15 +490,97 @@ export default {
 </script>
 
 <style lang="scss">
-.home{
+.home {
   height: 100vh;
   background: #fff;
 }
+
+.zcard {
+  cursor: pointer;
+  padding: 0 15px;
+
+  &:hover {
+    /*transform: scale(1.01);*/
+    box-shadow: 2px 4px 12px #000;
+
+  }
+
+  background-color: #fffffe;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+  }
+
+  .zcard-right {
+    flex: 1;
+    color: #fff;
+    font-size: $uni-font-size-sm ;
+    display: flex;
+    flex-direction: column;
+
+    .title {
+
+      color: #333333;
+      font-weight: bold;
+      font-size: $uni-font-size-base ;
+      text-overflow: ellipsis;
+
+    }
+
+    .subtitle {
+      color: #666666
+    }
+
+    .item {
+      padding: 3px 0;
+
+      .tabscontainer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+    }
+
+    .bottom {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+  }
+}
+
+.zcard-active {
+  background-color: #0765ae;
+
+  .zcard-right {
+    color: #fff;
+
+    .title {
+      color: #fff;
+    }
+
+    .subtitle {
+      color: #eee;
+    }
+  }
+}
+
 .right-area {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+
   .switch {
     display: flex;
     align-items: center;
@@ -562,6 +593,7 @@ export default {
     gap: 4px;
     font-size: 12px;
     cursor: pointer;
+
     &:hover {
       box-shadow: 0 0 13px 1px #d9d9d9;
     }
@@ -572,7 +604,7 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: $uni-font-size-lgs;
-  background:#0765ae;
+  background: #0765ae;
 }
 
 .more-menu-area {
@@ -588,12 +620,13 @@ export default {
 .add-icon-style:hover {
   color: #ff0000;
 }
+
 .swiper-container-scroll {
   display: flex;
   flex-direction: column;
 }
-.scroll-content {
-}
+
+.scroll-content {}
 
 .scroll-content .top-area {
   height: 90px;
@@ -624,7 +657,7 @@ export default {
         text-overflow: ellipsis;
         overflow: hidden;
         color: #fff;
-        
+
       }
 
       .check-panal {
@@ -678,6 +711,41 @@ export default {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: #f4f5f9;
+.black-area{
+  height: 70px;
+   padding: 0 15px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+  .title-area {
+
+    display: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      height: 30px;
+
+      line-height: 30px;
+      color: #000101;
+    }
+
+    .btn {
+      font-size: 12px;
+      background-color: #1E88E5;
+      color: #fff;
+      font-weight: 200;
+      padding:2px 10px;
+      border-radius: 6px;
+    }
+  }
+
 }
 
 .right-container {
@@ -716,6 +784,34 @@ export default {
     border: 1px solid #e4e4e4;
     border-radius: 4px;
     background: #fff;
+  }
+}
+
+.add-content-style {
+  background: transparent;
+  height: 100px;
+  padding: 15px;
+
+  .control-panal {
+    flex: 1;
+    justify-content: space-around;
+    border-radius: 12px;
+    box-sizing: border-box;
+    padding: 10px;
+    /*background: #0765ae;*/
+    border: 1px solid #0765ae;
+  }
+
+  .switch-group {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+
+    padding: 5px 12px;
+    border-radius: 26px;
+    background: #919191;
   }
 }
 </style>

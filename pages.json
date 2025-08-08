@@ -233,7 +233,7 @@
 					"path" : "pages/order/orderIndex/orderIndex",
 					"style" : 
 					{
-						"navigationBarTitleText" : "订单房态",
+						"navigationBarTitleText" : "订单管理",
 						"enablePullDownRefresh": true,
 						"navigationBarBackgroundColor": "#0765ae",
 						"navigationBarTextStyle": "#fff"
@@ -260,6 +260,16 @@
 					{
 						"navigationBarTitleText" : "财务管理",
 						"enablePullDownRefresh": true
+					}
+				},
+				{
+					"path" : "pages/order/orderState/orderState",
+					"style" : 
+					{
+								"navigationBarTitleText" : "订单房态",
+												"enablePullDownRefresh": true,
+												"navigationBarBackgroundColor": "#0765ae",
+												"navigationBarTextStyle": "#fff"
 					}
 				}
 		
@@ -362,7 +372,7 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/order/orderIndex/orderIndex",
+				"pagePath": "pages/order/orderState/orderState",
 				"iconPath": "static/img/order-black.png",
 				"selectedIconPath": "static/img/order-blue.png",
 				"text": "房态"
