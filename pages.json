@@ -233,10 +233,10 @@
 					"path" : "pages/order/orderIndex/orderIndex",
 					"style" : 
 					{
-						"navigationBarTitleText" : "订单管理",
+						"navigationBarTitleText":"订单管理",
 						"enablePullDownRefresh": true,
 						"navigationBarBackgroundColor": "#0765ae",
-						"navigationBarTextStyle": "#fff"
+						"navigationBarTextStyle":"white"
 							
 					}
 				},
@@ -259,6 +259,7 @@
 					"style" : 
 					{
 						"navigationBarTitleText" : "财务管理",
+						"navigationStyle": "custom",
 						"enablePullDownRefresh": true
 					}
 				},
@@ -269,7 +270,7 @@
 								"navigationBarTitleText" : "订单房态",
 												"enablePullDownRefresh": true,
 												"navigationBarBackgroundColor": "#0765ae",
-												"navigationBarTextStyle": "#fff"
+												"navigationBarTextStyle": "white"
 					}
 				}
 		
@@ -399,10 +400,11 @@
 		]
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF",
+		"navigationBarBackgroundColor": "#0765ae",
+		"navigationBarTextStyle":"white",
 		"app-plus": {
 			// "titleNView": false,
 			// "scrollIndicator": "none",

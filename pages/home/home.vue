@@ -787,31 +787,5 @@ export default {
   }
 }
 
-.add-content-style {
-  background: transparent;
-  height: 100px;
-  padding: 15px;
 
-  .control-panal {
-    flex: 1;
-    justify-content: space-around;
-    border-radius: 12px;
-    box-sizing: border-box;
-    padding: 10px;
-    /*background: #0765ae;*/
-    border: 1px solid #0765ae;
-  }
-
-  .switch-group {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-
-    padding: 5px 12px;
-    border-radius: 26px;
-    background: #919191;
-  }
-}
 </style>

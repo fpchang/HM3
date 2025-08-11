@@ -147,7 +147,7 @@ import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .add-content-style {
 	background: #0765ae;
 
