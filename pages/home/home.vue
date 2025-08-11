@@ -2,7 +2,13 @@
   <view class="home">
     <view class="top-container">
       <view class="scroll-content">
-        <view :style="{height: navTopHeight}"></view>
+        <view class="logo-area" :style="{height: navTopHeight}">
+          <view class="logo"> 
+               <image  style="width: 188px; height: 94px; vertical-align: middle;transform:scale(0.8)"  src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.svg"></image>
+		
+          </view>
+          <!-- <view><text>议宿管理系统</text></view> -->
+        </view>
         <view :class="['top-area', isSticky? 'sticky-style':'']">
           <view class="title-area" :style="{opacity: opacityVal}">
             <view class="check-area" @click="showCheckHotel" v-if="hotel">
@@ -604,7 +610,7 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: $uni-font-size-lgs;
-  background: #0765ae;
+   background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
 }
 
 .more-menu-area {
@@ -626,7 +632,14 @@ export default {
   flex-direction: column;
 }
 
-.scroll-content {}
+.scroll-content .logo-area{
+  display: flex;
+  align-items: end;
+  color: #fff;
+  .logo{
+        transform: translateX(-31px);
+  }
+}
 
 .scroll-content .top-area {
   height: 90px;

@@ -188,7 +188,8 @@ export default {
 
 <style lang="scss">
 .menu-one {
-  background: linear-gradient(to bottom, #0765ae, #9ec3fa);
+  /*background: linear-gradient(to bottom, #0765ae, #9ec3fa);*/
+  background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
   border-bottom-left-radius: 18px;
   border-bottom-right-radius: 18px;
   padding-bottom: 40px;

@@ -3,7 +3,7 @@
 		<view class="add-content-style">
 			<view class="control-panal">
 				<navigator url="/pages/order/orderIndex/orderIndex" hover-class="navigator-hover">
-					<view class="control-item-group" @click="createOrderEvent">
+					<view class="control-item-group">
 
 						<view><l-icon name="solar:reorder-bold" size="22px" color="#fff" /></view>
 						<view><text style="color:#fff">订单管理</text></view>
