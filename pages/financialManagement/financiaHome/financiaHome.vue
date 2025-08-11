@@ -138,7 +138,7 @@ LIcon
 			display: flex;
 			box-sizing: border-box;
 			justify-content: center;
-			flex-direction: column;
+			
 				
 			.chart-area{
 				flex: 1;
