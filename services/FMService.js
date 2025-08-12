@@ -120,13 +120,15 @@ async getIncomeCurrentYear(hotel_id){
   const mt = db.collection("hm-incomeAndExpenses").where(w).getTemp();
   const other =db.collection(mt,"hm-incomeAndExpensesConfig").groupBy('dateToString(timestampToDate(ioeTime),"%Y-%m") as month').groupField('sum(amount) as amount').get(); 
   const res = await Promise.all([order,other]);
-  let xlable=[],xValue=[],total=0;
+  let xlable=[],simpleXLabel=[],xValue=[],total=0;
 
   for(let i=0;i<12;i++){
     let xmonth = new Date(new Date().getFullYear(),i).Format("yyyy-MM");
+     let simounth=new Date(new Date().getFullYear(),i).Format("MM");
     let orderItem=res[0].result.data.find(item=>item.month==xmonth),
       otherItem= res[1].result.data.find(item=>item.month==xmonth);
-      let val = (orderItem&&orderItem['amount']||0)+(otherItem&&otherItem['amount']||0)
+      let val = (orderItem&&orderItem['amount']||0)+(otherItem&&otherItem['amount']||0);
+      simpleXLabel.push(simounth);
     xlable.push(xmonth);
     xValue.push(val);
     total+=val;
@@ -135,6 +137,7 @@ async getIncomeCurrentYear(hotel_id){
   console.log(xlable,xValue)
   return {
     xlable,
+    simpleXLabel,
     xValue,
     total
   };
@@ -153,12 +156,14 @@ async getExpensesCurrentYear(hotel_id){
 
   const mt = db.collection("hm-incomeAndExpenses").where(w).getTemp();
   const res =await db.collection(mt,"hm-incomeAndExpensesConfig").groupBy('dateToString(timestampToDate(ioeTime),"%Y-%m") as month').groupField('sum(amount) as amount').get(); 
-  let xlable=[],xValue=[],total=0;
+  let xlable=[],simpleXLabel=[],xValue=[],total=0;
 
   for(let i=0;i<12;i++){
     let xmonth = new Date(new Date().getFullYear(),i).Format("yyyy-MM");
+    let simounth=new Date(new Date().getFullYear(),i).Format("MM");
       let otherItem= res.result.data.find(item=>item.month==xmonth);
-      let val = otherItem&&otherItem['amount']||0
+      let val = otherItem&&otherItem['amount']||0;
+    simpleXLabel.push(simounth);
     xlable.push(xmonth);
     xValue.push(val);
     total+=val;
@@ -167,6 +172,7 @@ async getExpensesCurrentYear(hotel_id){
   console.log(xlable,xValue)
   return {
     xlable,
+    simpleXLabel,
     xValue,
     total
   };

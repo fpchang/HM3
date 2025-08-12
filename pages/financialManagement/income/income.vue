@@ -5,22 +5,14 @@
       
       </view>
       <view class="control-panal">
-        <!-- <navigator url="/pages/financialManagement/income/createIncome/createIncome" hover-class="navigator-hover">
-					 -->
-        <uv-icon
-          name="plus-circle-fill"
-          color="#000"
-          size="22"
-          label="创建单据"
-          labelPos="bottom"
-          labelSize="12px"
-          @click="createIncome"
-        ></uv-icon>
-        <!-- </navigator> -->
+          <view class="control-item-group" @click="createIncome">
+				<view><l-icon name="solar:add-circle-bold" size="22px" color="#fff"/></view>			
+				<view><text style="color:#fff">创建单据</text></view>
+			 </view>
       </view>
     </view>
     <view class="filter-area">
-      <view style="flex: 1">
+      <view class="filter-item" style="flex: 1">
         <uni-datetime-picker
           v-model="filter.dateRangeArray"
           rangeSeparator="/"
@@ -31,7 +23,7 @@
           style="z-index: 9999"
         />
       </view>
-      <view style="width: 120px">
+      <view class="filter-item" style="width: 120px">
           <uni-data-select
             v-model="filter.type"
             placeholder="收入类型"
@@ -233,9 +225,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
 .income{
-  /* background-color:#eeeeee33; */
+      background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a)
 }
 .add-content-style {
   height: 60px;
@@ -243,7 +236,7 @@ export default {
   justify-content: flex-end;
   padding: 0 20px;
   box-sizing: border-box;
-  background: #f7f7f7;
+  background: #0765ae;
   .left-panal {
     flex: 1;
     display: flex;
@@ -263,6 +256,9 @@ export default {
   align-items: center;
   gap: 12px;
   padding: 0 15px;
+  .filter-item{
+    border-radius:8px;background:#fff;overflow:hidden
+  }
 }
 .info-area {
   color: #6a6a6a;

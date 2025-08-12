@@ -174,13 +174,13 @@
 		{
 			"path": "pages/financialManagement/income/income",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "收入管理"
 			}
 		},
 		{
 			"path": "pages/financialManagement/expenses/expenses",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "支出管理"
 			}
 		},
 		{
