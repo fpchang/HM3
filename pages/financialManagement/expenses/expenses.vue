@@ -1,32 +1,24 @@
 <template>
-	<view>		
+	<view class="expenses">		
 			<view class="add-content-style">
 			  <view class="left-panal">
 				
 			  </view>
 			  <view class="control-panal">
-				
-				<!-- <navigator url="/pages/financialManagement/expenses/createExpenses/createExpenses" hover-class="navigator-hover">
-				 -->
-					<uv-icon
-				  name="plus-circle-fill"
-				  color="#000"
-				  size="22"
-				  label="创建单据"
-				  labelPos="bottom"
-				  labelSize="12px"
-				  @click="createExpenses"
-				></uv-icon>
-				<!-- </navigator> -->
-			
+			   <view class="control-item-group" @click="createExpenses">
+				<view><l-icon name="solar:add-circle-bold" size="22px" color="#fff"/></view>			
+				<view><text style="color:#fff">创建单据</text></view>
+			 </view>
 			  </view>
 			</view>
+
+			  <view class="content"> 
 			<view class="filter-area">
-				<view style="flex:1"> 
+				<view class="filter-item" style="flex:1"> 
 					<uni-datetime-picker v-model="filter.dateRangeArray" rangeSeparator="/" type="daterange"
 					return-type="timestamp"  :clear-icon="false" style="z-index: 9999;" />			
 				</view>
-				<view style="width:120px">
+				<view class="filter-item" style="width:120px">
 					<uni-data-select
 					v-model="filter.type"
 					placeholder="支出类型"
@@ -50,7 +42,10 @@
 				<noData  text_content="当前无收入数据"></noData>
 			  </block>
 			  <block v-if="data&&data.length">
-			<uni-section class="mb-10" title="其它支出明细" sub-title="" type="line"></uni-section>
+			<!-- <uni-section class="mb-10" title="其它支出明细" sub-title="" type="line"></uni-section> -->
+			  <view class="detail-title">
+      <text>支出明细</text>
+    </view>
 		  <scroll-view scroll-x="false" scroll-y="true" style="height: calc(100vh - 232px);">				 
 						 <xt-panal-list :count="data.length">
 							       <!-- #ifdef MP -->
@@ -81,6 +76,7 @@
 		</scroll-view>
 	</block>
 	</unicloud-db>
+	</view>
 	</view>
 </template>
 
@@ -151,47 +147,61 @@ import {useStore} from 'vuex';
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
+.expenses{
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
+}
 .add-content-style {
-	height: 60px;
-	display: flex;
-	justify-content: flex-end;
-	padding: 0 20px;
-	box-sizing: border-box;
-	background: #f7f7f7;
-	.left-panal{
-		flex: 1;
-		display: flex;
-		align-items: center
-	};
-	.control-panal {
-	  display: flex;
-	  padding: 10px 0px;
-	  border-radius: 8px;
-	  gap: 20px;
-	}
+  height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
+  box-sizing: border-box;
+  background: #0765ae;
+  .left-panal {
+    flex: 1;
+    display: flex;
+    align-items: center;
   }
-.filter-area{
-	max-width: 600px;
-	height: 60px;
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	padding:0 15px;
+  .control-panal {
+    display: flex;
+    padding: 10px 0px;
+    border-radius: 8px;
+    gap: 20px;
+  }
+}
+.content{
+  flex: 1;
+  background: #eaebee;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+.filter-area {
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding:20px  15px;
+  .filter-item{
+    border-radius:8px;background:#fff;
+  }
 }
 .info-area {
+  padding:15px;
   color: #6a6a6a;
   font-size: 12px;
   display: flex;
   align-items: center;
   display: flex;
-  padding:0 15px;
   box-sizing: border-box;
   justify-content: space-between;
   max-width: 600px;
   .item{
-	background-color: #ccac02;
-	border-radius: 10px;
+	background-color: rgb(12, 55, 170);
+	border-radius: 8px;
 	width: 110px;
 	height: 70px;
 	box-sizing: border-box;
@@ -211,6 +221,12 @@ import {useStore} from 'vuex';
 	}
   }
   
+}
+.detail-title{
+  font-size: 20px;
+  color: #666;
+  padding:10px 15px;
+  font-weight: bold;
 }
 .list {
   color: #6a6a6a;

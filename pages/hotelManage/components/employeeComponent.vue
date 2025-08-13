@@ -1,20 +1,48 @@
 <template>
   <view class="employee-component">
     <view class="add-content-style">
-			<view class="control-panal">
-			<uv-icon
-			   name="plus-circle-fill"
-			   color="#000"
-			   size="22"
-			   label="添加员工"
-			   labelPos="bottom"
-			   labelSize="12px"
-			   @click="addEmployee"
-			 ></uv-icon>
-		   </view>
-		   </view>
+      <view class="left-panal">
+        <text class="title">员工管理</text>
+      </view>
+      <view class="control-panal">
+        <view class="control-item-group" @click="addEmployee">
+          <view><l-icon name="solar:add-circle-bold" size="22px" color="#fff" /></view>
+          <view><text style="color:#fff">添加员工</text></view>
+        </view>
+      </view>
+    </view>
+    <view class="content">
+      <view>
+        <xt-panal-list :count="employeeList.length">
 
-    <view class="phone-show-style" style="max-width: 450px">
+          <!-- #ifdef MP -->
+          <view v-for="(item, index) in employeeList" slot="card{{index}}">
+           <view class="card-content"></view>
+          </view>
+          <!-- #endif -->
+          <!-- #ifdef H5 || APP-PLUS -->
+          <template v-for="(item, index) in employeeList" v-slot:[`card${index}`]>
+            <view class="card-content">
+              <view class="avator">
+                <l-icon v-if="item.role=='administrator'" name="emojione-monotone:letter-a" color="#3885fc" size="80px"></l-icon>
+                <l-icon v-if="item.role=='manager'" name="emojione-monotone:letter-m" color="green" size="80px"></l-icon>
+                <l-icon v-if="item.role=='normal'" name="emojione-monotone:letter-n" color="#999" size="80px"></l-icon>
+              </view>
+              <view class="info">
+                <view><text>{{ item.employee_name }}</text></view>
+                <view><text>角色：{{roleFormat(item.role)}}</text></view>
+              </view>
+              <view class="control">
+                <view @click="editEmployee(item)"><l-icon name="mingcute:pencil-fill" color="#3885fc" size="18px"></l-icon></view>
+                <view v-if="item.role!='administrator'"  @click="deleteEmployee(item)"><l-icon name="garden:x-fill-16" color="#3885fc" size="18px"></l-icon></view>
+                
+              </view>
+            </view>
+          </template>
+          <!-- #endif -->
+        </xt-panal-list>
+      </view>
+      <!-- <view class="phone-show-style" style="max-width: 450px">
       <uni-collapse v-model="accordionVal">
         <uni-collapse-item v-for="item of employeeList">
           <template v-slot:title>
@@ -72,21 +100,19 @@
           </view>
         </uni-collapse-item>
       </uni-collapse>
-    </view>
-    <uni-popup ref="popupCreateRoomType" background-color="transprant">
-      <view class="popup-content">
-        <view class="create-order-title-style">{{
-          type == 1 ? "修改员工信息" : "新增员工"
-        }}</view>
-        <view class="comContent">
-          <addEmployeeComponent
-            @closePopup="closePopup"
-            :type="type"
-            :em="emObj"
-          ></addEmployeeComponent>
+    </view> -->
+      <uni-popup ref="popupCreateRoomType" background-color="transprant">
+        <view class="popup-content">
+          <view class="create-order-title-style">{{
+            type==1? "修改员工信息":"新增员工"
+            }}</view>
+          <view class="comContent">
+            <addEmployeeComponent @closePopup="closePopup" :type="type" :em="emObj"></addEmployeeComponent>
+          </view>
         </view>
-      </view>
-    </uni-popup>
+      </uni-popup>
+    </view>
+
   </view>
 </template>
 
@@ -95,9 +121,12 @@ import addEmployeeComponent from "./addEmployeeComponent";
 import  {DB} from "../../../api/DB";
 import  {HotelService} from "../../../services/HotelService";
 import {alert} from "@/alert";
+import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
+import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
 export default {
   components: {
     addEmployeeComponent,
+    LIcon,
   },
   data() {
     return {
@@ -210,7 +239,7 @@ export default {
 					return;
 				}
       const conf = await uni.showModal({
-        title: "确认删除房型",
+        title: "确认删除员工",
         content: "删除后将无法恢复,确认删除吗?",
         cancelText: "取消",
         confirmText: "确认",
@@ -260,13 +289,58 @@ export default {
 </script>
 
 <style lang="scss">
+.employee-component {
+  min-height: 100vh;
+  background-color: #0765ae;
+  display: flex;
+  flex-direction: column;
+}
+
 .add-content-style {
   display: flex;
   justify-content: flex-end;
   padding: 0 20px;
   box-sizing: border-box;
+  background-color: #0765ae;
+
+  .left-panal {
+    .title {
+      color: #fff;
+      font-weight: 400;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+  }
 }
 
+.content {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background: #e7eaef;
+  flex: 1;
+  padding:15px;
+  box-sizing: border-box;
+
+}
+.card-content{
+  display: flex;
+  padding:15px;
+  box-sizing: border-box;
+  .avator{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:10px;
+  }
+  .info{
+    flex: 1;
+  }
+  .control{
+    display: flex;
+    flex-direction: column;
+       justify-content: space-around;
+  }
+}
 .uni-group {
   display: flex;
   justify-content: space-between;
@@ -291,7 +365,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size:$uni-font-size-base ;
+        font-size: $uni-font-size-base ;
       }
     }
   }

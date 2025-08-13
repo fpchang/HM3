@@ -11,7 +11,8 @@
 			 </view>
       </view>
     </view>
-    <view class="filter-area">
+    <view class="content"> 
+   <view class="filter-area">
       <view class="filter-item" style="flex: 1">
         <uni-datetime-picker
           v-model="filter.dateRangeArray"
@@ -46,28 +47,31 @@
     >
 	<view class="info-area">
 		<view class="item"> 
-			<view><text>总计(元)</text></view>
-			<view class="num-area"><text class="num">{{ order_amount + amountSum(data) }}</text></view>
+			<view><text>总计</text></view>
+			<view class="num-area"><text class="num">￥{{ order_amount + amountSum(data) }}</text></view>
 		</view>
 		<view class="item"> 
-			<view><text>房费(元)</text></view>
-			<view class="num-area"><text class="num">{{ order_amount}}</text></view>
+			<view><text>房费</text></view>
+			<view class="num-area"><text class="num">￥{{ order_amount}}</text></view>
 		</view>
 		<view class="item"> 
-			<view><text>其它小计：(元)</text></view>
-			<view class="num-area"><text class="num">{{ amountSum(data) }}</text></view>
+			<view><text>其它</text></view>
+			<view class="num-area"><text class="num">￥{{ amountSum(data) }}</text></view>
 		</view>
       </view>
       <block v-if="!data||!data.length">
         <noData  text_content="当前无收入数据"></noData>
       </block>
       <block v-if="data&&data.length">
-	  <uni-section class="mb-10" title="其它收入明细" sub-title="" type="line"></uni-section>
-      <scroll-view
+	  <!-- <uni-section class="mb-10" title="其它收入明细" sub-title="" type="line"></uni-section> -->
+    <view class="detail-title">
+      <text>收入明细</text>
+    </view>
+    <!-- <scroll-view
         scroll-x="false"
         scroll-y="true"
         style="height: calc(100vh - 232px)"
-      >
+      > -->
     
      
         <xt-panal-list :count="data.length">
@@ -116,9 +120,11 @@
            <!-- #endif -->
         </xt-panal-list>
     
-      </scroll-view>
+      <!-- </scroll-view> -->
     </block>
     </unicloud-db>
+    </view>
+ 
   </view>
 </template>
 
@@ -228,7 +234,10 @@ export default {
 <style lang="scss" scoped>
 
 .income{
-      background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a)
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
 }
 .add-content-style {
   height: 60px;
@@ -249,30 +258,35 @@ export default {
     gap: 20px;
   }
 }
+.content{
+  flex: 1;
+  background: #eaebee;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
 .filter-area {
   max-width: 600px;
-  height: 60px;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0 15px;
+  padding:20px  15px;
   .filter-item{
-    border-radius:8px;background:#fff;overflow:hidden
+    border-radius:8px;background:#fff;
   }
 }
 .info-area {
+  padding:15px;
   color: #6a6a6a;
   font-size: 12px;
   display: flex;
   align-items: center;
   display: flex;
-  padding:0 15px;
   box-sizing: border-box;
   justify-content: space-between;
   max-width: 600px;
   .item{
-	background-color: #ccac02;
-	border-radius: 10px;
+	background-color: rgb(12, 55, 170);
+	border-radius: 8px;
 	width: 110px;
 	height: 70px;
 	box-sizing: border-box;
@@ -292,6 +306,12 @@ export default {
 	}
   }
   
+}
+.detail-title{
+  font-size: 20px;
+  color: #666;
+  padding:10px 15px;
+  font-weight: bold;
 }
 .list {
   color: #6a6a6a;

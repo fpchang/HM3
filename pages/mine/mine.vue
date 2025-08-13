@@ -1,12 +1,12 @@
 <template>
 	<view class="mine">
-		
+		<view style="height:70px"></view>
 		<view>
 			<view style="display: flex; justify-content: flex-end; padding: 10px">
 				<navigator url="/pages/set/set" hover-class="navigator-hover">
 					<!-- <uni-icons type="gear-filled" size="30"></uni-icons> -->
-					 	<l-icon  name="material-symbols:settings-outline-rounded" size="24px" color="#7a7878"></l-icon>
-							
+					<l-icon name="material-symbols:settings-outline-rounded" size="28px" color="#666"></l-icon>
+
 				</navigator>
 			</view>
 		</view>
@@ -18,12 +18,12 @@
 						<!-- <uni-icons fontFamily="iconfont" size="60">
 							{{"&#xe62c;"}}
 						</uni-icons> -->
-						<l-icon name="carbon:user-avatar-filled" size="50px" color="#7a7878"></l-icon>
+						<l-icon name="carbon:user-avatar-filled" size="50px" color="#d4d1d1"></l-icon>
 					</view>
 					<view class="flx-column name-style" style="flex: 1">
 						<view class="flex-left">
 							<text style="padding: 4px 8px; min-width: 100px; cursor: pointer" @click="openNameUpdate">{{
-								user.userName|| "--" }}</text>
+								user.userName||"--"}}</text>
 							<uni-icons type="forward"></uni-icons>
 						</view>
 
@@ -33,21 +33,21 @@
 				<view>
 					<view class="flex-between vip-style" style="padding: 12px 8px 0 0" @click="menuEvent('recharge')">
 						<view style="display: flex;align-items:flex-start">
-							<view class="flex-center" style="padding-right:8px"> 
-									<l-icon  name="pepicons-pencil:crown-circle-filled" size="20px" color="gold" ></l-icon>
-							
+							<view class="flex-center" style="padding-right:8px">
+								<l-icon name="pepicons-pencil:crown-circle-filled" size="20px" color="gold"></l-icon>
+
 							</view>
-							<view> 
-							<text style="color:#7a7878">订阅期：<text style="color: gold">{{
-								vipDate(user.vipEndDateStamp)
-							}}</text></text>
+							<view>
+								<text style="color:#d4d1d1">订阅期：<text style="color: gold">{{
+									vipDate(user.vipEndDateStamp)
+										}}</text></text>
 							</view>
-						
+
 						</view>
 
 						<view class="flex-center">
-								<l-icon  name="material-symbols:arrow-forward-ios" size="18px" color="#7a7878"></l-icon>
-							
+							<l-icon name="material-symbols:arrow-forward-ios" size="18px" color="#d4d1d1"></l-icon>
+
 						</view>
 					</view>
 				</view>
@@ -81,15 +81,16 @@
 							<!-- <uni-icons fontFamily="iconfont" size="24">
 								{{item.unicode}}
 							</uni-icons> -->
-							<l-icon :name="item.imgName" size="20px" color="#7a7878"></l-icon>
+							<l-icon :name="item.imgName" size="20px" color="#666"></l-icon>
 						</view>
 						<view class="content-area">
 							<text>{{item.title}}</text>
-							<text> 
-	<l-icon v-if="item.showArrow" name="material-symbols:arrow-forward-ios" size="18px" color="#7a7878"></l-icon>
-							
+							<text>
+								<l-icon v-if="item.showArrow" name="material-symbols:arrow-forward-ios" size="18px"
+									color="#d4d1d1"></l-icon>
+
 							</text>
-						
+
 						</view>
 					</view>
 				</view>
@@ -273,21 +274,22 @@ export default {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	
+
+
 }
 
 .card-list {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	padding:0 15px;
+	padding: 0 15px;
 	box-sizing: border-box;
 
 	.card {
 		box-sizing: border-box;
 		background: #fff;
 		padding: 0 15px;
-		box-shadow: 0 0 6px 0px #e4e0e0;
+		/*box-shadow: 0 0 6px 0px #e4e0e0;*/
 		border-radius: 8px;
 		margin-bottom: 15px;
 		display: flex;
@@ -327,7 +329,7 @@ export default {
 			border-bottom: 1px solid #d5d4d4;
 			box-sizing: border-box;
 			font-size: 14px;
-			color: #7a7878;
+			color: #666;
 		}
 
 		&:last-child {
