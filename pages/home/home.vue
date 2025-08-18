@@ -285,8 +285,6 @@ export default {
   },
   async onPullDownRefresh() {
     console.log("index veu refrush");
-    //await this.$store.dispatch("loginEvent");
-   // await this.initData();
     await this.$refs.gather.initData();
     uni.stopPullDownRefresh();
   },

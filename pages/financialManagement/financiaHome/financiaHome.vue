@@ -13,7 +13,7 @@
 			</text>
 		</view>
 		<view class="content">
-			<fmYearAndMonth></fmYearAndMonth>
+			<fmYearAndMonth ref="fmYearAndMonth"></fmYearAndMonth>
 		
 		</view>
 		<!-- <fmIndexComponent></fmIndexComponent> -->
@@ -37,7 +37,7 @@ LIcon
 			}
 		},
 		async onPullDownRefresh() {
-			await this.$refs.fmIndexComponent.refrushData();
+			await this.$refs.fmYearAndMonth.refrushData();
     		uni.stopPullDownRefresh();
   		},
 		methods: {

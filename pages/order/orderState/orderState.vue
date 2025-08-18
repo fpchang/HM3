@@ -99,6 +99,10 @@ import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 		onLoad: function() {
 			console.log('orderComponent Show')
 		},
+			async onPullDownRefresh() {
+			await this.$refs.orderChildCalendarListRef.getOrderList();
+    		uni.stopPullDownRefresh();
+  		},
 		mounted() {
 
 		},
