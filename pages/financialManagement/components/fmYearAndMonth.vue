@@ -9,7 +9,7 @@
 					
 				</view>		
 				<view class="item-title"><text>{{item.title}}</text></view>
-				<view class="item-con"><text>￥{{currentMonthIncomeAmount}}</text></view>
+				<view class="item-con"><text>￥{{item.value}}</text></view>
 			</view>
 			<!-- <view class="chart-item" style="background:#3698fc">
 				<view class="more"><l-icon name="icon-park-solid:more-app" size="24px" color="#fff"></l-icon></view>				
@@ -28,7 +28,6 @@
 			</view> -->
 		</view>
 		<view class="chart-view">
-
 			<view class="chart-area">
 				<view class="chart-title"><text>年度统计（{{new Date().getFullYear()}}）</text></view>
 				<view class="chart">

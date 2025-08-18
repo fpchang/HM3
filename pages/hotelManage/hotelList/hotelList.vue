@@ -3,7 +3,7 @@
 	<view class="hotel-component">
 		<view class="add-content-style">
 			<view class="control-panal">
-			<uv-icon
+			<!-- <uv-icon
 			   name="plus-circle-fill"
 			   color="#000"
 			   size="22"
@@ -11,7 +11,11 @@
 			   labelPos="bottom"
 			   labelSize="12px"
 			   @click="addHotel"
-			 ></uv-icon>
+			 ></uv-icon> -->
+			 <view class="control-item-group" @click="addHotel">
+          <view><l-icon name="solar:add-circle-bold" size="22px" color="#fff" /></view>
+          <view><text style="color:#fff">添加酒店</text></view>
+        </view>
 		   </view>
 		   </view>
 		<view v-if="false&&isPcShow">
@@ -321,9 +325,22 @@ import {alert} from "@/alert";
 </script>
 
 <style lang="scss">
-	.add-content-style{
-		display: flex;justify-content: flex-end;padding:0 20px;box-sizing: border-box;
-	}
+.add-content-style {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
+  box-sizing: border-box;
+  background-color: #0765ae;
+
+  .left-panal {
+    .title {
+      color: #fff;
+      font-weight: 400;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+  }
+}
 	.uni-group {
 		display: flex;
 		justify-content: space-between;

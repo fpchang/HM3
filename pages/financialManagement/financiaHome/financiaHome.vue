@@ -49,6 +49,7 @@ LIcon
 <style lang="scss" scoped>
 .financiaHome {
 	height: 100%;
+	min-height:100vh;
 	background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
 
 	.title {

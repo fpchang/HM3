@@ -403,9 +403,14 @@
 	"globalStyle": {
 		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#FFFFFF",
+		"backgroundColor": "#0765ae",
 		"navigationBarBackgroundColor": "#0765ae",
 		"navigationBarTextStyle":"white",
+		"pullToRefresh": {
+		             "support": true,
+		              "color": "#fff"
+								},
+		"backgroundColorTop":"#0765ae",
 		"app-plus": {
 			// "titleNView": false,
 			// "scrollIndicator": "none",

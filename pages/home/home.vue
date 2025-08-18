@@ -27,7 +27,7 @@
     </view>
     <gatherComponent ref="gather">
     </gatherComponent>
-    <uni-drawer ref="showLeft" mode="left" :width="320">
+    <uni-drawer ref="showLeft" mode="left" :width="drawerWidth">
       <view class="left-container">
         <view style="flex: 1; min-height: 330px">
           <view  class="black-area">
@@ -70,8 +70,8 @@
 
                   </view>
                   <view style="padding:15px 10px" class="zcard-right">
-                    <view class="item"><text class="title">{{item.hotelName}}</text></view>
-                    <view class="item"><text class="subtitle">{{item.hotelAddress}}</text></view>
+                    <view class="item"><view class="title">{{item.hotelName}}</view></view>
+                    <view class="item"><view class="subtitle">{{item.hotelAddress}}</view></view>
 
                   </view>
                 </view>
@@ -305,6 +305,9 @@ export default {
         return false;
       }
     },
+    drawerWidth(){
+      return 340;
+    },
     isBrowser() {},
 
     hotel_id() {
@@ -344,7 +347,7 @@ export default {
       // #endif
 
       //return this.isPcShow? "0px" : "70px";
-      return "100px";
+      return "110px";
     },
 
     disHeightVal() {
@@ -503,8 +506,6 @@ export default {
 
 .zcard {
   cursor: pointer;
-  padding: 0 15px;
-
   &:hover {
     /*transform: scale(1.01);*/
     box-shadow: 2px 4px 12px #000;
@@ -529,19 +530,27 @@ export default {
     color: #fff;
     font-size: $uni-font-size-sm ;
     display: flex;
+    min-width: 0;
     flex-direction: column;
-
+    .item{
+        min-width: 0;
+    }
     .title {
 
       color: #333333;
       font-weight: bold;
       font-size: $uni-font-size-base ;
       text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap
 
     }
 
     .subtitle {
-      color: #666666
+      color: #666666;
+       text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap
     }
 
     .item {
@@ -726,7 +735,7 @@ export default {
   flex-direction: column;
   background: #f4f5f9;
 .black-area{
-  height: 70px;
+  height: 80px;
    padding: 0 15px;
   display: flex;
   align-items: flex-end;
@@ -753,7 +762,6 @@ export default {
       font-size: 12px;
       background-color: #1E88E5;
       color: #fff;
-      font-weight: 200;
       padding:2px 10px;
       border-radius: 6px;
     }

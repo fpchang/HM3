@@ -17,7 +17,22 @@
 
           <!-- #ifdef MP -->
           <view v-for="(item, index) in employeeList" slot="card{{index}}">
-           <view class="card-content"></view>
+           <view class="card-content">
+              <view class="avator">
+                <l-icon v-if="item.role=='administrator'" name="emojione-monotone:letter-a" color="#3885fc" size="80px"></l-icon>
+                <l-icon v-if="item.role=='manager'" name="emojione-monotone:letter-m" color="green" size="80px"></l-icon>
+                <l-icon v-if="item.role=='normal'" name="emojione-monotone:letter-n" color="#999" size="80px"></l-icon>
+              </view>
+              <view class="info">
+                <view class="n"><text>{{ item.employee_name }}</text></view>
+                <view class="r"><text>角色：{{roleFormat(item.role)}}</text></view>
+              </view>
+              <view class="control">
+                <view @click="editEmployee(item)"><l-icon name="mingcute:pencil-fill" color="#3885fc" size="18px"></l-icon></view>
+                <view v-if="item.role!='administrator'"  @click="deleteEmployee(item)"><l-icon name="garden:x-fill-16" color="#3885fc" size="18px"></l-icon></view>
+                
+              </view>
+            </view>
           </view>
           <!-- #endif -->
           <!-- #ifdef H5 || APP-PLUS -->
@@ -29,8 +44,8 @@
                 <l-icon v-if="item.role=='normal'" name="emojione-monotone:letter-n" color="#999" size="80px"></l-icon>
               </view>
               <view class="info">
-                <view><text>{{ item.employee_name }}</text></view>
-                <view><text>角色：{{roleFormat(item.role)}}</text></view>
+                <view class="n"><text>{{ item.employee_name }}</text></view>
+                <view class="r"><text>角色：{{roleFormat(item.role)}}</text></view>
               </view>
               <view class="control">
                 <view @click="editEmployee(item)"><l-icon name="mingcute:pencil-fill" color="#3885fc" size="18px"></l-icon></view>
@@ -207,10 +222,10 @@ export default {
 				}
       this.emObj = em;
       this.type = 1;
-      if (this.$store.state.isPcShow) {
-        this.$refs.popupCreateRoomType.open();
-        return;
-      }
+      // if (this.$store.state.isPcShow) {
+      //   this.$refs.popupCreateRoomType.open();
+      //   return;
+      // }
 
       uni.navigateTo({
         url: `/pages/hotelManage/addEmployee/addEmployee?type=${
@@ -224,10 +239,10 @@ export default {
 					return;
 				}
       this.type = 0;
-      if (this.$store.state.isPcShow) {
-        this.$refs.popupCreateRoomType.open();
-        return;
-      }
+      // if (this.$store.state.isPcShow) {
+      //   this.$refs.popupCreateRoomType.open();
+      //   return;
+      // }
 
       uni.navigateTo({
         url: `/pages/hotelManage/addEmployee/addEmployee`,
@@ -334,6 +349,21 @@ export default {
   }
   .info{
     flex: 1;
+        display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 10px;
+    box-sizing: border-box;
+    gap: 4px;
+    .n{
+    color: #1F2937;
+    font-weight: 400;
+    font-size: 16px;
+    }
+    .r{
+      color: #8C8C8C;
+      font-size: 12px;
+    }
   }
   .control{
     display: flex;
