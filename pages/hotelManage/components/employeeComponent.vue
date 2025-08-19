@@ -303,8 +303,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .employee-component {
+  height: 100%;
   min-height: 100vh;
   background-color: #0765ae;
   display: flex;

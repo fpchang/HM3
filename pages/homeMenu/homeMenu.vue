@@ -7,7 +7,7 @@
       <view class="subtitle">店铺管理</view>
       <view class="item-list">
         <view class="item">
-          <navigator url="/pages/hotelManage/roomType/roomType" hover-class="navigator-hover">
+          <navigator url="/pages/hotelManage/roomType/roomType" hover-class="none">
             <view>
               <l-icon name="material-symbols:house-rounded" size="80px" color="#722ED1" />
               <view style="text-align: center">房型管理</view>
@@ -15,7 +15,7 @@
           </navigator>
         </view>
         <view class="item">
-          <navigator url="/pages/hotelManage/employee/employee" hover-class="navigator-hover">
+          <navigator url="/pages/hotelManage/employee/employee" hover-class="none">
             <view>
               <l-icon name="ic:baseline-man" size="80px" color="#00B42A" />
               <view style="text-align: center">员工管理</view>
@@ -23,7 +23,7 @@
           </navigator>
         </view>
         <view class="item item_">
-          <navigator :url="`/pages_client/hotelHome/hotelHome?hotel_id=${hotel_id}`" hover-class="navigator-hover">
+          <navigator :url="`/pages_client/hotelHome/hotelHome?hotel_id=${hotel_id}`" hover-class="none">
             <view>
               <l-icon name="carbon:logo-linkedin" size="110px" color="#f64653" />
               <view style="text-align: center">酒店展示</view>
@@ -36,7 +36,7 @@
       <view class="subtitle">{{item.title}}</view>
       <view class="item-list">
         <view class="item" v-for="ite of item.list">
-          <navigator :url="ite.href" hover-class="navigator-hover">
+          <navigator :url="ite.href" hover-class="none">
             <view class="item-group">
               <l-icon :name="ite.icon" size="50px" :color="ite.iconColor" />
               <view style="text-align: center">{{ite.title}}</view>
@@ -121,6 +121,12 @@ export default {
               href: "/pages/financialManagement/expenses/expenses",
               iconColor: "#165DFF",
             },
+            {
+              title: "财务统计",
+              icon: "material-symbols:bar-chart-4-bars-rounded",
+              href: "/pages/financialManagement/fmChart/fmChart",
+              iconColor: "#f64653",
+            }
           ],
         }, {
           title: "订单",
@@ -136,12 +142,6 @@ export default {
               icon: "solar:add-circle-bold",
               href: "/pages/order/createOrder/createOrder",
               iconColor: "#165DFF",
-            },
-            {
-              title: "订单统计",
-              icon: "material-symbols:bar-chart-4-bars-rounded",
-              href: "/pages/financialManagement/expenses/expenses",
-              iconColor: "#f64653",
             }
           ],
         }

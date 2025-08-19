@@ -40,7 +40,7 @@
             <view class="title">
               <tiext>酒店列表</tiext>
             </view>
-            <navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="navigator-hover">
+            <navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="none">
               <view class="btn"><text>管理</text></view>
             </navigator>
             
@@ -84,13 +84,13 @@
           </scroll-view>
           <!-- <view class="add-content-style">
 			<view class="control-panal">
-				<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="navigator-hover">
+				<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="none">
 					<view class="control-item-group" @click="createOrderEvent">
 						<view><l-icon name="ri:hotel-fill" size="25px" color="#288fff" /></view>
 						<view><text style="color:#288fff">管理</text></view>
 					</view>
 				</navigator>
-        <navigator url="/pages/hotelManage/createHotel/createHotel" hover-class="navigator-hover">
+        <navigator url="/pages/hotelManage/createHotel/createHotel" hover-class="none">
 					<view class="control-item-group" @click="createOrderEvent">
 						<view><l-icon name="solar:add-circle-bold" size="25px" color="#288fff" /></view>
 						<view><text style="color:#288fff">添加</text></view>
@@ -153,7 +153,6 @@ import roomTypeListComponent from "@/pages/hotelManage/components/roomTypeListCo
 import employeeComponent from "@/pages/hotelManage/components/employeeComponent.vue";
 import menuListComponent from "@/pages/catering/components/menuListComponent.vue";
 import scenicSpotListComponent from "@/pages/scenicSpot/components/scenicSpotListComponent";
-import fm from "@/pages/financialManagement/components/fmIndexComponent";
 import mine from "@/pages/mine/mine";
 import feedback from "@/pages/mine/feedback/feedback";
 import recharge from "@/pages/mine/recharge/rechargeComponent";
@@ -170,7 +169,6 @@ export default {
     menuListComponent,
     scenicSpotListComponent,
     mine,
-    fm,
     feedback,
     recharge,
     intructions,
@@ -504,6 +502,7 @@ export default {
 
 .zcard {
   cursor: pointer;
+  padding:10px 0;
   &:hover {
     /*transform: scale(1.01);*/
     box-shadow: 2px 4px 12px #000;

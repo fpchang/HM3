@@ -3,7 +3,7 @@
 		<view style="height:70px"></view>
 		<view>
 			<view style="display: flex; justify-content: flex-end; padding: 10px">
-				<navigator url="/pages/set/set" hover-class="navigator-hover">
+				<navigator url="/pages/set/set" hover-class="none">
 					<!-- <uni-icons type="gear-filled" size="30"></uni-icons> -->
 					<l-icon name="material-symbols:settings-outline-rounded" size="28px" color="#666"></l-icon>
 
@@ -57,7 +57,7 @@
 					hotel['hotelName']
 				}}</view>
 				<view class="jd-item flex-between">
-					<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="navigator-hover">
+					<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="none">
 						<view class="flex-between">
 							<text style="padding-right: 20px">门店管理</text>
 							<uni-icons type="forward" size="22" color="#fff"></uni-icons>

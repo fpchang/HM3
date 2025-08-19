@@ -15,6 +15,10 @@
 				
 			}
 		},
+			  async onPullDownRefresh() {
+     await this.$store.dispatch("getRoomType");
+    uni.stopPullDownRefresh();
+  },
 		methods: {
 			
 		}

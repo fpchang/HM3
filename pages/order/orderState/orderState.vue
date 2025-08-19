@@ -2,7 +2,7 @@
 	<view class="order-component">
 		<view class="add-content-style">
 			<view class="control-panal">
-				<navigator url="/pages/order/orderIndex/orderIndex" hover-class="navigator-hover">
+				<navigator url="/pages/order/orderIndex/orderIndex" hover-class="none">
 					<view class="control-item-group">
 
 						<view><l-icon name="solar:reorder-bold" size="22px" color="#fff" /></view>

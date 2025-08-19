@@ -1,34 +1,33 @@
 <template>
 	<view class="financiaHome">
-		<!-- <fmIndexComponent ref="fmIndexComponent"></fmIndexComponent> -->
 		<view style="height:70px"></view>
 		<view class="title">
 			<text>财务中心</text>
 			<!-- <text><l-icon name="icon-park-solid:financing-two" size="28px" color="#fff"/></text> -->
 		</view>
 		<view class="subtitle">
-			<text>年度汇总</text>
-			<text>
-				<l-icon name="fluent:more-circle-24-filled" size="35px" color="#fff"/>
-			</text>
+			<view>年度汇总</view>
+			<view>
+				<navigator url="/pages/financialManagement/fmChart/fmChart"  hover-class="none">
+					<l-icon name="fluent:more-circle-24-filled" size="35px" color="#fff"/>
+				</navigator>
+				
+			</view>
 		</view>
 		<view class="content">
 			<fmYearAndMonth ref="fmYearAndMonth"></fmYearAndMonth>
 		
 		</view>
-		<!-- <fmIndexComponent></fmIndexComponent> -->
 	</view>
 </template>
 
 <script>
 import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 	import fmYearAndMonth from "../components/fmYearAndMonth";
-	import fmIndexComponent from "../components/fmIndexComponent";
 import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
 	export default {
 		components:{
 			fmYearAndMonth,
-			fmIndexComponent,
 LIcon
 		},
 		data() {

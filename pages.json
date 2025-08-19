@@ -274,6 +274,13 @@
 												"navigationBarBackgroundColor": "#0765ae",
 												"navigationBarTextStyle": "white"
 					}
+				},
+				{
+					"path" : "pages/financialManagement/fmChart/fmChart",
+					"style" : 
+					{
+						"navigationBarTitleText" : "财务统计"
+					}
 				}
 		
 
@@ -362,7 +369,7 @@
 	"tabBar": {
 		"color": "#1d1d1f",
 		"selectedColor": "#0765ae",
-		"borderStyle": "black",
+		"borderStyle": "white",
 		"backgroundColor": "#ffffff",
 		"spacing":"5px",
 		"fontSize":"12px",

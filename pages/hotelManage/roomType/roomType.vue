@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<roomTypeListComponent></roomTypeListComponent>
+		<roomTypeListComponent ref="roomTypeListComponent"></roomTypeListComponent>
 	</view>
 </template>
 
@@ -15,6 +15,10 @@
 				
 			}
 		},
+		  async onPullDownRefresh() {
+     await this.$refs.roomTypeListComponent.getEmployeeList();
+    uni.stopPullDownRefresh();
+  },
 		methods: {
 			
 		}

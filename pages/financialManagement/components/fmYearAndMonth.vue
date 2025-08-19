@@ -3,7 +3,7 @@
 		<view class="chart-list">
 			<view :class="item.class" :style="{'background':item.backgroundColor}" v-for="item of chartItemList">
 				<view class="more">
-						<navigator :url="item.href" hover-class="navigator-hover">
+						<navigator :url="item.href" hover-class="none">
 							<l-icon name="icon-park-solid:more-app" size="24px" :color="item.iconColor"></l-icon>
 						</navigator>
 					
@@ -80,6 +80,7 @@ export default {
         padding: [15,15,0,15],
         enableScroll: false,
         legend: {},
+        dataLabel:false,
         xAxis: {
           disableGrid: true,
           title: "月"

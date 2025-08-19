@@ -1,32 +1,14 @@
 <template>
-	<view>
-		<block v-if="!hotel_id">
+	<view class="fmChartComponent">
+		<!-- <block v-if="!hotel_id">
 			<noData text_content="您还没有酒店" :showControl="true" text_control_add="创建一个" @Event_one="addNewHotel"></noData>
-		</block>
+		</block> -->
 		<block v-if="hotel_id">
 
 
 			<view>
-				<xt-panal-list :count="5">
+				<xt-panal-list :count="5" bgColor="#063176">
 					<template v-slot:["card0"]>
-						<view class="menu-list">
-							<navigator url="/pages/financialManagement/income/income" hover-class="navigator-hover">
-								<uv-icon
-									name="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/miniprogram/shouru.png"
-									color="#000" size="30" label="收入" labelPos="bottom" labelSize="14px"
-									space="12px"></uv-icon>
-							</navigator>
-							<navigator url="/pages/financialManagement/expenses/expenses" hover-class="navigator-hover">
-
-
-								<uv-icon
-									name="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/miniprogram/zhichu.png"
-									color="#000" size="30" label="支出" labelPos="bottom" labelSize="14px"
-									space="12px"></uv-icon>
-							</navigator>
-						</view>
-					</template>
-					<template v-slot:["card1"]>
 
 						<view class="label-area"><text>当月收入：</text><text
 								class="am-color">{{currentMonthIncomeAmount}}</text>(元)</view>
@@ -34,14 +16,14 @@
 							<qiun-data-charts type="pie" :opts="pieConfig.opts" :chartData="currentMonthIncome" />
 						</view>
 					</template>
-					<template v-slot:["card2"]>
+					<template v-slot:["card1"]>
 						<view class="label-area"><text>当月支出：</text><text
 								class="am-color">{{currentMonthExpensesAmount}}</text>(元)</view>
 						<view class="charts-box">
 							<qiun-data-charts type="pie" :opts="pieConfig.opts" :chartData="currentMonthExpenses" />
 						</view>
 					</template>
-					<template v-slot:["card3"]>
+					<template v-slot:["card2"]>
 						<view class="label-area"><text>当年收入<text
 									class="am-color">{{currentYearIncome.total}}</text>(元)</text></view>
 						<view style="height:400px">
@@ -49,7 +31,7 @@
 						</view>
 
 					</template>
-					<template v-slot:["card4"]>
+					<template v-slot:["card3"]>
 						<view class="label-area"><text>当年支出<text
 									class="am-color">{{currentYearExpenses.total}}</text>(元)</text></view>
 						<view style="height:400px">
@@ -87,6 +69,7 @@
 						color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272", "#FC8452", "#9A60B4",
 							"#ea7ccc"
 						],
+						fontColor:"#fff",
 						padding: [5, 5, 5, 5],
 						enableScroll: false,
 
@@ -108,18 +91,20 @@
 						color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272", "#FC8452", "#9A60B4",
 							"#ea7ccc"
 						],
+						fontColor:"#fff",
 						padding: [15, 30, 0, 5],
 						enableScroll: false,
 						legend: {},
 						xAxis: {
+							fontColor:'#fff',
 							disabled:false,
 							boundaryGap: "justify",
 							disableGrid: true,
 							axisLine:false,
-							min: 0,
 							axisLine: false,
 							calibration:false,
-							max: 70
+							labelCount:3
+							
 						},
 						yAxis: {
 							disabled:false,
@@ -132,7 +117,7 @@
 								width: 30,
 								meterBorde: 1,
 								meterFillColor: "#FFFFFF",
-								activeBgColor: "#000000",
+								activeBgColor: "#ff0000",
 								activeBgOpacity: 0.08,
 								categoryGap: 2
 							}
@@ -328,6 +313,11 @@
 </script>
 
 <style lang="scss" scoped>
+.fmChartComponent{
+	height: 100%;
+	min-height: 100vh;
+	background: #0765ae;
+}
 	.menu-list {
 		padding: 15px;
 		display: flex;
@@ -339,9 +329,9 @@
 	.label-area {
 		box-sizing: border-box;
 		padding: 10px;
-		color: #646464;
-		font-size: 13px;
-
+		color: #fff;
+		font-size: 18px;
+		font-weight: bold;
 		.am-color {
 			color: $theam-main-color;
 			padding: 0 4px;

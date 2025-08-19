@@ -8,7 +8,7 @@
                     <view class="li">
                       <view class="menu-list">
                         <view v-for="it of item.list">
-                          <navigator :url="it.href" hover-class="navigator-hover">
+                          <navigator :url="it.href" hover-class="none">
                             <view class="menu-item">
                                 <view class="flex-center"><l-icon :name="it.icon" size="30px" :color="it.iconColor"></l-icon></view>
                    
@@ -26,7 +26,7 @@
           <view class="li">
             <view class="menu-list">
               <view v-for="it of item.list">
-                <navigator :url="it.href" hover-class="navigator-hover">
+                <navigator :url="it.href" hover-class="none">
                   <view class="menu-item">
                     <view class="flex-center"><l-icon :name="it.icon" size="30px" :color="it.iconColor"></l-icon></view>
                     <text class="tx">{{ it.title }}</text>

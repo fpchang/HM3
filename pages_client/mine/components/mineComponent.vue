@@ -2,7 +2,7 @@
 	<view class="mine">
 		<view>
 			<view style="display:flex;justify-content:flex-end;padding:10px">
-				<navigator url="/pages/set/set" hover-class="navigator-hover">
+				<navigator url="/pages/set/set" hover-class="none">
 					<uni-icons type="gear-filled" size="30"></uni-icons>
 				</navigator>
 				

@@ -4,7 +4,7 @@
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view class="card" v-for="(item,index) in count" :style="{width: `${cardWidth}px`}">
 				
-					<view class="card-item">
+					<view class="card-item" :style="{'background':bgColor}">
 						<!-- #ifdef MP -->
 						<slot name="card{{index}}"></slot>
 						<!-- #endif -->
@@ -23,6 +23,10 @@
 	export default {
 		name: "xt-panal-list",
 		props: {
+			bgColor:{
+				type:String,
+				default:"#fff"
+			},
 			maxWidth:{
 				type:Number,
 				default:3840
@@ -103,6 +107,10 @@
 </script>
 
 <style scoped lang="scss">
+:root{
+--cardItemBgColor:#fff;
+}
+ 
 	.card-container {
 		display: flex;
 		flex-wrap: wrap;
@@ -117,7 +125,7 @@
 			.card-item {
 				height: 100%;
 				box-sizing: border-box;
-				background: #fff;
+				background: var(--cardItemBgColor);
 				/* box-shadow: 0 0 4px 4px #e4e0e0;*/
 				border-radius: 10px;
 				box-shadow: 0px 0px 9px #00000014;
