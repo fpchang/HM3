@@ -46,12 +46,11 @@ export default{
 <style scoped lang="scss">
 .noData{
   width: 100%;
-  height: 100%;
-  min-height: 400px;
+ 
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  background: #fff;
   .control{
     padding-left: 20px;
     color:$font-color-control;

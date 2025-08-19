@@ -242,6 +242,10 @@ import {alert} from "@/alert";
 			}
   
 		},
+			  async onPullDownRefresh() {
+     await this.$store.dispatch("getHotelList");
+    uni.stopPullDownRefresh();
+  },
 		methods:{
 			getSubtitle(item){
 				let str="";

@@ -320,6 +320,10 @@ export default {
 
 <style lang="scss" scoped>
 .fmYearAndMonth {
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 	.chart-list {
 		display: flex;
 		flex-wrap: wrap;

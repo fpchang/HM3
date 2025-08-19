@@ -47,10 +47,9 @@ LIcon
 
 <style lang="scss" scoped>
 .financiaHome {
-	height: 100%;
-	min-height:100vh;
-	background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
-
+	
+	min-height: 100vh;
+	background: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
 	.title {
 		color: #fff;
 		font-size: 24px;
@@ -71,17 +70,13 @@ LIcon
 	}
 
 	.content {
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		overflow: hidden;
+		
 	
-		.chart-view{									
-	
-			
-				
-			
-
-		}
 	}
 }
 </style>

@@ -16,7 +16,7 @@
 			}
 		},
 		  async onPullDownRefresh() {
-     await this.$refs.roomTypeListComponent.getEmployeeList();
+     await this.$store.dispatch("getRoomType");
     uni.stopPullDownRefresh();
   },
 		methods: {

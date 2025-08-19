@@ -38,7 +38,7 @@
         <view class="item" v-for="ite of item.list">
           <navigator :url="ite.href" hover-class="none">
             <view class="item-group">
-              <l-icon :name="ite.icon" size="50px" :color="ite.iconColor" />
+              <view><l-icon :name="ite.icon" size="50px" :color="ite.iconColor" /></view>
               <view style="text-align: center">{{ite.title}}</view>
             </view>
           </navigator>
@@ -69,7 +69,6 @@ export default {
     let hotel_id=computed(() => {
       return store.state.hotel_id;
     });
-    console.log("88888", hotel_id.value);
     let menuList=computed(() => {
       return [
         // {
