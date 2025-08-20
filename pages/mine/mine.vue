@@ -5,7 +5,7 @@
 			<view style="display: flex; justify-content: flex-end; padding: 10px">
 				<navigator url="/pages/set/set" hover-class="none">
 					<!-- <uni-icons type="gear-filled" size="30"></uni-icons> -->
-					<l-icon name="material-symbols:settings-outline-rounded" size="28px" color="#666"></l-icon>
+					<l-icon name="mingcute:settings-5-fill" size="40px" color="#666"></l-icon>
 
 				</navigator>
 			</view>
@@ -18,19 +18,46 @@
 						<!-- <uni-icons fontFamily="iconfont" size="60">
 							{{"&#xe62c;"}}
 						</uni-icons> -->
-						<l-icon name="carbon:user-avatar-filled" size="50px" color="#d4d1d1"></l-icon>
+						<l-icon name="carbon:user-avatar-filled" size="100px" color="#999da2"></l-icon>
 					</view>
 					<view class="flx-column name-style" style="flex: 1">
-						<view class="flex-left">
-							<text style="padding: 4px 8px; min-width: 100px; cursor: pointer" @click="openNameUpdate">{{
-								user.userName||"--"}}</text>
-							<uni-icons type="forward"></uni-icons>
+						<view class="flex-between">
+							<view>
+								<text style="padding: 4px 8px; min-width: 100px; cursor: pointer"
+									@click="openNameUpdate">{{
+										user.userName||"--"}}</text>
+							</view>
+							<view>
+								<l-icon name="material-symbols:arrow-forward-ios" size="18px" color="#d4d1d1"></l-icon>
+
+							</view>
+
+
 						</view>
 
-						<text style="padding: 4px 8px">{{user.phone}}</text>
+						<view><text style="padding: 4px 8px" class="sub-name">{{geTel(user.phone)}}</text></view>
+						<view class="flex-between vip-style" style="padding: 12px 8px 0 0" @click="menuEvent('recharge')">
+						<view style="display: flex;align-items:center">
+							<view class="flex-center" style="padding-right:8px">
+								<l-icon name="pepicons-pencil:crown-circle-filled" size="25px" color="#cdad00"></l-icon>
+
+							</view>
+							<view>
+								<text style="color:#797874;font-weight:normal">订阅期：<text style="color: #cdad00">{{
+									vipDate(user.vipEndDateStamp)
+										}}</text></text>
+							</view>
+
+						</view>
+
+						<view class="flex-center">
+							<!-- <l-icon name="material-symbols:arrow-forward-ios" size="18px" color="#d4d1d1"></l-icon> -->
+
+						</view>
+					</view>
 					</view>
 				</view>
-				<view>
+				<!-- <view>
 					<view class="flex-between vip-style" style="padding: 12px 8px 0 0" @click="menuEvent('recharge')">
 						<view style="display: flex;align-items:flex-start">
 							<view class="flex-center" style="padding-right:8px">
@@ -50,22 +77,28 @@
 
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<view class="card jd" style="">
 				<view class="jd-item" style="font-weight: bold; font-size: 20px">{{
 					hotel['hotelName']
 				}}</view>
-				<view class="jd-item flex-between">
+				<view class="jd-item">
 					<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="none">
 						<view class="flex-between">
-							<text style="padding-right: 20px">门店管理</text>
-							<uni-icons type="forward" size="22" color="#fff"></uni-icons>
+							<view>
+								<!-- <l-icon name="ri:hotel-fill" color="#000" size="22px"></l-icon> -->
+								<text style="padding-right: 20px">门店管理</text>
+							</view>
+							<view>
+								<l-icon name="material-symbols:arrow-forward-ios" size="22px" color="#fff"></l-icon>
+							</view>
+
 						</view>
 					</navigator>
 				</view>
 			</view>
-			<view class="card">
+			<view class="card jd">
 				<!-- <uni-list>
 				<uni-list-item title="使用说明书" showArrow></uni-list-item>
 				<uni-list-item title="注销" showArrow @click="loginOut"></uni-list-item>
@@ -81,13 +114,13 @@
 							<!-- <uni-icons fontFamily="iconfont" size="24">
 								{{item.unicode}}
 							</uni-icons> -->
-							<l-icon :name="item.imgName" size="20px" color="#666"></l-icon>
+							<l-icon :name="item.imgName" size="20px" color="#fff"></l-icon>
 						</view>
 						<view class="content-area">
 							<text>{{item.title}}</text>
 							<text>
 								<l-icon v-if="item.showArrow" name="material-symbols:arrow-forward-ios" size="18px"
-									color="#d4d1d1"></l-icon>
+									color="#fff"></l-icon>
 
 							</text>
 
@@ -118,10 +151,13 @@
 import recharge from "@/pages/mine/recharge/rechargeComponent";
 import feedback from "./feedback/feedback";
 import { AccountService } from "../../services/AccountService";
+import LIcon from '../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
+import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
 export default {
   components: {
     feedback,
-    recharge
+    recharge,
+    LIcon
   },
   data() {
     return {
@@ -138,7 +174,7 @@ export default {
         {
           key: "feedback",
           unicode: "\ue6c0",
-		  imgName:"streamline:mail-send-envelope-envelope-email-message-unopened-sealed-close",
+		  imgName:"fluent:mail-32-filled",
           title: "意见反馈",
           showArrow: true,
         },
@@ -176,6 +212,12 @@ export default {
     uni.stopPullDownRefresh();
   },
   methods: {
+			 geTel(tel) {
+			tel=""+tel;
+			var reg=/(\d{3})\d{4}(\d{4})/;
+			var result = tel.replace(reg, "$1****$2")
+			return result;
+		},
     login() {
       uni.navigateTo({
         url: "/uni_modules/uni-id-pages/pages/login/login-smscode?phoneNumber=19083441181",
@@ -287,7 +329,7 @@ export default {
 
 	.card {
 		box-sizing: border-box;
-		background: #fff;
+		background: #F5F7FA;
 		padding: 0 15px;
 		/*box-shadow: 0 0 6px 0px #e4e0e0;*/
 		border-radius: 8px;
@@ -296,17 +338,27 @@ export default {
 		flex-direction: column;
 
 		.name-style {
-			color: #909399;
+			color: #000000;
+			font-size: 18px;
+			font-weight: bold;
+
+			.sub-name {
+				font-size: 15px;
+				color: #797874;
+				font-weight: normal;
+			}
 		}
 	}
 
 	.jd {
-		background-image: linear-gradient(to right, #0765ae, #0765ae8f);
+		/*background-image: linear-gradient(165deg, #0765ae, #fff);*/
+		background-color: rgb(54, 152, 252);
 		color: #fff;
 		padding: 10px;
 
 		.jd-item {
 			padding: 8px 0;
+
 		}
 	}
 }
@@ -329,7 +381,7 @@ export default {
 			border-bottom: 1px solid #d5d4d4;
 			box-sizing: border-box;
 			font-size: 14px;
-			color: #666;
+			color: #fff;
 		}
 
 		&:last-child {

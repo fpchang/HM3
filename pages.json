@@ -5,7 +5,8 @@
 			"path": "pages/index/index",
 			"style": {
 
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/payTest/payTest",

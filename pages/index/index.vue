@@ -4,6 +4,7 @@
       <noData
         text_content="您还没有酒店"
         :showControl="true"
+        :showLoginOut="true"
         text_control_add="创建一个"
         @Event_one="addNewHotel"
       ></noData>
@@ -172,6 +173,7 @@ export default {
   height: 100vh;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }

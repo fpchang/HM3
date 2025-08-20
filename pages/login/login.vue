@@ -131,11 +131,19 @@ export default {
   },
   onShow(){
 	  // #ifdef H5
-				document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
+				//document.getElementsByTagName('uni-page-head')[0].style.display = 'none';
 			// #endif
   },
   created(){
-    
+    try {
+      let phone = uni.getStorageSync("phone");
+      if(phone){
+        this.userForm.phone=phone;
+      }
+     
+    } catch (error) {
+       this.userForm.phone=""
+    }
   },
   methods: {
     decryptPhoneNumber(e){
@@ -226,7 +234,8 @@ export default {
           }
           const {token} = res.result.data;
           uni.setStorageSync("hm_token", token);
-               this.getUserInfo();
+          uni.setStorageSync("phone",this.userForm.phone);
+          this.getUserInfo();
        
           } catch (error) {
             console.log("登录失败",error);

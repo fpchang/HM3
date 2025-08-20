@@ -5,10 +5,20 @@
       <view class="flex-center">
         <text style="color:#bbb">{{ text_content_foramt}}</text>
         <view class="flex-center control" v-if="showControl" @click="Event_one"> 
-          <uni-icons type="plusempty" size="30" color='$font-color-control'></uni-icons>
-          <text>{{text_control_add_fromat}}</text>
+          <!-- <uni-icons type="plusempty" size="30" color='$font-color-control'></uni-icons> -->
+           <view class="btn"> 
+            <view class="btn-la"> <l-icon name="material-symbols:add-rounded" size="15px" color="#fff" /></view>
+           <view class="btn-la"> <text>{{text_control_add_fromat}}</text></view>
+           </view>
+           
         </view>
-         
+          <view class="flex-center control loginOut" v-if="showLoginOut" @click="Event_LoginOut"> 
+          
+          <view class="btn" style="background:#6B7280" @click="loginOut">
+            <view class="btn-la"><l-icon name="mdi:location-exit" size="15px" color="#fff" /></view>
+            <view class="btn-la"><text>切换账号</text></view>
+          </view>
+        </view>
         </view>
   </view>
 </template>
@@ -19,7 +29,8 @@ export default{
   props: {
     text_content:String,
     showControl:Boolean,
-    text_control_add:String
+    text_control_add:String,
+    showLoginOut:Boolean
   },
   data() {
     return {
@@ -37,6 +48,20 @@ export default{
   methods: {
     Event_one(){
       this.$emit("Event_one");
+    },
+    async loginOut() {
+      console.log("loginout");
+      const conf = await uni.showModal({
+        title: "确认登出",
+        content: "是否确认退出登录",
+        showCancel: true,
+        cancelText: "取消",
+        confirmText: "确认",
+      });
+      if (conf["cancel"]) {
+        return;
+      }
+      this.$store.dispatch("loginOut");
     }
   },
   watch: {}
@@ -59,5 +84,29 @@ export default{
       cursor: pointer;
     }
   }
+  .loginOut{
+    padding-left: 10px;
+
+   
+  }
+      .btn{
+        height: 30px;
+        padding:0 8px;
+    border-radius: 15px;
+    background:#0765ae ;
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 5px;
+    .btn-la{
+      height: 100%;
+      display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    
+    }
 }
 </style>

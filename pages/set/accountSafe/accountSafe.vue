@@ -5,7 +5,7 @@
 				<template v-slot:["card0"]>
 					<uni-list>
 						<uni-list-item title="会员名" :rightText="user.userName||'--'"></uni-list-item>
-						<uni-list-item title="手机号" :rightText="geTel('13122998844')"></uni-list-item>
+						<uni-list-item title="手机号" :rightText="geTel(user.phone)"></uni-list-item>
 						<uni-list-item v-if="accountIsValid" title="账号注销" note="注销后无法恢复" link
 							@click="closeAccount"></uni-list-item>
 						<uni-list-item clickable @click="onClick" v-if="!accountIsValid">
