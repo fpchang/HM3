@@ -190,7 +190,7 @@
 					</xt-panal-list>
 				</block>
 				<view>
-					<uni-load-more @clickLoadMore="clickLoadMore" v-if="hasMore" :status="hasMore? 'more':'noMore'"
+					<uni-load-more @clickLoadMore="clickLoadMore" :status="hasMore? 'more':'noMore'"
 						:content-text="contentText"></uni-load-more>
 				</view>
 
@@ -297,6 +297,7 @@
 			refrush(){
 				this.$refs.udb.refresh();
 			},
+			
 			clickLoadMore(){
 				this.$refs.udb.loadMore();
 			},

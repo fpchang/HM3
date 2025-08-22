@@ -162,6 +162,9 @@ LIcon
 					await this.$refs.orderChildListRef.refrush();					
 					return;
 			},
+			 loadMore(){
+				this.$refs.orderChildListRef.clickLoadMore();	
+			},
 			dataConfigEvent(){
 
 			},

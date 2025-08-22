@@ -18,6 +18,9 @@ export default {
     await this.$refs.order.refrush();
     uni.stopPullDownRefresh();
   },
+ onReachBottom(){
+      this.$refs.order.loadMore();
+			},
   methods: {},
 };
 </script>
