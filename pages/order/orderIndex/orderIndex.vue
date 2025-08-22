@@ -15,7 +15,7 @@ export default {
   },
   computed: {},
   async onPullDownRefresh() {
-    await this.$refs.order.initData();
+    await this.$refs.order.refrush();
     uni.stopPullDownRefresh();
   },
   methods: {},

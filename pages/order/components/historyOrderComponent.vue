@@ -3,29 +3,10 @@
 	<view class="order-component">
 		<view class="add-content-style">
 			<view class="left-panal" v-if="false">
-				<!-- <view class="switch-group"> 
-					<view><text style="color:#fff">房态</text></view>
-					<view><switch color="#FFCC33" style="transform:scale(0.8)"/></view>
-					<view><text style="color:#FFCC33">订单</text></view>
-				</view> -->
-				
-				<!-- <uni-data-checkbox selectedTextColor="#fff"  selectedColor="#87b7f5" v-model="tabRadioVal" :localdata="tabitems"></uni-data-checkbox>				 -->
-			</view>
+</view>
 			<view class="control-panal">
-			<!-- <uv-icon
-			   name="plus-circle-fill"
-			   color="#fff"
-			   size="22"
-			   label="创建订单"
-			   labelPos="bottom"
-			   labelSize="12px"
-			   
-			   @click="createOrderEvent"
-			 ></uv-icon> -->
 			 <view class="control-item-group" @click="createOrderEvent">
 				<view><l-icon name="solar:add-circle-bold" size="22px" color="#fff"/></view>
-				 <!-- <view><l-icon name="solar:reorder-bold" size="22px" color="#fff"/></view> -->
-				
 				<view><text style="color:#fff">添加订单</text></view>
 			 </view>
 			 
@@ -33,25 +14,9 @@
 		   </view>
 		<view style="height: 15px;"></view>
 		<view class="content">
-			<!-- <keep-alive> -->
-			<!-- <view v-if="tabRadioVal===0">
-
-				<orderChildCalendarList :disHeightVal="disHeightVal" ref="orderChildCalendarListRef">
-				</orderChildCalendarList>
-			</view> -->
-			<!-- </keep-alive> -->
-
 			<view v-if="tabRadioVal===1">
 				<orderChildList ref="orderChildListRef"></orderChildList>
-
 			</view>
-			<!-- <keep-alive> -->
-			<!-- <view v-if="tabRadioVal===2">
-				<orderChildTableList ref="orderChildTableListRef"></orderChildTableList>
-			</view> -->
-			<!-- </keep-alive> -->
-
-
 		</view>
 		<uni-popup ref="popup" background-color="transprant">
 			<view class="popup-content">
@@ -59,7 +24,6 @@
 				<view class="comContent">
 					
 					<createOrderComponent @closePopup="closePopup"></createOrderComponent>
-					<!-- </keep-alive> -->
 
 				</view>
 
@@ -158,8 +122,8 @@ LIcon
 			
 		},
 		methods: {
-			async refrush(){
-					await this.$refs.orderChildListRef.refrush();					
+			async initData(){
+					await this.$refs.orderChildCalendarListRef.getOrderList();					
 					return;
 			},
 			dataConfigEvent(){

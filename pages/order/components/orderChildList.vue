@@ -9,8 +9,8 @@
 		</view>
 
 		<view>
-			<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList"
-				orderby="createTime desc">
+			<unicloud-db ref="udb" v-slot:default="{data, loading, pagination, hasMore, error, options}"
+				:collection="colList" orderby="createTime desc" :page-size="5" :getcount="true">
 				<block v-if="!loading&&data.length<1">
 					<view>
 						<noData></noData>
@@ -21,7 +21,7 @@
 						<!-- #ifdef MP -->
 						<view v-for="(item, index) of data" slot="card{{index}}">
 							<view class="p-card">
-			
+
 								<view class="title">
 									<text>{{
 										item.orderType=="bargain"? "议价单":"普通订单"
@@ -42,8 +42,8 @@
 									}}晚</text><text>{{item.roomTypeArray[0].name}}</text>
 								</view>
 								<view class="price">
-									<text v-if="item.payType=='online'">在线支付</text>
-									<text v-if="item.payType=='offline'">到店支付</text>
+									<!-- <text v-if="item.payType=='online'">在线支付</text>
+									<text v-if="item.payType=='offline'">到店支付</text> -->
 									<text>￥{{item.totalAmount}}</text>
 								</view>
 								<view class="control-area">
@@ -81,7 +81,7 @@
 										</view>
 									</block>
 									<block v-if="
-									false&&
+										false&&
 										updateOrderPermission&&
 										item.orderType=='bargain'&&
 										item.bargainStatus==0
@@ -106,7 +106,7 @@
 						<!-- #ifdef H5 || APP-PLUS -->
 						<template v-for="(item, index) of data" v-slot:[`card${index}`]>
 							<view class="p-card">
-						
+
 								<view class="title">
 									<text>{{
 										item.orderType=="bargain"? "议价单":"普通订单"
@@ -127,8 +127,8 @@
 									}}晚</text><text>{{item.roomTypeArray[0].name}}</text>
 								</view>
 								<view class="price">
-									<text v-if="item.payType=='online'">在线支付</text>
-									<text v-if="item.payType=='offline'">到店支付</text>
+									<!-- <text v-if="item.payType=='online'">在线支付</text>
+									<text v-if="item.payType=='offline'">到店支付</text> -->
 									<text>￥{{item.totalAmount}}</text>
 								</view>
 								<view class="control-area">
@@ -189,7 +189,13 @@
 						<!-- #endif -->
 					</xt-panal-list>
 				</block>
+				<view>
+					<uni-load-more @clickLoadMore="clickLoadMore" v-if="hasMore" :status="hasMore? 'more':'noMore'"
+						:content-text="contentText"></uni-load-more>
+				</view>
+
 			</unicloud-db>
+
 		</view>
 	</view>
 </template>
@@ -207,6 +213,11 @@
 				accordionVal: 1,
 				current: 1,
 				items: ["待处理", "待入住"],
+				contentText: {
+					contentdown: '查看更多',
+					contentrefresh: '加载中',
+					contentnomore: '没有更多'
+				}
 			};
 		},
 		onLoad() {},
@@ -243,7 +254,7 @@
 			colList() {
 				const db = uniCloud.database();
 				return [
-					db.collection("hm-order").where(this._WHERE).getTemp(),
+					db.collection("hm-order").getTemp(),
 					db.collection("hm-hotel").field("_id,hotelName,hotelAddress").getTemp(),
 				];
 			},
@@ -283,6 +294,12 @@
 			}
 		},
 		methods: {
+			refrush(){
+				this.$refs.udb.refresh();
+			},
+			clickLoadMore(){
+				this.$refs.udb.loadMore();
+			},
 			onClickItem(index) {
 				this.current = index;
 			},
@@ -454,46 +471,46 @@
 </script>
 
 <style lang="scss">
-	.col-content {
-		/* background: linear-gradient(to bottom, #FFF, #EEF); */
-		border-radius: 4px;
-		padding: 0 20px;
+.col-content {
+	/* background: linear-gradient(to bottom, #FFF, #EEF); */
+	border-radius: 4px;
+	padding: 0 20px;
 
-		.list {
+	.list {
+		display: flex;
+		flex-direction: column;
+
+		.list-item {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
+			justify-content: space-between;
+			padding: 10px 0;
 
-			.list-item {
+			.list-item-c {
 				display: flex;
-				flex-direction: row;
 				justify-content: space-between;
-				padding: 10px 0;
-
-				.list-item-c {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					font-size: $uni-font-size-base;
-				}
+				align-items: center;
+				font-size: $uni-font-size-base;
 			}
 		}
 	}
+}
 
-	.wrap {
-		padding: 12px;
-	}
+.wrap {
+	padding: 12px;
+}
 
-	.demo-layout {
-		height: 50px;
-		border-radius: 4px;
-	}
+.demo-layout {
+	height: 50px;
+	border-radius: 4px;
+}
 
-	.num-style {
-		padding-right: 8px;
-		font-weight: bold;
-	}
+.num-style {
+	padding-right: 8px;
+	font-weight: bold;
+}
 
-	/* .bg-purple {
+/* .bg-purple {
 	        background: #CED7E1;
 	    }
 	
@@ -505,63 +522,65 @@
 	        background: #99a9bf;
 	    } */
 
-	.p-card {
-		padding: 15px;
-		box-sizing: border-box;
+.p-card {
+	padding: 15px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	color: #a1a1a1;
+
+	.header {
 		display: flex;
-		flex-direction: column;
-		gap: 8px;
-		color: #a1a1a1;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-		.header {
+	.title {
+		font-weight: bold;
+		font-size: 18px;
+		color: #1a1a1a;
+	}
+
+	.control-area {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 10px;
+
+		.btn {
+			background-color: #5395e3;
+			color: #fff;
+
+			font-size: 13px;
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
+			justify-content: center;
+			border-top-left-radius: 37%;
+			border-bottom-right-radius: 37%;
+			text-overflow: clip;
 		}
 
-		.title {
-			font-weight: bold;
-			font-size: 18px;
-			color: #1a1a1a;
-		}
-
-		.control-area {
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-			gap: 10px;
-
-			.btn {
-				background-color: #5395e3;
-				color: #fff;
-			
-				font-size: 13px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				border-top-left-radius: 37%;
-				border-bottom-right-radius: 37%;
-				text-overflow: clip;
-			}
-
-			.btn-red {
-				background-color: #eee;
-				color:#a1a1a1;
-			}
-		}
-
-		.price {
-			display: none;
-		}
-
-		.btn-area {
-			display: flex;
-			flex-direction: column;
-
-			.ft {
-				font-size: 13px;
-				color: #7a7878;
-			}
+		.btn-red {
+			background-color: #eee;
+			color: #a1a1a1;
 		}
 	}
+
+	.price {
+		display: block;
+		color: #0c37aa;
+		text-align: right;
+	}
+
+	.btn-area {
+		display: flex;
+		flex-direction: column;
+
+		.ft {
+			font-size: 13px;
+			color: #7a7878;
+		}
+	}
+}
 </style>
