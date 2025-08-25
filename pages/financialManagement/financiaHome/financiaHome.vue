@@ -35,10 +35,22 @@ LIcon
 				
 			}
 		},
+		onShow() {
+			console.log("page onshow=====");
+			if(this.$refs.fmYearAndMonth){
+				this.$refs.fmYearAndMonth.refrushData();
+			}
+			
+		},
 		async onPullDownRefresh() {
 			await this.$refs.fmYearAndMonth.refrushData();
     		uni.stopPullDownRefresh();
   		},
+		computed:{
+			    hotel_id() {
+      			return this.$store.state.hotel_id;
+    	}
+		},
 		methods: {
 			
 		}

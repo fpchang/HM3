@@ -1,17 +1,16 @@
 <template>
-	<view class="fmYearAndMonth">
-		<view class="chart-list">
-			<view :class="item.class" :style="{'background':item.backgroundColor}" v-for="item of chartItemList">
-				<view class="more">
-						<navigator :url="item.href" hover-class="none">
-							<l-icon name="icon-park-solid:more-app" size="24px" :color="item.iconColor"></l-icon>
-						</navigator>
-					
-				</view>		
-				<view class="item-title"><text>{{item.title}}</text></view>
-				<view class="item-con"><text>￥{{item.value}}</text></view>
-			</view>
-			<!-- <view class="chart-item" style="background:#3698fc">
+  <view class="fmYearAndMonth">
+    <view class="chart-list">
+      <view :class="item.class" :style="{background: item.backgroundColor}" v-for="item of chartItemList">
+        <view class="more">
+          <navigator :url="item.href" hover-class="none">
+            <l-icon name="icon-park-solid:more-app" size="24px" :color="item.iconColor"></l-icon>
+          </navigator>
+        </view>
+        <view class="item-title"><text>{{item.title}}</text></view>
+        <view class="item-con"><text>￥{{item.value}}</text></view>
+      </view>
+      <!-- <view class="chart-item" style="background:#3698fc">
 				<view class="more"><l-icon name="icon-park-solid:more-app" size="24px" color="#fff"></l-icon></view>				
 				<view class="item-title"><text>本月支出</text></view>
 				<view class="item-con"><text>￥{{currentMonthExpensesAmount}}</text></view>
@@ -26,24 +25,21 @@
 				<view class="item-title"><text>本年支出</text></view>
 				<view class="item-con"><text>￥{{currentYearExpenses.total}}</text></view>
 			</view> -->
-		</view>
-		<view class="chart-view">
-			<view class="chart-area">
-				<view class="chart-title"><text>年度统计（{{new Date().getFullYear()}}）</text></view>
-				<view class="chart">
-					<qiun-data-charts type="mix" :opts="mixConfig.opts" :chartData="currentYearGroup.data" />
-				</view>
-				<!-- <view class="control">
+    </view>
+
+    <view class="chart-view">
+      <view class="chart-area">
+        <view class="chart-title"><text>年度统计（{{new Date().getFullYear()}}）</text></view>
+        <view class="chart">
+          <qiun-data-charts type="mix" :opts="mixConfig.opts" :chartData="currentYearGroup.data" />
+        </view>
+        <!-- <view class="control">
 					<view class="btn">月</view>
 					<view class="btn">年</view>
 				</view> -->
-
-			</view>
-
-		</view>
-
-
-	</view>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script>
@@ -81,6 +77,9 @@ export default {
         enableScroll: false,
         legend: {},
         dataLabel:false,
+        animation:false,
+        update:true,
+        duration:0,
         xAxis: {
           disableGrid: true,
           title: "月"
@@ -104,8 +103,8 @@ export default {
             }
           }
         }
-      
-		
+
+
 	  }},
       //当月收入 饼图
       currentMonthIncome: {
@@ -150,27 +149,14 @@ export default {
         },
       },
 	   //当年收入与支出线图
-      currentYearGroup: {
-        total: 0,
-        data: {
-          categories: [],
-          series: [
-            {
-              name: "总计",
-              data: [],
-            },
-          ],
-        },
-      }
+      currentYearGroup:{}
     }
   },
-  created() {
-    //this.getServerData();
-    this.getIncomeMonth();
-    this.getExpensesMonth();
-    this.getIncomeCurrentYear();
-    this.getExpensesCurrentYear();
+   created() {
+    console.warn("create>>>>>>")
+     this.refrushData();
   },
+
   computed: {
     hotel_id() {
       return this.$store.state.hotel_id;
@@ -218,22 +204,21 @@ export default {
       }
     },
     hotel_id() {
-      //this.initData();
-      this.getIncomeMonth();
-      this.getExpensesMonth();
-      this.getIncomeCurrentYear();
-      this.getExpensesCurrentYear();
+      //this.refrushData();
+
     },
   },
   methods: {
-    refrushData() {
+    async refrushData() {
       let task = [
         this.getIncomeMonth(),
         this.getExpensesMonth(),
         this.getIncomeCurrentYear(),
         this.getExpensesCurrentYear(),
       ];
-      return Promise.all(task);
+      const res = await Promise.all(task);
+      this.setCurrentYearGroup(res[2].simpleXLabel,res[2].xValue,res[3].xValue);
+      console.log("res====",res);
     },
     addNewHotel() {
       uni.navigateTo({
@@ -280,13 +265,6 @@ export default {
           ],
         },
       };
-	  this.currentYearGroup.data.categories=res.simpleXLabel;
-	   this.currentYearGroup.data.series[0]=  {
-              name: "收入",
-			  type:"line",
-			  style: "curve",
-              data: res.xValue,
-            };
       return res;
     },
     //获取支出 当年
@@ -307,117 +285,134 @@ export default {
           ],
         },
       };
-	    this.currentYearGroup.data.series[1]=  {
-              name: "支出",
-			  type:"column",
-              data: res.xValue,
-            };
       return res;
     },
+    setCurrentYearGroup(xlabel=[],incomeValueArr=[],expensesValurArr=[]){
+      console.log("arguments::",arguments)
+       let chartObj={
+        total: 0,
+        data: {
+          categories: xlabel,
+          series: [
+            {
+              name: "收入",
+			        type:"line",
+			        style: "curve",
+              data: incomeValueArr
+            },
+            {
+              name: "支出",
+			        type:"column",
+              data: expensesValurArr
+            }
+          ],
+        },
+      };
+      this.currentYearGroup=JSON.parse(JSON.stringify(chartObj))
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .fmYearAndMonth {
-
   display: flex;
   flex-direction: column;
   overflow: hidden;
-	.chart-list {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		align-items: center;
-		gap: 15px;
-		padding: 15px;
-		box-sizing: border-box;
-		.chart-item {
-			min-height: 150px;
-			width: 160px;
 
-			border-radius: 8px;
-			box-sizing: border-box;
-			padding: 15px;
-			color: #fff;
-			overflow: hidden;
-			position: relative;
-			.more{
-				text-align: right;
-				position: absolute;
-				right:10px;
-				top:10px;
-			}
-			.item-title {
-				font-size: 15px;
-				padding-top: 8px;
-			}
+  .chart-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    box-sizing: border-box;
 
-			.item-con {
-				font-size: 24px;
-				font-weight: bold;
-				padding: 15px 0;
-				overflow: hidden;
-				word-wrap: break-word;
-				word-break: break-all;
-			}
-		}
+    .chart-item {
+      min-height: 150px;
+      width: 160px;
 
-		.item-white {
-			.item-title {
-				color: #666;
-			}
+      border-radius: 8px;
+      box-sizing: border-box;
+      padding: 15px;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
 
-			.item-con {
-				color: #333;
-			}
-		}
-	}
+      .more {
+        text-align: right;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
 
-	.chart-view {
-		padding: 20px 15px;
-		display: flex;
-		box-sizing: border-box;
-		justify-content: center;
+      .item-title {
+        font-size: 15px;
+        padding-top: 8px;
+      }
 
-		.chart-area {
-			flex: 1;
-			border-radius: 8px;
-			background-color: #fff;
-			overflow: hidden;
-			
+      .item-con {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 15px 0;
+        overflow: hidden;
+        word-wrap: break-word;
+        word-break: break-all;
+      }
+    }
 
-			.chart-title {
-				font-size: 18px;
-				color: #2c405a;
-				font-weight: 400;
-				padding: 15px;
-			}
+    .item-white {
+      .item-title {
+        color: #666;
+      }
 
-			.chart {
-				min-height: 240px;
-			}
+      .item-con {
+        color: #333;
+      }
+    }
+  }
 
-			.control {
-				display: flex;
-				justify-content: flex-end;
-				align-items: center;
-				gap: 8px;
-				padding: 10px;
+  .chart-view {
+    padding: 20px 15px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
 
-				.btn {
-					width: 40px;
-					height: 30px;
-					background: #0765ae;
-					text-align: center;
-					color: #fff;
-					border-radius: 4px;
-				}
-			}
-		}
-	}
+    .chart-area {
+      flex: 1;
+      border-radius: 8px;
+      background-color: #fff;
+      overflow: hidden;
 
+      .chart-title {
+        font-size: 18px;
+        color: #2c405a;
+        font-weight: 400;
+        padding: 15px;
+      }
 
+      .chart {
+        min-height: 240px;
+      }
 
+      .control {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+        padding: 10px;
+
+        .btn {
+          width: 40px;
+          height: 30px;
+          background: #0765ae;
+          text-align: center;
+          color: #fff;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
 }
 </style>

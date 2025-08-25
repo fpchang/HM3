@@ -74,7 +74,6 @@ class FMServiceClass{
     res[1].result.data.map(item=>{
       arr.push({name:item.type[0].text,value:item.value})
     })
-    console.log("111",res[0].result.data)
     if(res[0].result.data.length){
       arr.push({name:"房费",value: res[0].result.data[0]['amount']})
     }

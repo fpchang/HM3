@@ -4,48 +4,45 @@
 		<view>
 			<view style="display: flex; justify-content: flex-end; padding: 10px">
 				<navigator url="/pages/set/set" hover-class="none">
-					<!-- <uni-icons type="gear-filled" size="30"></uni-icons> -->
-					<l-icon name="mingcute:settings-5-fill" size="40px" color="#666"></l-icon>
+					<l-icon name="mingcute:settings-5-fill" size="40px" color="#fff"></l-icon>
 
 				</navigator>
 			</view>
 		</view>
+		<view class="avator-style">
+			<view class="avator-card">
 
-		<view class="card-list">
-			<view class="card" style="padding: 15px">
-				<view style="display: flex">
-					<view class="flex-center">
-						<!-- <uni-icons fontFamily="iconfont" size="60">
-							{{"&#xe62c;"}}
-						</uni-icons> -->
-						<l-icon name="carbon:user-avatar-filled" size="100px" color="#999da2"></l-icon>
-					</view>
-					<view class="flx-column name-style" style="flex: 1">
-						<view class="flex-between">
-							<view>
-								<text style="padding: 4px 8px; min-width: 100px; cursor: pointer"
-									@click="openNameUpdate">{{
-										user.userName||"--"}}</text>
-							</view>
-							<view>
-								<l-icon name="material-symbols:arrow-forward-ios" size="18px" color="#d4d1d1"></l-icon>
-
-							</view>
-
+				<view class="flex-center">
+					<l-icon name="carbon:user-avatar-filled" size="100px" color="#fff"></l-icon>
+				</view>
+				<view class="flx-column name-style">
+					<view class="flex-center" style="gap:20px"  @click="openNameUpdate">
+						<view>
+							<text>{{
+								user.userName||"--"}} 【{{geTel(user.phone)}}】</text>
+						</view>
+						<view>
+							<l-icon name="material-symbols:edit-square-outline-rounded" size="22px"
+								color="#fff"></l-icon>
 
 						</view>
 
-						<view><text style="padding: 4px 8px" class="sub-name">{{geTel(user.phone)}}</text></view>
-						<view class="flex-between vip-style" style="padding: 12px 8px 0 0" @click="menuEvent('recharge')">
+
+					</view>
+
+					<view v-if="false"><text style="padding: 4px 8px" class="sub-name">{{geTel(user.phone)}}</text>
+					</view>
+					<view v-if="false" class="flex-between vip-style" style="padding: 12px 8px 0 0"
+						@click="menuEvent('recharge')">
 						<view style="display: flex;align-items:center">
 							<view class="flex-center" style="padding-right:8px">
 								<l-icon name="pepicons-pencil:crown-circle-filled" size="25px" color="#cdad00"></l-icon>
 
 							</view>
 							<view>
-								<text style="color:#797874;font-weight:normal">订阅期：<text style="color: #cdad00">{{
+								<text style="color:#f1f1f1;font-weight:normal">订阅期：<text style="color: #cdad00">{{
 									vipDate(user.vipEndDateStamp)
-										}}</text></text>
+								}}</text></text>
 							</view>
 
 						</view>
@@ -55,79 +52,52 @@
 
 						</view>
 					</view>
+				</view>
+
+			</view>
+		</view>
+		<view class="card-list">
+
+			<view class="bottom-card">
+				<view class="card jd" style="background:#0765ae">
+					<view class="jd-item" style="font-weight: bold; font-size: 20px">{{
+						hotel['hotelName']
+					}}</view>
+					<view class="jd-item">
+						<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="none">
+							<view class="flex-between">
+								<view>
+									<!-- <l-icon name="ri:hotel-fill" color="#000" size="22px"></l-icon> -->
+									<text style="padding-right: 20px">门店管理</text>
+								</view>
+								<view>
+									<l-icon name="material-symbols:arrow-forward-ios" size="22px" color="#fff"></l-icon>
+								</view>
+
+							</view>
+						</navigator>
 					</view>
 				</view>
-				<!-- <view>
-					<view class="flex-between vip-style" style="padding: 12px 8px 0 0" @click="menuEvent('recharge')">
-						<view style="display: flex;align-items:flex-start">
-							<view class="flex-center" style="padding-right:8px">
-								<l-icon name="pepicons-pencil:crown-circle-filled" size="20px" color="gold"></l-icon>
+				<view class="card card-normal">
+					<view class="menu-list">
+						<view class="menu-list-item" v-for="item in menuList" @click="menuEvent(item.key)">
+							<view class="icon-area flex-center">
+								<l-icon :name="item.imgName" size="20px" color="#666"></l-icon>
+							</view>
+							<view class="content-area">
+								<text>{{item.title}}</text>
+								<text>
+									<l-icon v-if="item.showArrow" name="material-symbols:arrow-forward-ios" size="18px"
+										color="#999"></l-icon>
+
+								</text>
 
 							</view>
-							<view>
-								<text style="color:#d4d1d1">订阅期：<text style="color: gold">{{
-									vipDate(user.vipEndDateStamp)
-										}}</text></text>
-							</view>
-
-						</view>
-
-						<view class="flex-center">
-							<l-icon name="material-symbols:arrow-forward-ios" size="18px" color="#d4d1d1"></l-icon>
-
-						</view>
-					</view>
-				</view> -->
-			</view>
-			<view class="card jd" style="">
-				<view class="jd-item" style="font-weight: bold; font-size: 20px">{{
-					hotel['hotelName']
-				}}</view>
-				<view class="jd-item">
-					<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="none">
-						<view class="flex-between">
-							<view>
-								<!-- <l-icon name="ri:hotel-fill" color="#000" size="22px"></l-icon> -->
-								<text style="padding-right: 20px">门店管理</text>
-							</view>
-							<view>
-								<l-icon name="material-symbols:arrow-forward-ios" size="22px" color="#fff"></l-icon>
-							</view>
-
-						</view>
-					</navigator>
-				</view>
-			</view>
-			<view class="card jd">
-				<!-- <uni-list>
-				<uni-list-item title="使用说明书" showArrow></uni-list-item>
-				<uni-list-item title="注销" showArrow @click="loginOut"></uni-list-item>
-				<navigator url="/pages/mine/feedback/feedback">
-					<uni-list-item title="意见反馈" showArrow></uni-list-item>
-				</navigator>
-				
-			</uni-list> -->
-
-				<view class="menu-list">
-					<view class="menu-list-item" v-for="item in menuList" @click="menuEvent(item.key)">
-						<view class="icon-area flex-center">
-							<!-- <uni-icons fontFamily="iconfont" size="24">
-								{{item.unicode}}
-							</uni-icons> -->
-							<l-icon :name="item.imgName" size="20px" color="#fff"></l-icon>
-						</view>
-						<view class="content-area">
-							<text>{{item.title}}</text>
-							<text>
-								<l-icon v-if="item.showArrow" name="material-symbols:arrow-forward-ios" size="18px"
-									color="#fff"></l-icon>
-
-							</text>
-
 						</view>
 					</view>
 				</view>
 			</view>
+
 		</view>
 		<view class="flex-center"> </view>
 
@@ -271,11 +241,11 @@ export default {
           this.loginOut();
           break;
         case "feedback":
-          if (this.isPcShow) {
-            uni.$emit("closeRightDrawer");
-            uni.$emit("showPopupPivot", "popupFeedback", 1);
-            break;
-          }
+			//if (this.isPcShow) {
+			//	uni.$emit("closeRightDrawer");
+			//	uni.$emit("showPopupPivot", "popupFeedback", 1);
+			//	break;
+			//}
           uni.navigateTo({
             url: `/pages/mine/feedback/feedback`,
           });
@@ -316,20 +286,50 @@ export default {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
+	background: #0765ae;
 
+	.avator-style {
+		padding-bottom: 25px;
 
+		.avator-card {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+
+			.name-style {
+				color: #fff;
+				font-size: 18px;
+				font-weight: bold;
+
+				.sub-name {
+					font-size: 15px;
+					color: #f1f1f1;
+					font-weight: normal;
+				}
+			}
+		}
+	}
 }
 
 .card-list {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
-	padding: 0 15px;
 	box-sizing: border-box;
+	background: #F5F7FA;
+	border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+	.bottom-card {
+		
+		flex: 1;
+		box-sizing: border-box;
+		padding: 15px;
+		
+	}
 
 	.card {
 		box-sizing: border-box;
-		background: #F5F7FA;
+
 		padding: 0 15px;
 		/*box-shadow: 0 0 6px 0px #e4e0e0;*/
 		border-radius: 8px;
@@ -337,22 +337,11 @@ export default {
 		display: flex;
 		flex-direction: column;
 
-		.name-style {
-			color: #000000;
-			font-size: 18px;
-			font-weight: bold;
 
-			.sub-name {
-				font-size: 15px;
-				color: #797874;
-				font-weight: normal;
-			}
-		}
 	}
 
 	.jd {
-		/*background-image: linear-gradient(165deg, #0765ae, #fff);*/
-		background-color: rgb(54, 152, 252);
+		background-color: #eee;
 		color: #fff;
 		padding: 10px;
 
@@ -360,6 +349,19 @@ export default {
 			padding: 8px 0;
 
 		}
+	}
+
+	.card-normal {
+		/*background-image: linear-gradient(165deg, #0765ae, #fff);*/
+		background-color: #fff;
+		color: #333;
+		padding: 10px;
+
+		.jd-item {
+			padding: 8px 0;
+
+		}
+
 	}
 }
 
@@ -381,7 +383,7 @@ export default {
 			border-bottom: 1px solid #d5d4d4;
 			box-sizing: border-box;
 			font-size: 14px;
-			color: #fff;
+			color: #666;
 		}
 
 		&:last-child {
