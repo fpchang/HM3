@@ -17,20 +17,25 @@
 
           <!-- #ifdef MP -->
           <view v-for="(item, index) in employeeList" slot="card{{index}}">
-           <view class="card-content">
+            <view class="card-content">
               <view class="avator">
-                <l-icon v-if="item.role=='administrator'" name="emojione-monotone:letter-a" color="#3885fc" size="80px"></l-icon>
-                <l-icon v-if="item.role=='manager'" name="emojione-monotone:letter-m" color="green" size="80px"></l-icon>
+                <l-icon v-if="item.role=='administrator'" name="emojione-monotone:letter-a" color="#3885fc"
+                  size="80px"></l-icon>
+                <l-icon v-if="item.role=='manager'" name="emojione-monotone:letter-m" color="green"
+                  size="80px"></l-icon>
                 <l-icon v-if="item.role=='normal'" name="emojione-monotone:letter-n" color="#999" size="80px"></l-icon>
               </view>
               <view class="info">
-                <view class="n"><text>{{ item.employee_name }}</text></view>
+                <view class="n"><text>{{item.employee_name}}</text></view>
                 <view class="r"><text>角色：{{roleFormat(item.role)}}</text></view>
               </view>
               <view class="control">
-                <view @click="editEmployee(item)"><l-icon name="mingcute:pencil-fill" color="#3885fc" size="18px"></l-icon></view>
-                <view v-if="item.role!='administrator'"  @click="deleteEmployee(item)"><l-icon name="garden:x-fill-16" color="#3885fc" size="18px"></l-icon></view>
-                
+                <view @click="editEmployee(item)"><l-icon name="pepicons-pop:pen-circle-filled" color="#39AFF8"
+                    size="30px"></l-icon>
+                </view>
+                <view v-if="item.role!='administrator'" @click="deleteEmployee(item)"><l-icon
+                    name="clarity:remove-solid" color="#FF4654" size="30px"></l-icon></view>
+
               </view>
             </view>
           </view>
@@ -39,18 +44,24 @@
           <template v-for="(item, index) in employeeList" v-slot:[`card${index}`]>
             <view class="card-content">
               <view class="avator">
-                <l-icon v-if="item.role=='administrator'" name="emojione-monotone:letter-a" color="#3885fc" size="80px"></l-icon>
-                <l-icon v-if="item.role=='manager'" name="emojione-monotone:letter-m" color="green" size="80px"></l-icon>
+                <l-icon v-if="item.role=='administrator'" name="emojione-monotone:letter-a" color="#3885fc"
+                  size="80px"></l-icon>
+                <l-icon v-if="item.role=='manager'" name="emojione-monotone:letter-m" color="green"
+                  size="80px"></l-icon>
                 <l-icon v-if="item.role=='normal'" name="emojione-monotone:letter-n" color="#999" size="80px"></l-icon>
               </view>
               <view class="info">
-                <view class="n"><text>{{ item.employee_name }}</text></view>
+                <view class="n"><text>{{item.employee_name}}</text></view>
                 <view class="r"><text>角色：{{roleFormat(item.role)}}</text></view>
               </view>
               <view class="control">
-                <view @click="editEmployee(item)"><l-icon name="mingcute:pencil-fill" color="#3885fc" size="18px"></l-icon></view>
-                <view v-if="item.role!='administrator'"  @click="deleteEmployee(item)"><l-icon name="garden:x-fill-16" color="#3885fc" size="18px"></l-icon></view>
-                
+
+                <view @click="editEmployee(item)"><l-icon name="pepicons-pop:pen-circle-filled" color="#39AFF8"
+                    size="30px"></l-icon>
+                </view>
+                <view v-if="item.role!='administrator'" @click="deleteEmployee(item)"><l-icon
+                    name="clarity:remove-solid" color="#FF4654" size="30px"></l-icon></view>
+
               </view>
             </view>
           </template>
@@ -120,7 +131,7 @@
         <view class="popup-content">
           <view class="create-order-title-style">{{
             type==1? "修改员工信息":"新增员工"
-            }}</view>
+          }}</view>
           <view class="comContent">
             <addEmployeeComponent @closePopup="closePopup" :type="type" :em="emObj"></addEmployeeComponent>
           </view>
@@ -334,44 +345,51 @@ export default {
   border-top-right-radius: 20px;
   background: #e7eaef;
   flex: 1;
-  padding:15px;
+  padding: 15px;
   box-sizing: border-box;
 
 }
-.card-content{
+
+.card-content {
   display: flex;
-  padding:15px;
+  padding: 15px;
   box-sizing: border-box;
-  .avator{
+
+  .avator {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding:10px;
+    padding: 10px;
   }
-  .info{
+
+  .info {
     flex: 1;
-        display: flex;
+    display: flex;
     justify-content: center;
     flex-direction: column;
     padding-left: 10px;
     box-sizing: border-box;
     gap: 4px;
-    .n{
-    color: #1F2937;
-    font-weight: 400;
-    font-size: 16px;
+
+    .n {
+      color: #1F2937;
+      font-weight: 400;
+      font-size: 16px;
     }
-    .r{
+
+    .r {
       color: #8C8C8C;
       font-size: 12px;
     }
   }
-  .control{
+
+  .control {
     display: flex;
     flex-direction: column;
-       justify-content: space-around;
+    justify-content: space-around;
   }
 }
+
 .uni-group {
   display: flex;
   justify-content: space-between;

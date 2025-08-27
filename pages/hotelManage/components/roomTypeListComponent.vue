@@ -14,70 +14,83 @@
 		</block>
 		<block v-if="!noData">
 			<view class="content">
-			<view class="mobile-show-style">
-				<xt-panal-list :count="roomType.length">
-					<!-- #ifdef MP -->
-					<view v-for="(item, index) of roomType" slot="card{{index}}">
-					<view class="card-content">
-							<view class="avator">
+				<view class="mobile-show-style">
+					<xt-panal-list :count="roomType.length" shadow="none">
+						<!-- #ifdef MP -->
+						<view v-for="(item, index) of roomType" slot="card{{index}}">
+							<view class="card-content">
+								<view class="avator">
+									<image style="width:100%;height:100%" mode="aspectFit" :src="item.firstImages" />
 
-								<image style="width:100%;height:100%" mode="aspectFit" :src="item.firstImages" />
-
-							</view>
-							<view class="info">
-								<view class="n"><text>{{item.name}}</text> </view>
-								<view class="r"><text style="padding-right:6px">{{item.count}}间</text></view>
-								<view class="r"><text style="padding-right:6px"
-										v-for="it of item.bedList">{{it.name}}*{{it.count}}</text>
 								</view>
+								<view class="info">
+									<view class="n"><text>{{item.name}}</text> </view>
+									<view class="r"><text style="padding-right:6px">{{item.count}}间</text></view>
+									<view class="r"><text style="padding-right:6px"
+											v-for="it of item.bedList">{{it.name}}*{{it.count}}</text>
+									</view>
 
-							</view>
-							<view class="control">
-
-								<view @click="editRoomType(item)"><l-icon name="mingcute:pencil-fill" color="#3885fc"
-										size="18px"></l-icon>
 								</view>
-								<view @click="deleteRoomType(item)"><l-icon name="garden:x-fill-16" color="#3885fc"
-										size="18px"></l-icon></view>
-								<view @click="viewDetail(item)"><l-icon name="ic:round-more-vert" color="#3885fc"
-										size="18px"></l-icon></view>
+								<view class="control">
 
+									<view @click="editRoomType(item)"><l-icon name="mingcute:pencil-fill"
+											color="#3885fc" size="18px"></l-icon>
+									</view>
+									<view @click="deleteRoomType(item)"><l-icon name="garden:x-fill-16" color="#3885fc"
+											size="18px"></l-icon></view>
+									<view @click="viewDetail(item)"><l-icon name="ic:round-more-vert" color="#3885fc"
+											size="18px"></l-icon></view>
+
+								</view>
 							</view>
 						</view>
-					</view>
-					<!-- #endif -->
-					<!-- #ifdef H5 || APP-PLUS -->
-					<template v-for="(item, index) of roomType" v-slot:[`card${index}`]>
-						<view class="card-content">
-							<view class="avator">
+						<!-- #endif -->
+						<!-- #ifdef H5 || APP-PLUS -->
+						<template v-for="(item, index) of roomType" v-slot:[`card${index}`]>
+							<view class="card-content">
+								<view class="left-area">
+									<view>
+										<view class="title"><text>{{item.name}}</text> </view>
+										<view class="subtitle"><text>{{item.count}}间</text> </view>
+									</view>
+									<view class="avator">
+										<image style="width:100%;height:100%" mode="aspectFill"
+											:src="item.firstImages" />
+									</view>
 
-								<image style="width:100%;height:100%" mode="aspectFit" :src="item.firstImages" />
 
-							</view>
-							<view class="info">
-								<view class="n"><text>{{item.name}}</text> </view>
-								<view class="r"><text style="padding-right:6px">{{item.count}}间</text></view>
-								<view class="r"><text style="padding-right:6px"
-										v-for="it of item.bedList">{{it.name}}*{{it.count}}</text>
 								</view>
 
-							</view>
-							<view class="control">
+								<view class="control">
 
-								<view @click="editRoomType(item)"><l-icon name="mingcute:pencil-fill" color="#3885fc"
-										size="18px"></l-icon>
+									<view class="control-item" @click="editRoomType(item)"><l-icon name="pepicons-pop:pen-circle-filled"
+											color="#39AFF8" size="30px"></l-icon>
+									</view>
+									<view class="control-item" @click="deleteRoomType(item)"><l-icon name="clarity:remove-solid"
+											color="#FF4654" size="30px"></l-icon></view>
+									<view class="control-item"  @click="viewDetail(item)"><l-icon name="fluent:more-circle-24-filled"
+											color="#36D399" size="30px"></l-icon></view>
+									<!-- <view>
+										<navigator url="/pages/hotelManage/roomList/roomList">
+											<view class="btn">
+												<view>房间管理</view>
+												<view>
+													<l-icon name="material-symbols:arrow-forward-rounded" size="20px"
+														color="#0765ae"></l-icon>
+												</view>
+											</view>
+										</navigator>
+
+									</view> -->
 								</view>
-								<view @click="deleteRoomType(item)"><l-icon name="garden:x-fill-16" color="#3885fc"
-										size="18px"></l-icon></view>
-								<view @click="viewDetail(item)"><l-icon name="ic:round-more-vert" color="#3885fc"
-										size="18px"></l-icon></view>
-
+								<!-- <view style="display:flex"><l-icon name="material-symbols-light:arrow-forward-ios" size="22px" color="#bbb"></l-icon> </view>
+							 -->
 							</view>
-						</view>
-					</template>
-					<!-- #endif -->
-				</xt-panal-list>
-				<!-- <uni-collapse v-model="accordionVal" accordion>
+
+						</template>
+						<!-- #endif -->
+					</xt-panal-list>
+					<!-- <uni-collapse v-model="accordionVal" accordion>
 				<uni-collapse-item v-for="item of roomType">
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.name " type="circle">
@@ -118,7 +131,7 @@
 				</uni-collapse-item>
 
 			</uni-collapse> -->
-			</view>
+				</view>
 			</view>
 		</block>
 		<uni-popup ref="popupCreateRoomType" background-color="transprant">
@@ -146,9 +159,13 @@
 import createRoomTypeComponent from "./createRoomTypeComponent";
 import { alert } from "@/alert";
 import { DB } from "../../../api/DB";
+import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
+import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
+import gatherComponent from '@/pages/gather/components/gatherComponent';
 export default {
   components: {
     createRoomTypeComponent,
+    LIcon,
   },
   data() {
     return {
@@ -343,21 +360,55 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.divider {
+	height: 1px;
+	background: #ebeef5;
+
+}
+
+.room-style {
+	color: #0765ae;
+}
+
 .roomType-component {
 	height: 100%;
 	min-height: 100vh;
 	background-color: #0765ae;
 	display: flex;
 	flex-direction: column;
-	.content {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  background: #e7eaef;
-  flex: 1;
-  padding:15px;
-  box-sizing: border-box;
 
+	.content {
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		background: #e7eaef;
+		flex: 1;
+		padding: 15px;
+		box-sizing: border-box;
+
+	}
 }
+
+.room-list-content {
+
+	.room-list {
+		display: flex;
+		gap: 10px;
+		padding: 15px;
+		box-sizing: border-box;
+		overflow: hidden;
+
+		.room-item {
+			height: 60px;
+			width: 60px;
+			background: #0765ae;
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+		}
+	}
+
 }
 
 .add-content-style {
@@ -365,7 +416,7 @@ export default {
 	justify-content: flex-end;
 	padding: 0 20px;
 	box-sizing: border-box;
-	  background-color: #0765ae;
+	background-color: #0765ae;
 }
 
 .uni-group {
@@ -377,15 +428,35 @@ export default {
 	display: flex;
 	padding: 15px;
 	box-sizing: border-box;
+	justify-content: space-between;
 
-	.avator {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 10px;
-		width: 80px;
-		height: 60px;
+	/*background: linear-gradient(135deg, #D67AD2 0%, #4AA5E6 100%);*/
+	.left-area {
+
+		.title {
+			color: #1F2937;
+			font-weight: 400;
+			font-size: 16px;
+			letter-spacing: 2px;
+		}
+
+		.subtitle {
+			color: #8C8C8C;
+			font-size: 12px;
+		}
+
+		.avator {
+			margin-top: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 8px;
+			overflow: hidden;
+			width: 160px;
+			height: 100px;
+		}
 	}
+
 
 	.info {
 		flex: 1;
@@ -412,6 +483,21 @@ export default {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
+		align-items: flex-end;
+		.control-item{
+			display: flex;
+		}
+		.btn {
+			color: #0765ae;
+
+			border-radius: 10px;
+			font-size: 12px;
+			display: flex;
+			text-decoration: underline;
+			justify-content: flex-start;
+			gap: 5px;
+
+		}
 	}
 }
 

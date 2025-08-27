@@ -100,7 +100,6 @@ class FMServiceClass{
     res.result.data.map(item=>{
       arr.push({name:item.type[0].text,value:item.value})
     })
-    console.log("222",res)
     return arr;
   }
   //获取当年收入统计

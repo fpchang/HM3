@@ -1,10 +1,11 @@
+import { isBoolean } from '../../uni_modules/lime-shared/isBoolean/index';
 <template>
 	<view class="xt-panal-list">
 		<view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view class="card" v-for="(item,index) in count" :style="{width: `${cardWidth}px`}">
 				
-					<view class="card-item" :style="{'background':bgColor}">
+					<view class="card-item" :style="{'background':bgColor,'box-shadow':shadow}">
 						<!-- #ifdef MP -->
 						<slot name="card{{index}}"></slot>
 						<!-- #endif -->
@@ -26,6 +27,10 @@
 			bgColor:{
 				type:String,
 				default:"#fff"
+			},
+			shadow:{
+				type:String,
+				default:"0px 0px 9px #00000014"
 			},
 			maxWidth:{
 				type:Number,

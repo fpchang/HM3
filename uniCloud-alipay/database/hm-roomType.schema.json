@@ -13,7 +13,8 @@
 		},
 		"hotel_id": {
 			"description": "酒店id",
-			"bsonType": "string"
+			"bsonType": "string",
+			"foreignKey": "hm-hotel._id"
 		},
 		"createTime": {
 			"description": "创建时间",

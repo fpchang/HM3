@@ -36,7 +36,6 @@ LIcon
 			}
 		},
 		onShow() {
-			console.log("page onshow=====");
 			if(this.$refs.fmYearAndMonth){
 				this.$refs.fmYearAndMonth.refrushData();
 			}

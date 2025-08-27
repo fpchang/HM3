@@ -1,48 +1,57 @@
 <template>
-    <view>
-        <uni-forms ref="roomTypeRef" :modelValue="roomTypeForm" :rules="roomTypeRules" label-width="90px">
-            <uni-forms-item label="房型名称" required name="name">
-                <uni-easyinput v-model="roomTypeForm.name" placeholder="请输入房型名称" :disabled="type==2"/>
-            </uni-forms-item>
-            <uni-forms-item label="房间数量" name="count">
+	<view>
+		<uni-forms ref="roomTypeRef" :modelValue="roomTypeForm" :rules="roomTypeRules" label-width="90px">
+			<uni-forms-item label="房型名称" required name="name">
+				<uni-easyinput v-model="roomTypeForm.name" placeholder="请输入房型名称" :disabled="type==2" />
+			</uni-forms-item>
+			<!-- <uni-forms-item label="房间数量" name="count">
                 <view>
                     <uv-number-box :min="1" integer v-model="roomTypeForm.count" :disabled="type==2">
                         <input slot="input" style="width: 100px;text-align: center;" class="input"
                             v-model="roomTypeForm.count"></input>
                     </uv-number-box>
                 </view>
-            </uni-forms-item>
+            </uni-forms-item> -->
 			<uni-forms-item label="面积" name="area">
-                <view style="display:flex;align-items:center">
-                    <uv-number-box :min="1" integer v-model="roomTypeForm.area" :disabled="type==2">
-                        <input slot="input" style="width: 100px;text-align: center;" class="input"
-                            v-model="roomTypeForm.area"></input>
-                    </uv-number-box><text style="padding-left:8px">㎡</text>
-                </view>
-            </uni-forms-item>
+				<view style="display:flex;align-items:center">
+					<uv-number-box :min="1" integer v-model="roomTypeForm.area" :disabled="type==2">
+						<input slot="input" style="width: 100px;text-align: center;" class="input"
+							v-model="roomTypeForm.area"></input>
+					</uv-number-box><text style="padding-left:8px">㎡</text>
+				</view>
+			</uni-forms-item>
 			<uni-forms-item label="入住人数" name="count">
-                <view>
-                    <uv-number-box :min="1" integer v-model="roomTypeForm.guestNumber" :disabled="type==2">
-                        <input slot="input" style="width: 100px;text-align: center;" class="input"
-                            v-model="roomTypeForm.guestNumber"></input>
-                    </uv-number-box>
-                </view>
-            </uni-forms-item>
+				<view>
+					<uv-number-box :min="1" integer v-model="roomTypeForm.guestNumber" :disabled="type==2">
+						<input slot="input" style="width: 100px;text-align: center;" class="input"
+							v-model="roomTypeForm.guestNumber"></input>
+					</uv-number-box>
+				</view>
+			</uni-forms-item>
 			<uni-forms-item label="床位" required>
 				<!-- <uni-data-checkbox v-model="orderForm.roomTypeArray" mode="list"  multiple :localdata="roomTypeListFormat">1111</uni-data-checkbox> -->
 				<view class="uni-list">
 					<checkbox-group @change="bedCheckboxChange">
-						<view :class="[this.type==2?'disabled-style':'']" style="display: flex" v-for="(item,index) in bedTypeList"
-							:key="item.name">
+						<view :class="[this.type==2? 'disabled-style':'']" style="display: flex"
+							v-for="(item, index) in bedTypeList" :key="item.name">
 							<view>
-								<checkbox   :checked="item.checked"
-									:disabled="type==2" :value="item.name" />
+								<checkbox :checked="item.checked" :disabled="type==2" :value="item.name" />
 							</view>
-							<view style="display: flex; flex: 1">{{ item.name }}</view>
-							<view><uni-number-box v-model="item.count" :min="1"
-									:disabled="!item.checked||type==2"  /></view>
+							<view style="display: flex; flex: 1">{{item.name}}</view>
+							<view><uni-number-box v-model="item.count" :min="1" :disabled="!item.checked||type==2" />
+							</view>
 						</view>
 					</checkbox-group>
+				</view>
+			</uni-forms-item>
+			<uni-forms-item label="价格" required>
+				<view class="group">
+
+					<uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2"
+						inputWidth="60px">
+						<input slot="input" style="width: 200px;text-align: center;"
+							v-model="roomTypeForm.priceBase"></input>
+					</uv-number-box>
 				</view>
 			</uni-forms-item>
 			<!-- <uni-forms-item label="是否有窗" name="isWindow">
@@ -54,7 +63,7 @@
 				  </radio-group>
 				 </view>				
 			  </uni-forms-item> -->
-			  <!-- <uni-forms-item label="有阳台" name="isBalcony">
+			<!-- <uni-forms-item label="有阳台" name="isBalcony">
 				 <view style="display:flex;align-items:center;height:100%"> 
 				  <radio-group @change="radioEvent('isBalcony')">
 					<radio value="1" :checked="roomTypeForm.isBalcony" :disabled="type==2"/><text style="padding-right:10px">是</text>
@@ -78,69 +87,76 @@
 				  </radio-group>
 				 </view>				
 			  </uni-forms-item> -->
-			  <view style="display:flex;flex-direction:column;gap:10px;font-size:13px;padding-bottom:15px">
+			<!-- <view style="display:flex;flex-direction:column;gap:10px;font-size:13px;padding-bottom:15px">
 				<view>价格设置</view>
-				<view class="priceContainer"> 
-					<view class="price-list" > 
-				   <view class="price-list-item" >
-					   <view class="group">
-					   <text>名称：</text> 
-					   <input placeholder="基本价格" v-model="roomTypeForm.priceBase_name"  class="in" type="textarea" :disabled="type==2"></input> 
-					   </view>
-					   <view class="group">
-						   <text>价格：</text> 
-						   <uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2" inputWidth="60px">
-							   <input slot="input" style="width: 200px;text-align: center;" 
-								   v-model="roomTypeForm.priceBase"></input>
-						   </uv-number-box>
-					   </view>
-					   
-				   </view>
-				   </view>
-			   </view>
+				<view class="priceContainer">
+					<view class="price-list">
+						<view class="price-list-item">
+							<view class="group">
+								<text>名称：</text>
+								<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" class="in"
+									type="textarea" :disabled="type==2"></input>
+							</view>
+							<view class="group">
+								<text>价格：</text>
+								<uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2"
+									inputWidth="60px">
+									<input slot="input" style="width: 200px;text-align: center;"
+										v-model="roomTypeForm.priceBase"></input>
+								</uv-number-box>
+							</view>
 
-			   <view class="priceContainer"> 
-				<view class="price-list" > 
-			   <view class="price-list-item" >
-				   <view class="group">
-				   <text>名称：</text> 
-				   <input placeholder="套餐A" v-model="roomTypeForm.priceA_name"  class="in" type="textarea" :disabled="type==2"></input> 
-				   </view>
-				   <view class="group">
-					   <text>价格：</text> 
-					   <uv-number-box :min="0" integer v-model="roomTypeForm.priceA" :disabled="type==2" inputWidth="60px">
-						   <input slot="input" style="width: 200px;text-align: center;" 
-							   v-model="roomTypeForm.priceA"></input>
-					   </uv-number-box>
-				   </view>
-				   
-			   </view>
-			   </view>
-		   </view>
-		   <view class="priceContainer"> 
-			<view class="price-list" > 
-		   <view class="price-list-item" >
-			   <view class="group">
-			   <text>名称：</text> 
-			   <input placeholder="套餐B" v-model="roomTypeForm.priceB_name"  class="in" type="textarea" :disabled="type==2"></input> 
-			   </view>
-			   <view class="group">
-				   <text>价格：</text> 
-				   <uv-number-box :min="0" integer v-model="roomTypeForm.priceB" :disabled="type==2" inputWidth="60px">
-					   <input slot="input" style="width: 200px;text-align: center;" 
-						   v-model="roomTypeForm.priceB"></input>
-				   </uv-number-box>
-			   </view>
-			   
-		   </view>
-		   </view>
-	   </view>
-	   <view><text style="color:#a1a1a1;color:#0765ae">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>	
-				
-				
-				
-			</view>
-		<!-- <uni-forms-item label="标准价格" required>
+						</view>
+					</view>
+				</view>
+
+				<view class="priceContainer">
+					<view class="price-list">
+						<view class="price-list-item">
+							<view class="group">
+								<text>名称：</text>
+								<input placeholder="套餐A" v-model="roomTypeForm.priceA_name" class="in" type="textarea"
+									:disabled="type==2"></input>
+							</view>
+							<view class="group">
+								<text>价格：</text>
+								<uv-number-box :min="0" integer v-model="roomTypeForm.priceA" :disabled="type==2"
+									inputWidth="60px">
+									<input slot="input" style="width: 200px;text-align: center;"
+										v-model="roomTypeForm.priceA"></input>
+								</uv-number-box>
+							</view>
+
+						</view>
+					</view>
+				</view>
+				<view class="priceContainer">
+					<view class="price-list">
+						<view class="price-list-item">
+							<view class="group">
+								<text>名称：</text>
+								<input placeholder="套餐B" v-model="roomTypeForm.priceB_name" class="in" type="textarea"
+									:disabled="type==2"></input>
+							</view>
+							<view class="group">
+								<text>价格：</text>
+								<uv-number-box :min="0" integer v-model="roomTypeForm.priceB" :disabled="type==2"
+									inputWidth="60px">
+									<input slot="input" style="width: 200px;text-align: center;"
+										v-model="roomTypeForm.priceB"></input>
+								</uv-number-box>
+							</view>
+
+						</view>
+					</view>
+				</view>
+				<view><text style="color:#a1a1a1;color:#0765ae">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text
+							style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>
+
+
+
+			</view> -->
+			<!-- <uni-forms-item label="标准价格" required>
 			<view style="display:flex;justify-content:space-between"> 
 				<view class="group flex-center">
 					<text>名称：</text> 
@@ -168,43 +184,87 @@
 					<view style="flex:1"><slider :disabled="type==2" :value="roomTypeForm.bargainMinPercent" @change="bargainMinPercentChange" min="50" max="100" show-value /> </view><text>（最低{{roomTypeForm.bargainMinPercent}}%）</text>
 				</view>				
 			  </uni-forms-item> -->
-			  <uni-forms-item label="屋内设施" required>				
+
+
+
+			<uni-forms-item label="屋内设施" required>
 				<checkbox-group @change="facilityCheckboxChange">
-					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig" field="name" :getone="false" where="type=='roomType'" orderby="name asc"> 
-						
-						<view :class="[this.type==2?'disabled-style':'','flex-center']" style="justify-content:start;flex-wrap:wrap; gap:20px">
-							<view style=""  v-for="(item,index) in data" :key="item.name"> 
-								<checkbox   :checked="roomTypeForm.facility&&roomTypeForm.facility.includes(item._id)" :disabled="type==2" :value="item._id" />{{ item.name }}
+					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig"
+						field="name" :getone="false" where="type=='roomType'" orderby="name asc">
+
+						<view :class="[this.type==2? 'disabled-style':'', 'flex-center']"
+							style="justify-content:start;flex-wrap:wrap; gap:20px">
+							<view style="" v-for="(item, index) in data" :key="item.name">
+								<checkbox :checked="roomTypeForm.facility&&roomTypeForm.facility.includes(item._id)"
+									:disabled="type==2" :value="item._id" />{{item.name}}
 							</view>
-							<view style="height:0;width:50px"  v-for="item in 5"> 									
+							<view style="height:0;width:50px" v-for="item in 5">
 							</view>
 						</view>
 					</unicloud-db>
-				</checkbox-group>			
-		</uni-forms-item>
+				</checkbox-group>
+			</uni-forms-item>
 			<view>
 				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
-				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccessFirst" :imagesList="roomTypeForm.firstImages?[roomTypeForm.firstImages]:[]" max="1" :disabled="type==2"></xt-file-picker>
+				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccessFirst"
+					:imagesList="roomTypeForm.firstImages? [roomTypeForm.firstImages]:[]" max="1"
+					:disabled="type==2"></xt-file-picker>
 				<uni-forms-item label="房型图片" style="margin-bottom:0"></uni-forms-item>
-				<xt-file-picker ref="uploadImagesRef2" :cloudPath="cloudPath" @success="uploadSuccess" :imagesList="roomTypeForm.imagesList" :disabled="type==2"></xt-file-picker>
-				
+				<xt-file-picker ref="uploadImagesRef2" :cloudPath="cloudPath" @success="uploadSuccess"
+					:imagesList="roomTypeForm.imagesList" :disabled="type==2"></xt-file-picker>
+
 			</view>
-		<view>
-			<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
-            :loading="submitLoading" v-if="type!=2"></uv-button>
-		</view>
-        </uni-forms>
-        
-    </view>
+			<view class="room-area">
+				<view class="flex-between header">
+					<view>房间（{{roomTypeForm.roomList.length}}</view>
+					<!-- <navigator :url="`/pages/hotelManage/createRoom/createRoom`" v-if="this.type!=2">
+						 -->
+						<view class="btn" @click="addRoomEvent">
+
+							<view class="flex-center"><l-icon name="solar:add-circle-bold" size="22px"
+									color="#007aff" /></view>
+							<view class="flex-center"><text>添加房型</text></view>
+
+
+						</view>
+					<!-- </navigator> -->
+				</view>
+				<view v-if="!roomTypeForm.roomList.length" class="note"><text>无房间</text></view>
+				<uni-list v-if="roomTypeForm.roomList.length">
+					<uni-list-item  v-for="item of roomTypeForm.roomList">
+						<template v-slot:header> 
+							<view> 
+								<uni-easyinput :v-model="item" :value="item" :disabled="type==2" :clean="false"/>
+							</view>
+						</template>
+						<template v-slot:footer>
+							<view @click="deleteRoomEvent(item)">
+								<l-icon name="iconamoon:trash" size="22px" color="#007aff"></l-icon>
+							</view>
+						</template>
+					</uni-list-item>
+					
+				</uni-list>
+			</view>
+			<view>
+				<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
+					:loading="submitLoading" v-if="type!=2"></uv-button>
+			</view>
+		</uni-forms>
+
+	</view>
 </template>
 
 <script>
 import  {DB} from "../../../api/DB.js";
 import XtFilePicker from '../../../components/xt-file-picker/xt-file-picker.vue';
+import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 import uniFormsItem from '../../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue';
+import UniListItem from '../../../uni_modules/uni-list/components/uni-list-item/uni-list-item.vue';
 import UniSection from '../../../uni_modules/uni-section/components/uni-section/uni-section.vue';
+import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
 export default {
-  components: { uniFormsItem, XtFilePicker, UniSection },
+  components: { uniFormsItem, XtFilePicker, UniSection, UniListItem, LIcon },
 		props:{
 			type:0,
 			rt:{}
@@ -439,6 +499,25 @@ export default {
 							confirmText:"确认"
 						});
 					})
+		},
+		addRoomEvent(){
+			let arr=this.roomTypeForm.roomList||[];			
+			arr.push(this.getRoomName(arr))
+		},
+		deleteRoomEvent(name){
+			this.roomTypeForm.roomList=this.roomTypeForm.roomList.filter(item=>item!=name);
+		},
+		getRoomName(arr){
+			let targetArr=[...arr];
+			let newName = `房间${arr.length+1}`;
+			let ob = arr.find(name=>name==newName);
+			if(!ob){
+				return newName;
+			}else{
+				targetArr.push("");
+				return this.getRoomName(targetArr)
+			}
+			
 		}
 	}
 }
@@ -446,25 +525,51 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.room-area {
+	.header {
+		padding: 15px;
+		display: flex;
+		background: #f0f0f0;
+		font-size: 13px;
+		color: #565656;
+
+		.btn {
+			display: flex;
+			color: #007aff;
+		}
+	}
+}
+.note{
+	font-size: 12px;
+	padding:15px;
+	text-align: center;
+	color: #a1a1a1;
+}
 .disabled-style {
 	color: #a1a1a1;
 }
-.priceContainer{
-	border:1px solid #eee;padding:8px;
+
+.priceContainer {
+	border: 1px solid #eee;
+	padding: 8px;
 	font-size: 14px;
-	.price-list{
-		.price-list-item{
-			display:flex;
+
+	.price-list {
+		.price-list-item {
+			display: flex;
 			flex-wrap: wrap;
-			gap:10px;		
-			.group{
+			gap: 10px;
+
+			.group {
 				min-width: 350px;
 				display: flex;
-				align-items:center;
+				align-items: center;
 			}
-			.in{
+
+			.in {
 				flex: 1;
-				border:1px solid #eee;padding:4px 8px;
+				border: 1px solid #eee;
+				padding: 4px 8px;
 				font-size: 14px;
 				color: #777777;
 			}
