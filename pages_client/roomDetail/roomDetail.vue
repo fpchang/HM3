@@ -59,7 +59,7 @@
 				<view class="room-info-list-item">
 				  <image :src="`${imgsrc}bed.svg`" style="width: 30px;height:30px;"></image>
 				  <view class="la">
-					  <view v-for="item of roomType.bedList">{{item.name}}*{{item.count}}</view>				  	
+					  <view v-for="item of roomType.bedList">{{item.name}}*{{item.roomList.length}}</view>				  	
 				  </view>
 				</view>
 				

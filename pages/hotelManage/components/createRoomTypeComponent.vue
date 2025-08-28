@@ -216,14 +216,14 @@
 			</view>
 			<view class="room-area">
 				<view class="flex-between header">
-					<view>房间（{{roomTypeForm.roomList.length}}</view>
+					<view>房间（{{roomTypeForm.roomList.length}}）</view>
 					<!-- <navigator :url="`/pages/hotelManage/createRoom/createRoom`" v-if="this.type!=2">
 						 -->
 						<view class="btn" @click="addRoomEvent">
 
 							<view class="flex-center"><l-icon name="solar:add-circle-bold" size="22px"
 									color="#007aff" /></view>
-							<view class="flex-center"><text>添加房型</text></view>
+							<view class="flex-center"><text>添加房间</text></view>
 
 
 						</view>
@@ -231,14 +231,14 @@
 				</view>
 				<view v-if="!roomTypeForm.roomList.length" class="note"><text>无房间</text></view>
 				<uni-list v-if="roomTypeForm.roomList.length">
-					<uni-list-item  v-for="item of roomTypeForm.roomList">
+					<uni-list-item  v-for="(item,index) of roomTypeForm.roomList">
 						<template v-slot:header> 
-							<view> 
-								<uni-easyinput :v-model="item" :value="item" :disabled="type==2" :clean="false"/>
+							<view style="width:200px"> 
+								<uni-easyinput v-model="item.room_name" trim="all"  @input="changeRoomName(index)" :disabled="type==2" :clean="false"/>
 							</view>
 						</template>
 						<template v-slot:footer>
-							<view @click="deleteRoomEvent(item)">
+							<view @click="deleteRoomEvent(index)">
 								<l-icon name="iconamoon:trash" size="22px" color="#007aff"></l-icon>
 							</view>
 						</template>
@@ -246,9 +246,10 @@
 					
 				</uni-list>
 			</view>
-			<view>
+			<view class="submit-btn-style">
 				<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
-					:loading="submitLoading" v-if="type!=2"></uv-button>
+					:loading="submitLoading" v-if="type!=2" class="submit-btn"></uv-button>
+					
 			</view>
 		</uni-forms>
 
@@ -386,6 +387,11 @@ export default {
 				return arr.map(item=>{
 					return {name:item.name,count:item.count};
 				})
+			},
+			validRoomList(){
+				const arr = this.roomTypeForm.roomList;
+				let obj = arr.find(item=>item.room_name=="");
+				return obj?true:false;
 			},         
 			submitDisabled() {
 				return false
@@ -427,6 +433,9 @@ export default {
             roomTypeCountChange(val){
                 console.log(val)
             },
+			changeRoomName(e,index){
+				console.log(arguments)
+			},
 			submitForm() {
 				if(this.$refs.uploadImagesRef1.uploadingState()==0||this.$refs.uploadImagesRef2.uploadingState()==0){
 					uni.showToast({title:"有图片正在上传中，请稍候...",icon:"error"});
@@ -438,6 +447,10 @@ export default {
 				}
 				if(this.bedTypeListFomat.length<1){
 					uni.showToast({title:"请选择床位",icon:"none"});
+					return;
+				}
+				if(!this.validRoomList){
+					uni.showToast({title:"房间名不能为空",icon:"none"});
 					return;
 				}
 				this.roomTypeForm.hotel_id=this.hotel_id;
@@ -455,6 +468,7 @@ export default {
 			})
 		},
 		addRoomType(){
+		
 			DB.callFunction(
 							"hm_addRoomType",
 							{
@@ -477,7 +491,6 @@ export default {
 					})
 		},
 		updateRoomType(){
-			console.log("修改。。。",this.roomTypeForm)
 			DB.callFunction(
 							"hm_updateRoomType",
 							{
@@ -502,15 +515,18 @@ export default {
 		},
 		addRoomEvent(){
 			let arr=this.roomTypeForm.roomList||[];			
-			arr.push(this.getRoomName(arr))
+			arr.push({index:arr.length+1,room_name:this.getRoomName(arr)})
 		},
-		deleteRoomEvent(name){
-			this.roomTypeForm.roomList=this.roomTypeForm.roomList.filter(item=>item!=name);
+		deleteRoomEvent(index){
+			console.log(index,this.roomTypeForm.roomList);
+			 this.roomTypeForm.roomList.splice(index,1);
+			
+			//this.roomTypeForm.roomList=this.roomTypeForm.roomList.splice(index,1);
 		},
 		getRoomName(arr){
 			let targetArr=[...arr];
 			let newName = `房间${arr.length+1}`;
-			let ob = arr.find(name=>name==newName);
+			let ob = arr.find(item=>item.room_name==newName);
 			if(!ob){
 				return newName;
 			}else{

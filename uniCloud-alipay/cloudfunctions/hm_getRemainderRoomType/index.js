@@ -45,7 +45,8 @@ exports.main = async (event, context) => {
 			}
 			
 		}
-		item.remainCount=Math.max(item.count-sumCount,0);
+		let maxCount =item.roomList.length||0;
+		item.remainCount=Math.max(maxCount-sumCount,0);
 		return item;
 	})
 	console.log("yyy222",remainList);

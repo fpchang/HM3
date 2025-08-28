@@ -10,8 +10,10 @@
 		</uni-forms-item> 
 
 		<uni-forms-item>
+			<view class="submit-btn-style">
 			<uv-button type="success"  text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
-		:loading="submitLoading"></uv-button>
+		:loading="submitLoading" class="submit-btn"></uv-button>
+		</view>
 		 </uni-forms-item>
 	  </uni-forms>
 	  
@@ -110,7 +112,7 @@
   <style scoped>
   .feedback{
 	max-width: 800px;
-	padding:20px;
+	padding:15px;
 	margin:auto
   }
 	</style>

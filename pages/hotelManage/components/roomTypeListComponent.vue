@@ -19,29 +19,43 @@
 						<!-- #ifdef MP -->
 						<view v-for="(item, index) of roomType" slot="card{{index}}">
 							<view class="card-content">
-								<view class="avator">
-									<image style="width:100%;height:100%" mode="aspectFit" :src="item.firstImages" />
-
-								</view>
-								<view class="info">
-									<view class="n"><text>{{item.name}}</text> </view>
-									<view class="r"><text style="padding-right:6px">{{item.count}}间</text></view>
-									<view class="r"><text style="padding-right:6px"
-											v-for="it of item.bedList">{{it.name}}*{{it.count}}</text>
+								<view class="left-area">
+									<view>
+										<view class="title"><text>{{item.name}}</text> </view>
+										<view class="subtitle"><text>{{item.roomList.length}}间</text> </view>
+									</view>
+									<view class="avator">
+										<image style="width:100%;height:100%" mode="aspectFill"
+											:src="item.firstImages" />
 									</view>
 
+
 								</view>
+
 								<view class="control">
 
-									<view @click="editRoomType(item)"><l-icon name="mingcute:pencil-fill"
-											color="#3885fc" size="18px"></l-icon>
+									<view class="control-item" @click="editRoomType(item)"><l-icon name="pepicons-pop:pen-circle-filled"
+											color="#39AFF8" size="30px"></l-icon>
 									</view>
-									<view @click="deleteRoomType(item)"><l-icon name="garden:x-fill-16" color="#3885fc"
-											size="18px"></l-icon></view>
-									<view @click="viewDetail(item)"><l-icon name="ic:round-more-vert" color="#3885fc"
-											size="18px"></l-icon></view>
+									<view class="control-item" @click="deleteRoomType(item)"><l-icon name="clarity:remove-solid"
+											color="#FF4654" size="30px"></l-icon></view>
+									<view class="control-item"  @click="viewDetail(item)"><l-icon name="fluent:more-circle-24-filled"
+											color="#36D399" size="30px"></l-icon></view>
+									<!-- <view>
+										<navigator url="/pages/hotelManage/roomList/roomList">
+											<view class="btn">
+												<view>房间管理</view>
+												<view>
+													<l-icon name="material-symbols:arrow-forward-rounded" size="20px"
+														color="#0765ae"></l-icon>
+												</view>
+											</view>
+										</navigator>
 
+									</view> -->
 								</view>
+								<!-- <view style="display:flex"><l-icon name="material-symbols-light:arrow-forward-ios" size="22px" color="#bbb"></l-icon> </view>
+							 -->
 							</view>
 						</view>
 						<!-- #endif -->
@@ -51,7 +65,7 @@
 								<view class="left-area">
 									<view>
 										<view class="title"><text>{{item.name}}</text> </view>
-										<view class="subtitle"><text>{{item.count}}间</text> </view>
+										<view class="subtitle"><text>{{item.roomList.length}}间</text> </view>
 									</view>
 									<view class="avator">
 										<image style="width:100%;height:100%" mode="aspectFill"
@@ -252,10 +266,10 @@ export default {
       }
       this.type = 1;
       this.rt = rt;
-      if (this.$store.state.isPcShow) {
-        this.$refs.popupCreateRoomType.open();
-        return;
-      }
+    //   if (this.$store.state.isPcShow) {
+    //     this.$refs.popupCreateRoomType.open();
+    //     return;
+    //   }
       uni.navigateTo({
         url: `/pages/hotelManage/createRoomType/createRoomType?type=${
           this.type
@@ -273,10 +287,10 @@ export default {
         return;
       }
       this.type = 0;
-      if (this.$store.state.isPcShow) {
-        this.$refs.popupCreateRoomType.open();
-        return;
-      }
+    //   if (this.$store.state.isPcShow) {
+    //     this.$refs.popupCreateRoomType.open();
+    //     return;
+    //   }
 
       uni.navigateTo({
         url: "/pages/hotelManage/createRoomType/createRoomType",

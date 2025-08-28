@@ -193,10 +193,22 @@ $label-normal:#a1a1a1;
 	}
   }
   /* 提交button*/
+  .submit-btn-style{
+		display: flex;
+	  justify-content: flex-end;
+	  padding:20px;
+
+  }
   .submit-btn{
 	  background-color: $font-color-control ;
 	  color: #fff;
+	  min-width: 120px;
+	  min-height: 40px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;	  	  
   }
+  
   //字体btn
   .edit-text-btn-style{
 	color: $font-color-control;

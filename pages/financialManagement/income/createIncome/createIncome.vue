@@ -25,10 +25,10 @@
 			<uni-forms-item label="备注" name="mark">
 				<uni-easyinput v-model="incomeForm.mark" type="textarea" />
 			</uni-forms-item>
-	
+	<view class="submit-btn-style">
 			<uv-button type="success" text="保存" color="#007aff" @click="submit()" :disabled="submitDisabled"
-            :loading="submitLoading" v-if="type!=2"></uv-button>
-		
+            :loading="submitLoading" v-if="type!=2" class="submit-btn"></uv-button>
+		</view>
         </uni-forms>
         
     </view>
@@ -106,7 +106,7 @@ export default {
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
 .createIncome{
 	padding:20px;
 }

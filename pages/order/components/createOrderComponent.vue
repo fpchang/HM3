@@ -11,25 +11,6 @@
 				<view class="example-body">
 					<uni-datetime-picker v-model="orderForm.dateRangeArray" type="daterange" :start="startDate" return-type="timestamp" @change="dateConfim" />
 				</view>
-
-				<!-- <block>
-					<uni-datetime-picker v-model="orderForm.dateRangeArray" rangeSeparator="/" type="daterange"
-						return-type="timestamp" @change="dateConfim" :clear-icon="false" style="z-index: 9999;" />
-				</block> -->
-				<!-- <block v-if="!isPcShow">
-					<view class="form-item-content-container">
-						<view class="calendar-container" @click="showDateSelect">
-							<uni-icons type="calendar" size="22" color="#60626680"></uni-icons>
-							<text style="flex:1;text-align:center">{{orderForm.dateRangeArray[0] || "开始日期"}}</text>
-							<text style="padding:0 10px">至</text>
-							<text style="flex:1;text-align:center">{{orderForm.dateRangeArray[1]|| "截止日期"}}</text>
-						</view>
-						<uv-calendars ref="calendars" mode="range" :startDate="startDate" @close="dateClose"
-							@confirm="dateConfimEvent" style="z-index:999"></uv-calendars>
-					</view>
-				</block> -->
-
-
 			</uni-forms-item>
 			<uni-forms-item label="房型" required>
 				<!-- <uni-data-checkbox v-model="orderForm.roomTypeArray" mode="list"  multiple :localdata="roomTypeListFormat">1111</uni-data-checkbox> -->
@@ -260,6 +241,7 @@
 						},
 					})
 					.then((res) => {
+						console.log("res::",res)
 						this.remainRoomTypeList = res.result.map((it) => {
 							it.selectCount = 1;
 							return it;

@@ -65,8 +65,10 @@
 				</view>
 			</uni-forms-item>
 			<uni-forms-item>
+				<view class="submit-btn-style">
 				<uv-button type="success" text="保存" color="#007aff" @click="submit()" :disabled="noSelectDate"
-					:loading="submitLoading" ></uv-button>
+					:loading="submitLoading" class="submit-btn"></uv-button>
+					</view>
 			</uni-forms-item>
 		</uni-forms>
 		<uni-calendar ref="calendar" class="uni-calendar--hook" :clear-date="true" :date="calendarConfig.date" :insert="calendarConfig.insert" :lunar="calendarConfig.lunar" :startDate="calendarConfig.startDate"

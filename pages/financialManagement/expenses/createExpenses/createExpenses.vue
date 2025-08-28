@@ -24,9 +24,11 @@
 			<uni-forms-item label="备注" name="mark">
 				<uni-easyinput v-model="expensesForm.mark" type="textarea" />
 			</uni-forms-item>
-	
-			<uv-button type="success" text="保存" color="#007aff" @click="submit()" :disabled="submitDisabled"
-            :loading="submitLoading" v-if="type!=2"></uv-button>
+			<view class="submit-btn-style">
+				<uv-button type="success" text="保存" color="#007aff" @click="submit()" :disabled="submitDisabled"
+            :loading="submitLoading" v-if="type!=2" class="submit-btn"></uv-button>
+				 </view>
+			
 		
         </uni-forms>
         
@@ -104,7 +106,7 @@ export default {
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
 .createIncome{
 	padding:20px;
 }
