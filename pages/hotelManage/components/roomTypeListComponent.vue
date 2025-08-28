@@ -148,7 +148,7 @@
 				</view>
 			</view>
 		</block>
-		<uni-popup ref="popupCreateRoomType" background-color="transprant">
+		<!-- <uni-popup ref="popupCreateRoomType" background-color="transprant">
 			<view class="popup-content">
 				<view class="create-order-title-style">{{
 					type==1? "修改房型":"创建房型"
@@ -165,7 +165,7 @@
 					<roomTypeImagesComponent @closePopup="closePopup" :type="type" :rt="rt"></roomTypeImagesComponent>
 				</view>
 			</view>
-		</uni-popup>
+		</uni-popup> -->
 	</view>
 </template>
 

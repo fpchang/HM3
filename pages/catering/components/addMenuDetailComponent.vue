@@ -11,7 +11,7 @@
       </uni-forms-item>
       <uni-forms-item label="菜品图案" style="margin-bottom:0"></uni-forms-item>
 				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccess"
-					:imagesList="[menuDetailForm.imgsrc]" max="1"
+					:imagesList="[menuDetailForm.imgsrc]" :max="1"
 					:disabled="type==2"></xt-file-picker>
       <uni-forms-item label="正常供应" name="isOffer">
         <!-- <checkbox @change="isOfferChange()" :checked="menuDetailForm.isOffer" />正常供应 -->

@@ -131,7 +131,7 @@
 			<view>
 				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
 				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccessFirst"
-					:imagesList="hotelForm.firstImages?[hotelForm.firstImages]:[]" max="1"
+					:imagesList="hotelForm.firstImages?[hotelForm.firstImages]:[]" :max="1"
 					:disabled="type==2"></xt-file-picker>
 				<uni-forms-item label="酒店图片"></uni-forms-item>
 				<xt-file-picker ref="uploadImagesRef2" :cloudPath="cloudPath" @success="uploadSuccess"

@@ -34,11 +34,19 @@
 	// },
 	export default {
 		onLaunch: async function(ob) {
-			// console.log("参数信息",ob)
+			 console.log("参数信息",ob)
 			// console.log('App Launch XXXXXXXXXX',uni.getSystemInfoSync());	
 				// #ifdef APP-PLUS
 					plus.navigator.closeSplashscreen();//关闭启动图
 				// #endif
+				   // #ifdef MP
+				   console.log("MPPPPP")
+     this.$store.commit("setTopHeight","70px");
+   // #endif
+    // #ifndef MP
+	 console.log("!!!MPPPPP")
+     this.$store.commit("setTopHeight","60px");
+   // #endif
 			this.getEnv();
 			this.initData();
 			
@@ -85,5 +93,5 @@
 </script>
 
 <style>
-	/*每个页面公共css */
+/*每个页面公共css */
 </style>

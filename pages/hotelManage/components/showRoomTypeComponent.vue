@@ -15,7 +15,7 @@
             </uni-forms-item>
 			<view>
 				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
-				<xt-file-picker ref="uploadImagesRef" :cloudPath="cloudPath" @success="uploadSuccessFirst" :imagesList="[roomTypeForm.imagesFirst]" max="1"></xt-file-picker>
+				<xt-file-picker ref="uploadImagesRef" :cloudPath="cloudPath" @success="uploadSuccessFirst" :imagesList="[roomTypeForm.imagesFirst]" :max="1"></xt-file-picker>
 				<uni-forms-item label="房型图片" style="margin-bottom:0"></uni-forms-item>
 				<xt-file-picker ref="uploadImagesRef" :cloudPath="cloudPath" @success="uploadSuccess" :imagesList="roomTypeForm.imagesList"></xt-file-picker>
 				

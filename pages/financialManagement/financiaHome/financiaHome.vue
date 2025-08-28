@@ -1,6 +1,6 @@
 <template>
 	<view class="financiaHome">
-		<view style="height:70px"></view>
+		<view :style="{'height':topHeight}"></view>
 		<view class="title">
 			<text>财务中心</text>
 			<!-- <text><l-icon name="icon-park-solid:financing-two" size="28px" color="#fff"/></text> -->
@@ -8,15 +8,15 @@
 		<view class="subtitle">
 			<view>年度汇总</view>
 			<view>
-				<navigator url="/pages/financialManagement/fmChart/fmChart"  hover-class="none">
-					<l-icon name="fluent:more-circle-24-filled" size="35px" color="#fff"/>
+				<navigator url="/pages/financialManagement/fmChart/fmChart" hover-class="none">
+					<l-icon name="fluent:more-circle-24-filled" size="35px" color="#fff" />
 				</navigator>
-				
+
 			</view>
 		</view>
 		<view class="content">
 			<fmYearAndMonth ref="fmYearAndMonth"></fmYearAndMonth>
-		
+
 		</view>
 	</view>
 </template>
@@ -39,7 +39,7 @@ LIcon
 			if(this.$refs.fmYearAndMonth){
 				this.$refs.fmYearAndMonth.refrushData();
 			}
-			
+			console.log("onshow",this.$store.state)
 		},
 		async onPullDownRefresh() {
 			await this.$refs.fmYearAndMonth.refrushData();
@@ -48,7 +48,10 @@ LIcon
 		computed:{
 			    hotel_id() {
       			return this.$store.state.hotel_id;
-    	}
+    		},
+			topHeight(){
+				return this.$store.state.topHeight;
+			}
 		},
 		methods: {
 			
@@ -58,9 +61,10 @@ LIcon
 
 <style lang="scss" scoped>
 .financiaHome {
-	
+
 	min-height: 100vh;
 	background: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
+
 	.title {
 		color: #fff;
 		font-size: 24px;
@@ -68,7 +72,7 @@ LIcon
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
-		
+
 	}
 
 	.subtitle {
@@ -86,8 +90,8 @@ LIcon
 		flex-direction: column;
 		justify-content: center;
 		overflow: hidden;
-		
-	
+
+
 	}
 }
 </style>

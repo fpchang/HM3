@@ -190,7 +190,7 @@
 			roomTypeCount() {
 				let count = 0;
 				this.roomType.map(item => {
-					count += item.roolList.length;
+					count += item.roomList.length;
 				})
 				return count;
 			},

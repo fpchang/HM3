@@ -204,17 +204,7 @@
 					</unicloud-db>
 				</checkbox-group>
 			</uni-forms-item>
-			<view>
-				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
-				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccessFirst"
-					:imagesList="roomTypeForm.firstImages? [roomTypeForm.firstImages]:[]" max="1"
-					:disabled="type==2"></xt-file-picker>
-				<uni-forms-item label="房型图片" style="margin-bottom:0"></uni-forms-item>
-				<xt-file-picker ref="uploadImagesRef2" :cloudPath="cloudPath" @success="uploadSuccess"
-					:imagesList="roomTypeForm.imagesList" :disabled="type==2"></xt-file-picker>
-
-			</view>
-			<view class="room-area">
+				<view class="room-area">
 				<view class="flex-between header">
 					<view>房间（{{roomTypeForm.roomList.length}}）</view>
 					<!-- <navigator :url="`/pages/hotelManage/createRoom/createRoom`" v-if="this.type!=2">
@@ -234,7 +224,7 @@
 					<uni-list-item  v-for="(item,index) of roomTypeForm.roomList">
 						<template v-slot:header> 
 							<view style="width:200px"> 
-								<uni-easyinput v-model="item.room_name" trim="all"  @input="changeRoomName(index)" :disabled="type==2" :clean="false"/>
+								<uni-easyinput v-model="item.room_name" trim="all"  :disabled="type==2" :clean="false"/>
 							</view>
 						</template>
 						<template v-slot:footer>
@@ -246,6 +236,17 @@
 					
 				</uni-list>
 			</view>
+			<view>
+				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
+				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccessFirst"
+					:imagesList="roomTypeForm.firstImages? [roomTypeForm.firstImages]:[]" :max="1"
+					:disabled="type==2"></xt-file-picker>
+				<uni-forms-item label="房型图片" style="margin-bottom:0"></uni-forms-item>
+				<xt-file-picker ref="uploadImagesRef2" :cloudPath="cloudPath" @success="uploadSuccess"
+					:imagesList="roomTypeForm.imagesList" :disabled="type==2"></xt-file-picker>
+
+			</view>
+		
 			<view class="submit-btn-style">
 				<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
 					:loading="submitLoading" v-if="type!=2" class="submit-btn"></uv-button>
@@ -350,7 +351,8 @@ export default {
 					bedList:[{
 								required: true,
 								errorMessage: '请选择床位',
-							}]
+							}],
+					roomList:[]
 				}
 
 
@@ -391,7 +393,9 @@ export default {
 			validRoomList(){
 				const arr = this.roomTypeForm.roomList;
 				let obj = arr.find(item=>item.room_name=="");
-				return obj?true:false;
+				const nameArray = arr.map(item=>item.room_name);
+				const nameArraySet = new Set(nameArray);
+				return (obj||nameArraySet.size!=nameArray.length)?false:true;
 			},         
 			submitDisabled() {
 				return false
@@ -409,7 +413,6 @@ export default {
 				this.roomTypeForm.facility = e.detail.value;
 			},
 			bedCheckboxChange(e){
-			console.log(e)
 			for(let i =0;i<this.bedTypeList.length;i++){
 				this.bedTypeList[i].checked=e.detail.value.includes(this.bedTypeList[i].name)
 			}			
@@ -427,15 +430,11 @@ export default {
 				this.roomTypeForm.firstImages=list[0];
 			},
 			uploadSuccess(list){
-				console.log("list");
 				this.roomTypeForm.imagesList=list;
 			},
             roomTypeCountChange(val){
-                console.log(val)
+                
             },
-			changeRoomName(e,index){
-				console.log(arguments)
-			},
 			submitForm() {
 				if(this.$refs.uploadImagesRef1.uploadingState()==0||this.$refs.uploadImagesRef2.uploadingState()==0){
 					uni.showToast({title:"有图片正在上传中，请稍候...",icon:"error"});
@@ -450,7 +449,7 @@ export default {
 					return;
 				}
 				if(!this.validRoomList){
-					uni.showToast({title:"房间名不能为空",icon:"none"});
+					uni.showToast({title:"房间名无效或重复",icon:"none"});
 					return;
 				}
 				this.roomTypeForm.hotel_id=this.hotel_id;
@@ -515,10 +514,9 @@ export default {
 		},
 		addRoomEvent(){
 			let arr=this.roomTypeForm.roomList||[];			
-			arr.push({index:arr.length+1,room_name:this.getRoomName(arr)})
+			arr.push({index:Date.now(),room_name:this.getRoomName(arr)})
 		},
 		deleteRoomEvent(index){
-			console.log(index,this.roomTypeForm.roomList);
 			 this.roomTypeForm.roomList.splice(index,1);
 			
 			//this.roomTypeForm.roomList=this.roomTypeForm.roomList.splice(index,1);

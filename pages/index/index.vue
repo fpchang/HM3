@@ -31,6 +31,7 @@
 <script>
 import { AccountService } from "../../services/AccountService";
 import UniIcons from "../../uni_modules/uni-icons/components/uni-icons/uni-icons.vue";
+import $store from '@/store/store';
 
 export default {
   components: {
@@ -64,6 +65,7 @@ export default {
     //}
   },
   async created() {
+
     await this.$store.dispatch("loginEvent");
     this.initData();
   },

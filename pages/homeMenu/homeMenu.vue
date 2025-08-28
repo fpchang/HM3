@@ -3,7 +3,7 @@
     <!-- <scroll-view overflow-x="false" overflow-y="true" style="height:100vh"> -->
 
     <view class="menu-one">
-      <view style="height: 70px"></view>
+      <view :style="{'height':topHeight}"></view>
       <view class="subtitle">店铺管理</view>
       <view class="item-list">
         <view class="item">
@@ -151,7 +151,10 @@ export default {
       return store.state.hotelList;
     });
 
-    return {hotelList, hotel_id, menuList};
+			let topHeight=computed(()=>{
+				return store.state.topHeight;
+			});
+    return {hotelList, hotel_id, menuList,topHeight};
   },
   data() {
     return {

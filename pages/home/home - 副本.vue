@@ -153,7 +153,6 @@
     <uni-drawer ref="showLeft" mode="left" :width="320">
       <view class="left-container">
         <view style="flex: 1; min-height: 330px">
-          <!-- <view style="height:70px" v-if="!isPc"></view> -->
           <uni-section title="酒店列表" type="line"></uni-section>
           <view class="card-panal">
             <view class="card">

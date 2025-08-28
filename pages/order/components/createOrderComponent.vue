@@ -229,7 +229,6 @@
 				uni.showLoading();
 				let startTime = this.dateRangeArrayFormat[0],
 					endTime = this.dateRangeArrayFormat[1];
-				console.log("日期值改变", this.orderForm, startTime, endTime);
 				let hotel_id = this.hotel_id;
 				uniCloud
 					.callFunction({
@@ -241,7 +240,6 @@
 						},
 					})
 					.then((res) => {
-						console.log("res::",res)
 						this.remainRoomTypeList = res.result.map((it) => {
 							it.selectCount = 1;
 							return it;

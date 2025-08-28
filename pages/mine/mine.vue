@@ -1,6 +1,6 @@
 <template>
 	<view class="mine">
-		<view style="height:70px"></view>
+		<view :style="{'height':topHeight}"></view>
 		<view>
 			<view style="display: flex; justify-content: flex-end; padding: 10px">
 				<navigator url="/pages/set/set" hover-class="none">
@@ -158,6 +158,10 @@ export default {
     };
   },
   computed: {
+
+			topHeight(){
+				return this.$store.state.topHeight;
+			},
     isPcShow() {
       return this.$store.state.isPcShow;
     },

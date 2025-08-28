@@ -24,7 +24,7 @@ const store = createStore({
     partialRefreshComName: "", //局部刷新组件值
     shareObj: {},
     baseDatahasLoad: false, //基本数据准备完毕
-    topHeight: 90,
+    topHeight: '70px',
     tabHeight: 44,
     isPcShow: false,
     user: {},
@@ -37,8 +37,8 @@ const store = createStore({
   },
 
   mutations: {
-    settt(state, str) {
-      state.tt = str;
+    setTopHeight(state, str) {
+      state.topHeight = str;
     },
     setIsLogin(state, bool) {
       state.isLogin = bool;

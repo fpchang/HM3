@@ -72,7 +72,9 @@
 						fontColor:"#fff",
 						padding: [5, 5, 5, 5],
 						enableScroll: false,
-
+						animation:false,
+						update:true,
+						duration:0,
 						extra: {
 							pie: {
 								activeOpacity: 0.5,
@@ -95,6 +97,9 @@
 						padding: [15, 30, 0, 5],
 						enableScroll: false,
 						legend: {},
+						animation:false,
+						update:true,
+						duration:0,
 						xAxis: {
 							fontColor:'#fff',
 							disabled:false,

@@ -81,7 +81,7 @@ class HotelServiceClientClass{
           }
           
         }
-        item.remainCount=Math.max(item.count-sumCount,0);
+        item.remainCount=Math.max(item.roomList.length-sumCount,0);
         return item;
       })
       console.log("yyy222",remainList);
