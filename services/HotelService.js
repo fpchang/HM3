@@ -53,6 +53,15 @@ class HotelServiceClass{
            return obj;
      
    }
+    /**
+     * 根据房型id获取房间
+     * @param {*} room_type_id:
+     * @returns 
+     */
+     getRoom(room_type_id){
+           return DB.getCollection("hm-room",{_id:room_type_id})
+     
+   }
    /** get employeeList */
    getEmployeeList(hotel_id){
     return DB.getCollectionGroupBy("hm-employee",{hotel_id},"role asc")

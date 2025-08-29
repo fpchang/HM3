@@ -219,7 +219,7 @@
 						</view>
 					<!-- </navigator> -->
 				</view>
-				<view v-if="!roomTypeForm.roomList.length" class="note"><text>无房间</text></view>
+				<!-- <view v-if="!roomTypeForm.roomList.length" class="note"><text>无房间</text></view>
 				<uni-list v-if="roomTypeForm.roomList.length">
 					<uni-list-item  v-for="(item,index) of roomTypeForm.roomList">
 						<template v-slot:header> 
@@ -234,7 +234,7 @@
 						</template>
 					</uni-list-item>
 					
-				</uni-list>
+				</uni-list> -->
 			</view>
 			<view>
 				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
@@ -359,7 +359,10 @@ export default {
 			};
 		},
 		created() {
-			
+			if(this.type!=0){
+				let _id = this.rt._id;
+
+			}
 		},
 		mounted(){
 			console.log(this.rt);
@@ -532,6 +535,9 @@ export default {
 				return this.getRoomName(targetArr)
 			}
 			
+		},
+		getRoolList(room_type_id){
+
 		}
 	}
 }

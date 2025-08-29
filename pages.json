@@ -295,7 +295,7 @@
 					"path" : "pages/hotelManage/createRoom/createRoom",
 					"style" : 
 					{
-						"navigationBarTitleText" : ""
+						"navigationBarTitleText" : "新增房间"
 					}
 				}
 		

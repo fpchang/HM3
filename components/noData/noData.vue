@@ -1,5 +1,5 @@
 <template>
-  <view class="noData">
+  <view class="noData" :style="{'background':bgColor}">
     <view><image src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/data.png" /> </view>
 
       <view class="flex-center">
@@ -30,6 +30,10 @@ export default{
     text_content:String,
     showControl:Boolean,
     text_control_add:String,
+    bgColor:{
+      type:String,
+      default:"transparent"
+    },
     showLoginOut:Boolean
   },
   data() {
@@ -75,7 +79,7 @@ export default{
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #fff;
+ 
   .control{
     padding-left: 20px;
     color:$font-color-control;

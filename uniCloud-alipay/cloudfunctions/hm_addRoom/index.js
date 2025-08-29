@@ -2,7 +2,7 @@
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
 	let {
-		roomObj
+		roomList
 	} = event;
 	console.log("hm_addRoom", event);
 	const dbJQL = uniCloud.databaseForJQL({
@@ -11,6 +11,6 @@ exports.main = async (event, context) => {
 	})
 	//const db = uniCloud.database();
 	//const dCmd = db.command;
-	const result = await dbJQL.collection('hm-room').add(roomObj);
+	const result = await dbJQL.collection('hm-room').add(roomList);
 	return result;
 };

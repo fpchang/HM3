@@ -14,6 +14,14 @@
             </view>
           </navigator>
         </view>
+         <view class="item">
+          <navigator url="/pages/hotelManage/roomList/roomList" hover-class="none">
+            <view>
+              <l-icon name="icon-park-solid:adobe-lightroom" size="80px" color="#595959" />
+              <view style="text-align: center">房间管理</view>
+            </view>
+          </navigator>
+        </view>
         <view class="item">
           <navigator url="/pages/hotelManage/employee/employee" hover-class="none">
             <view>

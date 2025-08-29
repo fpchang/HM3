@@ -22,7 +22,7 @@ class DBConnect{
 	  })
   }
    getCollection(dbName,w={}){
-    return  this.db.collection(dbName).where(w).limit(300).get();
+    return  this.db.collection(dbName).where(w).limit(50000).get();
   
   }
   getCollectionGroupBy(dbName,w={},groupBy="_id asc"){

@@ -41,8 +41,8 @@
 											color="#FF4654" size="30px"></l-icon></view>
 									<view class="control-item"  @click="viewDetail(item)"><l-icon name="fluent:more-circle-24-filled"
 											color="#36D399" size="30px"></l-icon></view>
-									<!-- <view>
-										<navigator url="/pages/hotelManage/roomList/roomList">
+									<view>
+										<navigator :url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id}`">
 											<view class="btn">
 												<view>房间管理</view>
 												<view>
@@ -52,7 +52,7 @@
 											</view>
 										</navigator>
 
-									</view> -->
+									</view>
 								</view>
 								<!-- <view style="display:flex"><l-icon name="material-symbols-light:arrow-forward-ios" size="22px" color="#bbb"></l-icon> </view>
 							 -->
@@ -84,8 +84,8 @@
 											color="#FF4654" size="30px"></l-icon></view>
 									<view class="control-item"  @click="viewDetail(item)"><l-icon name="fluent:more-circle-24-filled"
 											color="#36D399" size="30px"></l-icon></view>
-									<!-- <view>
-										<navigator url="/pages/hotelManage/roomList/roomList">
+									<view>
+										<navigator :url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id}`">
 											<view class="btn">
 												<view>房间管理</view>
 												<view>
@@ -95,7 +95,7 @@
 											</view>
 										</navigator>
 
-									</view> -->
+									</view>
 								</view>
 								<!-- <view style="display:flex"><l-icon name="material-symbols-light:arrow-forward-ios" size="22px" color="#bbb"></l-icon> </view>
 							 -->
