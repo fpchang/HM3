@@ -1,6 +1,6 @@
 <template>
   <view class="noData" :style="{'background':bgColor}">
-    <view><image src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/data.png" /> </view>
+    <view class="flex-center"><image src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/data.png" /> </view>
 
       <view class="flex-center">
         <text style="color:#bbb">{{ text_content_foramt}}</text>
@@ -73,6 +73,11 @@ export default{
 </script>
 
 <style scoped lang="scss">
+.flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .noData{
   width: 100%;
  

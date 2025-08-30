@@ -288,7 +288,7 @@
 					"path" : "pages/hotelManage/roomList/roomList",
 					"style" : 
 					{
-						"navigationBarTitleText" : ""
+						"navigationBarTitleText" : "房间列表"
 					}
 				},
 				{

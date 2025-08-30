@@ -14,7 +14,7 @@
       <view class="filter-item">
         <uni-data-select
           v-model="room_type_id"
-          placeholder="房型"
+          placeholder="房型选择"
           collection="hm-roomType"
           :where="`hotel_id=='${hotel_id}'`"
           field="name as text, _id as value"
@@ -44,7 +44,7 @@
     <view class="addRoomControl">
       <view @click="addRoomItemEvent" class="btn">
         <view><l-icon name="material-symbols-light:add-circle-outline" size="18px" color="#666"></l-icon></view>
-        <view>继续添加</view>
+        <view>{{roomList.length?'继续添加':'添加一个'}}</view>
       </view>
     </view>
 		<view class="submit-btn-style">
@@ -94,9 +94,7 @@ export default {
 	return{room_type_id,hotel_id,roomType,range,roomList,submitLoading}
   },
   data() {
-    return {
-      submitLoading: false,
-      cloudPath: `/${this.$store.state.hotel_id}/roomType/`,      
+    return {   
       roomTypeRules: {
         // 对name字段进行必填验证
         name: {
@@ -123,10 +121,23 @@ export default {
   },
   created() {},
   mounted(){
-	this.addRoomItemEvent();
+	 
   },
+   onUnload() {
+        console.log("createRoomComponent onulload")
+    },
+    watch:{
+      room_type_id(val,oval){
+        if(val&&!oval){
+           this.addRoomItemEvent();
+        }
+      }
+    },
   methods: {
     addRoomItemEvent() {
+      if(!this.room_type_id){
+          return;
+      }
       let arr = this.roomList || [];
       arr.push({ hotel_id:this.hotel_id,room_type_id:this.room_type_id, room_name: this.getRoomName(arr) });
     },
@@ -147,14 +158,31 @@ export default {
     getRoomList() {},
     async submit() {
       //this.$refs.roomTypeRef.validate().then((res) => {
-        //uni.showLoading();
-		console.log(this.roomList);
         this.submitLoading = true;
-       // this.addRoomType();
-     // });
+        
+        console.log(this.room_type_id);
+      if(!this.room_type_id){
+        uni.showToast({
+          title: '请选择房型',
+          icon: 'none'
+        })
+        return;
+      }
+        if(this.roomList.length<1){
+        uni.showToast({
+          title: '请添加房间',
+          icon: 'none'
+        })
+        return;
+      }
      try {
       await DB.callFunction("hm_addRoom",{roomList:this.roomList});
-      uni.navigateBack();
+      uni.navigateBack({
+            delta: 1, // 返回层数，2则上上页
+    success() {
+        uni.$emit('update',{msg:'页面更新'})
+    }
+      });
      } catch (error) {
 		 console.error(error)
       uni.showModal({

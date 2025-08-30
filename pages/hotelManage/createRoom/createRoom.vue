@@ -19,7 +19,7 @@ export default {
   onLoad(obj) {
     console.log("参数传递", obj);
     try {
-      this.room_type_id = obj.room_type_id;
+      this.room_type_id = decodeURIComponent(obj.room_type_id);
     } catch (error) {
       this.room_type_id = "";
     }

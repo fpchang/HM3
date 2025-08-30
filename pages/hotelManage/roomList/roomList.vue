@@ -4,37 +4,24 @@
       <view class="left-panal"> </view>
       <view class="control-panal">
         <view class="control-item-group" @click="addRoom">
-          <view
-            ><l-icon name="solar:add-circle-bold" size="22px" color="#fff"
-          /></view>
+          <view><l-icon name="solar:add-circle-bold" size="22px" color="#fff" /></view>
           <view><text style="color: #fff">添加房间</text></view>
         </view>
       </view>
     </view>
     <view class="content">
       <view class="filter-area">
-        <view class="filter-item" >
-          <uni-data-select
-            v-model="room_type_id"
-            :localdata="range"
-            placeholder="选择房型"
-          ></uni-data-select>
+        <view class="filter-item">
+          <uni-data-select v-model="room_type_id" :localdata="range" placeholder="选择房型"></uni-data-select>
         </view>
       </view>
 
-      <unicloud-db
-        ref="udb"
-        v-slot:default="{ data, loading, error, options }"
-        collection="hm-room"
-        :getone="false"
-        :options="options"
-        :where="where_str"
-        orderby="name asc"
-      >
-        <block v-if="!data || !data.length">
+      <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="hm-room"
+        :getone="false" :options="options" :where="where_str" orderby="name asc">
+        <block v-if="(!data||!data.length)&&!loading">
           <noData text_content="无房间数据" bgColor="transparent"></noData>
         </block>
-        <block v-if="data && data.length">
+        <block v-if="data&&data.length">
           <view class="detail-title">
             <text>房间列表</text>
           </view>
@@ -48,29 +35,20 @@
               <view class="card-content">
                 <view class="left-area">
                   <view>
-                    <view class="title"
-                      ><text>{{ item.room_name }}</text>
+                    <view class="title"><text>{{item.room_name}}</text>
+                    </view>
+                    <view class="subtitle"><text>{{formatRoomTypeName(item.room_type_id)}}</text>
                     </view>
                   </view>
                   <!-- <view class="avator"> </view> -->
                 </view>
 
                 <view class="control">
-                  <view class="control-item" @click="editRoomType(item)"
-                    ><l-icon
-                      name="pepicons-pop:pen-circle-filled"
-                      color="#39AFF8"
-                      size="30px"
-                    ></l-icon>
+                  <view class="control-item" @click="editRoom(item)"><l-icon name="pepicons-pop:pen-circle-filled"
+                      color="#39AFF8" size="30px"></l-icon>
                   </view>
-                  <view class="control-item" @click="deleteRoomType(item)"
-                    ><l-icon
-                      name="clarity:remove-solid"
-                      color="#FF4654"
-                      size="30px"
-                    ></l-icon
-                  ></view>
-             
+                  <view class="control-item" @click="deleteRoom(item)"><l-icon name="clarity:remove-solid"
+                      color="#FF4654" size="30px"></l-icon></view>
                 </view>
               </view>
             </template>
@@ -88,18 +66,20 @@
 import { computed, ref, watch, getCurrentInstance } from "vue";
 import { useStore } from "vuex";
 import { FMService } from "../../../services/FMService";
+import { alert } from "@/alert";
+import { DB } from "../../../api/DB";
 export default {
   setup() {
     const store = useStore();
     const hotel_id = computed(() => {
       return store.state.hotel_id;
     });
-    const roolType = computed(() => {
+    const roomType = computed(() => {
       return store.state.roomType;
     });
     const range = computed(() => {
       let arr = [{ text: "全部", value: "" }];
-      roolType.value.map((item) => {
+      roomType.value.map((item) => {
         arr.push({ text: item.name, value: item._id });
       });
       return arr;
@@ -107,12 +87,15 @@ export default {
     console.log("hotel_id::", hotel_id.value);
     let room_type_id = ref("");
     let where_str = computed(() => {
-      if (!room_type_id.value ) {
+      if (!room_type_id.value) {
         return `hotel_id =='${hotel_id.value}'`;
       }
       return `hotel_id =='${hotel_id.value}'&&room_type_id=='${room_type_id.value}'`;
     });
-
+    const formatRoomTypeName=rt_id=>{
+      const obj = roomType.value.find(item=>item._id ==rt_id);
+      return obj['name']
+    }
     // watch(room_type_id, async (newValue, oldValue) => {}, {
     //   deep: true,
     //   immediate: true,
@@ -121,7 +104,8 @@ export default {
       hotel_id,
       room_type_id,
       where_str,
-      roolType,
+      roomType,
+      formatRoomTypeName,
       range,
     };
   },
@@ -145,6 +129,16 @@ export default {
       this.room_type_id = "";
     }
   },
+  mounted() {
+    uni.$on("update", (data) => {
+      console.log("update");
+      this.$refs.udb.refresh();
+    });
+  },
+  onUnload() {
+    // 移除监听事件
+    uni.$off("update");
+  },
   methods: {
     amountSum(list) {
       let sum = 0;
@@ -166,7 +160,9 @@ export default {
         return;
       }
       uni.navigateTo({
-        url: `/pages/hotelManage/createRoom/createRoom?room_type_id=${this.room_type_id}`,
+        url: `/pages/hotelManage/createRoom/createRoom?room_type_id=${encodeURIComponent(
+          this.room_type_id || ""
+        )}`,
         events: {
           updateData: () => {
             console.log("刷新数据");
@@ -174,6 +170,47 @@ export default {
           },
         },
       });
+    },
+    async deleteRoom(item) {
+      if (this.submitLoading) {
+        return;
+      }
+      if (
+        !this.$store.state.permissionStore.permissionList.includes(
+          "ROOMTYPE_DELETE"
+        )
+      ) {
+        alert.alertNoPermisson();
+        return;
+      }
+      const conf = await uni.showModal({
+        title: "确认删除房间",
+        content: "删除后将无法恢复,确认删除吗?",
+        cancelText: "取消",
+        confirmText: "确认",
+      });
+      if (conf["cancel"]) {
+        return;
+      }
+      this.submitLoading = true;
+      //uni.showLoading();
+      DB.callFunction("hm_deleteRoom", {
+        _id: item._id,
+      })
+        .then(async (res) => {
+          this.$refs.udb.refresh();
+          this.submitLoading = false;
+          uni.hideLoading();
+        })
+        .catch((er) => {
+          console.log("删除失败", er);
+          this.submitLoading = false;
+          uni.hideLoading();
+          uni.showModal({
+            content: "系统异常，请稍候再试！",
+            confirmText: "确认",
+          });
+        });
     },
   },
 };
@@ -215,62 +252,62 @@ export default {
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
 }
+
 .card-content {
-	display: flex;
-	padding: 15px;
-	box-sizing: border-box;
-	justify-content: space-between;
+  display: flex;
+  padding: 15px;
+  box-sizing: border-box;
+  justify-content: space-between;
 
-	/*background: linear-gradient(135deg, #D67AD2 0%, #4AA5E6 100%);*/
-	.left-area {
+  /*background: linear-gradient(135deg, #D67AD2 0%, #4AA5E6 100%);*/
+  .left-area {
+    .title {
+      color: #1f2937;
+      font-weight: 400;
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
 
-		.title {
-			color: #1F2937;
-			font-weight: 400;
-			font-size: 16px;
-			letter-spacing: 2px;
-		}
+    .subtitle {
+      color: #8c8c8c;
+      font-size: 12px;
+    }
 
-		.subtitle {
-			color: #8C8C8C;
-			font-size: 12px;
-		}
+    .avator {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 160px;
+      height: 100px;
+    }
+  }
 
-		.avator {
-			margin-top: 8px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			border-radius: 8px;
-			overflow: hidden;
-			width: 160px;
-			height: 100px;
-		}
-	}
+  .control {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 8px;
 
+    .control-item {
+      display: flex;
+    }
 
+    .btn {
+      color: #0765ae;
 
-	.control {
-		display: flex;
-		justify-content: space-around;
-		align-items: flex-end;
-		gap:8px;
-		.control-item{
-			display: flex;
-		}
-		.btn {
-			color: #0765ae;
-
-			border-radius: 10px;
-			font-size: 12px;
-			display: flex;
-			text-decoration: underline;
-			justify-content: flex-start;
-			gap: 5px;
-
-		}
-	}
+      border-radius: 10px;
+      font-size: 12px;
+      display: flex;
+      text-decoration: underline;
+      justify-content: flex-start;
+      gap: 5px;
+    }
+  }
 }
+
 .filter-area {
   max-width: 600px;
   display: flex;
@@ -281,7 +318,7 @@ export default {
   .filter-item {
     border-radius: 8px;
     background: #fff;
-	flex:1;
+    flex: 1;
   }
 }
 

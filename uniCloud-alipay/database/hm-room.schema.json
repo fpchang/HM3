@@ -1,6 +1,6 @@
 {
 	"bsonType": "object",
-	"required": ["room_name"],
+	"required": ["room_name","room_type_id","hotel_id"],
 	"permission": {
 		"read": true,
 		"create": true,
