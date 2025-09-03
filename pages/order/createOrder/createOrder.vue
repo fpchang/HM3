@@ -1,6 +1,6 @@
 <template>
-	<view class="content">
-		<scroll-view :scroll-y="true" :scroll-x="false" class="scroll-view" style="">
+	<view class="createOrder">
+		<scroll-view :scroll-y="true" :scroll-x="false" class="scroll-view" style="height:100vh">
 			<view class="container"> 
 				<createOrderComponent @closePopup="closePopup"></createOrderComponent>
 			</view>
@@ -31,7 +31,12 @@
 </script>
 
 <style lang="scss">
+.createOrder{
+	background: #fff;
+}
 	.scroll-view {
+		height: 100vh;
+		box-sizing: border-box;
 		.container{
 			padding: 20px 15px;
 		}

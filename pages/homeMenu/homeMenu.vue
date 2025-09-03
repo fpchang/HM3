@@ -208,6 +208,7 @@ export default {
     color: #fff;
     padding: 25px;
     font-weight: bold;
+    font-size: 22px;
   }
 
   .item-list {
@@ -243,6 +244,7 @@ export default {
     color: #1d2129;
     padding: 25px;
     font-weight: bold;
+    font-size: 22px;
   }
 
   .item-list {

@@ -45,6 +45,12 @@ class DBConnect{
   remove(dbName,_id){
     return this.db.collection(dbName).doc(_id).remove();
   }
+  clearnTable(dbName){
+// 		const dbCmd = this.db.command
+//  this.db.collection(dbName).where({
+//   _id: dbCmd.exists(true);
+// }).remove()
+  }
 }
 //module.exports = new DB();
 export var DB = new DBConnect();

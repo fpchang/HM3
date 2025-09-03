@@ -100,9 +100,9 @@ export default{
   }
       .btn{
         height: 30px;
-        padding:0 8px;
+        padding:0 12px;
     border-radius: 15px;
-    background:#0765ae ;
+    background:#007aff ;
     color: #fff;
     font-size: 12px;
     display: flex;

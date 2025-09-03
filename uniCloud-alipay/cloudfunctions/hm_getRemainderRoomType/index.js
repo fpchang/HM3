@@ -32,21 +32,34 @@ exports.main = async (event, context) => {
 	
 	let roomTypeList = roomTypeListRes.result.data;
 	console.log("YYYY11",roomTypeList);
-	const usedListRes= await dbJQL.collection('hm-order').where(jql).get();
-	let userRoomList=usedListRes.data;
-	console.log("yyyy2",userRoomList)
+	const orderListRes= await dbJQL.collection('hm-order').where(jql).get();
+	const roomListRes = await dbJQL.collection('hm-room').where(`hotel_id=='${hotel_id}'`).get();
+	let orderRoomList=orderListRes.data,roomList = roomListRes.data;
+	console.log("yyyy2",orderRoomList);
+	console.log("房间列表",roomListRes)
 	let remainList=roomTypeList.map(item=>{
 		let sumCount =0;
-		for(const it of userRoomList){
+		let hasUseRoomList=[];
+		for(const it of orderRoomList){
 			let is = it.roomTypeArray.find(i=>{return i.roomType_id==item._id});
 			if(is){
-				sumCount+=is.count
+				console.log("找到已经用了的订单",it,item)
+				//sumCount+=is.count;
+				is['roomList']&&hasUseRoomList.push(...is.roomList);
 				continue;
 			}
 			
 		}
-		let maxCount =item.roomList.length||0;
-		item.remainCount=Math.max(maxCount-sumCount,0);
+		hasUseRoomList=new Set([...hasUseRoomList]);
+		
+		//当前房型房间列表
+		let roomByRoomTypeArr = roomList.filter(i=>i.room_type_id ==item._id);
+		
+		//let maxCount =roomByRoomTypeArr.length||0;
+		// console.log("已经使用的房间：：",hasUseRoomList);
+		// console.log("当前房型的房间：：",roomByRoomTypeArr);
+		item.remainRoomList=roomByRoomTypeArr.filter(i=>!hasUseRoomList.has(i._id));
+		item.remainCount=Math.max(roomByRoomTypeArr.length-hasUseRoomList.size,0);
 		return item;
 	})
 	console.log("yyy222",remainList);
