@@ -26,6 +26,7 @@
 									<text>{{
 										item.orderType=="bargain"? "议价单":"普通订单"
 									}}</text>
+									<text class="st">{{fromatOrderState(item.orderStatus)}}</text>
 								</view>
 								<view class="header">
 									<view><text>{{item.userName}}</text></view>
@@ -34,7 +35,7 @@
 									<text>{{formatDateLabel(item.checkInStartDate)}}至{{
 										formatDateLabel(item.checkInEndDate)
 									}}</text>
-									<text style="padding: 0 15px">{{item.roomTypeArray.length}}间{{
+									<text style="padding: 0 15px">{{getRoomNum(item)}}间{{
 										dayNum([
 											item.checkInStartDateTimeStamp,
 											item.checkInEndDateTimeStamp,
@@ -111,20 +112,32 @@
 									<text>{{
 										item.orderType=="bargain"? "议价单":"普通订单"
 									}}</text>
+									<text class="st">{{fromatOrderState(item.orderStatus)}}</text>
 								</view>
 								<view class="header">
-									<view><text>{{item.userName}}</text></view>
+									<view><text class="ti">住客：</text><text>{{item.userName}}</text></view>
 								</view>
 								<view class="info">
+									<text class="ti">时间：</text>
 									<text>{{formatDateLabel(item.checkInStartDate)}}至{{
 										formatDateLabel(item.checkInEndDate)
 									}}</text>
-									<text style="padding: 0 15px">{{item.roomTypeArray.length}}间{{
+									<text style="padding: 0 15px">{{getRoomNum(item)}}间{{
 										dayNum([
 											item.checkInStartDateTimeStamp,
 											item.checkInEndDateTimeStamp,
 										])
-									}}晚</text><text>{{item.roomTypeArray[0].name}}</text>
+									}}晚</text>
+								</view>
+									<view class="info">
+									<text class="ti">房型：</text>
+									<text>{{item.roomTypeArray[0].name}}</text>
+								</view>
+								<view class="info">
+									<text class="ti">房间：</text>
+									<text v-for="it of item.roomTypeArray">
+										<text style="padding-right:8px" v-for="i of it.roomList">{{formatRoomName(i)}}</text>
+										</text>
 								</view>
 								<view class="price">
 									<!-- <text v-if="item.payType=='online'">在线支付</text>
@@ -207,12 +220,14 @@
 	import {
 		alert
 	} from "@/alert";
+import { HotelService } from '../../../services/HotelService';
 	export default {
 		data() {
 			return {
 				accordionVal: 1,
 				current: 1,
 				items: ["待处理", "待入住"],
+				roomList:null,
 				contentText: {
 					contentdown: '查看更多',
 					contentrefresh: '加载中',
@@ -221,7 +236,8 @@
 			};
 		},
 		onLoad() {},
-		created() {
+		 async created() {
+			await this.getRoomList();
 			this.getOrderList();
 		},
 		computed: {
@@ -300,6 +316,24 @@
 			
 			clickLoadMore(){
 				this.$refs.udb.loadMore();
+			},
+			getRoomNum(item){
+				let roomCount=0;
+				item.roomTypeArray.map(it=>{
+					roomCount+=it.roomList.length;
+				})
+				return roomCount;
+			},
+			fromatOrderState(code){
+				const stateObj={
+					"0":"待审核",
+					"1":"有效",
+					"2":"拒绝",
+					"5":"已完成",
+					"9":"已过期",
+					"10":"已撤消"
+				}
+				return stateObj[code.toString()];
 			},
 			onClickItem(index) {
 				this.current = index;
@@ -425,7 +459,19 @@
 			dayNum(params) {
 				return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24));
 			},
+			formatRoomName(room_id){
+				const roomItem=this.roomList.find(item=>item._id==room_id);
+				return roomItem.room_name;
+
+			},
+			async getRoomList(){
+				const res =await HotelService.getRoomListByHotelId(this.hotel_id);
+				console.log("room",res)
+				this.roomList=res.result.data;
+				return res;
+			},
 			async getOrderList() {
+				console.log("222222");
 				//uni.showLoading();
 				try {
 					await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
@@ -530,7 +576,9 @@
 	flex-direction: column;
 	gap: 8px;
 	color: #a1a1a1;
-
+	.ti{
+		font-weight: bold;
+	}
 	.header {
 		display: flex;
 		align-items: center;
@@ -541,6 +589,14 @@
 		font-weight: bold;
 		font-size: 18px;
 		color: #1a1a1a;
+		display: flex;
+		align-content: center;
+		justify-content: space-between;
+		.st{
+			font-weight: normal;
+			color: #999;
+			font-size: 16px;
+		}
 	}
 
 	.control-area {
