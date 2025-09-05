@@ -5,8 +5,6 @@
     </block>
     <block v-if="!noData">
 <view class="uni-container"> 
-
-  
   <uni-table ref="table" :loading="loading" border stripe  emptyText="暂无更多数据">
 				<uni-tr  class="table-header">
           <uni-th width="100" align="center">
@@ -41,6 +39,74 @@
         </uni-tr>
         </uni-table>
 </view>
+      <!-- <view>
+        <zb-table
+          :show-header="true"
+          :columns="orderDateRangeFormat"
+          :stripe="true"
+          :fit="false"
+          :show-summary="false"
+          sum-text="合计"
+          :border="true"
+          :data="checkInOrderListFormat2"
+        ></zb-table>
+      </view> -->
+
+      <view style="display: none">
+        <view class="left-table-style">
+          <view class="th-style"><text>房间号</text></view>
+          <view class="td-style" v-for="item in roomType">
+            <text>
+              {{ item.name }}
+            </text>
+          </view>
+        </view>
+        <view class="checkInTable-style" style="flex: 1">
+          <scroll-view
+            class="checkIntable-content-scroll"
+            :scroll-y="false"
+            :scroll-x="true"
+          >
+            <view class="checkIntable-content">
+              <view class="checkIntable-h-list">
+                <view
+                  class="th-style checkIntable-h-list-h"
+                  style="background-color: #f7f7f7"
+                  v-for="item in orderDateRangeFormat"
+                >
+                  <view style="display: flex; flex-direction: column">
+                    <text>{{ item.de }}</text>
+                    <text>{{ item.dy }}</text>
+                  </view>
+                </view>
+              </view>
+              <view
+                class="checkIntable-h-list"
+                v-for="it in checkInOrderListFormat"
+              >
+                <view
+                  class="checkIntable-h-list-h td-style"
+                  v-for="i in it"
+                  @click="showDetail(i)"
+                >
+                  <view v-for="is in i.orderList" class="tx-content">
+                    <text class="tx">{{ is.userName ? is.userName : "" }}</text>
+                  </view>
+                  <view v-if="i.orderList.length > 4">
+                    <text class="tx">...</text>
+                  </view>
+                  <uni-badge
+                    :text="i.count"
+                    style="position: absolute; top: 2px; right: 2px"
+                  />
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+          <view class="checkIntable-h-head" style="flex-direction: column">
+          </view>
+        </view>
+      </view>
     </block>
   </view>
 </template>
@@ -50,7 +116,6 @@ import { OrderService } from "../../../services/OrderService";
 import uniTable from "../../../uni_modules/uni-table/components/uni-table/uni-table.vue";
 import {ref} from "vue";
 import UniTr from '../../../uni_modules/uni-table/components/uni-tr/uni-tr.vue';
-import { HotelService } from '../../../services/HotelService';
 export default {
   components: { uniTable, UniTr },
   setup(){
@@ -62,7 +127,7 @@ export default {
   },
   data() {
     return {
-      roomType_roomList:null,
+
       column: [
         {name:"roomName",  fixed: true, width: 90 },
         {
@@ -151,12 +216,11 @@ export default {
           zip: 200333,
         },
         
-      ]
+      ],
     };
   },
-  async created() {
+  created() {
     console.log("房态created")
-    await this.getRoomList();
     this.getOrderList();
   },
   activated() {},
@@ -327,16 +391,10 @@ export default {
   },
   methods: {
     showDetail(arr) {},
-    async getRoomList(){
-      const res = await HotelService.getRoomListByHotelIdGroupByRoomType(this.hotel_id);
-      this.roomType_roomList = res.result.data;
-      console.log("roomList",res);
-    },
     async getOrderList() {
       //uni.showLoading();
       try {
         await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
-        console.log("orderList::",this.checkInOrderList)
       } catch (error) {
         console.error("err",error)
       }

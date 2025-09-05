@@ -64,7 +64,7 @@ class OrderServiceClass{
 		
 		let jql =
             `hotel_id=='${hotel_id}'&&orderStatus==1&&(${s1}||${s2}||${s3}||${s4})`;
-        return this.DB.getCollectionGroupBy("hm-order", jql,"checkInStartDateTimeStamp asc");
+        return this.DB.getCollectionOrderBy("hm-order", jql,"checkInStartDateTimeStamp asc");
     }
       /** 
      * 获取当前酒店今天以后的订单信息
@@ -75,7 +75,7 @@ class OrderServiceClass{
     let jql =
         `hotel_id=='${hotel_id}'&&orderStatus==1&&(checkInStartDateTimeStamp>=${startTime} ||` +
         `(${endTime}<checkInEndDateTimeStamp && ${endTime}>checkInStartDateTimeStamp))`;
-    return   this.DB.getCollectionGroupBy("hm-order", jql,"checkInStartDateTimeStamp asc");
+    return   this.DB.getCollectionOrderBy("hm-order", jql,"checkInStartDateTimeStamp asc");
    
 }
 /**

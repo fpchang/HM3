@@ -25,8 +25,8 @@ class DBConnect{
     return  this.db.collection(dbName).where(w).limit(50000).get();
   
   }
-  getCollectionGroupBy(dbName,w={},groupBy="_id asc"){
-    return this.db.collection(dbName).where(w).orderBy(groupBy).get();
+  getCollectionOrderBy(dbName,w={},orderBy="_id desc"){
+    return this.db.collection(dbName).where(w).orderBy(orderBy).get();
   }
   insertData(dbName,r={}){
     if(!dbName){

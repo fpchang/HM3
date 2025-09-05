@@ -76,7 +76,7 @@ class MenuServiceClass{
     /**条件选择已下订单列表 */
     getOrderDishesListByCondition(w={}){
         console.log("查找 条件",w)
-        return DB.getCollectionGroupBy("hm-orderDishes",w,"mealDateTimestamp asc")
+        return DB.getCollectionOrderBy("hm-orderDishes",w,"mealDateTimestamp asc")
     }
      /**已下订单列表 今天及以后 */
      getOrderDishesList(hotel_id){
@@ -85,7 +85,7 @@ class MenuServiceClass{
             hotel_id:hotel_id,
             mealDateTimestamp:db.command.gt( new Date(new Date().getTime() - 1000*60*60*24).getTime())
         }
-        return DB.getCollectionGroupBy("hm-orderDishes",w,"mealDateTimestamp asc")
+        return DB.getCollectionOrderBy("hm-orderDishes",w,"mealDateTimestamp asc")
     }
     /**删除已下订单列表 */
     removeOrderDishes(_id){

@@ -70,9 +70,20 @@ class HotelServiceClass{
    getRoomListByHotelId(hotel_id){
     return DB.getCollection("hm-room",{hotel_id:hotel_id});
    }
+   /**
+    * 
+    * @param {*} hotel_id 
+    */
+   async getRoomListByHotelIdGroupByRoomType(hotel_id){
+  
+      const db=uniCloud.database();
+      const roomType=  db.collection("hm-roomType").where({hotel_id}).field("hotel_id,_id,name").getTemp();
+      const res = await db.collection(roomType,"hm-room").where({hotel_id}).get();
+      return res;
+   }
    /** get employeeList */
    getEmployeeList(hotel_id){
-    return DB.getCollectionGroupBy("hm-employee",{hotel_id},"role asc")
+    return DB.getCollectionOrderBy("hm-employee",{hotel_id},"role asc")
    }
    /**
     * 房价添加
