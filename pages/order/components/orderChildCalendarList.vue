@@ -29,12 +29,11 @@
           </uni-th>
 				</uni-tr>
         <uni-tr v-for="(item,key) of checkInOrderListFormat"> 
-          <uni-td>{{ roomType[key].name }}
-          </uni-td>
-          <uni-td v-for="it of item">
+          <uni-td> {{item.room_name}}({{item.count}})</uni-td>
+          <uni-td v-for="it of item.list">
            
             <view class="inner-table"> 
-                 <view class="inner-table-tr" v-for="i of it.orderList"> {{i.userName}}</view>
+                 <view class="inner-table-tr"> {{it.username}}</view>
             </view>
               
            </uni-td>
@@ -156,8 +155,8 @@ export default {
   },
   async created() {
     console.log("房态created")
-    await this.getRoomList();
-    this.getOrderList();
+    this.initData();
+  
   },
   activated() {},
   mounted() {},
@@ -222,90 +221,53 @@ export default {
       return arr;
     },
     checkInOrderListFormat() {
-      if (this.checkInOrderList.length < 1 || this.roomType.length < 1) {
+
+      console.log("sss:",this.roomType_roomList)
+      if (this.checkInOrderList.length < 1 || this.roomType_roomList.length < 1) {
         return [];
       }
       let result = [];
       let or = this.orderDateRange;
       let checkInOrderList = this.checkInOrderList;
-      for (let i = 0; i < this.roomType.length; i++) {
-        let roomType_id = this.roomType[i]._id;
-        result.push(fillRoomType(roomType_id));
-      }
 
-      function fillRoomType(roomType_id) {
-        let fillArray = [];
-        //let fillObj ={orderList:[],count:0}
-        for (let j = 0; j < or.length; j++) {
-          let countT = 0;
-          let objArray = checkInOrderList.filter((item) => {
-            let o = item.roomTypeArray.find(
-              (is) => is.roomType_id == roomType_id
-            );
-            let flag =
-              o &&
-              or[j] >= item.checkInStartDateTimeStamp &&
-              or[j] < item.checkInEndDateTimeStamp;
-            if (flag) {
-              countT += o.count;
+      let fillRoom=(room_id)=>{
+        let parseArr=[];
+        let count=0;
+         for(let i =0;i< this.orderDateRange.length;i++){
+          let target=null;
+          
+          for(let item of this.checkInOrderList){
+            let s1 = this.orderDateRange[i] >= item.checkInStartDateTimeStamp &&this.orderDateRange[i] < item.checkInEndDateTimeStamp;
+            if(!s1){
+              continue;
             }
-            return flag;
-          });
-          let obt = { orderList: objArray, count: countT };
-         obt[or[j]+""]=countT;
-          fillArray.push(obt);
-          //fillObj.orderList.push(objArray || []);
-        }
-        //fillObj.orderList=fillArray;
-        return fillArray;
-      }
-
-      return result;
-    },
-    checkInOrderListFormat2() {
-      if (this.checkInOrderList.length < 1 || this.roomType.length < 1) {
-        return [];
-      }
-      let that =this;
-      let result = [];
-      let or = this.orderDateRange;
-      let checkInOrderList = this.checkInOrderList;
-      for (let i = 0; i < this.roomType.length; i++) {
-        let roomType_id = this.roomType[i]._id;
-        result.push(fillRoomType(roomType_id));
+            
+           let obj = item.roomTypeArray.find(it=>{
+              return it.roomList.includes(room_id);
+            })
+          if(obj){
+            target=item;
+            count++;
+          }
+          }
+             parseArr.push({time:this.orderDateRange[i],username:target?target['userName']:null})
+      
+         }
+        return {count:count,list:parseArr};
       };
-    
-      function fillRoomType(roomType_id) {
-        let fillArray = [];
-        let fillObj ={}
-        for (let j = 0; j < or.length; j++) {
-          let countT = 0;
-          let objArray = checkInOrderList.filter((item) => {
-            let o = item.roomTypeArray.find(
-              (is) => is.roomType_id == roomType_id
-            );
-            let flag =
-              o &&
-              or[j] >= item.checkInStartDateTimeStamp &&
-              or[j] < item.checkInEndDateTimeStamp;
-            if (flag) {
-              countT += o.count;
-            }
-            return flag;
-          });
-          let obt = { orderList: objArray, count: countT };
-          fillObj['roomName']=that.roomType.find(item=>item._id==roomType_id)['name'];
-          fillObj[or[j]+""]=countT;
-          fillArray.push(obt);
-         
+      for (let i = 0; i < this.roomType_roomList.length; i++) {
+        const roomList = this.roomType_roomList[i]._id['hm-room'];
+        for(let j=0;j<roomList.length;j++){
+          let room_id = roomList[j]._id,room_name=roomList[j].room_name;
+          let obj = fillRoom(room_id)
+          result.push({room_id:room_id,room_name:room_name,list:obj.list,count:obj.count});
         }
         
-       // return fillArray;
-       return fillObj;
       }
-
+      console.log("结果：：",result)
       return result;
     },
+  
   },
   watch: {
     hotel_id(val, oldVal) {
@@ -327,10 +289,15 @@ export default {
   },
   methods: {
     showDetail(arr) {},
+    async initData(){
+        await this.getRoomList();
+      await this.getOrderList();
+    },
     async getRoomList(){
       const res = await HotelService.getRoomListByHotelIdGroupByRoomType(this.hotel_id);
       this.roomType_roomList = res.result.data;
       console.log("roomList",res);
+      
     },
     async getOrderList() {
       //uni.showLoading();
