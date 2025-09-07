@@ -4,18 +4,18 @@
       <noData text_content="当前无订单数据"></noData>
     </block>
     <block v-if="!noData">
-<view class="uni-container"> 
-
-  
+<view class="uni-container">  
   <uni-table ref="table" :loading="loading" border stripe  emptyText="暂无更多数据">
 				<uni-tr  class="table-header">
-          <uni-th width="100" align="center">
+          <!-- <uni-th width="40" align="center">房型</uni-th> -->
+          <uni-th width="60" align="center">
             <view>
-              <view>
+              房间
+              <!-- <view>
                 <l-icon name="material-symbols:calendar-today-rounded" size="40px" color="#42A5F5"/>
                
               </view>
-              <view> <text style="color:#42A5F5">{{new Date().Format("MM-dd")}}</text></view>
+              <view> <text style="color:#42A5F5">{{new Date().Format("MM-dd")}}</text></view> -->
               
             </view>
             </uni-th>				
@@ -23,21 +23,32 @@
             <view> 
               <view>{{item.de}}</view>
               <view>{{item.dy}}</view>
+              <view style="color:green">剩余（{{getRemainRoomCountByDate(item.name)}}）</view>
               <!-- <view style="color:#bbb">(空4间)</view> -->
             </view>
             
           </uni-th>
 				</uni-tr>
-        <uni-tr v-for="(item,key) of checkInOrderListFormat"> 
-          <uni-td> {{item.room_name}}({{item.count}})</uni-td>
-          <uni-td v-for="it of item.list">
+        <block v-for="(items, keys) of checkInOrderListFormat">
+            <!-- #ifndef MP -->
+             <!-- <uni-tr><uni-td :colspan=" items.resultRoomList[0].list.length+1" style="padding:0">
+            <view class="roomType-dev-style">{{items.name}} 共 {{items.roomCount}} 间</view></uni-td></uni-tr> -->
+          <!-- #endif-->
+          
+          
+          <uni-tr v-for="(item,key) of items.resultRoomList" class="t-tr"> 
+          <!-- <uni-td :rowspan="items.roomCount"  :style="{'background':keys%2==0?'#f1f1f1':'#fff','display':key==0?'table-cell':'none'}"> <text style="font-weight:bold">{{items.name}}</text></uni-td> -->
+          <uni-td> <text style="font-weight:bold">{{item.room_name}}</text></uni-td>
+          <uni-td v-for="it of item.list"  :style="{'background':it.username?'green':'#fff'}">
            
-            <view class="inner-table"> 
-                 <view class="inner-table-tr"> {{it.username}}</view>
+            <view class="flex-center" style="color:#fff;min-height:60px"> 
+                 <text>{{it.username}}</text>
             </view>
               
            </uni-td>
         </uni-tr>
+      </block>
+      
         </uni-table>
 </view>
     </block>
@@ -229,13 +240,13 @@ export default {
       let result = [];
       let or = this.orderDateRange;
       let checkInOrderList = this.checkInOrderList;
-
       let fillRoom=(room_id)=>{
         let parseArr=[];
         let count=0;
          for(let i =0;i< this.orderDateRange.length;i++){
+
           let target=null;
-          
+          let count=0;
           for(let item of this.checkInOrderList){
             let s1 = this.orderDateRange[i] >= item.checkInStartDateTimeStamp &&this.orderDateRange[i] < item.checkInEndDateTimeStamp;
             if(!s1){
@@ -243,30 +254,45 @@ export default {
             }
             
            let obj = item.roomTypeArray.find(it=>{
-              return it.roomList.includes(room_id);
-            })
+            let f= it.roomList.includes(room_id);
+              return f
+            });
           if(obj){
             target=item;
-            count++;
+            item.roomTypeArray.map(i=>{count+=i.roomList.length})
           }
           }
-             parseArr.push({time:this.orderDateRange[i],username:target?target['userName']:null})
+             parseArr.push({time:this.orderDateRange[i],order_id:target?target['_id']:null,username:target?target['userName']:null,num:count})
       
          }
-        return {count:count,list:parseArr};
+        return {list:parseArr,room_id:room_id};
       };
       for (let i = 0; i < this.roomType_roomList.length; i++) {
         const roomList = this.roomType_roomList[i]._id['hm-room'];
+        if(!(roomList&&roomList.length)){
+          continue;
+        }
+        let resultRoomList=[];
         for(let j=0;j<roomList.length;j++){
           let room_id = roomList[j]._id,room_name=roomList[j].room_name;
           let obj = fillRoom(room_id)
-          result.push({room_id:room_id,room_name:room_name,list:obj.list,count:obj.count});
+          resultRoomList.push({room_id:room_id,room_name:room_name,list:obj.list});
         }
-        
+        result.push({room_type_id: this.roomType_roomList[i]._id.value, roomCount:this.roomType_roomList[i]._id['hm-room'].length,name:this.roomType_roomList[i].name,resultRoomList:resultRoomList})
       }
       console.log("结果：：",result)
       return result;
     },
+    roomCount(){
+      let count=0;
+      if(!this.roomType_roomList){
+        return 0;
+      }
+      this.roomType_roomList.map(item=>{
+        count+=item._id['hm-room'].length;
+      })
+      return count;
+    }
   
   },
   watch: {
@@ -309,6 +335,21 @@ export default {
       }
       uni.hideLoading();
     },
+    getRemainRoomCountByDate(time){
+          let count=0;
+          for(let item of this.checkInOrderList){
+            let s1 = time >= item.checkInStartDateTimeStamp &&time< item.checkInEndDateTimeStamp;
+            if(!s1){
+              continue;
+            }
+            item.roomTypeArray.map(it=>{             
+                count+=it.roomList.length
+            })
+    
+          }         
+          return Math.max(this.roomCount-count,0);
+           
+    },
     numRoom(arr = []) {
       if (!arr.length) {
         return 0;
@@ -346,7 +387,7 @@ export default {
 		left: 0;
 		top: 0;
 		background-color: #fff;
-		z-index: 100;
+		z-index: 1000;
 	}
 
 	::v-deep .uni-table-tr {
@@ -358,10 +399,18 @@ export default {
 		position: sticky;
 		left: 0;
 		top: 0;
-		background-color: #fff;
-		z-index: 100;
+	background-color: #fff;
+		z-index: 1000;
 	}
+  
+.roomType-dev-style{
+  background-color:#c6d0e1!important;
+  padding:5px;
+  margin:20px 0;
+  border-radius: 10px;
+  font-weight: bold;
 
+}
 
 /*
 .checkIntable-content-scroll {

@@ -22,7 +22,24 @@
 								<view class="left-area">
 									<view>
 										<view class="title"><text>{{item.name}}</text> </view>
-										<view class="subtitle"><text>{{item.roomList.length}}间</text> </view>
+									<view class="subtitle">
+											<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}"
+												collection="hm-room" :getone="false"
+												:where="`room_type_id=='${item._id}'`">
+												{{console.log(data)}}
+													<navigator
+											:url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id}`">
+											<view class="btn">
+												<view><text>{{data.length}}间</text></view>
+												<view>
+													<l-icon name="material-symbols-light:arrow-forward-ios-rounded" size="20px"
+														color="#0765ae"></l-icon>
+												</view>
+											</view>
+										</navigator>
+												
+											</unicloud-db>
+										</view>
 									</view>
 									<view class="avator">
 										<image style="width:100%;height:100%" mode="aspectFill"
@@ -34,24 +51,13 @@
 
 								<view class="control">
 
-									<view class="control-item" @click="editRoomType(item)"><l-icon name="pepicons-pop:pen-circle-filled"
-											color="#39AFF8" size="30px"></l-icon>
+									<view class="control-item" @click="editRoomType(item)"><l-icon
+											name="pepicons-pop:pen-circle-filled" color="#39AFF8" size="30px"></l-icon>
 									</view>
-									<view class="control-item" @click="deleteRoomType(item)"><l-icon name="clarity:remove-solid"
-											color="#FF4654" size="30px"></l-icon></view>
-									<view class="control-item"  @click="viewDetail(item)"><l-icon name="fluent:more-circle-24-filled"
-											color="#36D399" size="30px"></l-icon></view>
-									<view>
-										<navigator :url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id}`">
-											<view class="btn">
-												<view>房间管理</view>
-												<view>
-													<l-icon name="material-symbols:arrow-forward-rounded" size="20px"
-														color="#0765ae"></l-icon>
-												</view>
-											</view>
-										</navigator>
-
+									<view class="control-item" @click="deleteRoomType(item)"><l-icon
+											name="clarity:remove-solid" color="#FF4654" size="30px"></l-icon></view>
+									<view class="control-item" @click="viewDetail(item)"><l-icon
+											name="fluent:more-circle-24-filled" color="#36D399" size="30px"></l-icon>
 									</view>
 								</view>
 								<!-- <view style="display:flex"><l-icon name="material-symbols-light:arrow-forward-ios" size="22px" color="#bbb"></l-icon> </view>
@@ -65,7 +71,24 @@
 								<view class="left-area">
 									<view>
 										<view class="title"><text>{{item.name}}</text> </view>
-										<view class="subtitle"><text>{{item.roomList.length}}间</text> </view>
+										<view class="subtitle">
+											<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}"
+												collection="hm-room" :getone="false"
+												:where="`room_type_id=='${item._id}'`">
+												{{console.log(data)}}
+													<navigator
+											:url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id}`">
+											<view class="btn">
+												<view><text>{{data.length}}间</text></view>
+												<view>
+													<l-icon name="material-symbols-light:arrow-forward-ios-rounded" size="20px"
+														color="#0765ae"></l-icon>
+												</view>
+											</view>
+										</navigator>
+												
+											</unicloud-db>
+										</view>
 									</view>
 									<view class="avator">
 										<image style="width:100%;height:100%" mode="aspectFill"
@@ -77,25 +100,14 @@
 
 								<view class="control">
 
-									<view class="control-item" @click="editRoomType(item)"><l-icon name="pepicons-pop:pen-circle-filled"
-											color="#39AFF8" size="30px"></l-icon>
+									<view class="control-item" @click="editRoomType(item)"><l-icon
+											name="pepicons-pop:pen-circle-filled" color="#39AFF8" size="30px"></l-icon>
 									</view>
-									<view class="control-item" @click="deleteRoomType(item)"><l-icon name="clarity:remove-solid"
-											color="#FF4654" size="30px"></l-icon></view>
-									<view class="control-item"  @click="viewDetail(item)"><l-icon name="fluent:more-circle-24-filled"
-											color="#36D399" size="30px"></l-icon></view>
-									<view>
-										<navigator :url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id}`">
-											<view class="btn">
-												<view>房间管理</view>
-												<view>
-													<l-icon name="material-symbols:arrow-forward-rounded" size="20px"
-														color="#0765ae"></l-icon>
-												</view>
-											</view>
-										</navigator>
-
-									</view>
+									<view class="control-item" @click="deleteRoomType(item)"><l-icon
+											name="clarity:remove-solid" color="#FF4654" size="30px"></l-icon></view>
+									<view class="control-item" @click="viewDetail(item)"><l-icon
+											name="fluent:more-circle-24-filled" color="#36D399" size="30px"></l-icon>
+									</view>			
 								</view>
 								<!-- <view style="display:flex"><l-icon name="material-symbols-light:arrow-forward-ios" size="22px" color="#bbb"></l-icon> </view>
 							 -->
@@ -341,10 +353,10 @@ export default {
     viewDetail(rt) {
       this.type = 2;
       this.rt = rt;
-      if (this.$store.state.isPcShow) {
-        this.$refs.popupCreateRoomType.open();
-        return;
-      }
+    //   if (this.$store.state.isPcShow) {
+    //     this.$refs.popupCreateRoomType.open();
+    //     return;
+    //   }
       uni.navigateTo({
         url: `/pages/hotelManage/createRoomType/createRoomType?type=${
           this.type
@@ -469,6 +481,17 @@ export default {
 			width: 160px;
 			height: 100px;
 		}
+			.btn {
+			color: #0765ae;
+			padding:5px 0;
+			border-radius: 10px;
+			font-size: 12px;
+			display: flex;
+			text-decoration: underline;
+			justify-content: space-between;
+			gap: 5px;
+
+		}
 	}
 
 
@@ -498,9 +521,11 @@ export default {
 		flex-direction: column;
 		justify-content: space-around;
 		align-items: flex-end;
-		.control-item{
+
+		.control-item {
 			display: flex;
 		}
+
 		.btn {
 			color: #0765ae;
 
