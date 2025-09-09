@@ -15,91 +15,89 @@
           <uni-data-select v-model="room_type_id" :localdata="range" placeholder="选择房型"></uni-data-select>
         </view>
       </view>
-
-      <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" collection="hm-room"
-        :getone="false" :options="options" :where="where_str" orderby="name asc">
-        <block v-if="(!data||!data.length)&&!loading">
+        <block v-if="!filterRoomList.length">
           <noData text_content="无房间数据" bgColor="transparent"></noData>
         </block>
-        <block v-if="data&&data.length">
+        <block v-if="filterRoomList.length">
           <view class="detail-title">
             <text>房间列表</text>
           </view>
 
-          <xt-panal-list :count="data.length">
+          <xt-panal-list :count="filterRoomList.length">
             <!-- #ifdef MP -->
-            <view v-for="(item, index) in data" slot="card{{index}}"> 
-               <view class="card-content">
-                <view class="left-area">
-                  <view>
-                    <view class="title">
-                      <!-- <view v-if="!item['isedit']">{{item.room_name}} </view>  -->
-                         <view class="input-style" :style="{'border-color':item['isedit']?'#dfdfdf':' #fff'}">
-                          <input :inputBorder="item['isedit']?true:false" v-model="item.room_name" trim="all" :disabled="!item['isedit']" :focus="item['isedit']" :clean="false" />
-                        </view>
-                     
-                    </view>
-                    <view class="subtitle"><text>{{formatRoomTypeName(item.room_type_id)}}</text>
-                    </view>
-                  </view>
-                  <!-- <view class="avator"> </view> -->
-                </view>
-
-                <view class="control">
-                  <view v-if="!item['isedit']" class="control-item" @click="editRoom(data,item)"><l-icon name="pepicons-pop:pen-circle-filled"
-                      color="#39AFF8" size="30px"></l-icon>
-                  </view>
-                  <view v-if="!item['isedit']" class="control-item" @click="deleteRoom(item)"><l-icon name="clarity:remove-solid"
-                      color="#FF4654" size="30px"></l-icon></view>
-
-                      <view v-if="item['isedit']" class="control-item" @click="cancleEditRoom(item)"><l-icon name="mdi:sync-circle"
-                      color="#9a9a9a" size="30px"></l-icon></view>
-                      <view v-if="item['isedit']" class="control-item" @click="updateRoome(item)"><l-icon name="line-md:confirm-circle-filled"
-                      color="#0765ae" size="30px"></l-icon></view>
-                      
-                </view>
-              </view>
-            </view>
-            <!-- #endif -->
-            <!-- #ifdef H5 || APP-PLUS -->
-            <template v-for="(item, index) in data" v-slot:[`card${index}`]>
+             <view v-for="(item, index) in filterRoomList" slot="card{{index}}"> 
               <view class="card-content">
                 <view class="left-area">
                   <view>
                     <view class="title">
                       <!-- <view v-if="!item['isedit']">{{item.room_name}} </view>  -->
-                         <view class="input-style" :style="{'border-color':item['isedit']?'#dfdfdf':' #fff'}">
-                          <input :inputBorder="item['isedit']?true:false" v-model="item.room_name" trim="all" :disabled="!item['isedit']" :focus="item['isedit']" :clean="false" />
+                         <view class="input-style" :style="{'border-color':item._id ==editId?'#dfdfdf':' #fff'}">
+                          <input :inputBorder="item._id ==editId?true:false" v-model="item.room_name" trim="all" :disabled="item._id !=editId" :focus="item._id !=editId" :clean="false" />
                         </view>
                      
                     </view>
-                    <view class="subtitle"><text>{{formatRoomTypeName(item.room_type_id)}}</text>
+                    <view class="subtitle"><text>{{item.room_type_name}}</text>
                     </view>
                   </view>
-                  <!-- <view class="avator"> </view> -->
+              
                 </view>
 
                 <view class="control">
-                  <view v-if="!item['isedit']" class="control-item" @click="editRoom(data,item)"><l-icon name="pepicons-pop:pen-circle-filled"
+                  <view v-if="item._id!=editId" class="control-item" @click="editRoom(item)"><l-icon name="pepicons-pop:pen-circle-filled"
                       color="#39AFF8" size="30px"></l-icon>
                   </view>
-                  <view v-if="!item['isedit']" class="control-item" @click="deleteRoom(item)"><l-icon name="clarity:remove-solid"
+                  <view v-if="item._id!=editId" class="control-item" @click="deleteRoom(item)"><l-icon name="clarity:remove-solid"
                       color="#FF4654" size="30px"></l-icon></view>
 
-                      <view v-if="item['isedit']" class="control-item" @click="cancleEditRoom(item)"><l-icon name="mdi:sync-circle"
+                      <view v-if="item._id==editId" class="control-item" @click="cancleEditRoom(item)"><l-icon name="mdi:sync-circle"
                       color="#9a9a9a" size="30px"></l-icon></view>
-                      <view v-if="item['isedit']" class="control-item" @click="updateRoome(item)"><l-icon name="line-md:confirm-circle-filled"
+                      <view v-if="item._id==editId" class="control-item" @click="updateRoome(item)"><l-icon name="line-md:confirm-circle-filled"
+                      color="#0765ae" size="30px"></l-icon></view>
+                      
+                </view>
+              </view>
+            </view> 
+            <!-- #endif -->
+            <!-- #ifdef H5 || APP-PLUS -->
+              <template v-for="(item, index) in filterRoomList" v-slot:[`card${index}`]>
+              <view class="card-content">
+                <view class="left-area">
+                  <view>
+                    <view class="title">
+                      <!-- <view v-if="!item['isedit']">{{item.room_name}} </view>  -->
+                         <view class="input-style" :style="{'border-color':item._id ==editId?'#dfdfdf':' #fff'}">
+                          <input :inputBorder="item._id ==editId?true:false" v-model="item.room_name" trim="all" :disabled="item._id !=editId" :focus="item._id !=editId" :clean="false" />
+                        </view>
+                     
+                    </view>
+                    <view class="subtitle"><text>{{item.room_type_name}}</text>
+                    </view>
+                  </view>
+              
+                </view>
+
+                <view class="control">
+                  <view v-if="item._id!=editId" class="control-item" @click="editRoom(item)"><l-icon name="pepicons-pop:pen-circle-filled"
+                      color="#39AFF8" size="30px"></l-icon>
+                  </view>
+                  <view v-if="item._id!=editId" class="control-item" @click="deleteRoom(item)"><l-icon name="clarity:remove-solid"
+                      color="#FF4654" size="30px"></l-icon></view>
+
+                      <view v-if="item._id==editId" class="control-item" @click="cancleEditRoom(item)"><l-icon name="mdi:sync-circle"
+                      color="#9a9a9a" size="30px"></l-icon></view>
+                      <view v-if="item._id==editId" class="control-item" @click="updateRoome(item)"><l-icon name="line-md:confirm-circle-filled"
                       color="#0765ae" size="30px"></l-icon></view>
                       
                 </view>
               </view>
             </template>
+           
             <!-- #endif -->
           </xt-panal-list>
 
           <!-- </scroll-view> -->
         </block>
-      </unicloud-db>
+     
     </view>
   </view>
 </template>
@@ -122,21 +120,32 @@ export default {
     const range = computed(() => {
       let arr = [{ text: "全部", value: "" }];
       roomType.value.map((item) => {
-        arr.push({ text: item.name, value: item._id });
+        arr.push({ text: item.name, value: item._id._value });
       });
       return arr;
     });
     let room_type_id = ref("");
-    let where_str = computed(() => {
-      if (!room_type_id.value) {
-        return `hotel_id =='${hotel_id.value}'`;
+    let filterRoomList=computed(()=>{
+      let result =[];
+      let roomList =[];
+      roomType.value.map(item=>{
+        item._id['hm-room'].map(it=>{
+          roomList.push({_id:it._id, room_type_id:item._id._value, room_type_name:item.name,room_name:it.room_name})
+        })
+      })
+      if(!room_type_id.value ){
+        return roomList;
       }
-      return `hotel_id =='${hotel_id.value}'&&room_type_id=='${room_type_id.value}'`;
+      result =roomList.filter(item=>item.room_type_id ==room_type_id.value );
+      return result;
     });
-    const formatRoomTypeName=rt_id=>{
-      const obj = roomType.value.find(item=>item._id ==rt_id);
-      return obj['name']
-    }
+    let editId =ref(null);
+    // let where_str = computed(() => {
+    //   if (!room_type_id.value) {
+    //     return `hotel_id =='${hotel_id.value}'`;
+    //   }
+    //   return `hotel_id =='${hotel_id.value}'&&room_type_id=='${room_type_id.value}'`;
+    // });
     // watch(room_type_id, async (newValue, oldValue) => {}, {
     //   deep: true,
     //   immediate: true,
@@ -146,10 +155,10 @@ export default {
     return {
       hotel_id,
       room_type_id,
-      where_str,
       roomType,
-      formatRoomTypeName,
-      range
+      range,
+      filterRoomList,
+      editId
     };
   },
   data() {
@@ -184,6 +193,10 @@ export default {
   },
   onUnload() {
     
+  },
+    async onPullDownRefresh() {
+      await this.$refs.udb.refresh();
+    uni.stopPullDownRefresh();
   },
   methods: {
     amountSum(list) {
@@ -244,7 +257,7 @@ export default {
         _id: item._id,
       })
         .then(async (res) => {
-          this.$refs.udb.refresh();
+        await this.$store.dispatch("getRoomType");
           this.submitLoading = false;
           uni.hideLoading();
         })
@@ -258,20 +271,21 @@ export default {
           });
         });
     },
-    editRoom(list,item){
-      list.map(it=>{ it['isedit']=false})
-      item['isedit']=true;
+    editRoom(item){
+      this.editId=item._id;
+      console.log("1111",this.editId)
     },
     cancleEditRoom(item){
-      item['isedit']=false;
+       this.editId=null;
     },
      updateRoome(item){
-  DB.callFunction("hm_updateRoom", {
+    DB.callFunction("hm_updateRoom", {
         _id: item._id,
         roomObj:{room_name:item.room_name}
       })
         .then(async (res) => {
-          this.$refs.udb.refresh();
+          await this.$store.dispatch("getRoomType");
+          this.editId=null;
           this.submitLoading = false;
           uni.hideLoading();
         })

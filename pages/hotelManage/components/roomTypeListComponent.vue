@@ -23,14 +23,11 @@
 									<view>
 										<view class="title"><text>{{item.name}}</text> </view>
 									<view class="subtitle">
-											<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}"
-												collection="hm-room" :getone="false"
-												:where="`room_type_id=='${item._id}'`">
-												{{console.log(data)}}
+										
 													<navigator
-											:url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id}`">
+											:url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id._value}`">
 											<view class="btn">
-												<view><text>{{data.length}}间</text></view>
+												<view><text>{{item._id['hm-room'].length}}间</text></view>
 												<view>
 													<l-icon name="material-symbols-light:arrow-forward-ios-rounded" size="20px"
 														color="#0765ae"></l-icon>
@@ -38,7 +35,7 @@
 											</view>
 										</navigator>
 												
-											</unicloud-db>
+											
 										</view>
 									</view>
 									<view class="avator">
@@ -66,28 +63,25 @@
 						</view>
 						<!-- #endif -->
 						<!-- #ifdef H5 || APP-PLUS -->
+						 
 						<template v-for="(item, index) of roomType" v-slot:[`card${index}`]>
 							<view class="card-content">
 								<view class="left-area">
 									<view>
 										<view class="title"><text>{{item.name}}</text> </view>
 										<view class="subtitle">
-											<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}"
-												collection="hm-room" :getone="false"
-												:where="`room_type_id=='${item._id}'`">
-												{{console.log(data)}}
+										
 													<navigator
-											:url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id}`">
+											:url="`/pages/hotelManage/roomList/roomList?room_type_id=${item._id._value}`">
 											<view class="btn">
-												<view><text>{{data.length}}间</text></view>
+												<view><text>{{item._id['hm-room'].length}}间</text></view>
 												<view>
 													<l-icon name="material-symbols-light:arrow-forward-ios-rounded" size="20px"
 														color="#0765ae"></l-icon>
 												</view>
 											</view>
 										</navigator>
-												
-											</unicloud-db>
+											
 										</view>
 									</view>
 									<view class="avator">

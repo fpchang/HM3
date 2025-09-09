@@ -1,4 +1,3 @@
-import { isBoolean } from '../../uni_modules/lime-shared/isBoolean/index';
 <template>
 	<view class="xt-panal-list">
 		<view style="display: flex; justify-content: center">

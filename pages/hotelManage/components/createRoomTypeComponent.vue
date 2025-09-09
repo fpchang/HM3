@@ -204,38 +204,6 @@
 					</unicloud-db>
 				</checkbox-group>
 			</uni-forms-item>
-				<view class="room-area">
-				<view class="flex-between header">
-					<view>房间（{{roomTypeForm.roomList.length}}）</view>
-					<!-- <navigator :url="`/pages/hotelManage/createRoom/createRoom`" v-if="this.type!=2">
-						 -->
-						<view class="btn" @click="addRoomEvent">
-
-							<view class="flex-center"><l-icon name="solar:add-circle-bold" size="22px"
-									color="#007aff" /></view>
-							<view class="flex-center"><text>添加房间</text></view>
-
-
-						</view>
-					<!-- </navigator> -->
-				</view>
-				<!-- <view v-if="!roomTypeForm.roomList.length" class="note"><text>无房间</text></view>
-				<uni-list v-if="roomTypeForm.roomList.length">
-					<uni-list-item  v-for="(item,index) of roomTypeForm.roomList">
-						<template v-slot:header> 
-							<view style="width:200px"> 
-								<uni-easyinput v-model="item.room_name" trim="all"  :disabled="type==2" :clean="false"/>
-							</view>
-						</template>
-						<template v-slot:footer>
-							<view @click="deleteRoomEvent(index)">
-								<l-icon name="iconamoon:trash" size="22px" color="#007aff"></l-icon>
-							</view>
-						</template>
-					</uni-list-item>
-					
-				</uni-list> -->
-			</view>
 			<view>
 				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
 				<xt-file-picker ref="uploadImagesRef1" :cloudPath="cloudPath" @success="uploadSuccessFirst"

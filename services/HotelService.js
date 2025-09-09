@@ -45,13 +45,13 @@ class HotelServiceClass{
      * 获取当前酒店房型信息
     */
      getRoomType(hotel_id){
-           return DB.callFunction(
-                "hm_getRoomType",
-                {hotel_id}
-            );
-            let obj = res.result.data.length?res.result.data:[];
-           return obj;
-     
+          //  return DB.callFunction(
+          //       "hm_getRoomType",
+          //       {hotel_id}
+          //   );
+          //   let obj = res.result.data.length?res.result.data:[];
+          //  return obj;
+     return DB.getCollection("hm-roomType,hm-room",{hotel_id})
    }
     /**
      * 根据房型id获取房间

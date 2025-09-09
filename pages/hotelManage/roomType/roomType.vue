@@ -1,30 +1,24 @@
 <template>
-	<view>
-		<roomTypeListComponent ref="roomTypeListComponent"></roomTypeListComponent>
-	</view>
+  <view>
+    <roomTypeListComponent ref="roomTypeListComponent"></roomTypeListComponent>
+  </view>
 </template>
 
 <script>
-	import roomTypeListComponent from "@/pages/hotelManage/components/roomTypeListComponent.vue";
-	export default {
-		components: {
-		  roomTypeListComponent
-		  },
-		data() {
-			return {
-				
-			}
-		},
-		  async onPullDownRefresh() {
-     await this.$store.dispatch("getRoomType");
+import roomTypeListComponent from "@/pages/hotelManage/components/roomTypeListComponent.vue";
+export default {
+  components: {
+    roomTypeListComponent,
+  },
+  data() {
+    return {};
+  },
+  async onPullDownRefresh() {
+    await this.$store.dispatch("getRoomType");
     uni.stopPullDownRefresh();
   },
-		methods: {
-			
-		}
-	}
+  methods: {},
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
