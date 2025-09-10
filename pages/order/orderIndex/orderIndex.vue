@@ -16,15 +16,21 @@ export default {
   computed: {},
   async onPullDownRefresh() {
     await this.$refs.order.refrush();
-    uni.stopPullDownRefresh();
+     uni.stopPullDownRefresh();
   },
   onShow() {
-    this.$refs.order.refrush();
+    //this.$refs.order.refrush();
   },
  onReachBottom(){
       this.$refs.order.loadMore();
 			},
-  methods: {},
+  methods: {
+      refrush() {
+        console.log("orderindex refrush")
+        this.$refs.order.refrush();
+      
+  },
+  }
 };
 </script>
 

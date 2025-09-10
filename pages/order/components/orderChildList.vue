@@ -1,16 +1,14 @@
 <template>
-	<view class="mobile-show-style">
-		<view>
-			<!-- <uni-segmented-control :current="current" :values="items"
-				active-color="#0765ae" @clickItem="onClickItem" /> -->
-			<!-- <xt-subsection :items="items" @checkTab="onClickItem" activeBgColor="#0765ae" activeFColor="#fff"></xt-subsection>
-				
-				 -->
-		</view>
+	<view>
+		 <view class="filter-area">
+        <view class="filter-item">
+          <uni-data-select v-model="orderStatus" :localdata="range" placeholder="选择订单状态" :clear="false"></uni-data-select>
+        </view>
+      </view>
 
 		<view>
 			<unicloud-db ref="udb" v-slot:default="{data, loading, pagination, hasMore, error, options}"
-				:collection="colList" orderby="createTime desc" :page-size="5" :getcount="true">
+				:where="where_str" :collection="colList" orderby="createTime desc" :page-size="5" :getcount="true">
 				
 					<block v-if="!loading&&!data.length">
 						<view>
@@ -222,7 +220,23 @@
 import { OrderService } from "../../../services/OrderService";
 import { alert } from "@/alert";
 import { HotelService } from "../../../services/HotelService";
+import {computed,ref} from "vue";
 export default {
+	setup(){
+		const range=[{text:"全部",value:null},{text:"待入住",value:1},{text:"已完成",value:5},{text:"已撤销",value:10}];
+		let orderStatus=ref(1);
+		let where_str=computed(()=>{
+			if(orderStatus.value==null){
+				return ""
+			}
+			return `orderStatus==${orderStatus.value}`;
+		});
+		return {
+			range,
+			orderStatus,
+			where_str
+		}
+	},
   data() {
     return {
       accordionVal: 1,
@@ -521,7 +535,7 @@ this.$refs.udb.refresh();
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .col-content {
 	/* background: linear-gradient(to bottom, #FFF, #EEF); */
 	border-radius: 4px;
@@ -546,7 +560,19 @@ this.$refs.udb.refresh();
 		}
 	}
 }
+.filter-area {
+			max-width: 600px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 20px 15px;
 
+			.filter-item {
+				border-radius: 8px;
+				background: #fff;
+				flex: 1;
+			}
+		}
 .wrap {
 	padding: 12px;
 }

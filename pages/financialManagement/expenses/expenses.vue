@@ -44,22 +44,22 @@
 							<!-- #ifdef MP -->
 							<view v-for="(item, index) in data" slot="card{{index}}">
 								<view class="list">
-									<view class="list-item"><text>时间：</text><text>{{new
+									<view class="list-item"><text class="ti">时间：</text><text>{{new
 										Date(item.ioeTime).Format("yyyy/MM/dd")}}</text></view>
-									<view class="list-item"><text>类型：</text><text>{{item.type[0].text}}</text></view>
-									<view class="list-item"><text>金额：</text><text>{{item.amount}}</text></view>
-									<view class="list-item"><text>备注：</text><text>{{item.mark}}</text></view>
+									<view class="list-item"><text class="ti">类型：</text><text>{{item.type[0].text}}</text></view>
+									<view class="list-item"><text class="ti">金额：</text><text>{{item.amount}}</text></view>
+									<view class="list-item"><text class="ti">备注：</text><text>{{item.mark}}</text></view>
 								</view>
 							</view>
 							<!-- #endif -->
 							<!-- #ifdef H5 || APP-PLUS -->
 							<template v-for="(item, index) in data" v-slot:[`card${index}`]>
 								<view class="list">
-									<view class="list-item"><text>时间：</text><text>{{new
+									<view class="list-item"><text  class="ti">时间：</text><text>{{new
 										Date(item.ioeTime).Format("yyyy/MM/dd")}}</text></view>
-									<view class="list-item"><text>类型：</text><text>{{item.type[0].text}}</text></view>
-									<view class="list-item"><text>金额：</text><text>{{item.amount}}</text></view>
-									<view class="list-item"><text>备注：</text><text>{{item.mark}}</text></view>
+									<view class="list-item"><text class="ti">类型：</text><text>{{item.type[0].text}}</text></view>
+									<view class="list-item"><text class="ti">金额：</text><text>{{item.amount}}</text></view>
+									<view class="list-item"><text class="ti">备注：</text><text>{{item.mark}}</text></view>
 								</view>
 
 							</template>
@@ -88,7 +88,7 @@ import {useStore} from 'vuex';
 					dateRangeArray:[first,last]
 				});
 			let where_str =computed(()=>{
-				const s1 =`billType=='expenses'`;
+				const s1 =`billType=='expenses'&&data_status==1`;
 				const s2=`ioeTime>=${filter.value.dateRangeArray[0]}&&ioeTime<=${filter.value.dateRangeArray[1]}`
 				//const s3=filter.value.type?`type=='${filter.value.type}'`:"type!=''";
 				return `${s1}&&${s2}`
@@ -250,6 +250,9 @@ import {useStore} from 'vuex';
 		padding: 6px 15px;
 		display: flex;
 		align-items: center;
+		.ti {
+		font-weight: bold;
+	}
 	}
 }
 </style>

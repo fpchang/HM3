@@ -59,6 +59,13 @@
 			"description": "备注",
 			"bsonType": "string"
 		
+		},
+		"data_status": {
+			"description": "数据状态1有效，10已删除",
+			"bsonType": "int",
+			"defaultValue":1,
+			"enum":[1,10]
+		
 		}
 	}
 }

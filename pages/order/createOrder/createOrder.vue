@@ -24,7 +24,15 @@
 
 		methods: {
 			closePopup(){
-				uni.navigateBack();
+				const pages = getCurrentPages();
+				const prevpage = pages[pages.length-2];
+				console.log(pages);
+				uni.navigateBack({
+					delta:1,
+					success:()=>{
+						prevpage.$vm.refrush();
+					}
+				});
 			}
 		}
 	}

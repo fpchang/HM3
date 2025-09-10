@@ -12,7 +12,7 @@
     <view class="content">
       <view class="filter-area">
         <view class="filter-item">
-          <uni-data-select v-model="room_type_id" :localdata="range" placeholder="选择房型"></uni-data-select>
+          <uni-data-select v-model="room_type_id" :localdata="range" :clear="false" placeholder="选择房型"></uni-data-select>
         </view>
       </view>
         <block v-if="!filterRoomList.length">
