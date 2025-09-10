@@ -17,6 +17,7 @@ export default{
 
 	mutations: {
         updateOrderListTodayAfter(state,list=[]) {
+			console.log("11111111111",list)
 			state.orderListTodayAfter = list;
 		},
 
@@ -56,7 +57,6 @@ export default{
         	//获取当天开始的订单
 		 async getOrderListTodayAfter(context,hotel_id) {
 			const res = await OrderService.getOrderListTodayAfter(hotel_id);
-			console.log("获取当天开始的订单",res)
 				context.commit("updateOrderListTodayAfter", res.result.data);
 			return res;
 		},

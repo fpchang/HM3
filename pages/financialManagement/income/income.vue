@@ -91,9 +91,9 @@ import { FMService } from "../../../services/FMService";
 export default {
   setup() {
     const store = useStore();
-    // const hotel_id = computed(()=>{
-    // 	return store.state.hotel_id;
-    // })
+   	let hotel_id = computed(()=>{
+    			return store.state.hotel_id;
+    		})
     let first = new Date(
       new Date().getFullYear(),
       new Date().getMonth(),
@@ -113,8 +113,8 @@ export default {
     let where_str = computed(() => {
       const s1 = `billType=='income'&&data_status==1`;
       const s2 = `ioeTime>=${filter.value.dateRangeArray[0]}&&ioeTime<=${filter.value.dateRangeArray[1]}`;
-      //const s3=filter.value.type?`type=='${filter.value.type}'`:"type!=''";
-      return `${s1}&&${s2}`;
+      const s3=`hotel_id=="${hotel_id.value}"`;
+				return `${s1}&&${s2}&&${s3}`
     });
     let where_order = computed(() => {
       const s1 = `hotel_id=='${store.state.hotel_id}'&&orderStatus==5`;

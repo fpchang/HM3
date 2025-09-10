@@ -19,7 +19,7 @@
 				<view class="create-order-title-style">创建订单</view>
 				<view class="comContent">
 					<createOrderComponent @closePopup="closePopup"></createOrderComponent>
-					<!-- </keep-alive> -->
+					
 				</view>
 			</view>
 		</uni-popup>

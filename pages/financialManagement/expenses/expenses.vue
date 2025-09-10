@@ -23,8 +23,10 @@
 						where="billType=='expenses'" field="text , name as value" orderby="name asc"></uni-data-select>
 				</view>
 			</view>
+			{{ where_str }}
 			<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList"
 				:getone="false" :where="where_str" orderby="ioeTime asc">
+				
 				<view class="info-area">
 					<view class="item">
 						<view><text>总计(元)</text></view>
@@ -81,6 +83,9 @@ import {useStore} from 'vuex';
 	export default {
 		setup(){
 			const store = useStore();
+				let hotel_id = computed(()=>{
+    			return store.state.hotel_id;
+    		})
 			let first =new Date(new Date().getFullYear(),new Date().getMonth(),1).getTime();
 			let last =new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime()-1;
 			let filter =ref({
@@ -89,8 +94,7 @@ import {useStore} from 'vuex';
 				});
 			let where_str =computed(()=>{
 				const s1 =`billType=='expenses'&&data_status==1`;
-				const s2=`ioeTime>=${filter.value.dateRangeArray[0]}&&ioeTime<=${filter.value.dateRangeArray[1]}`
-				//const s3=filter.value.type?`type=='${filter.value.type}'`:"type!=''";
+				const s2=`ioeTime>=${filter.value.dateRangeArray[0]}&&ioeTime<=${filter.value.dateRangeArray[1]}`;
 				return `${s1}&&${s2}`
 			});
 			let colList=computed(()=>{
@@ -108,6 +112,7 @@ import {useStore} from 'vuex';
 			return {
 				filter,
 				colList,
+				hotel_id,
 				where_str
 			}
 		},

@@ -1,5 +1,6 @@
 <template>
   <view class="orderChildCalendar">
+    
     <block v-if="noData">
       <noData text_content="当前无订单数据"></noData>
     </block>
@@ -29,19 +30,13 @@
             
           </uni-th>
 				</uni-tr>
-        <block v-for="(items, keys) of checkInOrderListFormat">
-            <!-- #ifndef MP -->
-             <!-- <uni-tr><uni-td :colspan=" items.resultRoomList[0].list.length+1" style="padding:0">
-            <view class="roomType-dev-style">{{items.name}} 共 {{items.roomCount}} 间</view></uni-td></uni-tr> -->
-          <!-- #endif-->
-          
-          
+        <block v-for="(items, keys) of checkInOrderListFormat">                 
           <uni-tr v-for="(item,key) of items.resultRoomList" class="t-tr"> 
           <!-- <uni-td :rowspan="items.roomCount"  :style="{'background':keys%2==0?'#f1f1f1':'#fff','display':key==0?'table-cell':'none'}"> <text style="font-weight:bold">{{items.name}}</text></uni-td> -->
           <uni-td> <text style="font-weight:bold">{{item.room_name}}</text></uni-td>
           <uni-td v-for="it of item.list"  :style="{'background':it.username?'green':'#fff'}">
            
-            <view class="flex-center" style="color:#fff;min-height:60px"> 
+            <view class="flex-center" :style="{'color':'#fff','min-height':'60px','background':it.username?'green':'#fff'}"> 
                  <text>{{it.username}}</text>
             </view>
               
@@ -234,10 +229,14 @@ export default {
     checkInOrderListFormat() {
 
       console.log("sss:",this.roomType_roomList)
+      if(!this.roomType_roomList){
+        return []
+      }
       if (this.checkInOrderList.length < 1 || this.roomType_roomList.length < 1) {
         return [];
       }
       let result = [];
+      console.log("orderDateRange::",this.orderDateRange)
       let or = this.orderDateRange;
       let checkInOrderList = this.checkInOrderList;
       let fillRoom=(room_id)=>{

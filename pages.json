@@ -25,18 +25,19 @@
 			"style": {
 				"navigationBarTitleText": ""
 			}
-		}, {
-			"path": "pages/scenicSpot/showScenicSpot/showScenicSpot",
-			"style": {
-				"navigationBarTitleText": "景点价格"
-			}
 		},
-		{
-			"path": "pages/catering/orderDishes/orderDishes",
-			"style": {
-				"navigationBarTitleText": "定餐服务"
-			}
-		},
+		// {
+		// 	"path": "pages/scenicSpot/showScenicSpot/showScenicSpot",
+		// 	"style": {
+		// 		"navigationBarTitleText": "景点价格"
+		// 	}
+		// },
+		// {
+		// 	"path": "pages/catering/orderDishes/orderDishes",
+		// 	"style": {
+		// 		"navigationBarTitleText": "定餐服务"
+		// 	}
+		// },
 
 		{
 			"path": "pages/mine/mine",
@@ -72,36 +73,36 @@
 				"navigationBarTitleText": "添加员工"
 			}
 		},
-		{
-			"path": "pages/scenicSpot/addScenicSpot/addScenicSpot",
-			"style": {
-				"navigationBarTitleText": "新增景点"
-			}
-		},
-		{
-			"path": "pages/scenicSpot/addSencicSpotDetail/addSencicSpotDetail",
-			"style": {
-				"navigationBarTitleText": "新增景点价目"
-			}
-		},
+		// {
+		// 	"path": "pages/scenicSpot/addScenicSpot/addScenicSpot",
+		// 	"style": {
+		// 		"navigationBarTitleText": "新增景点"
+		// 	}
+		// },
+		// {
+		// 	"path": "pages/scenicSpot/addSencicSpotDetail/addSencicSpotDetail",
+		// 	"style": {
+		// 		"navigationBarTitleText": "新增景点价目"
+		// 	}
+		// },
 		{
 			"path": "pages/hotelManage/createHotel/createHotel",
 			"style": {
 				"navigationBarTitleText": "新增酒店"
 			}
 		},
-		{
-			"path": "pages/catering/addMenuType/addMenuType",
-			"style": {
-				"navigationBarTitleText": "新增菜单分类"
-			}
-		},
-		{
-			"path": "pages/catering/addMenuDetail/addMenuDetail",
-			"style": {
-				"navigationBarTitleText": "新增菜单详情"
-			}
-		},
+		// {
+		// 	"path": "pages/catering/addMenuType/addMenuType",
+		// 	"style": {
+		// 		"navigationBarTitleText": "新增菜单分类"
+		// 	}
+		// },
+		// {
+		// 	"path": "pages/catering/addMenuDetail/addMenuDetail",
+		// 	"style": {
+		// 		"navigationBarTitleText": "新增菜单详情"
+		// 	}
+		// },
 
 		{
 			"path": "pages/common/success",

@@ -8,8 +8,7 @@
 
 		<view>
 			<unicloud-db ref="udb" v-slot:default="{data, loading, pagination, hasMore, error, options}"
-				:where="where_str" :collection="colList" orderby="createTime desc" :page-size="5" :getcount="true">
-				
+				:where="where_str" collection="hm-order" orderby="createTime desc" :page-size="5" :getcount="true">
 					<block v-if="!loading&&!data.length">
 						<view>
 							<noData></noData>
@@ -19,7 +18,7 @@
 						<xt-panal-list :count="data.length">
 							<!-- #ifdef MP -->
 							<view v-for="(item, index) of data" slot="card{{index}}">
-								<view class="p-card">
+					<view class="p-card">
 									<view class="title">
 										<text>{{
 											item.orderType=="bargain"? "议价单":"普通订单"
@@ -29,9 +28,10 @@
 										}}</text>
 									</view>
 									<view class="header">
-										<view><text>{{item.userName}}</text></view>
+										<view><text class="ti">住客：</text><text>{{item.userName}}</text></view>
 									</view>
 									<view class="info">
+										<text class="ti">时间：</text>
 										<text>{{formatDateLabel(item.checkInStartDate)}}至{{
 											formatDateLabel(item.checkInEndDate)
 										}}</text>
@@ -40,7 +40,18 @@
 												item.checkInStartDateTimeStamp,
 												item.checkInEndDateTimeStamp,
 											])
-										}}晚</text><text>{{item.roomTypeArray[0].name}}</text>
+										}}晚</text>
+									</view>
+									<view class="info">
+										<text class="ti">房型：</text>
+										<text>{{item.roomTypeArray[0].name}}</text>
+									</view>
+									<view class="info">
+										<text class="ti">房间：</text>
+										<text v-for="it of item.roomTypeArray">
+											<text style="padding-right: 8px" v-for="i of it.roomList">{{
+												formatRoomName(i) }}</text>
+										</text>
 									</view>
 									<view class="price">
 										<!-- <text v-if="item.payType=='online'">在线支付</text>
@@ -83,7 +94,6 @@
 											</view>
 										</block>
 										<block v-if="
-											false&&
 											updateOrderPermission&&
 											item.orderType=='bargain'&&
 											item.bargainStatus==0
@@ -221,20 +231,34 @@ import { OrderService } from "../../../services/OrderService";
 import { alert } from "@/alert";
 import { HotelService } from "../../../services/HotelService";
 import {computed,ref} from "vue";
+import { useStore } from 'vuex';
 export default {
 	setup(){
+		let store = new useStore();
 		const range=[{text:"全部",value:null},{text:"待入住",value:1},{text:"已完成",value:5},{text:"已撤销",value:10}];
 		let orderStatus=ref(1);
+		let hotel_id = computed(()=>{
+    		return store.state.hotel_id;
+    	})
 		let where_str=computed(()=>{
 			if(orderStatus.value==null){
 				return ""
 			}
-			return `orderStatus==${orderStatus.value}`;
+			return `hotel_id=='${hotel_id.value}'&&orderStatus==${orderStatus.value}`;
 		});
+		let   colList = computed(()=>{
+     			 const db = uniCloud.database();
+				return [
+					db.collection("hm-order").where({hotel_id:hotel_id.value}).getTemp(),
+					db.collection("hm-hotel").field("_id,hotelName,hotelAddress").getTemp(),
+				];
+    });
 		return {
 			range,
 			orderStatus,
-			where_str
+			hotel_id,
+			where_str,
+			colList
 		}
 	},
   data() {
@@ -256,39 +280,14 @@ export default {
     this.getOrderList();
   },
   computed: {
-    hotel_id() {
-      return this.$store.state.hotel_id;
-    },
+
     hotel() {
       return this.$store.state.hotel;
-    },
-    _WHERE() {
-      let os = "";
-      if (this.current == 0) {
-        //待办1
-        const s1 = "bargainStatus==0&&orderType=='bargain'"; //议价单
-        const s2 = "payType=='online'&&payStatus==1&&orderStatus==0"; //线上支付订单
-        const s3 = "payType=='offline'&&orderStatus==0"; //线下支付订单
-        os = `${s1}||${s2}||${s3}`;
-      }
-      if (this.current == 1) {
-        //待入住
-        os = "orderStatus==1&&orderType=='normal'";
-      }
-      return `hotel_id=='${this.hotel_id}'&&${os}&&checkInStartDateTimeStamp>${
-        Date.now() - 1000 * 60 * 60 * 10
-      }`;
     },
     user() {
       return this.$store.state.user;
     },
-    colList() {
-      const db = uniCloud.database();
-      return [
-        db.collection("hm-order").getTemp(),
-        db.collection("hm-hotel").field("_id,hotelName,hotelAddress").getTemp(),
-      ];
-    },
+
     partialRefreshComName() {
       return this.$store.state.partialRefreshComName;
     },
