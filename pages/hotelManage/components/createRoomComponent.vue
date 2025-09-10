@@ -5,9 +5,7 @@
         <view class="form-item"> 
           <view class="label">房型</view>
           <view class="content">
-             <uni-data-select v-model="room_type_id" placeholder="房型选择" collection="hm-roomType"
-                :where="`hotel_id=='${hotel_id}'`" field="name as text, _id as value"
-                orderby="name  asc"></uni-data-select>
+            <uni-data-select v-model="room_type_id" :localdata="range" placeholder="选择房型"></uni-data-select>
           </view>
         </view>
         <view class="form-item"> 
@@ -51,24 +49,25 @@ import LIcon from "../../../uni_modules/lime-icon/components/l-icon/l-icon.vue";
 export default {
   components: { LIcon },
   props: {
-    room_type_id: String,
+    roomTypeId: String,
   },
   setup(props) {
     const store = useStore();
     let hotel_id = computed(() => {
       return store.state.hotel_id;
     });
-    let room_type_id = ref(props.room_type_id);
+ 
     const roomType = computed(() => {
       return store.state.roomType;
     });
     const range = computed(() => {
-      let arr = [{ text: "全部", value: "" }];
+      let arr=[];
       roomType.value.map((item) => {
-        arr.push({ text: item.name, value: item._id });
+        arr.push({ text: item.name, value: item._id._value });
       });
       return arr;
     });
+    let room_type_id = ref(props.roomTypeId|| roomType.value[0]._id._value);
     let roomList = ref([]);
     let where_str = computed(() => {
       if (room_type_id.value == "all") {
@@ -78,11 +77,24 @@ export default {
     });
 
     let submitLoading = ref(false);
+   
     let roomForm=ref({
       room_type_id:"",
       roomList:[]
     })
-    return { room_type_id, hotel_id, roomType, range, roomList,roomForm, submitLoading };
+     let submitDisabled=computed(()=>{
+      return  roomList.value.length<1
+    })
+    //   watch(room_type_id, async (newValue, oldValue) => {
+    //     if(newValue!=oldValue){
+    //       roomList.value=[];
+    //     }
+        
+    //   }, {
+    //   deep: true,
+    //   immediate: true,
+    // });
+    return { room_type_id, hotel_id, roomType, range, roomList,roomForm, submitLoading,submitDisabled };
   },
   data() {
     return {
@@ -111,13 +123,16 @@ export default {
     };
   },
   created() {},
-  mounted() {},
+  mounted() {
+    this.addRoomItemEvent();
+  },
   onUnload() {
     console.log("createRoomComponent onulload");
   },
   watch: {
     room_type_id(val, oval) {
-      if (val && !oval) {
+      if (val !=oval) {
+        this.roomList=[];
         this.addRoomItemEvent();
       }
     },
@@ -131,27 +146,35 @@ export default {
       arr.push({
         hotel_id: this.hotel_id,
         room_type_id: this.room_type_id,
-        room_name: this.getRoomName(arr),
+        room_name: this.getRoomName(this.room_type_id,arr),
       });
     },
     deleteRoomEvent(index) {
       this.roomList.splice(index, 1);
     },
-    getRoomName(arr) {
+    getRoomName(room_type_id,arr) {
+      try {
       let targetArr = [...arr];
       let newName = `房间${arr.length + 1}`;
-      let ob = arr.find((item) => item.room_name == newName);
+      const roomtypeObj =this.roomType.find(item=>item._id._value==room_type_id);
+      const roomList_data = roomtypeObj._id["hm-room"]||[];
+      const groupList=[...roomList_data,...arr]
+      let ob = groupList.find((item) => item.room_name == newName);
       if (!ob) {
         return newName;
       } else {
         targetArr.push("");
-        return this.getRoomName(targetArr);
+        return this.getRoomName(room_type_id,targetArr);
       }
+      } catch (error) {
+        return `房间${Date.now().toString().substr(-4)}`
+      }
+
     },
     getRoomList() {},
     async submit() {
       //this.$refs.roomTypeRef.validate().then((res) => {
-      this.submitLoading = true;
+   
 
       console.log(this.room_type_id);
       if (!this.room_type_id) {
@@ -168,17 +191,20 @@ export default {
         });
         return;
       }
+         this.submitLoading = true;
       try {
-        await DB.callFunction("hm_addRoom", { roomList: this.roomList });
+        console.log(this.roomList)
+       const res = await  DB.callFunction("hm_addRoom", { roomList: this.roomList });
+        await this.$store.dispatch("getRoomType");
+        console.log(res)
         uni.navigateBack({
           delta: 1, // 返回层数，2则上上页
           success() {
             // uni.$emit("update", { msg: "页面更新" });
           },
         });
-        uni.redirectTo({ url: "/pages/hotelManage/roomList/roomList" });
       } catch (error) {
-        console.error(error);
+        console.log("error","error");
         uni.showModal({
           content: "系统异常，请稍候再试！",
           confirmText: "确认",
@@ -194,7 +220,7 @@ export default {
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  background: #fff;
+
   .createRoomComponent-container {
     flex: 1;
     max-width: 600px;

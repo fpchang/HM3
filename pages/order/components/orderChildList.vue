@@ -108,7 +108,6 @@
 							</view>
 							<!-- #endif -->
 							<!-- #ifdef H5 || APP-PLUS -->
-							 {{ 222 }}
 							 <template v-for="(item, index) in data" v-slot:[`card${index}`]>
 								<view class="p-card">
 									<view class="title">
@@ -210,7 +209,7 @@
 						</xt-panal-list>
 					</block>
 					<view>
-						<uni-load-more @clickLoadMore="clickLoadMore" :status="hasMore? 'more':'noMore'"
+						<uni-load-more v-if="!loading" @clickLoadMore="clickLoadMore" :status="hasMore? 'more':'noMore'"
 							:content-text="contentText"></uni-load-more>
 					</view>
 				
@@ -295,25 +294,28 @@ export default {
     },
   },
   watch: {
-    async partialRefreshComName(val) {
-      //下拉刷新
-      if (val == "orderComponent") {
-        console.log("局部刷新 orderComponent");
-        await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
-        this.$refs.udb.refresh();
-        console.log("刷新完成");
-        this.$store.commit("setPartialRefreshComName", "");
-        uni.hideLoading();
-        uni.stopPullDownRefresh();
-      }
-    },
-    checkListLen() {
-      this.$refs.udb.refresh();
-    },
+    // async partialRefreshComName(val) {
+    //   //下拉刷新
+    //   if (val == "orderComponent") {
+    //     console.log("局部刷新 orderComponent");
+    //     await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
+    //     this.$refs.udb.refresh();
+    //     console.log("刷新完成");
+    //     this.$store.commit("setPartialRefreshComName", "");
+    //     uni.hideLoading();
+    //     uni.stopPullDownRefresh();
+    //   }
+    // },
+    // checkListLen() {
+    //   this.$refs.udb.refresh();
+    // },
   },
   methods: {
     refrush() {
-      this.$refs.udb.refresh();
+		if(this.$refs.udb){
+this.$refs.udb.refresh();
+		}
+      
     },
 
     clickLoadMore() {
@@ -464,7 +466,7 @@ export default {
     },
     formatRoomName(room_id) {
       const roomItem = this.roomList.find((item) => item._id == room_id);
-      return roomItem.room_name;
+      return roomItem?roomItem.room_name:'--';
     },
     async getRoomList() {
       const res = await HotelService.getRoomListByHotelId(this.hotel_id);

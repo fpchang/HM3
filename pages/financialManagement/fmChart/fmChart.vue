@@ -17,6 +17,10 @@
 				
 			}
 		},
+		     async onPullDownRefresh() {
+      await this.$refs.fmChartComponent.refrushData();
+    uni.stopPullDownRefresh();
+  },
 		methods: {
 			
 		}

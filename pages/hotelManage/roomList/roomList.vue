@@ -32,7 +32,7 @@
                     <view class="title">
                       <!-- <view v-if="!item['isedit']">{{item.room_name}} </view>  -->
                          <view class="input-style" :style="{'border-color':item._id ==editId?'#dfdfdf':' #fff'}">
-                          <input :inputBorder="item._id ==editId?true:false" v-model="item.room_name" trim="all" :disabled="item._id !=editId" :focus="item._id !=editId" :clean="false" />
+                          <input :inputBorder="item._id ==editId?true:false" v-model="item.room_name" trim="all" :disabled="item._id !=editId"  :clean="false" />
                         </view>
                      
                     </view>
@@ -66,7 +66,7 @@
                     <view class="title">
                       <!-- <view v-if="!item['isedit']">{{item.room_name}} </view>  -->
                          <view class="input-style" :style="{'border-color':item._id ==editId?'#dfdfdf':' #fff'}">
-                          <input :inputBorder="item._id ==editId?true:false" v-model="item.room_name" trim="all" :disabled="item._id !=editId" :focus="item._id !=editId" :clean="false" />
+                          <input :inputBorder="item._id ==editId?true:false" v-model="item.room_name" trim="all" :disabled="item._id !=editId" :clean="false" />
                         </view>
                      
                     </view>
@@ -108,6 +108,7 @@ import { useStore } from "vuex";
 import { FMService } from "../../../services/FMService";
 import { alert } from "@/alert";
 import { DB } from "../../../api/DB";
+import $store from '@/store/store';
 export default {
   setup() {
     const store = useStore();
@@ -166,14 +167,7 @@ export default {
   },
 
   onShow() {
-    //this.$refs.udb.refresh();
-    try {
-      if(this.$refs.udb){
-        this.$refs.udb.refresh()
-      }
-    } catch (error) {
-      
-    }
+   
     
   },
   created() {
@@ -195,7 +189,7 @@ export default {
     
   },
     async onPullDownRefresh() {
-      await this.$refs.udb.refresh();
+      await this.$store.dispatch("getRoomType");
     uni.stopPullDownRefresh();
   },
   methods: {
@@ -210,6 +204,13 @@ export default {
       console.log(this.filter);
     },
     addRoom() {
+      if(this.roomType&&this.roomType.length<1){
+        uni.showToast({
+          title: '请先创建房型',
+          icon: 'none'
+        })
+        return;
+      }
       if (
         !this.$store.state.permissionStore.permissionList.includes(
           "ROOMTYPE_CREATE"
@@ -223,10 +224,7 @@ export default {
           this.room_type_id || ""
         )}`,
         events: {
-          updateData: () => {
-            console.log("刷新数据");
-            this.$refs.udb.refresh();
-          },
+       
         },
       });
     },

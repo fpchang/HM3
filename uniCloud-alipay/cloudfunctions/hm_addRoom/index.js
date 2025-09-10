@@ -9,8 +9,13 @@ exports.main = async (event, context) => {
 		event,
 		context
 	})
-	//const db = uniCloud.database();
-	//const dCmd = db.command;
-	const result = await dbJQL.collection('hm-room').add(roomList);
-	return result;
+	try {
+		const result = await dbJQL.collection('hm-room').add(roomList);
+		return result;
+	} catch (error) {
+		throw new Error(error);
+	}
+	
+	
+	
 };

@@ -166,6 +166,10 @@ export default {
     // 	console.log("222",re)
     // })
   },
+      async onPullDownRefresh() {
+      await this.$refs.udb.refresh();
+    uni.stopPullDownRefresh();
+  },
   methods: {
     amountSum(list) {
       let sum = 0;

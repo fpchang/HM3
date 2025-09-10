@@ -119,6 +119,10 @@ import {useStore} from 'vuex';
 		onShow(){
 			//this.$refs.udb.refresh();
 		},
+		     async onPullDownRefresh() {
+      await this.$refs.udb.refresh();
+    uni.stopPullDownRefresh();
+  },
 		methods:{
 			amountSum(list){
 				let sum =0;

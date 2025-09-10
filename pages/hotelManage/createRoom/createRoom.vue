@@ -1,6 +1,6 @@
 <template>
   <view>
-    <createRoomComponent v-if="room_type_id!=null" :room_type_id="room_type_id"></createRoomComponent>
+    <createRoomComponent v-if="room_type_id!=null" :roomTypeId="room_type_id"></createRoomComponent>
   </view>
 </template>
 

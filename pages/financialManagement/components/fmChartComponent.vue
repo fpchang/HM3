@@ -225,7 +225,6 @@
 		},
 		methods: {
 			refrushData(){
-				console.log("222222")
 				let task = [this.getIncomeMonth(),
 					this.getExpensesMonth(),
 					this.getIncomeCurrentYear(),
