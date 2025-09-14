@@ -82,7 +82,7 @@ $uni-font-size-paragraph:15px;
 /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 /*操作文字颜色-蓝色*/
 $btn-bgColor:#3c9cff;
-$font-color-control:#0765ae;
+$font-color-control:#007aff;
 $font-color-control-hover:#0461aa;
 /*操作btn颜色-蓝色*/
 
@@ -148,7 +148,7 @@ $label-normal:#a1a1a1;
 			height: 35px;
 			line-height: 36px;
 			padding-top: 20px;
-			font-weight: bold;
+			font-weight: 400;
 			text-align: center;
 		}
 		
@@ -189,19 +189,29 @@ $label-normal:#a1a1a1;
   .submit-btn-style{
 		display: flex;
 	  justify-content: flex-end;
-	  padding:20px;
+	 
 
   }
+
   .submit-btn{
-	  background-color: $font-color-control ;
+	  background-color: $font-color-control!important;
 	  color: #fff;
-	  min-width: 160px;
-	  min-height: 40px;
+	  min-width: 80px;
+	  max-height: 40px;
+	  font-size: 14px;
 	  display: flex;
 	  align-items: center;
-	  justify-content: center;	  	  
+	  justify-content: center;	
+	  border-radius: 8px; 
+	  letter-spacing: 2px; 	  
   }
-  
+    .submit-btn[disabled][type='default']{
+		  background-color: #dedede !important;
+	}
+	 .submit-btn[loading][type='default']{
+		  background-color: #dedede !important;
+		  color: #999;
+	}
   //字体btn
   .edit-text-btn-style{
 	color: $font-color-control;

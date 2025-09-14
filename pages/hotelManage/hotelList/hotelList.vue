@@ -3,18 +3,18 @@
 	<view class="hotel-component">
 		<view class="add-content-style">
 			<view class="control-panal">
-			 <view class="control-item-group" @click="addHotel">
-          <view><l-icon name="solar:add-circle-bold" size="22px" color="#fff" /></view>
-          <view><text style="color:#fff">添加酒店</text></view>
-        </view>
-		   </view>
-		   </view>
+				<view class="control-item-group" @click="addHotel">
+					<view><l-icon name="solar:add-circle-bold" size="22px" color="#fff" /></view>
+					<view><text style="color:#fff">添加酒店</text></view>
+				</view>
+			</view>
+		</view>
 		<view v-if="false&&isPcShow">
 			<uni-table border stripe emptyText="暂无更多数据">
 				<!-- 表头行 -->
 				<uni-tr>
 					<uni-th align="center" width="120px">酒店名称</uni-th>
-					<uni-th align="center" >地址</uni-th>
+					<uni-th align="center">地址</uni-th>
 					<uni-th align="center" width="120px">店主</uni-th>
 					<uni-th align="center" width="120px">角色</uni-th>
 					<uni-th align="center" width="180px">操作</uni-th>
@@ -27,8 +27,10 @@
 					<uni-td>{{roleFormat(item.curRole)}}</uni-td>
 					<uni-td align="center">
 						<view class="uni-group" style="justify-content:space-around">
-						  <text v-if="item.curRole=='administrator'" class="edit-text-btn-style" @click="editHotel(item)">修改</text>
-            			  <text v-if="item.curRole=='administrator'" class="edit-text-btn-style" @click="deleteHotel(item)">删除</text>
+							<text v-if="item.curRole=='administrator'" class="edit-text-btn-style"
+								@click="editHotel(item)">修改</text>
+							<text v-if="item.curRole=='administrator'" class="edit-text-btn-style"
+								@click="deleteHotel(item)">删除</text>
 						</view>
 					</uni-td>
 				</uni-tr>
@@ -36,90 +38,94 @@
 
 			</uni-table>
 		</view>
-		  <block v-if="noData">
-      <noData
-        text_content="您还没有酒店"
-        :showControl="true"
-        text_control_add="创建一个"
-        @Event_one="addNewHotel"
-      ></noData>
-    </block>
-		<block  v-if="!noData">
-<view class="content">
-		
-		<view class="mobile-show-style">
-			<xt-panal-list :count="hotelList.length">
-				
-				<!-- #ifdef MP -->
-				<view v-for="(item,index) of hotelList" slot="card{{index}}">
-					<view class="card-content">
-							<view class="avator">
+		<block v-if="noData">
+			<noData text_content="您还没有酒店" :showControl="true" text_control_add="创建一个" @Event_one="addNewHotel"></noData>
+		</block>
+		<block v-if="!noData">
+			<view class="content">
 
-								<image style="width:100%;height:100%" mode="aspectFit" :src="item.firstImages" />
+				<view class="mobile-show-style">
+					<xt-panal-list :count="hotelList.length">
 
+						<!-- #ifdef MP -->
+						<view v-for="(item, index) of hotelList" slot="card{{index}}">
+						<view class="card-content">
+								<view class="avator">
+						
+									<image style="width:100%;height:100%" mode="aspectFill" :src="item.firstImages||'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png'" />
+						
+								</view>
+						
+								<view class="info">
+									<view class="title">{{item.hotelName}} </view>
+									<view class="n"><text>{{`店主：${item.belong}`}}</text> </view>
+									<view class="r"><text style="padding-right:6px">{{
+										`角色：${this.roleFormat(item.curRole)}` }}</text></view>
+						
+						
+								</view>
+								<view class="control">
+						
+							
+									<view class="control-item" @click="editHotel(item)"
+										v-if="item.curRole=='administrator'"><l-icon
+											name="pepicons-pop:pen-circle-filled" color="#39AFF8" size="30px"></l-icon>
+									</view>
+									<view class="control-item" @click="deleteHotel(item)"
+										v-if="item.curRole=='administrator'"><l-icon name="clarity:remove-solid"
+											color="#FF4654" size="30px"></l-icon></view>
+									<view class="control-item" @click="viewDetail(item)"><l-icon
+											name="fluent:more-circle-24-filled" color="#36D399" size="30px"></l-icon>
+									</view>
+								</view>
 							</view>
-							<view class="info">
-								<view class="n"><text>{{ `【店主：${item.belong}】` }}</text> </view>
-								<view class="r"><text style="padding-right:6px">{{ `【角色：${this.roleFormat(item.curRole)}】` }}</text></view>
+						
+						</view>
+						<!-- #endif -->
+						<!-- #ifdef H5 || APP-PLUS -->
+						<template v-for="(item, index) of hotelList" v-slot:[`card${index}`]>
+							<view class="card-content">
+								<view class="avator">
+
+									<image style="width:100%;height:100%" mode="aspectFill" :src="item.firstImages||'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png'" />
+
+								</view>
+
+								<view class="info">
+									<view class="title">{{item.hotelName}} </view>
+									<view class="n"><text>{{`店主：${item.belong}`}}</text> </view>
+									<view class="r"><text style="padding-right:6px">{{
+										`角色：${this.roleFormat(item.curRole)}` }}</text></view>
 
 
-							</view>
-							<view class="control">
+								</view>
+								<view class="control">
 
-								<view @click="editHotel(item)" v-if="item.curRole=='administrator'"><l-icon name="mingcute:pencil-fill" color="#3885fc"
+									<!-- <view @click="editHotel(item)" v-if="item.curRole=='administrator'"><l-icon name="mingcute:pencil-fill" color="#3885fc"
 										size="18px"></l-icon>
 								</view>
 								<view @click="deleteHotel(item)" v-if="item.curRole=='administrator'"><l-icon name="garden:x-fill-16" color="#3885fc"
 										size="18px"></l-icon></view>
 								<view @click="viewDetail(item)"><l-icon name="ic:round-more-vert" color="#3885fc"
-										size="18px"></l-icon></view>
-
-							</view>
-						</view>
-				  </view>
-				<!-- #endif -->
-				  <!-- #ifdef H5 || APP-PLUS -->
-				   <template v-for="(item,index) of hotelList" v-slot:[`card${index}`]>
-					   <!-- <xt-panal-card :logoUrl="item.firstImages" :title="item.hotelName" :control_edit="item.curRole=='administrator'" :control_delete="item.curRole=='administrator'" @edit_event="editHotel(item)" @delete_event="deleteHotel(item)" @view_event="viewDetail(item)" >
-							   <template v-slot:titleContent>
-								<view class="titleContent"> 
-									<view class="titleContent-item">{{ `【店主：${item.belong}】` }}</view>
-									<view class="titleContent-item">{{ `【角色：${this.roleFormat(item.curRole)}】` }}</view>
+										size="18px"></l-icon></view> -->
+									<view class="control-item" @click="editHotel(item)"
+										v-if="item.curRole=='administrator'"><l-icon
+											name="pepicons-pop:pen-circle-filled" color="#39AFF8" size="30px"></l-icon>
+									</view>
+									<view class="control-item" @click="deleteHotel(item)"
+										v-if="item.curRole=='administrator'"><l-icon name="clarity:remove-solid"
+											color="#FF4654" size="30px"></l-icon></view>
+									<view class="control-item" @click="viewDetail(item)"><l-icon
+											name="fluent:more-circle-24-filled" color="#36D399" size="30px"></l-icon>
+									</view>
 								</view>
-								<view style="padding:10px 0"></view>
-							   </template>
-					
-						   </xt-panal-card> -->
-						   <view class="card-content">
-							<view class="avator">
-
-								<image style="width:100%;height:100%" mode="aspectFit" :src="item.firstImages" />
-
 							</view>
-							<view class="info">
-								<view class="n"><text>{{ `【店主：${item.belong}】` }}</text> </view>
-								<view class="r"><text style="padding-right:6px">{{ `【角色：${this.roleFormat(item.curRole)}】` }}</text></view>
+						</template>
+						<!-- #endif -->
 
 
-							</view>
-							<view class="control">
-
-								<view @click="editHotel(item)" v-if="item.curRole=='administrator'"><l-icon name="mingcute:pencil-fill" color="#3885fc"
-										size="18px"></l-icon>
-								</view>
-								<view @click="deleteHotel(item)" v-if="item.curRole=='administrator'"><l-icon name="garden:x-fill-16" color="#3885fc"
-										size="18px"></l-icon></view>
-								<view @click="viewDetail(item)"><l-icon name="ic:round-more-vert" color="#3885fc"
-										size="18px"></l-icon></view>
-
-							</view>
-						</view>
-					   </template>
-				 <!-- #endif -->
-			  
-				  
-		  </xt-panal-list>
-			<!-- <uni-collapse v-model="accordionVal">
+					</xt-panal-list>
+					<!-- <uni-collapse v-model="accordionVal">
 				<uni-collapse-item v-for="item of hotelList">
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.hotelName " type="circle">
@@ -167,14 +173,15 @@
 				</uni-collapse-item>
 
 			</uni-collapse> -->
-		</view>
-		</view>
+				</view>
+			</view>
 		</block>
 		<uni-popup ref="popupaddHotel" background-color="transprant" @change="popupChange">
 			<view class="popup-content">
-				<view class="create-order-title-style">{{["新增酒店","修改酒店信息","酒店详情"][type]}}</view>
+				<view class="create-order-title-style">{{["新增酒店", "修改酒店信息", "酒店详情"][type]}}</view>
 				<view class="comContent">
-					<createHotelComponent  @closePopup="closePopup" :type="type" :targetObj="targetObj"></createHotelComponent>
+					<createHotelComponent @closePopup="closePopup" :type="type" :targetObj="targetObj">
+					</createHotelComponent>
 				</view>
 
 			</view>
@@ -359,43 +366,47 @@ import {alert} from "@/alert";
 </script>
 
 <style lang="scss">
-.hotel-component{
-		height: 100%;
+.hotel-component {
+	height: 100%;
 	min-height: 100vh;
 	background-color: #0765ae;
 	display: flex;
 	flex-direction: column;
+
 	.content {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  background: #e7eaef;
-  flex: 1;
-  padding:15px;
-  box-sizing: border-box;
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
+		background: #e7eaef;
+		flex: 1;
+		padding: 15px;
+		box-sizing: border-box;
 
-}
-}
-.add-content-style {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 20px;
-  box-sizing: border-box;
-  background-color: #0765ae;
-
-  .left-panal {
-    .title {
-      color: #fff;
-      font-weight: 400;
-      font-size: 18px;
-      letter-spacing: 2px;
-    }
-  }
-}
-	.uni-group {
-		display: flex;
-		justify-content: space-between;
 	}
-	.card-content {
+}
+
+.add-content-style {
+	display: flex;
+	justify-content: flex-end;
+	padding: 0 20px;
+	box-sizing: border-box;
+	background-color: #0765ae;
+
+	.left-panal {
+		.title {
+			color: #fff;
+			font-weight: 400;
+			font-size: 18px;
+			letter-spacing: 2px;
+		}
+	}
+}
+
+.uni-group {
+	display: flex;
+	justify-content: space-between;
+}
+
+.card-content {
 	display: flex;
 	padding: 15px;
 	box-sizing: border-box;
@@ -404,24 +415,28 @@ import {alert} from "@/alert";
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 10px;
-		width: 80px;
-		height: 60px;
+		border-radius: 8px;
+		width: 100px;
+		overflow: hidden;
+	
 	}
 
 	.info {
 		flex: 1;
 		display: flex;
-		justify-content: center;
 		flex-direction: column;
 		padding-left: 10px;
 		box-sizing: border-box;
-		gap: 4px;
+		gap: 5px;
+
+		.title {
+			font-weight: 400;
+		}
 
 		.n {
-			color: #1F2937;
+			color: #8C8C8C;
 			font-weight: 400;
-			font-size: 16px;
+			font-size: 15px;
 		}
 
 		.r {
@@ -437,38 +452,41 @@ import {alert} from "@/alert";
 	}
 }
 
-	.titleContent{
-		font-size: 13px;
-		.titleContent-item{
-			padding:3px 0;
-		}
+.titleContent {
+	font-size: 13px;
+
+	.titleContent-item {
+		padding: 3px 0;
 	}
-	
-	.col-content {
-		/* background: linear-gradient(to bottom, #FFF, #EEF); */
-		border-radius: 4px;
-		padding: 0 20px;
+}
 
-		.list {
+.col-content {
+	/* background: linear-gradient(to bottom, #FFF, #EEF); */
+	border-radius: 4px;
+	padding: 0 20px;
+
+	.list {
+		display: flex;
+		flex-direction: column;
+
+		.list-item {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
+			justify-content: space-between;
+			padding: 10px 0;
+			font-size: $uni-font-size-base ;
 
-			.list-item {
+			.list-item-c {
 				display: flex;
-				flex-direction: row;
 				justify-content: space-between;
-				padding: 10px 0;
-				font-size:$uni-font-size-base ;
-				.list-item-c {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					.stitle{
-						font-weight: bold;
-						
-					}
+				align-items: center;
+
+				.stitle {
+					font-weight: 400;
+
 				}
 			}
 		}
 	}
+}
 </style>

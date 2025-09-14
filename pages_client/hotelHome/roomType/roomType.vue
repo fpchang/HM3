@@ -336,7 +336,7 @@ $showWidth:1200px;
     gap:8px;
     .pr-text{
       color: #0765ae;
-      font-weight: bold;
+      font-weight: 400;
       padding:0 4px;
     }
   }
@@ -345,7 +345,7 @@ $showWidth:1200px;
 } 
 .strong {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 400;
 }
 .normal {
   font-size: 13px;

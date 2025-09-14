@@ -335,7 +335,7 @@
 		padding: 10px;
 		color: #fff;
 		font-size: 18px;
-		font-weight: bold;
+		font-weight: 400;
 		.am-color {
 			color: $theam-main-color;
 			padding: 0 4px;

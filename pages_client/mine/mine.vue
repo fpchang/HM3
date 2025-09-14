@@ -32,8 +32,11 @@
 							 </uni-icons>
 						</view>
 						<view class="content-area">
-							<text>{{item.title}}</text>
-							<uni-icons v-if="item.showArrow" type="forward" size="22"></uni-icons>
+							<view>{{item.title}}</view>
+							<view> 
+								<l-icon  v-if="item.showArrow" name="material-symbols-light:arrow-forward-ios-rounded" size="24px" color="#666"></l-icon>
+							</view>
+							
 						</view>
 					</view>
 				</view>

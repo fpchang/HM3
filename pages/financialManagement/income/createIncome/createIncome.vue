@@ -25,10 +25,9 @@
 			<uni-forms-item label="备注" name="mark">
 				<uni-easyinput v-model="incomeForm.mark" type="textarea" />
 			</uni-forms-item>
-	<view class="submit-btn-style">
-			<uv-button type="success" text="保存" color="#007aff" @click="submit()" :disabled="submitDisabled"
-            :loading="submitLoading" v-if="type!=2" class="submit-btn"></uv-button>
-		</view>
+			<view class="submit-btn-style">
+			<view><button v-if="type!=2" type="default" class="submit-btn" :disabled="submitDisabled" :loading="submitLoading" @click="submit()" >保存</button></view>			
+			</view>
         </uni-forms>
         
     </view>
@@ -47,6 +46,7 @@ export default {
 					ioeTime:"",
 					amount:"",
 					billType:"income",
+					
 					mark:""
 				},
 				incomeRules: {
@@ -82,6 +82,11 @@ export default {
 				
 				}
 	
+			}
+		},
+		computed:{
+			submitDisabled(){
+				return !this.incomeForm.type || !this.incomeForm.ioeTime|| !this.incomeForm.amount;
 			}
 		},
 		methods: {

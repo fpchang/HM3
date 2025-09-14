@@ -20,10 +20,9 @@
 				<xt-file-picker ref="uploadImagesRef" :cloudPath="cloudPath" @success="uploadSuccess" :imagesList="roomTypeForm.imagesList"></xt-file-picker>
 				
 			</view>
-		<view>
-			<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
-            :loading="submitLoading"></uv-button>
-		</view>
+		<view class="submit-btn-style">
+			<view><button  type="default" class="submit-btn" :disabled="submitDisabled" :loading="submitLoading" @click="submitForm()" >保存</button></view>			
+			</view>
         </uni-forms>
         
     </view>

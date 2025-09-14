@@ -364,7 +364,7 @@
 
 	.uni-label-text {
 		font-size: 14px;
-		font-weight: bold;
+		font-weight: 400;
 		color: $uni-base-color;
 		margin: auto 0;
 		margin-right: 5px;

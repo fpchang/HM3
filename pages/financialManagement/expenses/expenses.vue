@@ -23,7 +23,6 @@
 						where="billType=='expenses'" field="text , name as value" orderby="name asc"></uni-data-select>
 				</view>
 			</view>
-			{{ where_str }}
 			<unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :collection="colList"
 				:getone="false" :where="where_str" orderby="ioeTime asc">
 				
@@ -230,7 +229,7 @@ import {useStore} from 'vuex';
 			.num {
 				color: #FFF;
 				padding: 0 4px;
-				font-weight: bold;
+				font-weight: 400;
 				font-size: 20px;
 			}
 		}
@@ -242,7 +241,7 @@ import {useStore} from 'vuex';
 	font-size: 20px;
 	color: #666;
 	padding: 10px 15px;
-	font-weight: bold;
+	font-weight: 400;
 }
 
 .list {
@@ -256,7 +255,7 @@ import {useStore} from 'vuex';
 		display: flex;
 		align-items: center;
 		.ti {
-		font-weight: bold;
+		font-weight: 400;
 	}
 	}
 }

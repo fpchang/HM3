@@ -535,7 +535,7 @@ export default {
     .title {
 
       color: #333333;
-      font-weight: bold;
+      font-weight: 400;
       font-size: $uni-font-size-base ;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -748,7 +748,7 @@ export default {
 
     .title {
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 400;
       height: 30px;
 
       line-height: 30px;

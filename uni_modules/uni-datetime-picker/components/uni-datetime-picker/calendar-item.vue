@@ -75,7 +75,7 @@
 	.uni-calendar-item__weeks-box-text {
 		font-size: 14px;
 		// font-family: Lato-Bold, Lato;
-		font-weight: bold;
+		font-weight: 400;
 		color: darken($color: $uni-primary, $amount: 40%);
 	}
 

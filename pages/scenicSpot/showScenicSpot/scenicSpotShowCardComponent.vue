@@ -220,7 +220,7 @@
 		justify-content: space-between;
 
 		.tit-style {
-			font-weight: bold;
+			font-weight: 400;
 			color: $uni-color-title;
 		}
 	}
@@ -234,7 +234,7 @@
 
 			.tit {
 				
-				font-weight: bold;
+				font-weight: 400;
 				padding-right: 12px;
 			}
 
@@ -273,7 +273,7 @@
 
 	.pr-item {
 		font-size: $uni-font-size-base;
-		font-weight: bold;
+		font-weight: 400;
 		padding: 5px 0;
 
 		&:nth-child(1) {

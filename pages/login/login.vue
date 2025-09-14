@@ -34,7 +34,7 @@
           
         </uni-forms-item>
         <uni-forms-item >
-          <button  :class="['submit-btn',submitDisabled?'submit-btn-disabled':'']"  :disabled="submitDisabled" @click="submit":loading="submitLoading">登录</button>
+          <button  class="submit-btn" type="default" :disabled="submitDisabled" @click="submit" :loading="submitLoading" style="height:40px">登录</button>
         </uni-forms-item> <uni-forms-item >
          <view class="up">
           <uni-icons :type="isAgree?'checkbox-filled':'circle'" @click="agreeEvent" size="20" color="#0765ae"></uni-icons> <text>我已阅读并同意<text class="edit-text-btn-style ct" @click="openUserAgreement">《用户协议》</text>和<text class="edit-text-btn-style ct" @click="openUserPrivacyPolicy">《隐私政策》</text></text>
@@ -322,17 +322,7 @@ export default {
   }
 }
 
-.submit-btn{
-  background:#0765ae;
-  border-radius: 8px;
-  color: #fff!important;
-  cursor: pointer;
-  
-}
-.submit-btn-disabled{
-  background:rgba(7,101,174,0.5)!important;
-  color: #eee!important;
-}
+
 .sms-btn {
   border-radius: 22.5px;
   color: #fff;

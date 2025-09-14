@@ -302,7 +302,7 @@
 		}
 
 		.title {
-			font-weight: bold;
+			font-weight: 400;
 			font-size: 18px;
 			color: #1a1a1a;
 		}
@@ -318,7 +318,7 @@
 
 		.rmb {
 			color: #0765ae;
-			font-weight: bold;
+			font-weight: 400;
 			font-size: 20px;
 			padding: 0 10px;
 		}

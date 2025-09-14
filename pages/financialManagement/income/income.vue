@@ -273,7 +273,7 @@ export default {
       .num {
         color: #fff;
         padding: 0 4px;
-        font-weight: bold;
+        font-weight: 400;
         font-size: 20px;
       }
     }
@@ -284,7 +284,7 @@ export default {
   font-size: 20px;
   color: #666;
   padding: 10px 15px;
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .list {
@@ -298,7 +298,7 @@ export default {
     display: flex;
     align-items: center;
     .ti {
-		font-weight: bold;
+		font-weight: 400;
 	}
   }
 }

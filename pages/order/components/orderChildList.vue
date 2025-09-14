@@ -583,7 +583,7 @@ this.$refs.udb.refresh();
 
 .num-style {
 	padding-right: 8px;
-	font-weight: bold;
+	font-weight: 400;
 }
 
 /* .bg-purple {
@@ -607,7 +607,7 @@ this.$refs.udb.refresh();
 	color: #a1a1a1;
 
 	.ti {
-		font-weight: bold;
+		font-weight: 400;
 	}
 
 	.header {
@@ -617,7 +617,7 @@ this.$refs.udb.refresh();
 	}
 
 	.title {
-		font-weight: bold;
+		font-weight: 400;
 		font-size: 18px;
 		color: #1a1a1a;
 		display: flex;

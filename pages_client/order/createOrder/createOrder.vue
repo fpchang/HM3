@@ -74,7 +74,7 @@ import createOrderComponent from './createOrderComponent';
 	font-size: 14px;
 	.rmb{
 		color:#0765ae;
-		font-weight: bold;
+		font-weight: 400;
 		font-size: 20px;
 		padding:0 10px;
 	}

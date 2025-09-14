@@ -207,8 +207,8 @@ export default {
   .subtitle {
     color: #fff;
     padding: 25px;
-    font-weight: bold;
-    font-size: 22px;
+    font-weight: 400;
+    font-size: 24px;
   }
 
   .item-list {
@@ -242,8 +242,8 @@ export default {
 
   .subtitle {
     color: #1d2129;
-    padding: 25px;
-    font-weight: bold;
+    padding: 24px;
+    font-weight: 400;
     font-size: 22px;
   }
 

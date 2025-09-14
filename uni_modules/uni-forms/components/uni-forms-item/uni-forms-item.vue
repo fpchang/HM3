@@ -578,7 +578,7 @@
 		.is-required {
 			// color: $uni-color-error;
 			color: #dd524d;
-			font-weight: bold;
+			font-weight: 400;
 		}
 	}
 

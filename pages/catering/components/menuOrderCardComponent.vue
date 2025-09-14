@@ -8,7 +8,7 @@
         style="flex: 1; display: flex; justify-content: flex-end; gap: 15px"
       >
       
-        <uv-icon
+        <!-- <uv-icon
           name="trash-fill"
           color="#000"
           size="22"
@@ -16,7 +16,7 @@
           labelPos="bottom"
           labelSize="12px"
           @click="deleteOrderDishes"
-        ></uv-icon>
+        ></uv-icon> -->
 
       </view>
     </view>
@@ -312,7 +312,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   .tit-style {
-    font-weight: bold;
+    font-weight: 400;
     color: $uni-color-title;
   }
 }
@@ -329,7 +329,7 @@ export default {
     font-size: $uni-font-size-base;
     .tit {
       min-width: 60px;
-      font-weight: bold;
+      font-weight: 400;
       padding-right: 12px;
     }
     .add-text-style{

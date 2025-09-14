@@ -100,15 +100,9 @@
         ></uni-easyinput>
       </uni-forms-item>
       <uni-forms-item>
-        <uv-button
-          class="submit-btn"
-          type="success"
-          text="保存"
-          color="#007aff"
-          @click="submitForm()"
-          :disabled="submitDisabled"
-          :loading="submitLoading"
-        ></uv-button>
+		<view class="submit-btn-style">
+			<view><button  type="default" class="submit-btn" :disabled="submitDisabled" :loading="submitLoading" @click="submitForm()" >保存</button></view>			
+			</view>
       </uni-forms-item>
     </uni-forms>
   </view>
@@ -342,7 +336,7 @@ export default {
 		getValidOrder() {},
 		async submitForm() {
 			//uni.showLoading();
-			//this.submitLoading = true;
+			this.submitLoading = true;
 			let dateRange = this.dateRangeArrayFormat;
 			let sourceObj = this.source.find(
 				(item) => item.value == this.orderForm.orderSource

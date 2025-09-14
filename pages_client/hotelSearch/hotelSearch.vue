@@ -152,7 +152,7 @@ import uniSection from '@/uni_modules/uni-section/components/uni-section/uni-sec
 			flex-direction: column;
 			gap:10px;
 			.title{
-				font-weight: bold;
+				font-weight: 400;
 				color: #000;
 				font-size: 16px;
 			}

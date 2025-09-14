@@ -87,7 +87,7 @@ export default {
     justify-content: center;
     align-items: center;
     color:var(--fcolor,#a1a1a1);
-    font-weight: bold;
+    font-weight: 400;
 
   }
   .sub-item-active{

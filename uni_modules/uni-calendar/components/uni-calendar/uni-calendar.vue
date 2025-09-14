@@ -556,7 +556,7 @@
 
 	.uni-calendar__box-bg-text {
 		font-size: 200px;
-		font-weight: bold;
+		font-weight: 400;
 		color: $uni-text-color-grey;
 		opacity: 0.1;
 		text-align: center;

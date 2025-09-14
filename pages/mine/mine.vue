@@ -60,7 +60,7 @@
 
 			<view class="bottom-card">
 				<view class="card jd" style="background:#0765ae">
-					<view class="jd-item" style="font-weight: bold; font-size: 20px">{{
+					<view class="jd-item" style="font-weight: 400; font-size: 20px">{{
 						hotel['hotelName']
 					}}</view>
 					<view class="jd-item">
@@ -85,12 +85,12 @@
 								<l-icon :name="item.imgName" size="20px" color="#666"></l-icon>
 							</view>
 							<view class="content-area">
-								<text>{{item.title}}</text>
-								<text>
+								<view>{{item.title}}</view>
+								<view>
 									<l-icon v-if="item.showArrow" name="material-symbols:arrow-forward-ios" size="18px"
 										color="#999"></l-icon>
 
-								</text>
+								</view>
 
 							</view>
 						</view>
@@ -122,7 +122,6 @@ import recharge from "@/pages/mine/recharge/rechargeComponent";
 import feedback from "./feedback/feedback";
 import { AccountService } from "../../services/AccountService";
 import LIcon from '../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
-import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
 export default {
   components: {
     feedback,
@@ -303,7 +302,7 @@ export default {
 			.name-style {
 				color: #fff;
 				font-size: 18px;
-				font-weight: bold;
+				font-weight: 400;
 
 				.sub-name {
 					font-size: 15px;

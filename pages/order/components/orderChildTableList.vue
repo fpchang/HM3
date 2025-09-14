@@ -58,7 +58,7 @@
 					<uni-td>{{item.createrPhone}}【{{ item.createrName }}】</uni-td>
 					<uni-td>
 						<text
-							style="color: red;font-weight: bold;letter-spacing: 3px;">{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}</text><text>晚</text></uni-td>
+							style="color: red;font-weight: 400;letter-spacing: 3px;">{{dayNum([item.checkInStartDateTimeStamp,item.checkInEndDateTimeStamp])}}</text><text>晚</text></uni-td>
 					<uni-td>
 	
 						<view class="uni-group" v-if="item.checkInEndDateTimeStamp > new Date().getTime() && !item.fromClient">
@@ -231,7 +231,7 @@
 
 	.strongText {
 		color: red;
-		font-weight: bold;
+		font-weight: 400;
 	}
 
 	.cond-c {

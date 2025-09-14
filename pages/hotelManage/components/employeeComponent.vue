@@ -148,7 +148,6 @@ import  {DB} from "../../../api/DB";
 import  {HotelService} from "../../../services/HotelService";
 import {alert} from "@/alert";
 import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
-import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
 export default {
   components: {
     addEmployeeComponent,

@@ -10,10 +10,11 @@
 		</uni-forms-item> 
 
 		<uni-forms-item>
-			<view class="submit-btn-style">
-			<uv-button type="success"  text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
-		:loading="submitLoading" class="submit-btn"></uv-button>
-		</view>
+		
+
+		<view class="submit-btn-style">
+			<view><button type="default" class="submit-btn" :disabled="submitDisabled" :loading="submitLoading" @click="submitForm()" >保存</button></view>			
+			</view>
 		 </uni-forms-item>
 	  </uni-forms>
 	  
@@ -71,7 +72,9 @@
 		user(){
 			return this.$store.state.user;
 		},
-		submitDisabled(){}
+		submitDisabled(){
+			return !this.feedbackForm.title ||!this.feedbackForm.content
+		}
 	 
 	},
 	onLoad(params){

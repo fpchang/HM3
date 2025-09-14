@@ -225,7 +225,7 @@ $uni-primary: #007aff !default;
 	box-sizing: border-box;
 	/* #endif */
 	font-size: 14px;
-	font-weight: bold;
+	font-weight: 400;
 	color: #909399;
 	border-bottom: 1px $border-color solid;
 }

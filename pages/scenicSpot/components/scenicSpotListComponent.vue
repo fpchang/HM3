@@ -2,11 +2,11 @@
 	<view>		
 		<view class="add-content-style">
 			<view class="control-panal">
-				<uv-icon name="plus-circle-fill" color="#000" size="22" label="添加景点" labelPos="bottom" labelSize="12px"
-					@click="addScenicSpot"></uv-icon>
+				<!-- <uv-icon name="plus-circle-fill" color="#000" size="22" label="添加景点" labelPos="bottom" labelSize="12px"
+					@click="addScenicSpot"></uv-icon> -->
 				<button class="clearBtn" @click="shareWx" :plain="true" open-type="share" v-if="scenicSpotList.length">
-					<uv-icon name="share-fill" color="#000" size="22" label="分享至客户" labelPos="bottom"
-						labelSize="12px"></uv-icon>
+					<!-- <uv-icon name="share-fill" color="#000" size="22" label="分享至客户" labelPos="bottom"
+						labelSize="12px"></uv-icon> -->
 				</button>
 
 			</view>

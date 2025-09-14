@@ -366,7 +366,7 @@
 	}
 
 	.uni-fab__plus {
-		font-weight: bold;
+		font-weight: 400;
 	}
 
 	// .fab-circle-v {

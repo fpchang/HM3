@@ -749,7 +749,7 @@
 		.mobile-pay-popup-title {
 			background-color: #ffffff;
 			text-align: center;
-			font-weight: bold;
+			font-weight: 400;
 			font-size: 40rpx;
 			padding: 20rpx;
 		}
@@ -782,7 +782,7 @@
 		.pc-pay-popup-title{
 			background-color: #ffffff;
 			text-align: center;
-			font-weight: bold;
+			font-weight: 400;
 			font-size: 20px;
 			height: 66px;
 			line-height: 66px;
@@ -815,7 +815,7 @@
 					}
 					.pc-pay-popup-amount{
 						color: #dd524d;
-						font-weight: bold;
+						font-weight: 400;
 						font-size: 32px;
 						margin-top: 20px;
 					}
@@ -892,7 +892,7 @@
 			.qrcode-popup-info-fee {
 				color: red;
 				font-size: 60rpx;
-				font-weight: bold;
+				font-weight: 400;
 			}
 		}
 

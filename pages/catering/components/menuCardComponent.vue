@@ -8,7 +8,7 @@
         style="flex: 1; display: flex; justify-content: flex-end; gap: 15px"
       >
       
-        <uv-icon 
+        <!-- <uv-icon 
           v-if="isEdit"
           name="plus-circle-fill"
           color="#000"
@@ -47,7 +47,7 @@
           labelPos="bottom"
           labelSize="12px"
           @click="moreControl"
-        ></uv-icon>
+        ></uv-icon> -->
       </view>
     </view>
     <!-- <uni-section class="mb-10" title="价目表" type="line"></uni-section> -->
@@ -322,7 +322,7 @@ created(){
   align-items: center;
   justify-content: space-between;
   .tit-style {
-    font-weight: bold;
+    font-weight: 400;
     color: $uni-color-title;
   }
 }
@@ -334,7 +334,7 @@ created(){
     font-size: $uni-font-size-base;
     .tit {
       width: 60px;
-      font-weight: bold;
+      font-weight: 400;
       padding-right: 12px;
     }
     .add-text-style{
@@ -366,7 +366,7 @@ created(){
 }
 .pr-item {
   font-size: $uni-font-size-base;
-  font-weight: bold;
+  font-weight: 400;
   padding: 5px 0;
   &:nth-child(1) {
     color: #d1d0d0;

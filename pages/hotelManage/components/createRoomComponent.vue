@@ -33,9 +33,8 @@
           </view>
         </view>
         <view class="submit-btn-style">
-          <uv-button type="success" text="保存" color="#007aff" @click="submit()" :disabled="submitDisabled"
-            :loading="submitLoading" class="submit-btn"></uv-button>
-        </view>
+			<view><button type="default" class="submit-btn" :disabled="submitDisabled" :loading="submitLoading" @click="submit()" >保存</button></view>			
+			</view>
       
     </view>
   </view>

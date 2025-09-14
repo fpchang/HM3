@@ -400,7 +400,7 @@ export default {
       justify-content: space-between;
       .strong {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: 400;
       }
       .normal {
         font-size: 13px;

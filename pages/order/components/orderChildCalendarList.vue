@@ -407,7 +407,7 @@ export default {
   padding:5px;
   margin:20px 0;
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: 400;
 
 }
 
@@ -433,7 +433,7 @@ export default {
 .th-style {
   height: 75px;
   text-align: center;
-  font-weight: bold;
+  font-weight: 400;
   display: flex;
   align-items: center;
   font-size: $uni-font-size-base;
@@ -459,7 +459,7 @@ export default {
 }
 
 .isContinueCheckIn {
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .left-table-style .td-style {

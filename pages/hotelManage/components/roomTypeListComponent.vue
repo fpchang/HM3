@@ -115,7 +115,7 @@
 					<template v-slot:title>
 						<uni-section class="mb-10" :title=" item.name " type="circle">
 							<template v-slot:right>
-								<text style="font-weight: bold;">{{item.count}}间</text>
+								<text style="font-weight: 400;">{{item.count}}间</text>
 								
 							</template>
 						</uni-section>
@@ -180,7 +180,6 @@ import createRoomTypeComponent from "./createRoomTypeComponent";
 import { alert } from "@/alert";
 import { DB } from "../../../api/DB";
 import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
-import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
 import gatherComponent from '@/pages/gather/components/gatherComponent';
 export default {
   components: {
@@ -555,7 +554,7 @@ export default {
 				align-items: center;
 
 				.stitle {
-					font-weight: bold;
+					font-weight: 400;
 					font-size: $uni-font-size-base;
 				}
 			}

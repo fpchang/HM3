@@ -22,46 +22,7 @@
           <view class="flex-center ft">查看</view>
          </view>
 
-          <!-- <uv-icon 
-          v-if="control_add"
-          name="plus-circle-fill"
-          color="#000"
-          size="22"
-          :label="label_add"
-          labelPos="bottom"
-          labelSize="12px"
-          @click="add_event"
-        ></uv-icon>
-        <uv-icon
-        v-if="control_edit"
-        name="edit-pen-fill"
-        color="#000"
-        size="22"
-        :label="label_edit"
-        labelPos="bottom"
-        labelSize="12px"
-        @click="edit_event"
-      ></uv-icon>
-        <uv-icon
-        v-if="control_delete"
-          name="trash-fill"
-          color="#000"
-          size="22"
-          :label="label_delete"
-          labelPos="bottom"
-          labelSize="12px"
-          @click="delete_event"
-        ></uv-icon>
-        <uv-icon
-        v-if="control_view"
-        name="eye-fill"
-        color="#000"
-        size="22"
-        :label="label_view"
-        labelPos="bottom"
-        labelSize="12px"
-        @click="view_event"
-      ></uv-icon> -->
+          
       <slot name="control"></slot>
         </view>
       </view>
@@ -210,7 +171,7 @@ export default{
     color: $uni-color-title;
     overflow: hidden;
     .title-c{
-      font-weight: bold;
+      font-weight: 400;
       font-size:16px ;
       display: flex;
       justify-content: space-between;

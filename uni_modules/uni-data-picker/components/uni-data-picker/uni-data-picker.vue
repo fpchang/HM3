@@ -447,7 +447,7 @@
   }
 
   .dialog-title {
-    /* font-weight: bold; */
+    /* font-weight: 400; */
     line-height: 44px;
   }
 

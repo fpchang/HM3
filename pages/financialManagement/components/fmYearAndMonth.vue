@@ -354,7 +354,7 @@ export default {
 
       .item-con {
         font-size: 24px;
-        font-weight: bold;
+        font-weight: 400;
         padding: 15px 0;
         overflow: hidden;
         word-wrap: break-word;

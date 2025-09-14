@@ -92,7 +92,7 @@
 	.mobile-pay-popup-title {
 		background-color: #ffffff;
 		text-align: center;
-		font-weight: bold;
+		font-weight: 400;
 		font-size: 40rpx;
 		padding: 20rpx;
 	}

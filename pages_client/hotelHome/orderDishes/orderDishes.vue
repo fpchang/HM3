@@ -103,7 +103,7 @@
 						<!-- <text style="padding-left:8px" v-if="checMenuCount>0">
 						已选<text style="color:#0765ae;padding:0 4px">{{ checMenuCount }}</text>道菜
 					</text> -->
-						<text style="color: red; font-weight: bold; padding-left: 12px">￥{{ checMenuPriceTotal }}</text>
+						<text style="color: red; font-weight: 400; padding-left: 12px">￥{{ checMenuPriceTotal }}</text>
 						<text style="color: #0765ae" v-if="checMenuPriceTotal > 0">*（不包含餐具等其它费用）</text>
 					</view>
 					<!-- <view> 

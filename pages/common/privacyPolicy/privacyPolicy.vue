@@ -89,11 +89,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-weight: bold;
+		font-weight: 400;
 		font-size: $uni-font-size-lg;
 	}
 	.p-title{
-		font-weight: bold;
+		font-weight: 400;
 		padding-top: 30px;
 	}
 	.p{
@@ -101,7 +101,7 @@
 		padding:5px 0;
 	}
 	.strong{
-		font-weight: bold;
+		font-weight: 400;
 	}
 
 </style>

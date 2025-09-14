@@ -178,7 +178,7 @@
 			flex-direction: column;
 			.title{
 				color: #313131;
-				font-weight: bold;
+				font-weight: 400;
 				font-size:$uni-font-size-base ;
 			}
 			.item{

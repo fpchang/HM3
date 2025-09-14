@@ -476,7 +476,7 @@ export default {
 .th-style {
   height: 75px;
   text-align: center;
-  font-weight: bold;
+  font-weight: 400;
   display: flex;
   align-items: center;
   font-size: $uni-font-size-base;
@@ -502,7 +502,7 @@ export default {
 }
 
 .isContinueCheckIn {
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .left-table-style .td-style {

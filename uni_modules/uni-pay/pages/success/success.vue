@@ -140,7 +140,7 @@
 		.success-title{
 			font-size: 34rpx;
 			margin-top: 40rpx;
-			font-weight: bold;
+			font-weight: 400;
 		}
 		.hr{
 			margin-top: 40rpx;
@@ -162,7 +162,7 @@
 			line-height: 150rpx;
 			text-align: center;
 			color: var(--main);
-			font-weight: bold;
+			font-weight: 400;
 			font-size: 60rpx;
 			border-bottom: 4rpx dashed #f3f3f3;
 		}

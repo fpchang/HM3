@@ -200,7 +200,7 @@ $showWidth:1200px;
     gap:8px;
     .pr-text{
       color: #0765ae;
-      font-weight: bold;
+      font-weight: 400;
       padding:0 4px;
     }
   }
@@ -210,7 +210,7 @@ $showWidth:1200px;
 	}
 	.room-info-label{
 	  font-size: 20px;
-	  font-weight: bold;
+	  font-weight: 400;
 	  padding:20px;
 	}
 	.room-info-list{
@@ -250,7 +250,7 @@ $showWidth:1200px;
 		.pr-text{
 			padding:0 10px;
 			color: #0765ae;
-			font-weight: bold;
+			font-weight: 400;
 		}
 		}
 	} 

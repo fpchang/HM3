@@ -216,10 +216,9 @@
 			</view>
 		
 			<view class="submit-btn-style">
-				<uv-button type="success" text="保存" color="#007aff" @click="submitForm()" :disabled="submitDisabled"
-					:loading="submitLoading" v-if="type!=2" class="submit-btn"></uv-button>
-					
+			<view><button v-if="type!=2" type="default" class="submit-btn" :disabled="submitDisabled" :loading="submitLoading" @click="submitForm()" >保存</button></view>			
 			</view>
+			
 		</uni-forms>
 
 	</view>
@@ -232,7 +231,6 @@ import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 import uniFormsItem from '../../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue';
 import UniListItem from '../../../uni_modules/uni-list/components/uni-list-item/uni-list-item.vue';
 import UniSection from '../../../uni_modules/uni-section/components/uni-section/uni-section.vue';
-import { colorGradient } from '@/uni_modules/uv-ui-tools/libs/function/colorGradient.js';
 export default {
   components: { uniFormsItem, XtFilePicker, UniSection, UniListItem, LIcon },
 		props:{

@@ -65,10 +65,9 @@
 				</view>
 			</uni-forms-item>
 			<uni-forms-item>
-				<view class="submit-btn-style">
-				<uv-button type="success" text="保存" color="#007aff" @click="submit()" :disabled="noSelectDate"
-					:loading="submitLoading" class="submit-btn"></uv-button>
-					</view>
+			<view class="submit-btn-style">
+			<view><button  type="default" class="submit-btn" :disabled="noSelectDate" :loading="submitLoading" @click="submit()" >保存</button></view>			
+			</view>
 			</uni-forms-item>
 		</uni-forms>
 		<uni-calendar ref="calendar" class="uni-calendar--hook" :clear-date="true" :date="calendarConfig.date" :insert="calendarConfig.insert" :lunar="calendarConfig.lunar" :startDate="calendarConfig.startDate"
@@ -226,7 +225,7 @@ import { HotelService } from '../../services/HotelService';
 
 		.strong {
 			font-size: 18px;
-			font-weight: bold;
+			font-weight: 400;
 		}
 
 		.normal {
