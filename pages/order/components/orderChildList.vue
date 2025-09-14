@@ -8,13 +8,13 @@
 
 		<view>
 			<unicloud-db ref="udb" v-slot:default="{data, loading, pagination, hasMore, error, options}"
-				:where="where_str" collection="hm-order" orderby="createTime desc" :page-size="5" :getcount="true">
+				:where="where_str" collection="hm-order" orderby="createTime desc" :page-size="5" :getcount="true" :page-data="add">
 					<block v-if="!loading&&!data.length">
 						<view>
 							<noData></noData>
 						</view>
 					</block>
-					<block v-if="!loading&&data.length>0">
+					<block v-if="data.length>0">
 						<xt-panal-list :count="data.length">
 							<!-- #ifdef MP -->
 							<view v-for="(item, index) of data" slot="card{{index}}">
@@ -217,7 +217,7 @@
 						</xt-panal-list>
 					</block>
 					<view>
-						<uni-load-more v-if="!loading" @clickLoadMore="clickLoadMore" :status="hasMore? 'more':'noMore'"
+						<uni-load-more  @clickLoadMore="clickLoadMore" :status="loading?'loading':(hasMore? 'more':'noMore')"
 							:content-text="contentText"></uni-load-more>
 					</view>
 				
@@ -242,7 +242,7 @@ export default {
     	})
 		let where_str=computed(()=>{
 			if(orderStatus.value==null){
-				return ""
+				return `hotel_id=='${hotel_id.value}'`;
 			}
 			return `hotel_id=='${hotel_id.value}'&&orderStatus==${orderStatus.value}`;
 		});
