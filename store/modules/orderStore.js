@@ -17,7 +17,7 @@ export default{
 
 	mutations: {
         updateOrderListTodayAfter(state,list=[]) {
-			console.log("11111111111",list)
+			//console.log("11111111111",list)
 			state.orderListTodayAfter = list;
 		},
 
@@ -63,26 +63,26 @@ export default{
 		//今天退房订单
 		async getOrderListByCheckOutToday(context,hotel_id){
 			const res = await OrderService.getOrderListByCheckOut(hotel_id,new Date());
-			console.log("今日退房订单",res);
+			//console.log("今日退房订单",res);
 			context.commit("updateOrderListByCheckOutToday", res.result.data);
 		},
 		//明天退房订单
 		async getOrderListByCheckOutTommorow(context,hotel_id){
 			const res = await OrderService.getOrderListByCheckOut(hotel_id,new Date().getTime()+1000*60*60*24);
-			console.log("明日退房订单",res);
+			//console.log("明日退房订单",res);
 			context.commit("updateOrderListByCheckOutTommorow", res.result.data);
 		},
 		//今日办理入住的客户
 		async getOrderListByCheckInToday(context,hotel_id){
 			const res = await OrderService.getOrderListByCheckIn(hotel_id,new Date());
-			console.log("今日办理入住。。。。。",res);
+			//console.log("今日办理入住。。。。。",res);
 			context.commit("updateOrderListByCheckInToday",res.result.data);
 			return res;	
 		  },
 		  //今日订单
 		  async getOrderListToday(context,hotel_id){						
 			 const res = await OrderService.getOrderListByDate(hotel_id);
-			 console.log("今日订单",res);
+			 //console.log("今日订单",res);
 			 context.commit("updateOrderListToday",res.result.data);
 			 return res;			
 			},
@@ -90,14 +90,14 @@ export default{
 				//明日办理入住的客户
 		async getOrderListByCheckInTommorow(context,hotel_id){
 			const res = await OrderService.getOrderListByCheckIn(hotel_id,new Date().getTime()+1000*60*60*24);
-			console.log("明日办理入住。。。。。",res);
+			//console.log("明日办理入住。。。。。",res);
 			context.commit("updateOrderListByCheckInTommorow",res.result.data);
 			return res;	
 		  },
 		  //明日订单
 		  async getOrderListTommorow(context,hotel_id){						
 			 const res = await OrderService.getOrderListByDate(hotel_id,new Date().getTime()+1000*60*60*24);
-			 console.log("明日订单",res);
+			 //console.log("明日订单",res);
 			 context.commit("updateOrderListTommorow",res.result.data);
 			 return res;			
 			}

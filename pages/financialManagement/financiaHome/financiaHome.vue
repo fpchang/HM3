@@ -38,7 +38,7 @@ LIcon
 			if(this.$refs.fmYearAndMonth){
 				this.$refs.fmYearAndMonth.refrushData();
 			}
-			console.log("onshow",this.$store.state)
+			//console.log("onshow",this.$store.state)
 		},
 		async onPullDownRefresh() {
 			await this.$refs.fmYearAndMonth.refrushData();

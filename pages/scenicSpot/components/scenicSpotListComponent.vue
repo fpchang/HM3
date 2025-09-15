@@ -120,7 +120,7 @@
 					data: href,
 					showToast: false,
 					success: function() {
-						console.log("success");
+						//console.log("success");
 						uni.showToast({
 							title: "相关链接已复制",
 							icon: "success"
@@ -142,11 +142,11 @@
 					imageUrl: "", //图片地址，type 为 0、2、5 时必选
 					success(res) {
 						//成功返回的参数
-						console.log(res);
+						//console.log(res);
 					},
 					fail(err) {
 						//失败返回的参数
-						console.log(err);
+						//console.log(err);
 					},
 				});
 				// #endif
@@ -198,9 +198,9 @@
 			async partialRefreshComName(val){
 				//下拉刷新
 				if(val=='scenicSpotListComponent'){
-					console.log("局部刷新 scenicSpotListComponent")
+					//console.log("局部刷新 scenicSpotListComponent")
 					await this.$store.dispatch("getScenicSpotList", this.hotel_id);
-					console.log("刷新完成");
+					//console.log("刷新完成");
 					this.$store.commit("setPartialRefreshComName","");
 					uni.hideLoading();
 					uni.stopPullDownRefresh();

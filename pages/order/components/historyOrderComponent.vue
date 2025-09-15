@@ -112,11 +112,11 @@ LIcon
 			
 	},
 		created() {
-			console.log('orderComponent create');
+			//console.log('orderComponent create');
 
 		},
 		onLoad: function() {
-			console.log('orderComponent Show')
+			//console.log('orderComponent Show')
 		},
 		mounted() {
 			

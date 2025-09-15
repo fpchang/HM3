@@ -5,7 +5,7 @@ exports.main = async (event, context) => {
 		hotel_id,
 		hotelObj
 	} = event;
-	console.log("hm_updateHotel", event);
+	//console.log("hm_updateHotel", event);
 	if(!hotel_id){
 		throw new Error("缺少hotel_id")
 	}

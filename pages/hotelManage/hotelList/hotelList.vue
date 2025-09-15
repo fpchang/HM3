@@ -229,7 +229,7 @@ import {alert} from "@/alert";
 			}
 		},
 		async created() {
-			console.log("hotellist is created");
+			//console.log("hotellist is created");
 			uni.hideLoading();
 		},
 		watch:{
@@ -239,9 +239,9 @@ import {alert} from "@/alert";
 			  async partialRefreshComName(val){
 				//下拉刷新
 				if(val=='hotelList'){
-					console.log("局部刷新 employeeComponent")
+					//console.log("局部刷新 employeeComponent")
 					await this.$store.dispatch("getHotelList");
-        			console.log("刷新完成");
+        			//console.log("刷新完成");
 					this.$store.commit("setPartialRefreshComName","");
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
@@ -322,7 +322,7 @@ import {alert} from "@/alert";
 				}
 				this.submitLoading = true;
 				HotelService.deleteHotel(targetObj._id).then(async res=>{
-                            console.log("删除成功");
+                            //console.log("删除成功");
 						await this.$store.dispatch("getHotelList");
 						this.submitLoading = false;
 						uni.hideLoading();
@@ -331,7 +331,7 @@ import {alert} from "@/alert";
 						}
 							
 				}).catch(er => {
-						console.log("删除失败",er);
+						//console.log("删除失败",er);
 						this.submitLoading = false;
 						uni.hideLoading();
 						uni.showModal({
@@ -344,7 +344,7 @@ import {alert} from "@/alert";
 			viewDetail(targetObj){
 				this.type=2;
 				this.targetObj =JSON.parse(JSON.stringify(targetObj));
-				console.log(this.targetObj)
+				//console.log(this.targetObj)
 				if(this.$store.state.isPcShow){
 					this.$refs.popupaddHotel.open();
 					return;

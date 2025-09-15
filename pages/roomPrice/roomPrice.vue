@@ -169,7 +169,7 @@ import { HotelService } from '../../services/HotelService';
 				};
 			},
 			getRoomType(list) {
-				console.log("1111111", list);
+				//console.log("1111111", list);
 				let l = list.map((item) => {
 					item.checked = false;
 					return item;
@@ -178,7 +178,7 @@ import { HotelService } from '../../services/HotelService';
 			},
 			checkboxChange(item) {
 				item.checked = !item.checked;
-				console.log(item)
+				//console.log(item)
 			},
 		
 			async submit() {
@@ -193,11 +193,11 @@ import { HotelService } from '../../services/HotelService';
 					return;
 				}
 				this.submitLoading=true;
-				console.log(this.formatRoomTypeList);
+				//console.log(this.formatRoomTypeList);
 				try {
 					await HotelService.addRoomTypePrice(this.formatRoomTypeList);
 					this.submitLoading=false;
-					console.log("房价添加成功")
+					//console.log("房价添加成功")
 					uni.showToast({title:"添加成功",icon:"none"});
 					uni.navigateBack();
 				} catch (error) {

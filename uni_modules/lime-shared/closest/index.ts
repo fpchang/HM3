@@ -19,4 +19,4 @@ export function closest(arr: number[], target: number):number {
 // // 在数组中找到最接近目标数字 6 的元素
 // const closestNumber = closest(numbers, 6);
 
-// console.log(closestNumber); // 输出结果: 5
+// //console.log(closestNumber); // 输出结果: 5

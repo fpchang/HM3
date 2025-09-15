@@ -156,12 +156,12 @@
 			// uniCloud.callFunction({
 			// name:"hm_order_task"				
 			//  }).then(res=>{
-			// 	console.log("task",res)1734580800000
+			// 	//console.log("task",res)1734580800000
 			//  })
 			const instance = getCurrentInstance(); //类似this
 			const store = useStore();
 			const db = uniCloud.database();
-			console.log(store.state)
+			//console.log(store.state)
 			let user = computed(() => {
 				return store.state.user;
 			})
@@ -270,10 +270,10 @@
 			}
 		},
 		onLoad(params) {
-			console.log("参数", params)
+			//console.log("参数", params)
 			if (params['type']) {
 				this.type = params['type'];
-				console.log(this.type)
+				//console.log(this.type)
 			}
 		},
 		computed: {

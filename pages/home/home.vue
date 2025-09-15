@@ -225,7 +225,7 @@ export default {
     
   },
   onShow() {
-    console.log("index onshow");
+    //console.log("index onshow");
     if (this.$store.state.isPcShow ||!this.$store.state.user) {
      // uni.hideTabBar();
     }
@@ -276,19 +276,19 @@ export default {
     if (this.isPcShow) {
       //uni.hideTabBar();
     }
-    console.log("before mounted....>>>");
+    //console.log("before mounted....>>>");
   },
   mounted() {
-    console.log("index mounted....>>>", this.$store);
+    //console.log("index mounted....>>>", this.$store);
   },
   async onPullDownRefresh() {
-    console.log("index veu refrush");
+    //console.log("index veu refrush");
     await this.$refs.gather.initData();
     uni.stopPullDownRefresh();
   },
   computed: {
     isPcShow() {
-      console.log("index computed isPcshow....>>>");
+      //console.log("index computed isPcshow....>>>");
       return this.$store.state.isPcShow;
     },
     isPc() {
@@ -355,7 +355,7 @@ export default {
   },
   watch: {
     async hotel_id(val,oldVal) {
-      console.log("index watch hotel_id", val);
+      //console.log("index watch hotel_id", val);
   
 	  if(val!=oldVal){
 		 // await this.$store.dispatch("getPermissionList", val);
@@ -384,7 +384,7 @@ export default {
     async vaildToken(callback) {
       try {
         if (!uni.getStorageSync("hm_token")) {
-          console.log("没有hm_token");
+          //console.log("没有hm_token");
           this.$store.dispatch("loginOut");
           return;
         }
@@ -399,7 +399,7 @@ export default {
           this.$store.dispatch("loginOut");
           return;
         }
-        console.log("token验证通过");
+        //console.log("token验证通过");
         callback && callback();
       } catch (error) {}
     },
@@ -440,11 +440,11 @@ export default {
       
     },
     clickTab(e) {
-      console.log("clickTab",e)
+      //console.log("clickTab",e)
       if (this.currentTab_index == e.index) {
         //只触发刷新
         if (this.$store.state.partialRefreshComName) {
-          console.log("正在执行刷新中，，，");
+          //console.log("正在执行刷新中，，，");
           return;
         }
         uni.showLoading();

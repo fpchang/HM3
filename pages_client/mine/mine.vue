@@ -129,7 +129,7 @@
 			
 		},
 		async onPullDownRefresh() {
-			console.log("mine  refrush");
+			//console.log("mine  refrush");
 			await this.$store.dispatch("getUser");
 			uni.stopPullDownRefresh();			
 		},
@@ -153,7 +153,7 @@
 				this.$refs.nameDialog.open()
 			},
 			async submitNameUpdate(val){
-				console.log(val)
+				//console.log(val)
 				if(!val){
 					return;
 				}
@@ -161,12 +161,12 @@
 				try {
 					const res = await AccountService.updateUserName(this.user._id,val);
 					
-				console.log("修改成功");
+				//console.log("修改成功");
 				this.closeNameUpdate();
 				uni.hideLoading();
 				uni.showToast({title:"修改成功",icon:"success"})
 				} catch (error) {
-					console.log("修改失败",error);
+					//console.log("修改失败",error);
 					uni.hideLoading();
 					uni.showToast({title:"修改失败",icon:"error"})
 				}
@@ -214,7 +214,7 @@
 				
 			},
 			async loginOut() {
-				console.log("loginout")
+				//console.log("loginout")
 				const conf = await uni.showModal({
 					title: '确认登出',
 					content: '是否确认退出登录',

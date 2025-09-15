@@ -31,7 +31,7 @@ import uniList from '../../../uni_modules/uni-list/components/uni-list/uni-list.
 	export default {
   components: { uniList, UniListItem },
 		onLoad(e) {
-				console.log("order dishes 参数",e)
+				//console.log("order dishes 参数",e)
 		},
 		data() {
 			return {
@@ -114,11 +114,11 @@ import uniList from '../../../uni_modules/uni-list/components/uni-list/uni-list.
 		},
 		methods: {
 			checkMenu(_id){
-				console.log(_id);
+				//console.log(_id);
 				this.toMenuDetail_id = 'it'+_id;
 			},
 			scrollMenuDetail(e){
-				console.log(e)
+				//console.log(e)
 			},
 			      // 获取与顶部之间的距离  https://www.jianshu.com/p/8a01c9a1775d
 				  getRectInfo() {
@@ -138,10 +138,10 @@ import uniList from '../../../uni_modules/uni-list/components/uni-list/uni-list.
                             'top':top,
                             'bottom':bottom
                         }
-                        // console.log(top, bottom);
+                        // //console.log(top, bottom);
                     }).exec();
                 }
-                console.log(this.rectInfoList);
+                //console.log(this.rectInfoList);
             },
 			getCurrentHeight(e){
                 var currentHeight = e.detail.scrollTop;

@@ -32,13 +32,13 @@ import {PermissionService} from "../../../services/PermissionService";
 			async deletePermission(){
 				const db = uniCloud.database();
 				await db.collection("hm-role-permission").remove();
-				console.log("删除成功");
+				//console.log("删除成功");
 			},
 			async setPermissionRole(){
 				try {
 					const db = uniCloud.database();
 					const permissionRes=await db.collection("hm-permission").get();
-					console.log("permissionRes",permissionRes);
+					//console.log("permissionRes",permissionRes);
 					let arr=[];
 					permissionRes.result.data.map(item=>{
 				
@@ -49,7 +49,7 @@ import {PermissionService} from "../../../services/PermissionService";
 						})
 					})
 					db.collection("hm-role-permission").add(arr).then(item=>{
-						console.log("添加成功")
+						//console.log("添加成功")
 					})
 				} catch (error) {
 					throw new Error(error);
@@ -60,7 +60,7 @@ import {PermissionService} from "../../../services/PermissionService";
 			async getPermissionList(){
 				try {
 					const res = await PermissionService.getPermissionList(this.hotel_id,this.phone);
-					console.log("权限列表",res)
+					//console.log("权限列表",res)
 				} catch (error) {
 					console.error(error)
 				}
@@ -69,7 +69,7 @@ import {PermissionService} from "../../../services/PermissionService";
 			async getRolePermissionList(){
 				try {
 					const res = await PermissionService.getRolePermissionList("manager");
-					console.log("角色权限列表",res)
+					//console.log("角色权限列表",res)
 				} catch (error) {
 					console.error(error)
 				}

@@ -228,11 +228,11 @@ export default {
     },
     async partialRefreshComName(val) {
       //下拉刷新
-      console.log(val);
+      //console.log(val);
       if (val == "roomTypeListComponent") {
-        console.log("局部刷新 roomTypeListComponent");
+        //console.log("局部刷新 roomTypeListComponent");
         await this.$store.dispatch("getRoomType");
-        console.log("刷新完成");
+        //console.log("刷新完成");
         this.$store.commit("setPartialRefreshComName", "");
         uni.hideLoading();
         uni.stopPullDownRefresh();
@@ -282,7 +282,7 @@ export default {
       });
     },
     addRoomType() {
-      console.log(this.$store.state.permissionStore.permissionList);
+      //console.log(this.$store.state.permissionStore.permissionList);
       if (
         !this.$store.state.permissionStore.permissionList.includes(
           "ROOMTYPE_CREATE"
@@ -328,13 +328,13 @@ export default {
         _id: rt._id,
       })
         .then(async (res) => {
-          console.log("删除成功");
+          //console.log("删除成功");
           await this.$store.dispatch("getRoomType");
           this.submitLoading = false;
           uni.hideLoading();
         })
         .catch((er) => {
-          console.log("删除失败", er);
+          //console.log("删除失败", er);
           this.submitLoading = false;
           uni.hideLoading();
           uni.showModal({

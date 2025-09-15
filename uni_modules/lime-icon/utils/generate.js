@@ -25,7 +25,7 @@ async function fetchIconsData(icons) {
 				}
 				collections[collectionName].setIcon(iconNameWithoutPrefix, iconData);
 			} else {
-				console.log(`Icon '${iconName}' not found in '${collectionName}' collection.`)
+				//console.log(`Icon '${iconName}' not found in '${collectionName}' collection.`)
 			}
 		} else if(collectionName) {
 			if(!collections[collectionName]) {
@@ -36,7 +36,7 @@ async function fetchIconsData(icons) {
 				if(iconData) {
 					collections[collectionName].setIcon(iconName, iconData)
 				} else {
-					console.log(`Icon '${iconName}' not found in '${collectionName}' collection.`)
+					//console.log(`Icon '${iconName}' not found in '${collectionName}' collection.`)
 				}
 			})
 		}

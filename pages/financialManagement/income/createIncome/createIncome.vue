@@ -91,7 +91,7 @@ export default {
 		},
 		methods: {
 			submit(){
-				console.log("权限》》》",this.$store.state.permissionStore.permissionList);
+				//console.log("权限》》》",this.$store.state.permissionStore.permissionList);
 				if(!this.$store.state.permissionStore.permissionList.includes('FM_CREATE')){
 					 alert.alertNoPermisson();
 					return;
@@ -100,7 +100,7 @@ export default {
 					this.incomeForm.amount = Number(this.incomeForm.amount);
 					this.incomeForm.creater = this.$store.state.user.phone;
 					this.incomeForm.hotel_id = this.$store.state.hotel_id;
-					console.log(this.incomeForm)
+					//console.log(this.incomeForm)
 					await FMService.add(this.incomeForm);
 					const eventChannel = this.getOpenerEventChannel();
 					eventChannel.emit('updateData');

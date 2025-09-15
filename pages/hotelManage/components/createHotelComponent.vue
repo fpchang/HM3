@@ -142,7 +142,7 @@
 			<uni-forms-item>
 				<view class="flex-end" >
 					<view style="width:130px">
-						<button class="submit-btn" v-if="type!=2" type="primary"  @click="submitForm()":disabled="submitDisabled" :loading="submitLoading">保存</button>
+						<button class="submit-btn" v-if="type!=2" type="default"  @click="submitForm()":disabled="submitDisabled" :loading="submitLoading">保存</button>
 					</view> 
 					
 				</view>
@@ -261,7 +261,7 @@
 			};
 		},
 		created() {
-			console.log("target", this.targetObj)
+			//console.log("target", this.targetObj)
 		},
 		computed: {
 			user() {
@@ -276,7 +276,7 @@
 		},
 		methods: {
 			onchange(e) {
-				console.log("onchang", e)
+				//console.log("onchang", e)
 
 				let list = e.detail.value;
 				let adstr = "";
@@ -286,7 +286,7 @@
 				this.hotelForm.hotelAddressArea = adstr
 			},
 			onnodeclick(e) {
-				//console.log("onnodeclick",e)
+				////console.log("onnodeclick",e)
 			},
 			closeFeaturePopup() {
 
@@ -294,7 +294,7 @@
 				this.showPopup = false;
 			},
 			submitFeature(val) {
-				console.log(val)
+				//console.log(val)
 				if (!val) {
 					return;
 				}
@@ -334,11 +334,11 @@
 				this.hotelForm.firstImages = list[0];
 			},
 			uploadSuccess(list) {
-				console.log("list");
+				//console.log("list");
 				this.hotelForm.imagesList = list;
 			},
 			async submitForm() {
-				console.log(this.hotelForm);
+				//console.log(this.hotelForm);
 				if (this.$refs.uploadImagesRef1.uploadingState() == 0 || this.$refs.uploadImagesRef2
 				.uploadingState() ==
 					0) {
@@ -363,7 +363,7 @@
 					this.submitLoading = true;
 					let addressStr = this.hotelForm.hotelAddressArea + this.hotelForm.hotelAddress
 					const location = await this.searchAddress(addressStr);
-					console.log("获取的坐标", location);
+					//console.log("获取的坐标", location);
 					this.hotelForm.hotelCoordinate = location;
 					if (this.type == 1) {
 						this.updateHotel();
@@ -379,7 +379,7 @@
 			addHotel() {
 				this.hotelForm.belong = this.user.phone;
 				HotelService.createHotel(this.hotelForm).then(async res => {
-					console.log("添加成功");
+					//console.log("添加成功");
 					uni.hideLoading();
 					this.submitLoading = false;
 					// uni.reLaunch({
@@ -389,7 +389,7 @@
 					this.$emit('closePopup');
 					
 				}).catch(er => {
-					console.log("添加失败", er);
+					//console.log("添加失败", er);
 					uni.hideLoading();
 					uni.showToast({
 						title: '数据异常，请稍候再试',
@@ -399,7 +399,7 @@
 				})
 			},
 			async updateHotel() {
-				console.log(this.targetObj)
+				//console.log(this.targetObj)
 				try {
 					await HotelService.updateHotel(this.targetObj._id, this.hotelForm);
 					await this.$store.dispatch("getHotelList");
@@ -423,12 +423,12 @@
 						});
 						//let that = this;
 						//let location = this.$store.state.location;
-						console.log("location", location)
+						//console.log("location", location)
 						amapPlugin.getInputtips({
 							keywords: keywords,
 							//location: location.toString(","),
 							success: function(data) {
-								console.log("sssss", data)
+								//console.log("sssss", data)
 								if (data.tips.length < 1) {
 									uni.showToast({
 										title: '无法定位该地址',

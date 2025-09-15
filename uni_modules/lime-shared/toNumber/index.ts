@@ -23,6 +23,6 @@ export function toNumber(val: string): number | string {
 // #endif
 
 // 示例
-// console.log(toNumber("123")); // 输出: 123
-// console.log(toNumber("3.14")); // 输出: 3.14
-// console.log(toNumber("hello")); // 输出: "hello"
+// //console.log(toNumber("123")); // 输出: 123
+// //console.log(toNumber("3.14")); // 输出: 3.14
+// //console.log(toNumber("hello")); // 输出: "hello"

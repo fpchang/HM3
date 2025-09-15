@@ -5,7 +5,7 @@ exports.main = async (event, context) => {
 		_id,
 		employeeObj
 	} = event;
-	console.log("hm_updateEmployee", event);
+	//console.log("hm_updateEmployee", event);
 	const dbJQL = uniCloud.databaseForJQL({
 		event,
 		context

@@ -50,7 +50,7 @@ class Iap {
 					resolve(res);
 				},
 				fail: (err) => {
-					//console.log('requestPayment-err: ', err)
+					////console.log('requestPayment-err: ', err)
 					reject(err);
 				}
 			});
@@ -66,7 +66,7 @@ class Iap {
 			}, (res) => {
 				resolve(res);
 			}, (err) => {
-				console.log('restoreCompletedTransactions-err: ', err)
+				//console.log('restoreCompletedTransactions-err: ', err)
 				reject(err);
 			})
 		});

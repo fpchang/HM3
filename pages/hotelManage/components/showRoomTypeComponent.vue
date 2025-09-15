@@ -86,7 +86,7 @@ export default {
 			
 		},
 		mounted(){
-			console.log(this.roomTypeForm)
+			//console.log(this.roomTypeForm)
 		},
 		computed: {
 			hotel_id(){
@@ -104,11 +104,11 @@ export default {
 		},
 		methods: {
 			uploadSuccess(list){
-				console.log("list");
+				//console.log("list");
 				this.roomTypeForm.imagesList=list;
 			},
             roomTypeCountChange(val){
-                console.log(val)
+                //console.log(val)
             },
 			submitForm() {
 				if(this.$refs.uploadImagesRef.isUploading()){
@@ -135,13 +135,13 @@ export default {
                                 roomTypeObj:this.roomTypeForm
 							}
 						).then(async res=>{
-                            console.log("添加成功");
+                            //console.log("添加成功");
                         await this.$store.dispatch("getRoomType");
                         this.$emit('closePopup');
 						uni.hideLoading();
 							
 				}).catch(er => {
-						console.log("添加失败",er);
+						//console.log("添加失败",er);
 						this.submitLoading = false;
 						uni.hideLoading();
 						uni.showModal({
@@ -158,13 +158,13 @@ export default {
                                 roomTypeObj:this.roomTypeForm
 							}
 						).then(async res=>{
-                            console.log("修改成功");
+                            //console.log("修改成功");
 							await this.$store.dispatch("getRoomType");
                         this.$emit('closePopup');
 						uni.hideLoading();
 							
 				}).catch(er => {
-						console.log("修改失败",er);
+						//console.log("修改失败",er);
 						this.submitLoading = false;
 						uni.hideLoading();
 						uni.showModal({

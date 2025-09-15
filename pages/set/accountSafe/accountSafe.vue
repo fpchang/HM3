@@ -69,12 +69,12 @@ import {useStore} from "vuex";
 					return;
 				}
 				try {
-					console.log(this.user)
+					//console.log(this.user)
 					const res = await AccountService.recoverAccount(this.user._id);
 					await this.$store.dispatch("getUser");
 					uni.navigateBack();
 				} catch (error) {
-					console.log(error)
+					//console.log(error)
 				}
 				
 			},
@@ -92,7 +92,7 @@ import {useStore} from "vuex";
 				try {
 					const phone =this.$store.state.user.phone;
 				const res = await HotelService.getHotelListOfUser(phone);
-				console.log(res)
+				//console.log(res)
 				if(res.result.data.length){
 					uni.showToast({title:"当前用户名下有关联酒店",icon:"none"});
 					return;

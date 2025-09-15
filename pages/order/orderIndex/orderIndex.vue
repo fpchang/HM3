@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <view class="orderIndex">
     <orderComponent :disHeightVal="disHeightVal" ref="order"></orderComponent>
   </view>
 </template>
@@ -26,7 +26,7 @@ export default {
 			},
   methods: {
       refrush() {
-        console.log("orderindex refrush")
+        //console.log("orderindex refrush")
         this.$refs.order.refrush();
       
   },

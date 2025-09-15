@@ -152,11 +152,11 @@ export default {
         imageUrl: "", //图片地址，type 为 0、2、5 时必选
         success(res) {
           //成功返回的参数
-          console.log(res);
+          //console.log(res);
         },
         fail(err) {
           //失败返回的参数
-          console.log(err);
+          //console.log(err);
         },
       });
     },
@@ -190,7 +190,7 @@ export default {
       });
     },
     async deleteMenuDetail(item) {
-      console.log(item);
+      //console.log(item);
       if (!this.order_id) {
         return;
       }
@@ -206,10 +206,10 @@ export default {
       //uni.showLoading();
       try {
         const res = await MenuService.removeMenuDetail(item._id);
-        console.log("删除成功");
+        //console.log("删除成功");
         await this.$store.dispatch("getMenuList", this.hotel_id);
       } catch (error) {
-        console.log("删除失败", error);
+        //console.log("删除失败", error);
       }
     },
     editMenuType() {
@@ -234,11 +234,11 @@ export default {
         const res = await MenuService.removeOrderDishes(
           this.order_id
         );
-        console.log("删除成功");
+        //console.log("删除成功");
         this.submitLoading = false;
         this.$emit("getOrderDishesList")
       } catch (error) {
-        console.log("添加失败", er);
+        //console.log("添加失败", er);
             this.submitLoading = false;
             uni.hideLoading();
           //   uni.showModal({
@@ -259,7 +259,7 @@ export default {
       uni.setClipboardData({
         data: address,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     },
@@ -271,7 +271,7 @@ export default {
         uni.makePhoneCall({
           phoneNumber: phone, //仅为示例
           success: (success) => {
-            console.log("调用成功", success);
+            //console.log("调用成功", success);
           }
         });
         return;
@@ -279,7 +279,7 @@ export default {
       uni.setClipboardData({
         data: phone,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     },

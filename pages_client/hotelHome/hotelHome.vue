@@ -70,7 +70,7 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 		
 		computed:{
 			// hotel(){
-			// 	console.log(this.$store.state)
+			// 	//console.log(this.$store.state)
 			// 	return this.$store.state.hotelClientStore.hotel;
 			// },
 			searchCondition(){
@@ -92,7 +92,7 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 			}
 		},
 		onLoad(params){
-			console.log("9999",params)
+			//console.log("9999",params)
 			if(params.hotel_id){//分享进来的页面
 					this.getHotel(params.hotel_id);
 					//this.dateRange = [Date.now(),Date.now()+1000*60*60*24];
@@ -131,7 +131,7 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 
   },
   onPullDownRefresh() {
-	console.log("下拉刷新")
+	//console.log("下拉刷新")
 	uni.showLoading();
 	let tabid=this.tabId;
 	this.tabId="";
@@ -151,7 +151,7 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 			},
 			async getHotel(hotel_id){
 			const res=	await HotelServiceClient.getHotel(hotel_id);
-			console.log("当前酒店",res);
+			//console.log("当前酒店",res);
 			this.hotel=res.result.data[0];
 			this.$store.commit("hotelClientStore/updateHotel",res.result.data[0])
 				uni.setNavigationBarTitle({

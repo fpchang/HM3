@@ -50,5 +50,5 @@ export function getStyleStr(style : CSSProperties) : string {
 // 示例
 // const style = { color: 'red', fontSize: '16px', backgroundColor: '', border: null };
 // const styleStr = getStyleStr(style);
-// console.log(styleStr);
+// //console.log(styleStr);
 // 输出: "color: red; font-size: 16px;"

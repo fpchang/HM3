@@ -54,7 +54,7 @@ class OrderServiceClass{
      */
      
     getOrderListByCondition(hotel_id,st,et) {
-        console.log(arguments);
+        //console.log(arguments);
         let startTime = new Date(new Date(st).Format("yyyy/MM/dd 14:00:00")).getTime();
         let endTime = new Date(new Date(et).Format("yyyy/MM/dd 12:00:00")).getTime();
 		const s1=`checkInStartDateTimeStamp<${startTime}&&checkInEndDateTimeStamp>${startTime}`;
@@ -87,7 +87,7 @@ deleteOrder(_id){
 }
 //更改订单状态
 updateOrder(_id,obj){
-  console.log("更新",_id,obj)
+  //console.log("更新",_id,obj)
     return this.DB.update("hm-order",_id,obj);
 }
 }

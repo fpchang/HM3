@@ -64,7 +64,7 @@ export default {
 			this.$refs.calendar.open();
 		},
 		confirm(e) {
-			console.log(e);
+			//console.log(e);
 		}
 	}
 };

@@ -160,7 +160,7 @@ export default {
     };
   },
   async created() {
-    console.log("房态created")
+    //console.log("房态created")
     this.initData();
   
   },
@@ -228,7 +228,7 @@ export default {
     },
     checkInOrderListFormat() {
 
-      console.log("sss:",this.roomType_roomList)
+      //console.log("sss:",this.roomType_roomList)
       if(!this.roomType_roomList){
         return []
       }
@@ -236,7 +236,7 @@ export default {
         return [];
       }
       let result = [];
-      console.log("orderDateRange::",this.orderDateRange)
+      //console.log("orderDateRange::",this.orderDateRange)
       let or = this.orderDateRange;
       let checkInOrderList = this.checkInOrderList;
       let fillRoom=(room_id)=>{
@@ -279,7 +279,7 @@ export default {
         }
         result.push({room_type_id: this.roomType_roomList[i]._id.value, roomCount:this.roomType_roomList[i]._id['hm-room'].length,name:this.roomType_roomList[i].name,resultRoomList:resultRoomList})
       }
-      console.log("结果：：",result)
+      //console.log("结果：：",result)
       return result;
     },
     roomCount(){
@@ -303,9 +303,9 @@ export default {
     async partialRefreshComName(val) {
       //下拉刷新
       if (val == "orderComponent") {
-        console.log("局部刷新 orderComponent");
+        //console.log("局部刷新 orderComponent");
         await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
-        console.log("刷新完成");
+        //console.log("刷新完成");
         this.$store.commit("setPartialRefreshComName", "");
         uni.hideLoading();
         uni.stopPullDownRefresh();
@@ -321,14 +321,14 @@ export default {
     async getRoomList(){
       const res = await HotelService.getRoomListByHotelIdGroupByRoomType(this.hotel_id);
       this.roomType_roomList = res.result.data;
-      console.log("roomList",res);
+      //console.log("roomList",res);
       
     },
     async getOrderList() {
       //uni.showLoading();
       try {
         await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
-        console.log("orderList::",this.checkInOrderList)
+        //console.log("orderList::",this.checkInOrderList)
       } catch (error) {
         console.error("err",error)
       }

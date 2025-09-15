@@ -4,7 +4,7 @@ exports.main = async (event, context) => {
 	let {
 		menuTypeObj
 	} = event;
-	console.log("hm-menuType", event);
+	//console.log("hm-menuType", event);
 	const dbJQL = uniCloud.databaseForJQL({
 		event,
 		context

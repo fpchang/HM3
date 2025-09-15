@@ -37,7 +37,7 @@ import createOrderComponent from './createOrderComponent';
 			}
 		},
 		onLoad(params){
-			console.log("参数传递", params);
+			//console.log("参数传递", params);
 			try {
 				this.formData={
 					orderType: params.orderType,

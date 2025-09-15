@@ -6989,7 +6989,7 @@ uChartsEvent.prototype.trigger = function() {
       try {
         listener.apply(null, params);
       } catch (e) {
-          //console.log('[uCharts] '+e);
+          ////console.log('[uCharts] '+e);
       }
     });
   }
@@ -7190,7 +7190,7 @@ uCharts.prototype.updateData = function() {
 uCharts.prototype.zoom = function() {
   var val = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.opts.xAxis.itemCount;
   if (this.opts.enableScroll !== true) {
-    console.log('[uCharts] 请启用滚动条后使用')
+    //console.log('[uCharts] 请启用滚动条后使用')
     return;
   }
   //当前屏幕中间点
@@ -7230,7 +7230,7 @@ uCharts.prototype.zoom = function() {
 
 uCharts.prototype.dobuleZoom = function(e) {
   if (this.opts.enableScroll !== true) {
-    console.log('[uCharts] 请启用滚动条后使用')
+    //console.log('[uCharts] 请启用滚动条后使用')
     return;
   }
   const tcs = e.changedTouches;
@@ -7408,7 +7408,7 @@ uCharts.prototype.showToolTip = function(e) {
     touches = e.mp.changedTouches[0];
   }
   if (!touches) {
-    console.log("[uCharts] 未获取到event坐标信息");
+    //console.log("[uCharts] 未获取到event坐标信息");
   }
   var _touches$ = getTouches(touches, this.opts, e);
   var currentOffset = this.scrollOption.currentOffset;

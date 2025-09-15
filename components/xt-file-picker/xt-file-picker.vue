@@ -85,7 +85,6 @@
 		},
 		methods: {
 			deleteFile(index) {
-				console.log("deleete")
 				this.selectImageList.splice(index, 1);
 				this.getReturnValueList();
 			},
@@ -96,14 +95,11 @@
 					sourceType: ['album'], //从相册选择
 					success:async (res) => {
 						this.uploadComplement = false;
-						console.log("选择文件。。。", res)
 						let len = Math.min(res.tempFilePaths.length, (this.max - this.selectImageList.length));
 						for (let i = 0; i < len; i++) {
 						let _nameList =res.tempFiles[i].path.split("."); 
 							let fileName = res.tempFiles[i].name || `img${i}.${_nameList[_nameList.length-1]}` || `img${i}.jpg`;
-							console.log("ffname", fileName,res.tempFilePaths[i]);
 							const path =await this.compressImage(res.tempFilePaths[i]);
-							console.log("压缩后的图片路径》》》",path)
 							this.selectImageList.push({
 								filePath: path,
 								fileName: fileName,
@@ -112,7 +108,7 @@
 							});
 						}
 						if (this.autoUpload) {
-							console.log("开始自动上传")
+							//console.log("开始自动上传")
 							this.upload();
 						}
 					}
@@ -140,14 +136,14 @@
 							},
 							success: async (e) => {
 								item.uploadStatus = 1;
-								console.log("item", item)
+								//console.log("item", item)
 								const res = await uniCloud.getTempFileURL({ fileList: [e.fileID] });
-								console.log("获取真实地址", res)
+								//console.log("获取真实地址", res)
 								item.filePath = res.fileList[0].tempFileURL;
 								resolve(e);
 							},
 							fail(f) {
-								console.log("上传fail", f);
+								//console.log("上传fail", f);
 								item.uploadStatus = 2;
 								reject(f)
 							}
@@ -156,15 +152,15 @@
 				}
 				try {
 					if (task.length < 1) {
-						console.log("没有可以上传的内容");
+						//console.log("没有可以上传的内容");
 						return;
 					}
 					const res = await Promise.all(task);
 					this.uploadComplement = true;
-					console.log("全部上传成功", res, this.selectImageList);
+					//console.log("全部上传成功", res, this.selectImageList);
 					this.getReturnValueList();
 				} catch (error) {
-					console.log("全部上传error", error);
+					//console.log("全部上传error", error);
 				}
 
 
@@ -180,7 +176,7 @@
 						src: imgSrc,
 						compressedWidth: 450,
 						success: res => {
-							console.log("压缩后路径", res.tempFilePath);
+							//console.log("压缩后路径", res.tempFilePath);
 							resolve(res.tempFilePath)
 						},
 						fail: e => {
@@ -196,7 +192,7 @@
 			async getReturnValueList() {
 				let noList = this.selectImageList.filter(item => item.uploadStatus != 1);
 				if (noList && noList.length) {
-					console.log("有上传失败或者未上传的文件，请先处理");
+					//console.log("有上传失败或者未上传的文件，请先处理");
 					return;
 				}
 				//组件原来的图片数据
@@ -218,7 +214,7 @@
 			isUploading() {
 
 				let list = this.selectImageList.filter(item => { return item.uploadStatus == 0 });//上传中
-				console.log("调用状态", list)
+				//console.log("调用状态", list)
 				return list.length ? true : false;
 			}
 		},

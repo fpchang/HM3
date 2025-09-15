@@ -31,6 +31,6 @@ export function range(start : number, end : number, step : number = 1, fromRight
 
 
 // 示例
-// console.log(range(0, 5)); // 输出: [0, 1, 2, 3, 4]
-// console.log(range(1, 10, 2, true)); // 输出: [9, 7, 5, 3, 1]
-// console.log(range(5, 0, -1)); // 输出: [5, 4, 3, 2, 1]
+// //console.log(range(0, 5)); // 输出: [0, 1, 2, 3, 4]
+// //console.log(range(1, 10, 2, true)); // 输出: [9, 7, 5, 3, 1]
+// //console.log(range(5, 0, -1)); // 输出: [5, 4, 3, 2, 1]

@@ -4,7 +4,7 @@ exports.main = async (event, context) => {
 	let {
 		hotelObj
 	} = event;
-	console.log("hm-createHotel", event);
+	//console.log("hm-createHotel", event);
 	const dbJQL = uniCloud.databaseForJQL({
 		event,
 		context

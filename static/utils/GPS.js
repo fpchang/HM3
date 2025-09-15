@@ -58,7 +58,7 @@ export var GPS = {
 
           if (++i > 10000) break;
       }
-      //console.log(i);
+      ////console.log(i);
       return {'lat': wgsLat, 'lon': wgsLon};
   },
   //GCJ-02 to BD-09

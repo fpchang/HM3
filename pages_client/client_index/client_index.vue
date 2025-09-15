@@ -161,7 +161,7 @@ export default {
   watch: {
     user(val, oldVal) {
       // if(val.phone!=oldVal.phone&&val.phone){
-      //   console.log("user改变",val,oldVal);
+      //   //console.log("user改变",val,oldVal);
       //   this.getHotelList();
       // }
     },
@@ -175,7 +175,7 @@ export default {
 	//#endif
   },
   async created() {
-    console.log("client created", this.config);
+    //console.log("client created", this.config);
     this.isLoading = true;
     this.amapPlugin = new amap.AMapWX({
       key: this.key,
@@ -195,11 +195,11 @@ export default {
     // #endif
   },
   onShow() {
-    console.log("client index onshow");
+    //console.log("client index onshow");
   },
   methods: {
     clickTab(id) {
-      console.log(id);
+      //console.log(id);
       this.tabId = id;
     },
     switchEvent() {
@@ -216,7 +216,7 @@ export default {
       };
     },
     dateConfim(e) {
-      console.log(e);
+      //console.log(e);
       this.$store.commit("hotelClientStore/updateSearchDateRange",e);
     },
     searchAddress(keywords) {
@@ -224,7 +224,7 @@ export default {
         keywords: keywords,
         location: "",
         success: function (data) {
-          console.log("sssss", data);
+          //console.log("sssss", data);
           // if(data && data.tips){
           //   that.setData({
           //     tips: data.tips
@@ -248,8 +248,8 @@ export default {
         uni.getLocation({
           type: "gcj02",
           success: (res) => {
-            console.log("当前位置的经度：" + res.longitude);
-            console.log("当前位置的纬度：" + res.latitude);
+            //console.log("当前位置的经度：" + res.longitude);
+            //console.log("当前位置的纬度：" + res.latitude);
             
             let obj={
 							filterVal:"",
@@ -265,17 +265,17 @@ export default {
         // this.amapPlugin.getRegeo({
         //   //type: 'gcj02',
         //   success: (data) => {
-        //     console.log(data);
+        //     //console.log(data);
         //     this.address = data[0].name;
         //     this.location = [data[0].longitude, data[0].latitude];
-        //     console.log("当前坐标",this.location)
+        //     //console.log("当前坐标",this.location)
         //     this.$store.commit("setLocation",this.location);
         //     uni.hideLoading();
         //     resolve();
         //   },
         //   fail: (e) => {
         //     this.isLoading = false;
-        //     console.log(e);
+        //     //console.log(e);
         //     reject(e);
         //   },
         // });
@@ -287,7 +287,7 @@ export default {
         url: "/pages_client/hotelSearch/hotelSearch",
         events: {
           getAddress: (obj) => {
-            console.log("ooooooooo", obj);
+            //console.log("ooooooooo", obj);
             // this.filterVal = obj.filterVal;
             // (this.address = obj.address), (this.location = obj.location);
            // this.getHotelList();
@@ -296,7 +296,7 @@ export default {
       });
     },
     async getHotelList() {
-      console.log("open", this.location);
+      //console.log("open", this.location);
       try {
         //await this.$store.dispatch("loginEvent", () => {
   
@@ -308,7 +308,7 @@ export default {
       } catch (error) {}
 
       // if (this.isLoading) {
-      //   console.log("isloading....");
+      //   //console.log("isloading....");
       //   return;
       // }
       // uni.showLoading();
@@ -321,7 +321,7 @@ export default {
       //       filterVal: this.filterVal,
       //     }
       //   );
-      //   console.log(res);
+      //   //console.log(res);
       //   const condition={
       //     filterVal:this.filterVal,
       //     address: this.address,
@@ -333,7 +333,7 @@ export default {
       //   });
       //   uni.hideLoading();
       // } catch (error) {
-      //   console.log(error);
+      //   //console.log(error);
       //   uni.hideLoading();
       // }
     },

@@ -210,11 +210,11 @@ var lastMoveTime = null;
  * 在 vue 中使用（注意：不能使用箭头函数，否则this指向不对，并且不能再次封装如：
  * move(){  // 错误调用方式
  *   debounce(function () {
- *   console.log(this.title);
+ *   //console.log(this.title);
  * }, 1000)}）;
  * 应该直接使用：// 正确调用方式
  * move: debounce(function () {
- *   console.log(this.title);
+ *   //console.log(this.title);
  * }, 1000)
  */
 function debounce(fn, wait) {
@@ -608,7 +608,7 @@ export default {
       if (val) {
         this.emitMsg({name: 'error', params: {type:"error", errorShow: this.errorShow, msg: val, id: this.cid}});
         if(this.errorShow){
-          console.log('[秋云图表组件]' + val);
+          //console.log('[秋云图表组件]' + val);
         }
       }
     },

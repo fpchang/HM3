@@ -26,7 +26,7 @@
 			closePopup(){
 				const pages = getCurrentPages();
 				const prevpage = pages[pages.length-2];
-				console.log(pages);
+				//console.log(pages);
 				uni.navigateBack({
 					delta:1,
 					success:()=>{

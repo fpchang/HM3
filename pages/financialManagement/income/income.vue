@@ -135,13 +135,13 @@ export default {
     watch(
       filter,
       async (newValue, oldValue) => {
-        console.log("watch....");
+        //console.log("watch....");
         const res = await FMService.getRoomOrder(
           store.state.hotel_id,
           filter.value.dateRangeArray[0],
           filter.value.dateRangeArray[1]
         );
-        console.log("res", res);
+        //console.log("res", res);
         order_amount.value = res.result.data[0].amount;
       },
       { deep: true, immediate: true }
@@ -177,14 +177,14 @@ export default {
       return sum;
     },
     async getOrder() {
-      console.log(this.filter);
+      //console.log(this.filter);
     },
     createIncome() {
       uni.navigateTo({
         url: "/pages/financialManagement/income/createIncome/createIncome",
         events: {
           updateData: () => {
-            console.log("刷新数据");
+            //console.log("刷新数据");
             this.$refs.udb.refresh();
           },
         },

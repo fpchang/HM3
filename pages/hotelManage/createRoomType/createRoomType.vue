@@ -31,11 +31,11 @@ export default {
     };
   },
   onLoad(obj) {
-    console.log("参数传递", obj);
+    //console.log("参数传递", obj);
     try {
       this.type = obj.type;
       this.targetObj = JSON.parse(decodeURIComponent(obj.rt));
-      console.log("参数转换", this.targetObj)
+      //console.log("参数转换", this.targetObj)
       const titleArray=["创建房型","修改房型","房型详情"];
       uni.setNavigationBarTitle({title:titleArray[obj.type]})
     } catch (error) {

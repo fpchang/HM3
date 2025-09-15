@@ -12,18 +12,18 @@ Date.prototype.Format = function (fmt) {
   return fmt
 };
 
-// console.log = (function (oriLogFunc) {
+// //console.log = (function (oriLogFunc) {
 //   return function () {
 //     //判断配置文件是否开启日志调试
 //     if (wx.getStorageSync('isConsole')) {
 //       try{
 //         oriLogFunc.call(console, ...arguments);
 //       }catch(e){
-//         console.error('console.log error', e);
+//         console.error('//console.log error', e);
 //       }
 //     }
 //   }
-// })(console.log);
+// })(//console.log);
 
 export function sortObject(bodyObj) {
   const orderBody = {};
@@ -363,7 +363,7 @@ export function getModelIphone(){
     let modeArr = modestr.match(/\<([^)]*)\>/);
     return modeArr instanceof Array ?modeArr[1]:null;
   }catch(e){
-    console.log(e)
+    //console.log(e)
     return null;
   }
 }

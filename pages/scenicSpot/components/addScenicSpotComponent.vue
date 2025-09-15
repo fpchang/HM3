@@ -131,7 +131,7 @@ deactivated() {},
 beforeDestroy() {},
   methods: {
     onchange(e) {
-				console.log("onchang", e)
+				//console.log("onchang", e)
 
 				let list = e.detail.value;
 				let adstr = "";
@@ -148,12 +148,12 @@ beforeDestroy() {},
 						});
 						//let that = this;
 						//let location = this.$store.state.location;
-						console.log("location", location)
+						//console.log("location", location)
 						amapPlugin.getInputtips({
 							keywords: keywords,
 							//location: location.toString(","),
 							success: function(data) {
-								console.log("sssss", data)
+								//console.log("sssss", data)
 								if (data.tips.length < 1) {
 									uni.showToast({
 										title: '无法定位该地址',
@@ -186,7 +186,7 @@ beforeDestroy() {},
         
         let addressStr = this.scenicSpotForm.scenicSport_addressArea + this.scenicSpotForm.scenicSport_address
 					const location = await this.searchAddress(addressStr);
-					console.log("获取的坐标", location);
+					//console.log("获取的坐标", location);
 					this.scenicSpotForm.location = location;
        
         if(this.type==1){
@@ -201,14 +201,14 @@ beforeDestroy() {},
         scenicSpotObj: this.scenicSpotForm,
         })
           .then(async (res) => {
-            console.log("添加成功");
+            //console.log("添加成功");
             this.$emit("closePopup");
             await this.$store.dispatch("getScenicSpotList",this.hotel_id);
             this.submitLoading = false;
             uni.hideLoading();
           })
           .catch((er) => {
-            console.log("添加失败", er);
+            //console.log("添加失败", er);
             this.submitLoading = false;
             uni.hideLoading();
             uni.showModal({
@@ -223,14 +223,14 @@ beforeDestroy() {},
           scenicSpotObj: this.scenicSpotForm
         })
           .then(async (res) => {
-            console.log("修改成功");
+            //console.log("修改成功");
             await this.$store.dispatch("getScenicSpotList",this.hotel_id);
             this.submitLoading = false;
             uni.hideLoading();
             this.$emit("closePopup");
           })
           .catch((er) => {
-            console.log("修改失败", er);
+            //console.log("修改失败", er);
             this.submitLoading = false;
             uni.hideLoading();
             uni.showModal({

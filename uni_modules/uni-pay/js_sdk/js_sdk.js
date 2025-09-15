@@ -27,7 +27,7 @@ util.getWeixinCode = function() {
 				weixinAuthService.authorize(function(res) {
 					resolve(res.code);
 				}, function(err) {
-					console.log(err);
+					//console.log(err);
 					reject(new Error('获取微信code失败'));
 				});
 			}

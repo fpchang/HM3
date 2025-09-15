@@ -172,7 +172,7 @@ export default {
   created() {
     // let hotel = this.hotelList.find(item=>{return item._id = this.hotel_id});
     //this.$store.commit("hotelClientStore/updateHotel", hotel);
-    // console.log(hotel);
+    // //console.log(hotel);
   },
   onLoad() {},
   methods: {
@@ -184,7 +184,7 @@ export default {
       //this.$store.commit("hotelClientStore/updateHotel", hotel);
       //this.$store.commit("hotelClientStore/updateSearchCondition",this.conditionForm);
       let href=`#/pages_client/hotelHome/hotelHome`;
-      console.log(hotel);
+      //console.log(hotel);
       uni.navigateTo({
         url: `/pages_client/hotelHome/hotelHome`,
         complete: () => {

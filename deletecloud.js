@@ -31,9 +31,9 @@ async function recursiveDelete(initialUrl, { headers: initialHeaders }) {
     }  
 
     async function deleteFile(file, folderPath) {  
-        console.log('{ 【 folderPath 】 }:>>>>>>>>>>>> createFold.js:32', folderPath);  
+        //console.log('{ 【 folderPath 】 }:>>>>>>>>>>>> createFold.js:32', folderPath);  
       const normalizedPath = `${folderPath}${`/${folderPath}` === rootFolder ? '/' : ''}${file.name}`;  
-      console.log(`尝试删除文件: ${normalizedPath}`);  
+      //console.log(`尝试删除文件: ${normalizedPath}`);  
 
       const deleteResponse = await makeRequest('https://unicloud-api.dcloud.net.cn/unicloud/api/host/delete-file', {  
         method: 'POST',  
@@ -41,7 +41,7 @@ async function recursiveDelete(initialUrl, { headers: initialHeaders }) {
       });  
 
       if (deleteResponse?.ret === 0) {  
-        console.log(`成功删除文件: ${normalizedPath}`);  
+        //console.log(`成功删除文件: ${normalizedPath}`);  
         return true;  
       }  
       console.error(`删除文件失败: ${normalizedPath}，错误信息：${deleteResponse}`);  
@@ -49,7 +49,7 @@ async function recursiveDelete(initialUrl, { headers: initialHeaders }) {
     }  
 
     async function processFolder(folderUrl) {  
-      console.log(`处理文件夹: ${folderUrl}`);  
+      //console.log(`处理文件夹: ${folderUrl}`);  
       const listResponse = await makeRequest(folderUrl);  
 
       if (!listResponse || listResponse.ret !== 0) {  
@@ -60,7 +60,7 @@ async function recursiveDelete(initialUrl, { headers: initialHeaders }) {
       const { directories, files } = listResponse.data;  
       const currentFolder = normalizePath(new URL(folderUrl).searchParams.get('folder'));  
 
-      console.log(`文件夹 ${currentFolder} 包含 ${files.length} 个文件和 ${directories.length} 个子文件夹`);  
+      //console.log(`文件夹 ${currentFolder} 包含 ${files.length} 个文件和 ${directories.length} 个子文件夹`);  
 
       await Promise.all(files.map(file => deleteFile(file, currentFolder)));  
 
@@ -73,7 +73,7 @@ async function recursiveDelete(initialUrl, { headers: initialHeaders }) {
 
     async function deleteFolderAttempt(folderPath) {  
       const normalizedPath = normalizePath(folderPath);  
-      console.log(`尝试删除文件夹: ${normalizedPath}`);  
+      //console.log(`尝试删除文件夹: ${normalizedPath}`);  
 
       const deleteResponse = await makeRequest('https://unicloud-api.dcloud.net.cn/unicloud/api/host/delete-directory', {  
         method: 'POST',  
@@ -81,14 +81,14 @@ async function recursiveDelete(initialUrl, { headers: initialHeaders }) {
       });  
 
       if (deleteResponse && deleteResponse.ret === 0) {  
-        console.log(`成功删除文件夹: ${normalizedPath}`);  
+        //console.log(`成功删除文件夹: ${normalizedPath}`);  
       } else {  
-        console.log(`无法删除文件夹: ${normalizedPath}，错误信息：${deleteResponse}`);  
+        //console.log(`无法删除文件夹: ${normalizedPath}，错误信息：${deleteResponse}`);  
       }  
     }  
 
     await processFolder(initialUrl);  
-    console.log('递归删除过程完成');  
+    //console.log('递归删除过程完成');  
   }  
  //assets 开发 node deletecloud.js
 

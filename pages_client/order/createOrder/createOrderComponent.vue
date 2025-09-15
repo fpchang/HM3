@@ -417,7 +417,7 @@ export default {
       this.selectCount = this.selectCount + 1;
     },
     bargainPriceChange(e) {
-      console.log(e);
+      //console.log(e);
       this.bargainPrice = e.detail.value;
     },
     formatDate(range) {
@@ -442,7 +442,7 @@ export default {
     },
     //发起议价单
     async bargainEvent() {
-      console.log(this.formData.orderType);
+      //console.log(this.formData.orderType);
       //this.orderForm.bargainStatus=0;
       await this.submitForm();
       const eventChannel = this.getOpenerEventChannel();
@@ -459,7 +459,7 @@ export default {
     },
     //线下预定
     async reserve() {
-      console.log("预定");
+      //console.log("预定");
       const conf = await uni.showModal({
         title: "确认提交订单",
         content: "确认订单信息",
@@ -510,9 +510,9 @@ export default {
         totalAmount: this.isBargainOrder ? this.bargainPrice : this.priceTotal,
         payType: this.hotel.onlinePayment ? "online" : "offline", //--
       };
-      console.log(obj);
+      //console.log(obj);
       await OrderService.addOrder(obj);
-      console.log("添加成功");
+      //console.log("添加成功");
       this.submitLoading = false;
       uni.hideLoading();
     },

@@ -131,7 +131,7 @@ export default{
   watch: {},
   created(){
     //this.getMenuTypeList();
-   console.log(">>>",this.menuDetailForm) 
+   //console.log(">>>",this.menuDetailForm) 
   },
 // 组件周期函数--监听组件挂载完毕
 mounted() {},
@@ -150,7 +150,7 @@ beforeDestroy() {},
 				this.menuDetailForm.imgsrc = list[0];
 			},
     isOfferChange(e){
-      console.log(e)
+      //console.log(e)
       let {value} = e.detail;
       this.menuDetailForm.isOffer = value==1?true:false;
     },
@@ -160,7 +160,7 @@ beforeDestroy() {},
         this.submitLoading = true;
         this.menuDetailForm.menuType_id = this.targetObj._id;
         
-       console.log("222",this.menuDetailFormParse,this.targetObj)
+       //console.log("222",this.menuDetailFormParse,this.targetObj)
         if(this.type==1){
           this.editMenuDetail();
           return;
@@ -172,12 +172,12 @@ beforeDestroy() {},
      
       MenuService.addMenuDetail(this.menuDetailFormParse)
           .then(async (res) => {
-            console.log("添加成功");
+            //console.log("添加成功");
             await this.$store.dispatch("getMenuList",this.hotel_id);
             this.$emit("closePopup");
           })
           .catch((er) => {
-            console.log("添加失败", er);
+            //console.log("添加失败", er);
             this.submitLoading = false;
             uni.hideLoading();
             uni.showModal({
@@ -192,12 +192,12 @@ beforeDestroy() {},
         this.menuDetailFormParse
       )
           .then((res) => {
-            console.log("修改成功");
+            //console.log("修改成功");
             this.$store.dispatch("getMenuList",this.hotel_id);
             this.$emit("closePopup");
           })
           .catch((er) => {
-            console.log("修改失败", er);
+            //console.log("修改失败", er);
             this.submitLoading = false;
             uni.hideLoading();
             uni.showModal({

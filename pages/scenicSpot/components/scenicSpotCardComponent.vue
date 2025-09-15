@@ -190,11 +190,11 @@ export default {
         imageUrl: "", //图片地址，type 为 0、2、5 时必选
         success(res) {
           //成功返回的参数
-          console.log(res);
+          //console.log(res);
         },
         fail(err) {
           //失败返回的参数
-          console.log(err);
+          //console.log(err);
         },
       });
     },
@@ -240,7 +240,7 @@ export default {
 					 alert.alertNoPermisson();
 					return;
 				}
-      console.log(item);
+      //console.log(item);
       if (!this.scenicSpot_id) {
         return;
       }
@@ -256,12 +256,12 @@ export default {
       //uni.showLoading();
       try {
         const res = await ScenicSpotService.removeScenicSpotDetail(item._id);
-        console.log("删除成功");
+        //console.log("删除成功");
         await this.$store.dispatch("getScenicSpotList",this.hotel_id);
         this.submitLoading = false;
             uni.hideLoading();
       } catch (error) {
-        console.log("删除失败", error);
+        //console.log("删除失败", error);
         this.submitLoading = false;
             uni.hideLoading();
       }
@@ -291,12 +291,12 @@ export default {
         const res = await ScenicSpotService.removeScenicSpot(
           this.scenicSpot_id
         );
-        console.log("删除成功");
+        //console.log("删除成功");
         await this.$store.dispatch("getScenicSpotList",this.hotel_id);
         this.submitLoading = false;
             uni.hideLoading();
       } catch (error) {
-        console.log("删除失败", error);
+        //console.log("删除失败", error);
         this.submitLoading = false;
             uni.hideLoading();
       }
@@ -312,20 +312,20 @@ export default {
       uni.setClipboardData({
         data: address,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     },
     //手机则拨打电话，其它设备复制
     makePhoneCallEvent(phone) {
-      console.log(phone, uni.getSystemInfoSync());
+      //console.log(phone, uni.getSystemInfoSync());
 
       let deviceType = uni.getSystemInfoSync().deviceType;
       if (deviceType == "phone") {
         uni.makePhoneCall({
           phoneNumber: phone, //仅为示例
           success: (success) => {
-            console.log("调用成功", success);
+            //console.log("调用成功", success);
           },
         });
         return;
@@ -333,7 +333,7 @@ export default {
       uni.setClipboardData({
         data: phone,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     },

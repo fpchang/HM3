@@ -33,7 +33,7 @@ export default {
 //     }
 //   },
   onLoad(obj) {
-    console.log("参数传递", obj);
+    //console.log("参数传递", obj);
     try {
       this.type = obj.type;
       this.targetObj = JSON.parse(obj.targetObj);
@@ -50,10 +50,10 @@ export default {
 		uni.navigateBack();
 	},
 	async getMenuTypeList(){
-      console.log("刷新getMenuTypeList列表");
+      //console.log("刷新getMenuTypeList列表");
       try {
         const res = await   HotelService.getMenuTypeList(this.hotel_id);
-        console.log("景点列表",res)
+        //console.log("景点列表",res)
         this.menuTypeList=res.result.data;
         uni.hideLoading();
        // this.$emit("closePopup");

@@ -10,7 +10,7 @@ module.exports = {
       field
     } = {}) {
 		// 当上述jql指令被触发时，将执行这里的代码。这里就是普通的uniCloud代码，可以调用uniCloud的各种api。
-		console.log("update这个触发器被触发了")
+		//console.log("update这个触发器被触发了")
     },
 	beforeCreate: async function (
 	// 确定要监听的什么样的JQL指令
@@ -18,7 +18,7 @@ module.exports = {
       addDataList
     } = {}) {
 		// 当上述jql指令被触发时，将执行这里的代码。这里就是普通的uniCloud代码，可以调用uniCloud的各种api。
-		console.log("create room-这个触发器被触发了",addDataList)
+		//console.log("create room-这个触发器被触发了",addDataList)
     },
 	beforeUpdate:async function (
 	// 确定要监听的什么样的JQL指令
@@ -29,7 +29,7 @@ module.exports = {
       field
     } = {}) {
 		// 当上述jql指令被触发时，将执行这里的代码。这里就是普通的uniCloud代码，可以调用uniCloud的各种api。
-		console.log("update这个触发器被触发了")
+		//console.log("update这个触发器被触发了")
     },
 	beforeDelete:async function (
 	// 确定要监听的什么样的JQL指令
@@ -37,7 +37,7 @@ module.exports = {
 	  docId
 	} = {}) {
 		// 当上述jql指令被触发时，将执行这里的代码。这里就是普通的uniCloud代码，可以调用uniCloud的各种api。
-		console.log("delete这个触发器被触发了")
+		//console.log("delete这个触发器被触发了")
 	},
     afterRead: async function ({
       collection,

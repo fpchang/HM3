@@ -331,7 +331,7 @@ export default {
 			}
 		},
 		mounted(){
-			console.log(this.rt);
+			//console.log(this.rt);
 			//床位赋值
 			if(this.roomTypeForm.bedList&&this.roomTypeForm.bedList.length){
 				for(let i=0;i<this.bedTypeList.length;i++){
@@ -443,13 +443,13 @@ export default {
                                 roomTypeObj:this.roomTypeForm
 							}
 						).then(async res=>{
-                            console.log("添加成功");
+                            //console.log("添加成功");
                         await this.$store.dispatch("getRoomType");
                         this.$emit('closePopup');
 						uni.hideLoading();
 							
 				}).catch(er => {
-						console.log("添加失败",er);
+						//console.log("添加失败",er);
 						this.submitLoading = false;
 						uni.hideLoading();
 						uni.showModal({
@@ -466,13 +466,13 @@ export default {
                                 roomTypeObj:this.roomTypeForm
 							}
 						).then(async res=>{
-                            console.log("修改成功");
+                            //console.log("修改成功");
 							await this.$store.dispatch("getRoomType");
                         this.$emit('closePopup');
 						uni.hideLoading();
 							
 				}).catch(er => {
-						console.log("修改失败",er);
+						//console.log("修改失败",er);
 						this.submitLoading = false;
 						uni.hideLoading();
 						uni.showModal({

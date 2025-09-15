@@ -16,7 +16,7 @@ class Image {
 	complete: boolean = false
 	constructor() {}
 	set src(src: string) {
-		console.log('src', src)
+		//console.log('src', src)
 		if(!src) {
 			return this.onerror()
 		}

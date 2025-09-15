@@ -39,7 +39,7 @@
 				uni.setClipboardData({
         data: str,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
 			}

@@ -132,7 +132,7 @@ export default {
     }
   },
 created(){
-  console.log("menucardcomponent created",this.menuItem,)
+  //console.log("menucardcomponent created",this.menuItem,)
 },
   watch: {
     menuType_id() {},
@@ -151,11 +151,11 @@ created(){
         imageUrl: "", //图片地址，type 为 0、2、5 时必选
         success(res) {
           //成功返回的参数
-          console.log(res);
+          //console.log(res);
         },
         fail(err) {
           //失败返回的参数
-          console.log(err);
+          //console.log(err);
         },
       });
     },
@@ -216,10 +216,10 @@ created(){
       //uni.showLoading();
       try {
         const res = await MenuService.removeMenuDetail(item._id);
-        console.log("删除成功");
+        //console.log("删除成功");
         this.$store.dispatch("getMenuList", this.hotel_id);
       } catch (error) {
-        console.log("删除失败", error);
+        //console.log("删除失败", error);
       }
     },
     editMenuType() {
@@ -242,7 +242,7 @@ created(){
 					alert.alertNoPermisson();
 					return;
 				}
-        console.log(this.menuType_id,this.menuItem)
+        //console.log(this.menuType_id,this.menuItem)
       if (!this.menuType_id) {
         return;
       }
@@ -258,10 +258,10 @@ created(){
       //uni.showLoading();
       try {
         const res = await MenuService.removeMenuType(this.menuType_id);
-        console.log("删除成功");
+        //console.log("删除成功");
         this.$store.dispatch("getMenuList", this.hotel_id);
       } catch (error) {
-        console.log("删除失败", error);
+        //console.log("删除失败", error);
       }
     },
     closePopup() {
@@ -275,7 +275,7 @@ created(){
       uni.setClipboardData({
         data: address,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     },
@@ -286,7 +286,7 @@ created(){
         uni.makePhoneCall({
           phoneNumber: phone, //仅为示例
           success: (success) => {
-            console.log("调用成功", success);
+            //console.log("调用成功", success);
           },
         });
         return;
@@ -294,7 +294,7 @@ created(){
       uni.setClipboardData({
         data: phone,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     },

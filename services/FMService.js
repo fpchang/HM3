@@ -133,7 +133,7 @@ async getIncomeCurrentYear(hotel_id){
 
   }
     total=total.toFixed(2);
-  console.log(xlable,xValue)
+  //console.log(xlable,xValue)
   return {
     xlable,
     simpleXLabel,
@@ -168,7 +168,7 @@ async getExpensesCurrentYear(hotel_id){
     total+=val;
 
   }
-  console.log(xlable,xValue)
+  //console.log(xlable,xValue)
     total=total.toFixed(2);
   return {
     xlable,

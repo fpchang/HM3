@@ -82,7 +82,7 @@ export default {
         arr = arr.concat(facility);
       });
       arr = Array.from(new Set(arr));
-      console.log("arr", arr);
+      //console.log("arr", arr);
     return [
         {
         name: "房型设施",
@@ -116,7 +116,7 @@ export default {
     async getRoomType(){
       const res = await HotelServiceClient.getRoomType(this.hotel._id);
       this.roomTypeList = res.result.data;
-      console.log("roomtype", this.roomTypeList);
+      //console.log("roomtype", this.roomTypeList);
     
     },
     parseStr(data, it) {

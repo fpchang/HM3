@@ -75,10 +75,10 @@ export default {
     if (this.$store.state.isPcShow) {
       uni.hideTabBar();
     }
-    console.log("before mounted....>>>");
+    //console.log("before mounted....>>>");
   },
   async mounted() {
-    console.log("index mounted....>>>", this.$store);
+    //console.log("index mounted....>>>", this.$store);
     await this.setConfig();
     // uni.switchTab({
     // 	url: "/pages/home/home"
@@ -127,7 +127,7 @@ export default {
         });
         uni.hideLoading();
       } catch (error) {
-        console.log("initData .....error,", error);
+        //console.log("initData .....error,", error);
         uni.hideLoading();
       }
     },
@@ -160,7 +160,7 @@ export default {
     async setConfig() {
       try {
         const res = await AccountService.getConfig();
-        console.log("参数config", res);
+        //console.log("参数config", res);
         this.$store.commit("setConfig", res.result);
       } catch (error) {
         console.error(error);

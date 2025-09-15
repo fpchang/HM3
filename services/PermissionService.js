@@ -35,7 +35,7 @@ class PermissionServiceClass{
         //     const permission_select = db.collection("hm-permission").getTemp();
         //     const role_permission_select = db.collection("hm-role-permission").where({role_name}).getTemp();
         //     const res = await db.collection(role_permission_select,permission_select).get(); 
-        //     console.log("result",res); 
+        //     //console.log("result",res); 
         //     resolve(this.formatPermissionToArray(res.result.data))
         //     } catch (error) {
         //         reject(error)

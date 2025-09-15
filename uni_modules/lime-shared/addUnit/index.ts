@@ -35,8 +35,8 @@ export {addUnit}
 // #endif
 
 
-// console.log(addUnit(100)); // 输出: "100px"
-// console.log(addUnit("200")); // 输出: "200px"
-// console.log(addUnit("300px")); // 输出: "300px"（已经包含单位）
-// console.log(addUnit()); // 输出: undefined（值为 undefined）
-// console.log(addUnit(null)); // 输出: undefined（值为 null）
+// //console.log(addUnit(100)); // 输出: "100px"
+// //console.log(addUnit("200")); // 输出: "200px"
+// //console.log(addUnit("300px")); // 输出: "300px"（已经包含单位）
+// //console.log(addUnit()); // 输出: undefined（值为 undefined）
+// //console.log(addUnit(null)); // 输出: undefined（值为 null）

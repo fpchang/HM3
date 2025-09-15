@@ -26,16 +26,16 @@ import addScenicSpotDetailComponent from '../components/addScenicSpotDetailCompo
 			addScenicSpotDetailComponent
 		},
 		onLoad(obj) {
-    console.log("参数传递", obj);
+    //console.log("参数传递", obj);
     try {
       this.type = obj.type;
       this.targetObj = JSON.parse(obj.targetObj);
-	  console.log("解析",this.targetObj)
+	  //console.log("解析",this.targetObj)
       uni.setNavigationBarTitle({
         title: obj.type == "1" ? "修改景点价目" : "新增景点价目",
       });
     } catch (error) {
-		console.log(error)
+		//console.log(error)
       this.type = 0;
 	  this.targetObj={}
     }

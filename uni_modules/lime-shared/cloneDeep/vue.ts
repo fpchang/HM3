@@ -77,15 +77,15 @@ export function cloneDeep<T>(obj: any): T {
 // const obj = { name: 'John', age: 30 };
 // const clonedObj = cloneDeep(obj);
 
-// console.log(clonedObj); // 输出: { name: 'John', age: 30 }
-// console.log(clonedObj === obj); // 输出: false (副本与原对象是独立的)
+// //console.log(clonedObj); // 输出: { name: 'John', age: 30 }
+// //console.log(clonedObj === obj); // 输出: false (副本与原对象是独立的)
 
 // // 克隆一个数组
 // const arr = [1, 2, 3];
 // const clonedArr = cloneDeep(arr);
 
-// console.log(clonedArr); // 输出: [1, 2, 3]
-// console.log(clonedArr === arr); // 输出: false (副本与原数组是独立的)
+// //console.log(clonedArr); // 输出: [1, 2, 3]
+// //console.log(clonedArr === arr); // 输出: false (副本与原数组是独立的)
 
 // // 克隆一个包含嵌套对象的对象
 // const person = {
@@ -98,6 +98,6 @@ export function cloneDeep<T>(obj: any): T {
 // };
 // const clonedPerson = cloneDeep(person);
 
-// console.log(clonedPerson); // 输出: { name: 'Alice', age: 25, address: { city: 'New York', country: 'USA' } }
-// console.log(clonedPerson === person); // 输出: false (副本与原对象是独立的)
-// console.log(clonedPerson.address === person.address); // 输出: false (嵌套对象的副本也是独立的)
+// //console.log(clonedPerson); // 输出: { name: 'Alice', age: 25, address: { city: 'New York', country: 'USA' } }
+// //console.log(clonedPerson === person); // 输出: false (副本与原对象是独立的)
+// //console.log(clonedPerson.address === person.address); // 输出: false (嵌套对象的副本也是独立的)

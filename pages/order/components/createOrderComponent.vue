@@ -24,7 +24,6 @@
       </uni-forms-item>
       <uni-forms-item label="房型房间" required>
         <!-- <uni-data-checkbox v-model="orderForm.roomTypeArray" mode="list"  multiple :localdata="roomTypeListFormat">1111</uni-data-checkbox> -->
-       {{console.log("11",remainRoomTypeList)  }}
 		<view class="uni-list">
           <checkbox-group @change="roomTypeCheckboxChange">
             <view
@@ -360,11 +359,11 @@ export default {
 				downPayment: Number(this.orderForm.downPayment),
 				totalAmount: Number(this.orderForm.totalAmount),
 			};
-			console.log("obj::",obj);
+			//console.log("obj::",obj);
 			
 			try {
 				await OrderService.addOrder(obj);
-				console.log("添加成功");
+				//console.log("添加成功");
 				this.$store.dispatch("getGatherEvent", this.hotel_id);
 				this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
 				this.submitLoading = false;

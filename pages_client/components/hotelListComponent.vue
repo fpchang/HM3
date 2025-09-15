@@ -87,7 +87,7 @@
 			}
 		},
 		created(){
-			console.log("111111",this.hotelList)
+			//console.log("111111",this.hotelList)
 		},
 		methods: {
 			openHotel(hotel) {
@@ -118,7 +118,7 @@
 					.pow(Math.sin(b / 2), 2)));
 				s = s * 6378.137;
 				s = Math.round(s * 10000) / 10000;
-				console.log("距离", s);
+				//console.log("距离", s);
 				return this.numDelivery(s);
 				//this.distance=s					
 		
@@ -129,7 +129,7 @@
 		
 				if (isNaN(result)) {
 		
-					console.log("传递参数错误，请检查！");
+					//console.log("传递参数错误，请检查！");
 		
 					return '--';
 		

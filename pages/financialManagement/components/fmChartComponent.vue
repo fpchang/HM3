@@ -204,13 +204,13 @@
 			async partialRefreshComName(val) {
 				//下拉刷新
 				if (val == 'fm') {
-					console.log("局部刷新 gather")
+					//console.log("局部刷新 gather")
 					this.getIncomeMonth();
 					this.getExpensesMonth();
 					this.getIncomeCurrentYear();
 					this.getExpensesCurrentYear();
 					this.$store.commit("setPartialRefreshComName", "");
-					console.log("局部刷新完成")
+					//console.log("局部刷新完成")
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
 				}
@@ -267,20 +267,20 @@
 			async getIncomeMonth() {
 				const data = await FMService.getIncomeCurrentMonth(this.$store.state.hotel_id);
 				this.currentMonthIncome.series[0].data = data;
-				console.log("当月统计", data)
+				//console.log("当月统计", data)
 				return data;
 			},
 			//获取支出月
 			async getExpensesMonth() {
 				const data = await FMService.getExpensesCurrentMonth(this.$store.state.hotel_id);
 				this.currentMonthExpenses.series[0].data = data;
-				console.log("当月统计支出", data);
+				//console.log("当月统计支出", data);
 				return data;
 			},
 			//获取收入 当年
 			async getIncomeCurrentYear() {
 				const res = await FMService.getIncomeCurrentYear(this.$store.state.hotel_id)
-				console.log("当年收入", res)
+				//console.log("当年收入", res)
 				this.currentYearIncome = {
 					total: res.total,
 					data: {
@@ -297,7 +297,7 @@
 			//获取支出 当年
 			async getExpensesCurrentYear() {
 				const res = await FMService.getExpensesCurrentYear(this.$store.state.hotel_id)
-				console.log("当年支出", res)
+				//console.log("当年支出", res)
 				this.currentYearExpenses = {
 					total: res.total,
 					data: {

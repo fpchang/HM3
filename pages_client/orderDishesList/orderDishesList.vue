@@ -148,7 +148,7 @@ export default {
     },
   },
   async onLoad(params) {
-    console.log("参数", params);
+    //console.log("参数", params);
     this.hotel_id = params.hotel_id;
     if (this.hotel_id) {
       await this.getOrderDishesList();
@@ -176,7 +176,7 @@ export default {
         phone: this.user.phone
         
       });
-      console.log("请求orderdishes", res);
+      //console.log("请求orderdishes", res);
       this.orderList = res.result.data;
     },
     async cancelOrder(item){

@@ -24,7 +24,7 @@
 		methods: {
 			async getRechargeConfig(){
 				const res = await  AccountService.getRechargeConfig();
-				console.log("rechcargeconfig",res);
+				//console.log("rechcargeconfig",res);
 				this.rechargeConfigList = res.result.data;
 			},	
 			async rechargeEvent(item){
@@ -39,7 +39,7 @@
 						throw Error("创建订单失败",res);
 						return;
 					}
-					console.log("创建成功",res);
+					//console.log("创建成功",res);
 					this.isLoading=false;
 					uni.hideLoading();
 					this.vipRecharge(res.result.optionsStr);

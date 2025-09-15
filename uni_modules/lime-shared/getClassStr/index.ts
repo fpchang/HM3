@@ -50,4 +50,4 @@ export function getClassStr<T>(obj : T) : string {
 // 示例
 // const obj = { foo: true, bar: false, baz: true };
 // const classNameStr = getClassStr(obj);
-// console.log(classNameStr); // 输出: "foo baz"
+// //console.log(classNameStr); // 输出: "foo baz"

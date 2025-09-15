@@ -47,7 +47,7 @@
 		},
 		methods: {
 			async loginOut() {
-				console.log("loginout")
+				//console.log("loginout")
 				const conf = await uni.showModal({
 					title: '确认登出',
 					content: '是否确认退出登录',

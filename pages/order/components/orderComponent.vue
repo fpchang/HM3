@@ -108,15 +108,15 @@ export default {
   },
   watch: {},
   created() {
-    console.log("orderComponent create");
+    //console.log("orderComponent create");
   },
   onLoad: function () {
-    console.log("orderComponent Show");
+    //console.log("orderComponent Show");
   },
   mounted() {},
   methods: {
     async refrush() {
-      console.log("ordercomponent refrush");
+      //console.log("ordercomponent refrush");
       await this.$refs.orderChildListRef.refrush();
       return;
     },
@@ -179,8 +179,11 @@ export default {
 }
 
 .order-component {
+  min-height: 100vh;
 	box-sizing: border-box;
 	background-color: #0765ae;
+  display: flex;
+  flex-direction: column;
 
 	.content {
 		flex: 1;

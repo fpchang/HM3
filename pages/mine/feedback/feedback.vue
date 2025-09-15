@@ -78,7 +78,7 @@
 	 
 	},
 	onLoad(params){
-		console.log("params",params)
+		//console.log("params",params)
 	},
 	watch: {},
 	created(e){
@@ -94,7 +94,7 @@
 			const res = await MineService.add(obj);
 			uni.hideLoading();
 			this.submitLoading = false;
-			console.log("意见反馈添加成功");
+			//console.log("意见反馈添加成功");
 			
 			uni.navigateBack();
 		  } catch (error) {

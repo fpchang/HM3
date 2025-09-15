@@ -60,7 +60,7 @@ export function throttle<T extends any|null>(
 // // 示例
 // // 定义一个被节流的函数
 // function handleScroll() {
-//   console.log("Scroll event handled!");
+//   //console.log("Scroll event handled!");
 // }
 
 // // 使用节流函数对 handleScroll 进行节流，间隔时间为 500 毫秒

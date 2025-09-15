@@ -69,11 +69,11 @@
 					imageUrl: "", //图片地址，type 为 0、2、5 时必选
 					success(res) {
 						//成功返回的参数
-						console.log(res);
+						//console.log(res);
 					},
 					fail(err) {
 						//失败返回的参数
-						console.log(err);
+						//console.log(err);
 					},
 				});
 			},
@@ -122,12 +122,12 @@
 				//uni.showLoading();
 				try {
 					const res = await ScenicSpotService.removeScenicSpotDetail(item._id);
-					console.log("删除成功");
+					//console.log("删除成功");
 					await this.$store.dispatch("getScenicSpotList",this.hotel_id);
 					this.submitLoading = false;
 					uni.hideLoading();
 				} catch (error) {
-					console.log("删除失败", error);
+					//console.log("删除失败", error);
 					this.submitLoading = false;
            			 uni.hideLoading();
 				}
@@ -153,12 +153,12 @@
 					const res = await ScenicSpotService.removeScenicSpot(
 						this.scenicSpot_id
 					);
-					console.log("删除成功");
+					//console.log("删除成功");
 					await this.$store.dispatch("getScenicSpotList",this.hotel_id);
 					this.submitLoading = false;
 					uni.hideLoading();
 				} catch (error) {
-					console.log("删除失败", error);
+					//console.log("删除失败", error);
 					this.submitLoading = false;
             uni.hideLoading();
 				}
@@ -174,7 +174,7 @@
 				uni.setClipboardData({
 					data: address,
 					success: function() {
-						console.log("success");
+						//console.log("success");
 					},
 				});
 			},
@@ -185,7 +185,7 @@
 					uni.makePhoneCall({
 						phoneNumber: phone, //仅为示例
 						success: (success) => {
-							console.log("调用成功", success);
+							//console.log("调用成功", success);
 						},
 					});
 					return;
@@ -193,7 +193,7 @@
 				uni.setClipboardData({
 					data: phone,
 					success: function() {
-						console.log("success");
+						//console.log("success");
 					},
 				});
 			},

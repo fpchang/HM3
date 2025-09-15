@@ -134,9 +134,9 @@
 			async partialRefreshComName(val){
 				//下拉刷新
 				if(val=='orderComponent'){
-					console.log("局部刷新 orderComponent")
+					//console.log("局部刷新 orderComponent")
 					await  this.getOrderListByCondition();
-					console.log("刷新完成");
+					//console.log("刷新完成");
 					this.$store.commit("setPartialRefreshComName","");
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
@@ -148,7 +148,7 @@
 
 		},
 		activated() {
-			//console.log("tableList active....");
+			////console.log("tableList active....");
 		},
 		mounted() {
 			this.testData(['t1', 't2'])
@@ -173,7 +173,7 @@
 				} catch (error) {
 					console.error("获取订单列表失败",error);
 				}
-				console.log("获取订单列表完成");
+				//console.log("获取订单列表完成");
 				uni.hideLoading();
 			},
 			async deleteOrder(item) {

@@ -191,7 +191,7 @@ export function dataURLToFile(dataURL : string, filename : NullableString = null
 // 	UTSAndroid.requestSystemPermission(UTSAndroid.getUniActivity()!, permissionNeed, function (allRight : boolean, _ : string[]) {
 // 		if (allRight) {
 // 			// 权限请求成功
-// 			console.log(`allRight`, allRight)
+// 			//console.log(`allRight`, allRight)
 // 			fun()
 // 		} else {
 // 			//用户拒绝了部分权限

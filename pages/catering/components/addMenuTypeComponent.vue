@@ -77,7 +77,7 @@
 
 		watch: {},
 		created() {
-			// console.log("111111",this.targetObj)
+		
 		},
 		// 组件周期函数--监听组件挂载完毕
 		mounted() {},
@@ -94,7 +94,7 @@
 		methods: {
 			submitForm() {
 				this.$refs.scenicSpotRef.validate().then((res) => {
-					console.log(this.menuTypeForm);
+					//console.log(this.menuTypeForm);
 					//uni.showLoading();
 					this.submitLoading = true;
 					this.menuTypeForm.hotel_id = this.hotel_id;
@@ -108,12 +108,12 @@
 			addMenuType() {
 				MenuService.addMenuType(this.menuTypeForm)
 					.then(async (res) => {
-						console.log("添加成功");
+						//console.log("添加成功");
 						this.$emit("closePopup");
 						await this.$store.dispatch("getMenuList", this.hotel_id);
 					})
 					.catch((er) => {
-						console.log("添加失败", er);
+						//console.log("添加失败", er);
 						this.submitLoading = false;
 						uni.hideLoading();
 						uni.showModal({
@@ -125,12 +125,12 @@
 			editMenuType() {
 				MenuService.editMenuType(this.targetObj._id._value, this.menuTypeForm)
 					.then((res) => {
-						console.log("修改成功");
+						//console.log("修改成功");
 						this.$store.dispatch("getMenuList", this.hotel_id);
 						this.$emit("closePopup");
 					})
 					.catch((er) => {
-						console.log("修改失败", er);
+						//console.log("修改失败", er);
 						this.submitLoading = false;
 						uni.hideLoading();
 						uni.showModal({

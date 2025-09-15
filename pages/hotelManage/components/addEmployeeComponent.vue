@@ -150,7 +150,7 @@ export default {
         hotel_id: this.hotel_id,
       })
         .then((res) => {
-          console.log("ree>>>>", res);
+          //console.log("ree>>>>", res);
           this.$store.commit("updateEmployeeList", res.result.data);
           uni.hideLoading();
           this.$emit("closePopup");
@@ -166,7 +166,7 @@ export default {
     },
     submitForm() {
       this.$refs.employeeRef.validate().then((res) => {
-        console.log(this.employeeForm);
+        //console.log(this.employeeForm);
         //uni.showLoading();
         this.submitLoading = true;
         this.employeeForm.hotel_id = this.hotel_id;
@@ -182,11 +182,11 @@ export default {
           employeeObj: this.employeeForm,
         })
           .then((res) => {
-            console.log("添加成功");
+            //console.log("添加成功");
             this.getEmployeeList();
           })
           .catch((er) => {
-            console.log("添加失败", er);
+            //console.log("添加失败", er);
             this.submitLoading = false;
             uni.hideLoading();
             uni.showModal({
@@ -201,11 +201,11 @@ export default {
           employeeObj: this.employeeForm,
         })
           .then((res) => {
-            console.log("修改成功");
+            //console.log("修改成功");
             this.getEmployeeList();
           })
           .catch((er) => {
-            console.log("修改失败", er);
+            //console.log("修改失败", er);
             this.submitLoading = false;
             uni.hideLoading();
             uni.showModal({

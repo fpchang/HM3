@@ -59,7 +59,7 @@
 			});
 			
 			// watch(searchDateRange,(n,o)=>{
-			// 	console.log("watch,,,",n)
+			// 	//console.log("watch,,,",n)
 			// })
 			return {
 				searchCondition,
@@ -105,7 +105,7 @@
 		},
 		watch:{
 			searchDateRange(n,o){
-				//console.log("wwwwww",o)
+				////console.log("wwwwww",o)
 				this.getHotelList();
 			}
 		},
@@ -119,7 +119,7 @@
 
 			},
 			dateConfim(e) {
-      console.log(e);
+      //console.log(e);
       this.$store.commit("hotelClientStore/updateSearchDateRange",e);
     },
 			toSearch(){
@@ -127,7 +127,7 @@
 					url:"/pages_client/hotelSearch/hotelSearch",
 					events:{
 						getAddress:obj=>{
-							console.log("ooooooooo",obj)
+							//console.log("ooooooooo",obj)
 							this.getHotelList();
 							}
 						}
@@ -136,7 +136,7 @@
 			},
 			async getHotelList() {
 				if (this.isLoading) {
-					console.log("isloading....");
+					//console.log("isloading....");
 					return;
 				}
 				//uni.showLoading();
@@ -150,10 +150,10 @@
 
 			}
 					const res = await this.$store.dispatch("hotelClientStore/getHotelList",conditionForm);
-					console.log("hotelList",res);
+					//console.log("hotelList",res);
 					//uni.hideLoading();
 				} catch (error) {
-					console.log(error);
+					//console.log(error);
 					//uni.hideLoading();
 				}
 			},
@@ -182,7 +182,7 @@
 					let s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
 					s = s * 6378.137;
 					s = Math.round(s * 10000) / 10000;
-					console.log("距离",s);
+					//console.log("距离",s);
 					return this.numDelivery(s);
 					//this.distance=s					
 
@@ -193,7 +193,7 @@
 
 			if (isNaN(result)) {
 
-			console.log("传递参数错误，请检查！");
+			//console.log("传递参数错误，请检查！");
 
 			return '--';
 
@@ -218,18 +218,18 @@
 			}
 		},
 		onLoad(obj) {
-			console.log("参数传递", obj, obj.condition);
+			//console.log("参数传递", obj, obj.condition);
 			
 			try {
 	
 				this.getHotelList();
 
 			} catch (error) {
-				console.log(error)
+				//console.log(error)
 			}
 		},
 		mounted(){
-			console.log("config",this.$store.state.config);
+			//console.log("config",this.$store.state.config);
 			//this.getDistance([120.0868811, 30.894178],[121.0868811, 30.894178])
 		}
 	}

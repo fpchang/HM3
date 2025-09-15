@@ -74,7 +74,7 @@ export function unitConvert(value : any | null, base: number = 0) : number {
 }
 // #endif
 // 示例
-// console.log(unitConvert("123")); // 输出: 123 (字符串数字转换为数字)
-// console.log(unitConvert("3.14em")); // 输出: 0 (无法识别的单位)
-// console.log(unitConvert("20rpx")); // 输出: 根据具体情况而定 (根据单位进行转换)
-// console.log(unitConvert(10)); // 输出: 10 (数字不需要转换)
+// //console.log(unitConvert("123")); // 输出: 123 (字符串数字转换为数字)
+// //console.log(unitConvert("3.14em")); // 输出: 0 (无法识别的单位)
+// //console.log(unitConvert("20rpx")); // 输出: 根据具体情况而定 (根据单位进行转换)
+// //console.log(unitConvert(10)); // 输出: 10 (数字不需要转换)

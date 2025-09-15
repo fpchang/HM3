@@ -30,7 +30,7 @@ export default{
 
   // 页面周期函数--监听页面加载
   onLoad(obj) {
-    console.log("参数传递",obj);
+    //console.log("参数传递",obj);
     try {
       this.type= obj.type;
       this.em = JSON.parse(obj.em);

@@ -5,7 +5,7 @@ exports.main = async (event, context) => {
 		_id,
 		roomTypeObj
 	} = event;
-	console.log("hm_updateRoomType", event);
+	//console.log("hm_updateRoomType", event);
 	if(!_id){
 		return new Promise((resolve,reject)=>{
 			reject({errMsg:"缺少_id",errCode:"300"});

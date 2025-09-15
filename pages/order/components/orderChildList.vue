@@ -310,10 +310,10 @@ export default {
     // async partialRefreshComName(val) {
     //   //下拉刷新
     //   if (val == "orderComponent") {
-    //     console.log("局部刷新 orderComponent");
+    //     //console.log("局部刷新 orderComponent");
     //     await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
     //     this.$refs.udb.refresh();
-    //     console.log("刷新完成");
+    //     //console.log("刷新完成");
     //     this.$store.commit("setPartialRefreshComName", "");
     //     uni.hideLoading();
     //     uni.stopPullDownRefresh();
@@ -483,12 +483,12 @@ this.$refs.udb.refresh();
     },
     async getRoomList() {
       const res = await HotelService.getRoomListByHotelId(this.hotel_id);
-      console.log("room", res);
+      //console.log("room", res);
       this.roomList = res.result.data;
       return res;
     },
     async getOrderList() {
-      console.log("222222");
+      //console.log("222222");
       //uni.showLoading();
       try {
         await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);

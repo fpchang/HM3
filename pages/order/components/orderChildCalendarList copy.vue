@@ -220,7 +220,7 @@ export default {
     };
   },
   created() {
-    console.log("房态created")
+    //console.log("房态created")
     this.getOrderList();
   },
   activated() {},
@@ -380,9 +380,9 @@ export default {
     async partialRefreshComName(val) {
       //下拉刷新
       if (val == "orderComponent") {
-        console.log("局部刷新 orderComponent");
+        //console.log("局部刷新 orderComponent");
         await this.$store.dispatch("getOrderListTodayAfter", this.hotel_id);
-        console.log("刷新完成");
+        //console.log("刷新完成");
         this.$store.commit("setPartialRefreshComName", "");
         uni.hideLoading();
         uni.stopPullDownRefresh();

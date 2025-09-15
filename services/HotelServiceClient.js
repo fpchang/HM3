@@ -16,7 +16,7 @@ class HotelServiceClientClass{
         const db = uniCloud.database();
         const dbCmd = db.command
         let text=filterVal.split("").join("|");
-        console.log("查询参数",params,text);
+        //console.log("查询参数",params,text);
         const w =  dbCmd.and(dbCmd.or(
           {
             "hotelName":new RegExp(text, 'i'),
@@ -46,7 +46,7 @@ class HotelServiceClientClass{
     */
     async getRoomType(hotel_id){
      //const rr= await this.getRemainRoomType(hotel_id,new Date("2024-12-11").getTime(),new Date("2024-12-13").getTime());
-    // console.log("剩余房量",rr)
+    // //console.log("剩余房量",rr)
       return DB.getCollection("hm-roomType",{hotel_id});
 
     }
@@ -63,14 +63,14 @@ class HotelServiceClientClass{
           {"checkInStartDateTimeStamp":dbCmd.gte(startTime),"checkInEndDateTimeStamp":dbCmd.lte(endTime)}
            
         ),dbCmd.or({"orderStatus":dbCmd.eq(0)},{"orderStatus":dbCmd.eq(1)}));
-        console.log("w",W)
+        //console.log("w",W)
       let result;
       const roomTypeListRes = await this.getRoomType(hotel_id)
       let roomTypeList = roomTypeListRes.result.data;
-      console.log("YYYY11",roomTypeList);
+      //console.log("YYYY11",roomTypeList);
       const usedListRes= await DB.getCollection('hm-order',W) //dbJQL.collection('hm-order').where(jql).get();
       let userRoomList=usedListRes.result.data;
-      console.log("yyyy2",userRoomList)
+      //console.log("yyyy2",userRoomList)
       let remainList=roomTypeList.map(item=>{
         let sumCount =0;
         for(const it of userRoomList){
@@ -84,7 +84,7 @@ class HotelServiceClientClass{
         item.remainCount=Math.max(item.roomList.length-sumCount,0);
         return item;
       })
-      console.log("yyy222",remainList);
+      //console.log("yyy222",remainList);
       //return remainList.filter(item=>item.remainCount>0);
       return remainList;
     }

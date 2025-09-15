@@ -1,11 +1,11 @@
 'use strict';
 exports.main = async (event, context) => {
-	console.log('111111111111111111111',event)
+	//console.log('111111111111111111111',event)
 	//event为客户端上传的参数
 	const {point=[113.3089506, 23.0968251],maxDistance=30000}={event};
 	const db = uniCloud.database();
 	const $ = db.command.aggregate;
-	console.log('aaaa',event)
+	//console.log('aaaa',event)
 	let res = await db.collection('hm-hotel').aggregate().geoNear({
 	    distanceField: 'distance', // 输出的每个记录中 distance 即是与给定点的距离
 	    spherical: true,

@@ -126,7 +126,7 @@ export default {
     this.addRoomItemEvent();
   },
   onUnload() {
-    console.log("createRoomComponent onulload");
+    //console.log("createRoomComponent onulload");
   },
   watch: {
     room_type_id(val, oval) {
@@ -175,7 +175,7 @@ export default {
       //this.$refs.roomTypeRef.validate().then((res) => {
    
 
-      console.log(this.room_type_id);
+      //console.log(this.room_type_id);
       if (!this.room_type_id) {
         uni.showToast({
           title: "请选择房型",
@@ -192,10 +192,10 @@ export default {
       }
          this.submitLoading = true;
       try {
-        console.log(this.roomList)
+        //console.log(this.roomList)
        const res = await  DB.callFunction("hm_addRoom", { roomList: this.roomList });
         await this.$store.dispatch("getRoomType");
-        console.log(res)
+        //console.log(res)
         uni.navigateBack({
           delta: 1, // 返回层数，2则上上页
           success() {
@@ -203,7 +203,7 @@ export default {
           },
         });
       } catch (error) {
-        console.log("error","error");
+        //console.log("error","error");
         uni.showModal({
           content: "系统异常，请稍候再试！",
           confirmText: "确认",

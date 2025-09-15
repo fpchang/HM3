@@ -45,7 +45,7 @@ export default{
         uni.makePhoneCall({
           phoneNumber: phone, //仅为示例
           success: (success) => {
-            console.log("调用成功", success);
+            //console.log("调用成功", success);
           },
         });
         return;
@@ -53,7 +53,7 @@ export default{
       uni.setClipboardData({
         data: phone,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     }
@@ -62,7 +62,7 @@ export default{
 
   // 页面周期函数--监听页面加载
   onLoad(params) {
-    console.log("2333",params);
+    //console.log("2333",params);
     try {
       if(params['hotel']){
         this.hotel= JSON.parse(params['hotel']);

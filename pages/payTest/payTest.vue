@@ -19,7 +19,7 @@
 			    uni.login({
 			        provider: 'weixin',
 			        success(code) {
-			            console.log('code:', code.code) // 获得code
+			            //console.log('code:', code.code) // 获得code
 			            //2:获得微信openid
 			            uni.request({
 			                url: 'https://api.weixin.qq.com/sns/jscode2session', 
@@ -43,7 +43,7 @@
 			                        pric: 1, // 单位分
 			                    }
 			                    }).then(odr => {
-			                        console.log('OrderInfo:', odr)
+			                        //console.log('OrderInfo:', odr)
 			                        uni.hideLoading(); //隐藏loding...
 			                        uni.requestPayment({ // 调用支付api
 			                        provider: 'weixin',

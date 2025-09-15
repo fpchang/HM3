@@ -123,11 +123,11 @@
 
 			this.icons = groups
 			this.loadData()
-			// console.log(`this.icons:::`, index, this.icons)
+			// //console.log(`this.icons:::`, index, this.icons)
 		},
 		methods: {
 			loadData() {
-				console.log('scrolltolower')
+				//console.log('scrolltolower')
 				const end = this.page + this.pageSize
 				this.iconsData = this.icons.slice(this.page, end)
 				this.page = end
@@ -149,7 +149,7 @@
 				// #ifdef UNI-APP-X
 
 				// #endif
-				console.log('icon name:', name)
+				//console.log('icon name:', name)
 			}
 		},
 		mounted() {

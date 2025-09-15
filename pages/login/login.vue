@@ -195,7 +195,7 @@ export default {
               },
             })
             .then((res) => {
-              console.log("sendsms value", res);
+              //console.log("sendsms value", res);
               this.userForm.tk = res.result.tk;
               uni.setStorageSync("tk", res.result.tk);
               uni.hideLoading();
@@ -221,7 +221,7 @@ export default {
           this.submitLoading = true;
           try {
           const res =  await AccountService.login(this.userForm);
-          console.log("ressss",res)
+          //console.log("ressss",res)
           
           if(res.result.code){
                 uni.showToast({
@@ -238,7 +238,7 @@ export default {
           this.getUserInfo();
        
           } catch (error) {
-            console.log("登录失败",error);
+            //console.log("登录失败",error);
             this.submitLoading=false;
           }
           
@@ -252,13 +252,13 @@ export default {
         });
     },
     async getUserInfo() {
-      console.log(this.userForm.phone);
+      //console.log(this.userForm.phone);
       const db = uniCloud.database();
       const userRes = await db
         .collection("hm-user")
         .where(`phone=='${this.userForm.phone}'`)
         .get();
-      console.log("更新userInfo", userRes, userRes.result.data[0]);
+      //console.log("更新userInfo", userRes, userRes.result.data[0]);
       uni.setStorageSync("user", userRes.result.data[0]);
       this.$store.commit("setUser", userRes.result.data[0]);
       this.submitLoading=false;

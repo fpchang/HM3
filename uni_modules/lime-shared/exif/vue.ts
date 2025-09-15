@@ -503,7 +503,7 @@ function getImageData(img : File, callback : Function) {
 	} else if (typeof FileReader !== 'undefined' && self.FileReader && (img instanceof self.Blob || img instanceof self.File)) {
 		var fileReader = new FileReader();
 		fileReader.onload = function (e : any) {
-			if (exif.debug) console.log("Got file of length " + e.target.result.byteLength);
+			if (exif.debug) //console.log("Got file of length " + e.target.result.byteLength);
 			handleBinaryFile(e.target.result);
 		};
 
@@ -514,9 +514,9 @@ function getImageData(img : File, callback : Function) {
 function findEXIFinJPEG(file: ArrayBuffer) {
 	const dataView = new DataView(file);
 
-	if (exif.debug) console.log("Got file of length " + file.byteLength);
+	if (exif.debug) //console.log("Got file of length " + file.byteLength);
 	if ((dataView.getUint8(0) != 0xFF) || (dataView.getUint8(1) != 0xD8)) {
-		if (exif.debug) console.log("Not a valid JPEG");
+		if (exif.debug) //console.log("Not a valid JPEG");
 		return false; // not a valid jpeg
 	}
 
@@ -526,19 +526,19 @@ function findEXIFinJPEG(file: ArrayBuffer) {
 
 	while (offset < length) {
 		if (dataView.getUint8(offset) != 0xFF) {
-			if (exif.debug) console.log("Not a valid marker at offset " + offset + ", found: " + dataView.getUint8(
+			if (exif.debug) //console.log("Not a valid marker at offset " + offset + ", found: " + dataView.getUint8(
 				offset));
 			return false; // not a valid marker, something is wrong
 		}
 
 		marker = dataView.getUint8(offset + 1);
-		if (exif.debug) console.log(marker);
+		if (exif.debug) //console.log(marker);
 
 		// we could implement handling for other markers here,
 		// but we're only looking for 0xFFE1 for EXIF data
 
 		if (marker == 225) {
-			if (exif.debug) console.log("Found 0xFFE1 marker");
+			if (exif.debug) //console.log("Found 0xFFE1 marker");
 
 			return readEXIFData(dataView, offset + 4, dataView.getUint16(offset + 2) - 2);
 
@@ -555,9 +555,9 @@ function findEXIFinJPEG(file: ArrayBuffer) {
 function findIPTCinJPEG(file: ArrayBuffer) {
 	const dataView = new DataView(file);
 
-	if (exif.debug) console.log("Got file of length " + file.byteLength);
+	if (exif.debug) //console.log("Got file of length " + file.byteLength);
 	if ((dataView.getUint8(0) != 0xFF) || (dataView.getUint8(1) != 0xD8)) {
-		if (exif.debug) console.log("Not a valid JPEG");
+		if (exif.debug) //console.log("Not a valid JPEG");
 		return false; // not a valid jpeg
 	}
 
@@ -659,7 +659,7 @@ function readTags(file: DataView, tiffStart: number, dirStart: number, strings: 
 	for (let i = 0; i < entries; i++) {
 		entryOffset = dirStart + i * 12 + 2;
 		tag = strings[file.getUint16(entryOffset, !bigEnd)];
-		if (!tag && exif.debug) console.log("Unknown tag: " + file.getUint16(entryOffset, !bigEnd));
+		if (!tag && exif.debug) //console.log("Unknown tag: " + file.getUint16(entryOffset, !bigEnd));
 		tags[tag] = readTagValue(file, entryOffset, tiffStart, dirStart, bigEnd);
 	}
 	return tags;
@@ -778,13 +778,13 @@ function readThumbnailImage(dataView: DataView, tiffStart: number, firstIFDOffse
 	const IFD1OffsetPointer = getNextIFDOffset(dataView, tiffStart + firstIFDOffset, bigEnd);
 
 	if (!IFD1OffsetPointer) {
-		// console.log('******** IFD1Offset is empty, image thumb not found ********');
+		// //console.log('******** IFD1Offset is empty, image thumb not found ********');
 		return {};
 	} else if (IFD1OffsetPointer > dataView.byteLength) { // this should not happen
-		// console.log('******** IFD1Offset is outside the bounds of the DataView ********');
+		// //console.log('******** IFD1Offset is outside the bounds of the DataView ********');
 		return {};
 	}
-	// console.log('*******  thumbnail IFD offset (IFD1) is: %s', IFD1OffsetPointer);
+	// //console.log('*******  thumbnail IFD offset (IFD1) is: %s', IFD1OffsetPointer);
 
 	let thumbTags : any = readTags(dataView, tiffStart, tiffStart + IFD1OffsetPointer, IFD1Tags, bigEnd)
 
@@ -797,11 +797,11 @@ function readThumbnailImage(dataView: DataView, tiffStart: number, firstIFDOffse
 	// JPEG format and 160x120pixels of size are recommended thumbnail format for Exif2.1 or later.
 
 	if (thumbTags['Compression'] && typeof Blob !== 'undefined') {
-		// console.log('Thumbnail image found!');
+		// //console.log('Thumbnail image found!');
 
 		switch (thumbTags['Compression']) {
 			case 6:
-				// console.log('Thumbnail image format is JPEG');
+				// //console.log('Thumbnail image format is JPEG');
 				if (thumbTags.JpegIFOffset && thumbTags.JpegIFByteCount) {
 					// extract the thumbnail
 					var tOffset = tiffStart + thumbTags.JpegIFOffset;
@@ -813,13 +813,13 @@ function readThumbnailImage(dataView: DataView, tiffStart: number, firstIFDOffse
 				break;
 
 			case 1:
-				console.log("Thumbnail image format is TIFF, which is not implemented.");
+				//console.log("Thumbnail image format is TIFF, which is not implemented.");
 				break;
 			default:
-				console.log("Unknown thumbnail image format '%s'", thumbTags['Compression']);
+				//console.log("Unknown thumbnail image format '%s'", thumbTags['Compression']);
 		}
 	} else if (thumbTags['PhotometricInterpretation'] == 2) {
-		console.log("Thumbnail image format is RGB, which is not implemented.");
+		//console.log("Thumbnail image format is RGB, which is not implemented.");
 	}
 	return thumbTags;
 }
@@ -834,7 +834,7 @@ function getStringFromDB(buffer: DataView, start: number, length: number) {
 
 function readEXIFData(file: DataView, start: number) {
 	if (getStringFromDB(file, start, 4) != "Exif") {
-		if (exif.debug) console.log("Not valid EXIF data! " + getStringFromDB(file, start, 4));
+		if (exif.debug) //console.log("Not valid EXIF data! " + getStringFromDB(file, start, 4));
 		return false;
 	}
 
@@ -849,19 +849,19 @@ function readEXIFData(file: DataView, start: number) {
 	} else if (file.getUint16(tiffOffset) == 0x4D4D) {
 		bigEnd = true;
 	} else {
-		if (exif.debug) console.log("Not valid TIFF data! (no 0x4949 or 0x4D4D)");
+		if (exif.debug) //console.log("Not valid TIFF data! (no 0x4949 or 0x4D4D)");
 		return false;
 	}
 
 	if (file.getUint16(tiffOffset + 2, !bigEnd) != 0x002A) {
-		if (exif.debug) console.log("Not valid TIFF data! (no 0x002A)");
+		if (exif.debug) //console.log("Not valid TIFF data! (no 0x002A)");
 		return false;
 	}
 
 	const firstIFDOffset = file.getUint32(tiffOffset + 4, !bigEnd);
 
 	if (firstIFDOffset < 0x00000008) {
-		if (exif.debug) console.log("Not valid TIFF data! (First offset less than 8)", file.getUint32(tiffOffset + 4,
+		if (exif.debug) //console.log("Not valid TIFF data! (First offset less than 8)", file.getUint32(tiffOffset + 4,
 			!bigEnd));
 		return false;
 	}
@@ -937,9 +937,9 @@ function findXMPinJPEG(file: ArrayBuffer) {
 	}
 	const dataView = new DataView(file);
 
-	if (exif.debug) console.log("Got file of length " + file.byteLength);
+	if (exif.debug) //console.log("Got file of length " + file.byteLength);
 	if ((dataView.getUint8(0) != 0xFF) || (dataView.getUint8(1) != 0xD8)) {
-		if (exif.debug) console.log("Not a valid JPEG");
+		if (exif.debug) //console.log("Not a valid JPEG");
 		return false; // not a valid jpeg
 	}
 
@@ -1052,6 +1052,6 @@ function xml2Object(xml: any) {
 		}
 		return obj;
 	} catch (e) {
-		console.log(e.message);
+		//console.log(e.message);
 	}
 }

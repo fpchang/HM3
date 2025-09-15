@@ -38,7 +38,7 @@
 			}
 		},
 		onLoad(params) {
-			console.log("onLoad params", params);
+			//console.log("onLoad params", params);
 			try {
 				this.hotel_id = params['hotel_id']
 			} catch (error) {
@@ -90,7 +90,7 @@
 			}
 			},
 		async created() {
-			console.log("ffff",this.$store.state);
+			//console.log("ffff",this.$store.state);
 			// http://localhost:8080/#/pages/scenicSpot/showScenicSpot/showScenicSpot?hotel_id=66f4d677e4ec9dbeca1f8ff9
 			
 
@@ -108,7 +108,7 @@
 		methods: {
 			async initData(){
 				if(!this.hotel_id){
-					console.log("没有hotel_id");
+					//console.log("没有hotel_id");
 					return;
 				}
 				const hotelRes = await HotelService.getHotelInfoById(this.hotel_id);

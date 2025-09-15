@@ -244,11 +244,11 @@
 			async partialRefreshComName(val) {
 				//下拉刷新
 				if (val == 'gatherComponent') {
-					console.log("局部刷新 gather")
+					//console.log("局部刷新 gather")
 					await this.$store.dispatch("getGatherEvent", this.hotel_id);
 					await this.$store.dispatch("getMenuEvent",this.hotel_id);
 					this.$store.commit("setPartialRefreshComName", "");
-					console.log("局部刷新完成")
+					//console.log("局部刷新完成")
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
 				}
@@ -267,7 +267,7 @@
 //       filePath: filePath,
 //       showMenu: true,
 //       success: function (res) {
-//         console.log('打开文档成功');
+//         //console.log('打开文档成功');
 //       }
 //     });
 //   }
@@ -292,10 +292,10 @@
 			this.initData();
 		},
 		onLoad: function() {
-			console.log('gatherComponent Show')
+			//console.log('gatherComponent Show')
 		},
 		created() {
-			console.log("gathercomponent created;;;;");
+			//console.log("gathercomponent created;;;;");
 
 		},
 
@@ -304,7 +304,7 @@
 				this.GatgerTab_index = index;
 			},
 			async initData() {
-				console.log("init data gather")
+				//console.log("init data gather")
 				this.$store.dispatch("getGatherEvent", this.hotel_id);
 				this.$store.dispatch("getMenuEvent",this.hotel_id);
 			},

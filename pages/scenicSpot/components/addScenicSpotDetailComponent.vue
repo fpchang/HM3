@@ -167,14 +167,14 @@ beforeDestroy() {},
     addScenicSpotDetail(){
       ScenicSpotService.addScenicSpotDetail(this.scenicSpotDetailFormParse)
           .then(async (res) => {
-            console.log("添加成功");
+            //console.log("添加成功");
            await this.$store.dispatch("getScenicSpotList",this.hotel_id);
             this.$emit("closePopup");
             this.submitLoading = false;
             uni.hideLoading();
           })
           .catch((er) => {
-            console.log("添加失败", er);
+            //console.log("添加失败", er);
             this.submitLoading = false;
             uni.hideLoading();
             uni.showModal({
@@ -189,14 +189,14 @@ beforeDestroy() {},
         scenicSpotPriceDetail:this.scenicSpotDetailFormParse
       })
           .then(async (res) => {
-            console.log("修改成功");
+            //console.log("修改成功");
            await this.$store.dispatch("getScenicSpotList",this.hotel_id);
             this.$emit("closePopup");
             this.submitLoading = false;
             uni.hideLoading();
           })
           .catch((er) => {
-            console.log("修改失败", er);
+            //console.log("修改失败", er);
             this.submitLoading = false;
             uni.hideLoading();
             uni.showModal({

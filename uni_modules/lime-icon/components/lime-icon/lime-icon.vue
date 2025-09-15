@@ -106,7 +106,7 @@
 			let group = []
 			let groups = []
 			// let index = 0
-			// console.log('icons', icons)
+			// //console.log('icons', icons)
 			Object.keys(icons).forEach((key,index) => {
 				if (index % 3 == 0) {
 					group = []
@@ -133,7 +133,7 @@
 				this.show = !this.show
 			},
 			onClick(name) {
-				console.log('click')
+				//console.log('click')
 				uni.setClipboardData({
 					data: name,
 					success: function () {
@@ -142,7 +142,7 @@
 						})
 					}
 				})
-				console.log('icon name:', name)
+				//console.log('icon name:', name)
 			}
 		},
 		mounted() {

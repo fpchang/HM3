@@ -8,16 +8,16 @@ class DBConnect{
     // let needLoginCallFunctionArray=["hm_addOrderDishes"];
     // if(!uni.getStorageSync('hm_token')&&needLoginCallFunctionArray.includes(name)){      
     //   //未登录
-    //   console.log("未登录")
+    //   //console.log("未登录")
     //   uni.reLaunch({ url: '/pages/login/login' });
-    //   return Promise.reject(); httt:...
+    //   return Promise.reject();
 
     // }
 	return  uniCloud.callFunction({
 	  	name:name,
 	  	data:Object.assign(data,{
         $user:uni.getStorageSync('user'),
-        $token:uni.getStorageSync('hm_token');
+        $token:uni.getStorageSync('hm_token')
       })
 	  })
   }

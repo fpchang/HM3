@@ -38,10 +38,10 @@ export function dataURLToFile(dataURL : string, filename : NullableString = null
 
 export function processFile(options: ProcessFileOptions){
 	if(options.type == 'toBase64'){
-		console.log('1')
+		//console.log('1')
 	} else if(options.type == 'toDataURL'){
-		console.log('1')
+		//console.log('1')
 	} else if(options.type == 'toFile'){
-		console.log('1')
+		//console.log('1')
 	}
 }

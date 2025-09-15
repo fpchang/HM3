@@ -134,13 +134,13 @@ export default {
   
   methods: {
     getShareImgUrl(){
-		console.log("开始下载。。。。。。")
-		// console.log("111111",this.hotel.firstImages);
+		//console.log("开始下载。。。。。。")
+		// //console.log("111111",this.hotel.firstImages);
     //   uni.downloadFile({
     //     url: `${this.hotel.firstImages}`, //仅为示例，并非真实的资源
     //     success: (res) => {
     //       if (res.statusCode === 200) {
-    //         console.log("下载成功", res);
+    //         //console.log("下载成功", res);
     //         this.tempFilePath=res.tempFilePath;
     //       }
     //     },
@@ -164,11 +164,11 @@ export default {
               imageUrl:`${imgurl}`, //图片地址，type 为 0、2、5 时必选
               success(r) {
                 //成功返回的参数
-                console.log(r);
+                //console.log(r);
               },
               fail(err) {
                 //失败返回的参数
-                console.log(err);
+                //console.log(err);
               },
             });
       //     uni.share({
@@ -184,7 +184,7 @@ export default {
       //         webUrl: 'http://uniapp.dcloud.io'
       //     },
       //     success: ret => {
-      //         console.log(JSON.stringify(ret));
+      //         //console.log(JSON.stringify(ret));
       //     }
       // });
     },

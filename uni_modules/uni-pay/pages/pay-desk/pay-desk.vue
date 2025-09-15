@@ -38,7 +38,7 @@
 		// 监听 - 页面每次【加载时】执行(如：前进)
 		onLoad(options = {}) {
 			options = JSON.parse(decodeURI(options.options));
-			console.log('-------options: ', options)
+			//console.log('-------options: ', options)
 			this.options = options;
 		},
 		// 监听 - 页面【首次渲染完成时】执行。注意如果渲染速度快，会在页面进入动画完成前触发
@@ -60,7 +60,7 @@
 			},
 			// 监听事件 - 支付成功
 			onSuccess(res){
-				console.log('success: ', res);
+				//console.log('success: ', res);
 				if (res.user_order_success) {
 					// 代表用户已付款，且你自己写的回调成功并正确执行了
 					uni.redirectTo({

@@ -223,7 +223,7 @@
 			},
 		},
 		mounted() {
-			console.log("hotel", this.hotel);
+			//console.log("hotel", this.hotel);
 			this.getData();
 		},
 		methods: {
@@ -236,11 +236,11 @@
 
 					const hotelRes = await HotelService.getHotelInfoById(this.hotel_id);
 					const res = await MenuService.getMenuList(this.hotel_id);
-					console.log("酒店信息", hotelRes);
-					console.log("菜单列表", res);
+					//console.log("酒店信息", hotelRes);
+					//console.log("菜单列表", res);
 					this.hotel = hotelRes.result.data[0];
 					this.menuList = this.getMenuListFormat(res.result.data);
-					console.log("menulist", this.menuList);
+					//console.log("menulist", this.menuList);
 
 					uni.hideLoading();
 				} catch (error) {
@@ -293,7 +293,7 @@
 				}
 			},
 			addMenuCount(itObj) {
-				console.log(itObj);
+				//console.log(itObj);
 				this.menuList = this.menuList.map((item) => {
 					item._id["hm-menuDetail"].map((it) => {
 						if (it._id == itObj._id) {
@@ -324,7 +324,7 @@
 				this.goodsListPanalHeight =
 					this.goodsListPanalHeight == "0" ? "calc(100vh - 60px)" : 0;
 				//this.$refs.goodsItemPopup.open();
-				console.log(this.goodsListPanalHeight);
+				//console.log(this.goodsListPanalHeight);
 			},
 			closeGoodsList() {
 				//this.goodsListPanalHeight='0'
@@ -350,7 +350,7 @@
 						hotel_id: this.hotel._id,
 						checkMenuList: this.checkMenuList,
 					});
-					console.log(orderDishesObj, this.user);
+					//console.log(orderDishesObj, this.user);
 					orderDishesObj.mealDateTimestamp = new Date(
 						orderDishesObj.mealDate
 					).getTime();

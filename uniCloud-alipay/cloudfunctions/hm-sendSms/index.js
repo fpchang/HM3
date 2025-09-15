@@ -3,13 +3,13 @@ const { networkInterfaces } = require('os');
 const tokenEvent = require('tokenEvent');
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
-	console.log('event : ', event,context);
+	//console.log('event : ', event,context);
 	let {appid,phone,templateId='uni_sms_test'} =event;
 	const db = uniCloud.database();
 	const smsCode =randomSms();
 	if(context.SPACEINFO.spaceId=="env-00jxh1m2dpmq" ||isTestAccount(phone)){//开发环境0000
 		const newToken = tokenEvent.getToken({phone:phone,smsCode:1234},tokenEvent.getSecret(),300);
-		//console.log("生成。。。",newToken)
+		////console.log("生成。。。",newToken)
 		return {code:0,tk:newToken};
 	}
 	
@@ -26,14 +26,14 @@ exports.main = async (event, context) => {
 	        expMinute: '5',
 	      }
 	    });
-		console.log("发送短信验证结果=====",res);
+		//console.log("发送短信验证结果=====",res);
 		const newToken = tokenEvent.getToken({phone:phone,smsCode:smsCode},tokenEvent.getSecret(),300);
-		console.log("生成。。。",newToken)
+		//console.log("生成。。。",newToken)
 		return {code:0,tk:newToken};
 	  } catch(err) {
 	    // 调用失败
-	    // console.log(err)
-	    // console.log(err)
+	    // //console.log(err)
+	    // //console.log(err)
 	    // return {
 	    //   code: err.errCode,
 	    //   msg: err.errMsg

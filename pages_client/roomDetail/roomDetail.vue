@@ -153,9 +153,9 @@ import uniIcons from '@/uni_modules/uni-icons/components/uni-icons/uni-icons.vue
 			}
 		},
 		onLoad(params){
-			console.log("params",params);
+			//console.log("params",params);
 			this.roomType =JSON.parse(decodeURIComponent(params.roomType));
-			console.log("roomType",this.roomType)
+			//console.log("roomType",this.roomType)
 		}
 	}
 </script>

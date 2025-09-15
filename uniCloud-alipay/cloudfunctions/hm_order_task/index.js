@@ -1,7 +1,7 @@
 'use strict';
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
-	console.log('event : ', event)
+	//console.log('event : ', event)
 	//订单定时触发
 	const db =uniCloud.database();
 	const dbJQL = uniCloud.databaseForJQL({
@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
 		dbJQL.collection("hm-order").where(s2).update({payStatus:9,orderStatus:10});
 		dbJQL.collection("hm-order").where(s3).update({orderStatus:5});
 	} catch (error) {
-		console.log("error",error);
+		//console.log("error",error);
 	}
 	 
 	

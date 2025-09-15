@@ -24,7 +24,7 @@
 				url: 'https://api.iconify.design/material-symbols/backpack-sharp.svg?v=1',
 				dataType: 'text',
 				success: (res) => {
-					console.log('end:::', Date.now() - t)
+					//console.log('end:::', Date.now() - t)
 				},
 				fail: () => {
 					
@@ -33,7 +33,7 @@
 		},
 		methods: {
 			onClick() {
-				console.log('click')
+				//console.log('click')
 			}
 		}
 	}

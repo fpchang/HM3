@@ -140,7 +140,7 @@ import {useStore} from 'vuex';
         url: "/pages/financialManagement/expenses/createExpenses/createExpenses",
         events: {
           updateData: () => {
-            console.log("刷新数据");
+            //console.log("刷新数据");
             this.$refs.udb.refresh();
           },
         },

@@ -53,7 +53,7 @@ export default {
       uni.setClipboardData({
         data: this.hotel.wechat,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     },
@@ -67,7 +67,7 @@ export default {
         uni.makePhoneCall({
           phoneNumber: this.hotel.serviceTel, //仅为示例
           success: (success) => {
-            console.log("调用成功", success);
+            //console.log("调用成功", success);
           },
         });
         return;
@@ -75,7 +75,7 @@ export default {
       uni.setClipboardData({
         data: this.hotel.serviceTel,
         success: function () {
-          console.log("success");
+          //console.log("success");
         },
       });
     },

@@ -177,7 +177,7 @@ XtPanalList,
 			async partialRefreshComName(val){
 				//下拉刷新
 				if(val=='menuListComponent'){
-					console.log("局部刷新 menuListComponent")
+					//console.log("局部刷新 menuListComponent")
 					
 					if (this.tabRadioVal == 1) {
 						await this.$store.dispatch("getMenuList", this.hotel_id);
@@ -185,7 +185,7 @@ XtPanalList,
 					}else{
 						await this.$store.dispatch("getOrderDishesList",this.hotel_id);
 					}
-					console.log("刷新完成");
+					//console.log("刷新完成");
 					this.$store.commit("setPartialRefreshComName","");
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
@@ -290,11 +290,11 @@ XtPanalList,
 					imageUrl: "", //图片地址，type 为 0、2、5 时必选
 					success(res) {
 						//成功返回的参数
-						console.log(res);
+						//console.log(res);
 					},
 					fail(err) {
 						//失败返回的参数
-						console.log(err);
+						//console.log(err);
 					},
 				});
 				// #endif

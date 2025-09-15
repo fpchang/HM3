@@ -4,7 +4,7 @@ exports.main = async (event, context) => {
 	let {
 		feedbackObj
 	} = event;
-	console.log("add hm-feedback", event);
+	//console.log("add hm-feedback", event);
 	const dbJQL = uniCloud.databaseForJQL({
 		event,
 		context

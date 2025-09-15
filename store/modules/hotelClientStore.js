@@ -23,7 +23,7 @@ export default{
 			state.searchDateRange=range;
 		},
 		updateHotelList(state, list) {
-			console.log("client set")
+			//console.log("client set")
 			state.hotelList = list;
 		},
 		updateHotel(state,hotel){
@@ -37,7 +37,7 @@ export default{
   actions:{
     async  getHotelList(context,params){
 		const res = await HotelServiceClient.getHotelList(params);
-		console.log("客户端hotelist",res);
+		//console.log("客户端hotelist",res);
 		context.commit("updateHotelList",res.result.data);
 		return res;
      

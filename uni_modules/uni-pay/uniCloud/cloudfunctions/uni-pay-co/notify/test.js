@@ -16,7 +16,7 @@ module.exports = async (obj) => {
 		total_fee
 	} = data; // uni-pay-orders 表内的数据均可获取到
 	
-	console.log("type：test");
+	//console.log("type：test");
 	
 	// 此处写你自己的支付成功逻辑开始-----------------------------------------------------------
 	// 有三种方式

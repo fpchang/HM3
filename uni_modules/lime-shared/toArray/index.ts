@@ -15,7 +15,7 @@ export function toArray<T extends any>(item: any): T[] {
 };
 // #endif
 // 示例
-// console.log(toArray(5)); // 输出: [5]
-// console.log(toArray("hello")); // 输出: ["hello"]
-// console.log(toArray([1, 2, 3])); // 输出: [1, 2, 3]
-// console.log(toArray(["apple", "banana"])); // 输出: ["apple", "banana"]
+// //console.log(toArray(5)); // 输出: [5]
+// //console.log(toArray("hello")); // 输出: ["hello"]
+// //console.log(toArray([1, 2, 3])); // 输出: [1, 2, 3]
+// //console.log(toArray(["apple", "banana"])); // 输出: ["apple", "banana"]

@@ -85,7 +85,7 @@
 				});
 			},
 			onaderror(e) {
-				console.log("ad-error", e);
+				//console.log("ad-error", e);
 			},
 		},
 		// 监听器

@@ -181,7 +181,7 @@ export default {
     },
   },
   created() {
-    console.log("employeeComponent>>>>>");
+    //console.log("employeeComponent>>>>>");
 
     this.getEmployeeList();
   },
@@ -192,9 +192,9 @@ export default {
     async partialRefreshComName(val){
 				//下拉刷新
 				if(val=='employeeComponent'){
-					console.log("局部刷新 employeeComponent")
+					//console.log("局部刷新 employeeComponent")
 				await this.getEmployeeList();
-        console.log("刷新完成");
+        //console.log("刷新完成");
         this.$store.commit("setPartialRefreshComName","");
 					uni.hideLoading();
 					uni.stopPullDownRefresh();
@@ -215,7 +215,7 @@ export default {
       //uni.showLoading();
       try {
           const res =  await  HotelService.getEmployeeList(this.hotel_id);
-          console.log("员工列表",res)
+          //console.log("员工列表",res)
           this.$store.commit("updateEmployeeList", res.result.data);
       } catch (error) {
         console.error(error)
@@ -279,14 +279,14 @@ export default {
         employee: em,
       })
         .then((res) => {
-          console.log("删除成功");
+          //console.log("删除成功");
           this.$store.dispatch("getHotelList");
           this.submitLoading = false;
           this.getEmployeeList();
           
         })
         .catch((er) => {
-          console.log("删除失败", er);
+          //console.log("删除失败", er);
           this.submitLoading = false;
           uni.hideLoading();
           uni.showModal({

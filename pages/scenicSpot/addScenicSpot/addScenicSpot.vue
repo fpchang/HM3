@@ -27,7 +27,7 @@ export default {
   },
 
   onLoad(obj) {
-    console.log("参数传递", obj);
+    //console.log("参数传递", obj);
     try {
       this.type = obj.type;
       this.targetObj = JSON.parse(obj.targetObj);

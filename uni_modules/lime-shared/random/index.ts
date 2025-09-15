@@ -19,6 +19,6 @@ export function random(min: number, max: number, fixed: number = 0):number {
 }
 
 // 示例
-// console.log(random(0, 10)); // 输出：在 0 和 10 之间的一个整数随机数
-// console.log(random(0, 1, 2)); // 输出：在 0 和 1 之间的一个保留两位小数的随机数
-// console.log(random(1, 100, 3)); // 输出：在 1 和 100 之间的一个保留三位小数的随机数
+// //console.log(random(0, 10)); // 输出：在 0 和 10 之间的一个整数随机数
+// //console.log(random(0, 1, 2)); // 输出：在 0 和 1 之间的一个保留两位小数的随机数
+// //console.log(random(1, 100, 3)); // 输出：在 1 和 100 之间的一个保留三位小数的随机数

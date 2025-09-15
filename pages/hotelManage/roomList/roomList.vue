@@ -141,6 +141,7 @@ export default {
       return result;
     });
     let editId =ref(null);
+    let editName = ref("");
     // let where_str = computed(() => {
     //   if (!room_type_id.value) {
     //     return `hotel_id =='${hotel_id.value}'`;
@@ -159,7 +160,9 @@ export default {
       roomType,
       range,
       filterRoomList,
-      editId
+      editId,
+   editName
+
     };
   },
   data() {
@@ -172,11 +175,11 @@ export default {
   },
   created() {
     // uniCloud.callFunction({name:"hm_fm_task",data:{hotel_id:this.$store.state.hotel_id}}).then(re=>{
-    // 	console.log("222",re)
+    // 	//console.log("222",re)
     // })
   },
   onLoad(obj) {
-    console.log("参数传递", obj);
+    //console.log("参数传递", obj);
     try {
       this.room_type_id = obj.room_type_id;
     } catch (error) {
@@ -201,7 +204,7 @@ export default {
       return sum;
     },
     async getOrder() {
-      console.log(this.filter);
+      //console.log(this.filter);
     },
     addRoom() {
       if(this.roomType&&this.roomType.length<1){
@@ -260,7 +263,7 @@ export default {
           uni.hideLoading();
         })
         .catch((er) => {
-          console.log("删除失败", er);
+          //console.log("删除失败", er);
           this.submitLoading = false;
           uni.hideLoading();
           uni.showModal({
@@ -271,10 +274,14 @@ export default {
     },
     editRoom(item){
       this.editId=item._id;
-      console.log("1111",this.editId)
+      this.editName=item.room_name;
     },
     cancleEditRoom(item){
+      //console.log("111",item,this.room_name)
+      item.room_name=this.editName;
        this.editId=null;
+       this.editName="";
+
     },
      updateRoome(item){
     DB.callFunction("hm_updateRoom", {
@@ -288,7 +295,7 @@ export default {
           uni.hideLoading();
         })
         .catch((er) => {
-          console.log("更新失败", er);
+          //console.log("更新失败", er);
           this.submitLoading = false;
           uni.hideLoading();
           uni.showModal({

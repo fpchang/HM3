@@ -48,7 +48,7 @@ export class Timeline {
 			})
 			// for (let animation of this[ANIMATIONS]) {
 			// 	let t: number;
-			// 	console.log('animation', animation)
+			// 	//console.log('animation', animation)
 			// 	if (this[START_TIMES].get(animation) < startTime) {
 			// 		t = now - startTime - animation.delay - this[PAUSE_TIME];
 			// 	} else {

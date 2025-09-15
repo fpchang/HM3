@@ -5,7 +5,7 @@ exports.main = async (event, context) => {
 	let {
 		_id,
 	} = event;
-	console.log("hm_deletMenuType", event);
+	//console.log("hm_deletMenuType", event);
 	try{
 		const db = uniCloud.database();
 		 await db.collection('hm-menuDetail').where({menuType_id:_id}).remove();

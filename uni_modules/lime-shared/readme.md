@@ -158,7 +158,7 @@ pathToBase64(`xxxxx/xxx.png`).then(res => {})
 ```js
 async next () => {
 	await sleep(300)
-	console.log('limeui');
+	//console.log('limeui');
 }
 ```
 ##### 兼容性
@@ -171,7 +171,7 @@ async next () => {
 - 节流
 
 ```js
-throttle((nama) => {console.log(nama)}, 200)('limeui');
+throttle((nama) => {//console.log(nama)}, 200)('limeui');
 ```
 ##### 兼容性
 | uni-app      | uni-app x                      | 
@@ -183,7 +183,7 @@ throttle((nama) => {console.log(nama)}, 200)('limeui');
 - 防抖
 
 ```js
-debounce((nama) => {console.log(nama)}, 200)('limeui');
+debounce((nama) => {//console.log(nama)}, 200)('limeui');
 ```
 ##### 兼容性
 | uni-app      | uni-app x                      | 
@@ -272,7 +272,7 @@ uni.chooseImage({
 		exif.getData(res.tempFiles[0], function() {
 			let tagj = exif.getTag(this, "GPSLongitude");
 			let	Orientation = exif.getTag(this, 'Orientation');  
-			console.log(tagj, Orientation)
+			//console.log(tagj, Orientation)
 		})
 	}
 })
@@ -399,8 +399,8 @@ shuffle([1, 3, 5, 7, 9])
 const original = { color: 'red' };
 const merged = merge({ ...original }, { color: 'blue', size: 'M' });
 
-console.log('original', original);    // 输出: { color: 'red' } (保持不变)
-console.log('merged', merged);      // 输出: { color: 'red', size: 'M' }
+//console.log('original', original);    // 输出: { color: 'red' } (保持不变)
+//console.log('merged', merged);      // 输出: { color: 'red', size: 'M' }
 
 
 type ColorType = {
@@ -409,7 +409,7 @@ type ColorType = {
 }
 
 const merged2 = merge({ color: 'red' } as ColorType, { color: 'blue', size: 'M' } as ColorType);
-console.log('merged2', merged2)
+//console.log('merged2', merged2)
 ```
 
 ##### 兼容性
@@ -473,15 +473,15 @@ isString(0) // false
 -  检查一个值是否为IP地址格式，可以检测ipv4,ipv6
 
 ```js
-console.log(isIP('192.168.1.1'));             // true
-console.log(isIP('2001:0db8:85a3:0000:0000:8a2e:0370:7334')); // true
+//console.log(isIP('192.168.1.1'));             // true
+//console.log(isIP('2001:0db8:85a3:0000:0000:8a2e:0370:7334')); // true
 
-console.log(isIP('192.168.1.1', 4));             // true
-console.log(isIP('255.255.255.255', { version: 4 })); // true
+//console.log(isIP('192.168.1.1', 4));             // true
+//console.log(isIP('255.255.255.255', { version: 4 })); // true
 
 // 标准IPv6格式
-console.log(isIP('2001:0db8:85a3:0000:0000:8a2e:0370:7334', 6)); // true
-console.log(isIP('fe80::1%eth0', { version: 6 }));               // true（带区域标识）
+//console.log(isIP('2001:0db8:85a3:0000:0000:8a2e:0370:7334', 6)); // true
+//console.log(isIP('fe80::1%eth0', { version: 6 }));               // true（带区域标识）
 
 ```
 ##### 兼容性

@@ -4,7 +4,7 @@ const tokenEvent = require('tokenEvent');
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
 	//根据手机号，店铺id 获取用户权限
-	console.log('event : ', event)
+	//console.log('event : ', event)
 	const {hotel_id,$token} =event;
 	 const dbJQL = uniCloud.databaseForJQL({
 	 		event,
@@ -24,7 +24,7 @@ exports.main = async (event, context) => {
 			role_name = roleObj.data[0]['role'];			
 						
 		}else{
-			console.log("没有查到用户角色,为超级管理员");
+			//console.log("没有查到用户角色,为超级管理员");
 			role_name = "administrator"
 			
 		}

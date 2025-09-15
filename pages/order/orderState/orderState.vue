@@ -93,11 +93,11 @@ import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 
 	},
 		created() {
-			console.log('orderComponent create');
+			//console.log('orderComponent create');
 
 		},
 		onLoad: function() {
-			console.log('orderComponent Show')
+			//console.log('orderComponent Show')
 		},
 			async onPullDownRefresh() {
 			await this.$refs.orderChildCalendarListRef.getOrderList();

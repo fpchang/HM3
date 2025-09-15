@@ -3,7 +3,7 @@ const tokenEvent = require('tokenEvent');
 const errorEvent = require('errorEvent');
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
-	console.log('event : ', event)
+	//console.log('event : ', event)
 	const dbJQL = uniCloud.databaseForJQL({
 		event,context
 	});
@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
 		}
 		const {phone} = verifT.value;
 		const userRes = await dbJQL.collection("hm-user").where({phone}).get();
-		console.log("userRes",userRes)
+		//console.log("userRes",userRes)
 		if(userRes.data.length<1){//无此账号
 			return {code:9992,msg:""}
 		}
@@ -33,7 +33,7 @@ exports.main = async (event, context) => {
 		}
 		
 	}catch(e){
-		console.log(e)
+		//console.log(e)
 		throw new Error("数据异常",e)
 	}
 	//返回数据给客户端

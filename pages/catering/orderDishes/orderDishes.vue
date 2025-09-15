@@ -144,10 +144,10 @@
 			
 		},
 		onInit(params) {
-			console.log("onInit params", params);
+			//console.log("onInit params", params);
 		},
 		onLoad(params) {
-			console.log("onLoad params", params);
+			//console.log("onLoad params", params);
 			try {
 				this.hotel_id = params['hotel_id']
 			} catch (error) {
@@ -156,7 +156,7 @@
 
 		},
 		created(params) {
-			console.log("created params", params);
+			//console.log("created params", params);
 		},
 		mounted(){			
 			this.getData();
@@ -289,12 +289,12 @@
 
 		methods: {
 			checkMenu(index) {
-				console.log(index);
+				//console.log(index);
 				this.activeLeft = index;
 				this.toMenuDetail_id = 'it' + index;
 			},
 			scrollMenuDetail(e) {
-				//console.log(e)
+				////console.log(e)
 			},
 			async getData() {
 				if(!this.hotel_id){
@@ -305,8 +305,8 @@
 					
 					const hotelRes = await HotelService.getHotelInfoById(this.hotel_id);
 					const res = await MenuService.getMenuList(this.hotel_id);
-					console.log("酒店信息", hotelRes)
-					console.log("菜单列表", res)
+					//console.log("酒店信息", hotelRes)
+					//console.log("菜单列表", res)
 					this.hotel = hotelRes.result.data[0];
 					this.menuList = this.getMenuListFormat(res.result.data);
 					uni.setNavigationBarTitle({
@@ -340,7 +340,7 @@
 
 			},
 			addMenuCount(itObj) {
-				console.log(itObj)
+				//console.log(itObj)
 				this.menuList = this.menuList.map(item => {
 					item._id['hm-menuDetail'].map(it => {
 						if (it._id == itObj._id) {
@@ -386,7 +386,7 @@
 					this.isLoading=true;
 					//uni.showLoading();
 					let orderDishesObj =Object.assign(this.orderDishesForm,{hotel_id:this.hotel_id, checkMenuList:this.checkMenuList})
-					console.log(orderDishesObj);
+					//console.log(orderDishesObj);
 					orderDishesObj.mealDateTimestamp=new Date(orderDishesObj.mealDate).getTime();;
 					try {
 					const res =	await MenuService.addOrderDishes(orderDishesObj);
@@ -404,7 +404,7 @@
 			
 					} catch (error) {
 						let errobj = JSON.parse(JSON.stringify(error));
-						console.log("1111",errobj,errobj.errMsg);
+						//console.log("1111",errobj,errobj.errMsg);
 						this.isLoading=false;
 						uni.hideLoading();
 						const text = errobj.errMsg.includes("exists")?'请不要重复提交':"系统异常，请稍候再试！"

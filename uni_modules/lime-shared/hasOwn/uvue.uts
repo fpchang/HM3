@@ -27,17 +27,17 @@ export {
 // const obj = { name: 'John', age: 30 };
 
 // if (hasOwn(obj, 'name')) {
-//   console.log("对象具有 'name' 属性");
+//   //console.log("对象具有 'name' 属性");
 // } else {
-//   console.log("对象不具有 'name' 属性");
+//   //console.log("对象不具有 'name' 属性");
 // }
 // // 输出: 对象具有 'name' 属性
 
 // const arr = [1, 2, 3];
 
 // if (hasOwn(arr, 'length')) {
-//   console.log("数组具有 'length' 属性");
+//   //console.log("数组具有 'length' 属性");
 // } else {
-//   console.log("数组不具有 'length' 属性");
+//   //console.log("数组不具有 'length' 属性");
 // }
 // 输出: 数组具有 'length' 属性

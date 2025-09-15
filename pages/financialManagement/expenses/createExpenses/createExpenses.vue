@@ -98,7 +98,7 @@ export default {
 					this.expensesForm.amount = Number(this.expensesForm.amount);
 					this.expensesForm.creater = this.$store.state.user.phone;
 					this.expensesForm.hotel_id = this.$store.state.hotel_id;
-					console.log(this.expensesForm)
+					//console.log(this.expensesForm)
 					await FMService.add(this.expensesForm);
 					const eventChannel = this.getOpenerEventChannel();
 					eventChannel.emit('updateData');

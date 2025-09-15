@@ -34,17 +34,17 @@
 	// },
 	export default {
 		onLaunch: async function(ob) {
-			 console.log("参数信息",ob)
-			// console.log('App Launch XXXXXXXXXX',uni.getSystemInfoSync());	
+			 //console.log("参数信息",ob)
+			// //console.log('App Launch XXXXXXXXXX',uni.getSystemInfoSync());	
 				// #ifdef APP-PLUS
 					plus.navigator.closeSplashscreen();//关闭启动图
 				// #endif
 				   // #ifdef MP
-				   console.log("MPPPPP")
+				   //console.log("MPPPPP")
      this.$store.commit("setTopHeight","70px");
    // #endif
     // #ifndef MP
-	 console.log("!!!MPPPPP")
+	 //console.log("!!!MPPPPP")
      this.$store.commit("setTopHeight","60px");
    // #endif
 			this.getEnv();
@@ -53,10 +53,10 @@
 			//this.$isResolve();
 		},
 		onShow: function() {
-			console.log('App Show');
+			//console.log('App Show');
 		},
 		onHide: function() {
-			console.log('App Hide')
+			//console.log('App Hide')
 		},
 		methods:{
 
@@ -78,7 +78,7 @@
 				if (process.env.NODE_ENV === 'development') {
 				this.globalData.env="development"
 				} else {
-					console.log('生产环境');
+					//console.log('生产环境');
 					this.globalData.env="product"
 					}
 			}

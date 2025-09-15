@@ -135,7 +135,7 @@ const store = createStore({
     },
     async getUser(context) {
       const res = await AccountService.getuserByToken();
-      console.log("用户信息？？？？？",res)
+      //console.log("用户信息？？？？？",res)
       if (res.result.data[0]) {
         uni.setStorageSync("user", res.result.data[0]);
         context.commit("setUser", res.result.data[0]);
@@ -143,15 +143,15 @@ const store = createStore({
       return res;
     },
     async getHotelList(context) {
-      console.log("服务端hotellist");
+      //console.log("服务端hotellist");
       const res = await HotelService.getHotelList();
-      console.log("酒店列表", res);
+      //console.log("酒店列表", res);
       context.commit("updateHotelList", res.result);
       return res;
     },
     async getRoomType(context) {
       const res = await HotelService.getRoomType(context.state.hotel_id);
-      console.log("房型列表", res);
+      //console.log("房型列表", res);
       //let obj = res.result.data.length?res.result.data:[];
       context.commit("updateRoomType", res.result.data);
       return res;
@@ -183,11 +183,11 @@ const store = createStore({
             });
           context.dispatch("clearCache");
           context.dispatch("navPageLogin",loginSuccess);
-		      console.log("token校验不通过");
+		      //console.log("token校验不通过");
           reject("token校验不通过");
           return;
         }
-        console.log("token验证通过");
+        //console.log("token验证通过");
         await context.dispatch("getUser");
         resolve();
         
@@ -205,16 +205,16 @@ const store = createStore({
         //this.$store.dispatch("loginOut");
         return Promise.reject;
       }
-      console.log("token验证通过");
+      //console.log("token验证通过");
       return Promise.resolve;
     },
     navPageLogin(context, loginSuccess) {
      return new Promise((resolve,reject)=>{
       let userRole = uni.getStorageSync("userRole");
-      console.log("userRole",userRole)
+      //console.log("userRole",userRole)
       let events ={
         loginSuccess() {
-          console.log("执行loginsuccess");
+          //console.log("执行loginsuccess");
           if (loginSuccess) {
             loginSuccess();
             resolve();
@@ -224,7 +224,7 @@ const store = createStore({
         },
       };
       //if(userRole=='hotel'){
-        console.log("后端登录")
+        //console.log("后端登录")
         uni.redirectTo({        
           url: "/pages/login/login",
           events: {
@@ -235,7 +235,7 @@ const store = createStore({
         });
         return;
       //}
-      // console.log("客户端登录")
+      // //console.log("客户端登录")
       // uni.navigateTo({
       //   url: "/pages/login/login",
       //   events: events
@@ -250,7 +250,7 @@ const store = createStore({
       context.commit("setHotelId", "");
     },
     loginOut(context) {
-      console.log("退出登录");
+      //console.log("退出登录");
       context.dispatch("clearCache");
       uni.reLaunch({
         url: "/pages/index/index",

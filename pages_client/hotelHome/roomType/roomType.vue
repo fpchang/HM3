@@ -217,7 +217,7 @@ export default {
     },
     async getRoomType(){
       const res = await  HotelServiceClient.getRoomType(this.hotel_id);
-				console.log("房型列表 client",res);
+				//console.log("房型列表 client",res);
 				this.roomType = res.result.data;     
     },
     async reserve(item,priceField){

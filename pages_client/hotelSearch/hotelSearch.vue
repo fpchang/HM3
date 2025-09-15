@@ -73,7 +73,7 @@ import uniSection from '@/uni_modules/uni-section/components/uni-section/uni-sec
 		},
 		watch: {
 			filterVal(val) {
-				console.log(val);
+				//console.log(val);
 				if(val){
 					this.searchAddress(val)
 					return;
@@ -85,12 +85,12 @@ import uniSection from '@/uni_modules/uni-section/components/uni-section/uni-sec
 			searchAddress(keywords) {
 				let that = this;
 				let location = this.$store.state.location;
-				console.log("location",location)
+				//console.log("location",location)
 				this.amapPlugin.getInputtips({
 					keywords: keywords,
 					location: location.toString(","),
 					success: function(data) {
-						console.log("sssss", data)												
+						//console.log("sssss", data)												
 						 that.list=data.tips
 						
 					}
@@ -115,7 +115,7 @@ import uniSection from '@/uni_modules/uni-section/components/uni-section/uni-sec
 						location:this.$store.state.location
 				}
 				this.$store.commit("hotelClientStore/updateSearchCondition",obj);
-				console.log("返回参数",obj)
+				//console.log("返回参数",obj)
   				eventChannel.emit('getAddress',obj);
 				uni.navigateBack()
 			}

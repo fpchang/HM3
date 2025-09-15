@@ -15,12 +15,12 @@ export default{
 	},
   actions:{
 	getTT(){
-		console.log("scenic tt")
+		//console.log("scenic tt")
 	},
      getScenicSpotList(context,hotel_id){
 		return new Promise((resolve,reject)=>{
 			ScenicSpotService.getScenicSpotList(hotel_id).then(res=>{
-				console.log("景点列表",res)
+				//console.log("景点列表",res)
 				context.commit('updateScenicSpotList', res.result.data);
 				resolve(res)
 			  }).catch(e=>{
