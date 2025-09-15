@@ -289,7 +289,7 @@ export default {
 
 .list {
   color: #6a6a6a;
-  font-size: 13px;
+  font-size: 15px;
   padding: 4px;
 
   .list-item {
@@ -298,7 +298,7 @@ export default {
     display: flex;
     align-items: center;
     .ti {
-		font-weight: 400;
+		font-weight: 500;
 	}
   }
 }

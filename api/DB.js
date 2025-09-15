@@ -10,14 +10,14 @@ class DBConnect{
     //   //未登录
     //   console.log("未登录")
     //   uni.reLaunch({ url: '/pages/login/login' });
-    //   return Promise.reject();
+    //   return Promise.reject(); httt:...
 
     // }
 	return  uniCloud.callFunction({
 	  	name:name,
 	  	data:Object.assign(data,{
         $user:uni.getStorageSync('user'),
-        $token:uni.getStorageSync('hm_token')
+        $token:uni.getStorageSync('hm_token');
       })
 	  })
   }

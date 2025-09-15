@@ -88,7 +88,7 @@
 											<!--可撤销后台下的单-->
 											<view>
 												<button v-if="!item.fromClient" size="default" type="default"
-													class="btn btn-red" @click="deleteOrder(item)">
+													class="submit-btn" @click="deleteOrder(item)">
 													撤销
 												</button>
 											</view>
@@ -187,7 +187,7 @@
 											<!--可撤销后台下的单-->
 											<view>
 												<button v-if="!item.fromClient" size="default" type="default"
-													class="btn btn-red" @click="deleteOrder(item)">
+													class="submit-btn" @click="deleteOrder(item)">
 													撤销
 												</button>
 											</view>

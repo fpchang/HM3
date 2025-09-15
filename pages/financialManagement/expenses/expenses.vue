@@ -246,7 +246,7 @@ import {useStore} from 'vuex';
 
 .list {
 	color: #6a6a6a;
-	font-size: 13px;
+	font-size: 15px;
 	padding: 4px;
 
 	.list-item {
@@ -255,7 +255,7 @@ import {useStore} from 'vuex';
 		display: flex;
 		align-items: center;
 		.ti {
-		font-weight: 400;
+		font-weight: 500;
 	}
 	}
 }

@@ -193,8 +193,8 @@ $label-normal:#a1a1a1;
 
   }
 
-  .submit-btn{
-	  background-color: $font-color-control!important;
+  .submit-btn,.submit-btn[type='default']{
+	  background-color: $font-color-control;
 	  color: #fff;
 	  min-width: 80px;
 	  max-height: 40px;
@@ -206,11 +206,13 @@ $label-normal:#a1a1a1;
 	  letter-spacing: 2px; 	  
   }
     .submit-btn[disabled][type='default']{
-		  background-color: #dedede !important;
+		  background-color: #dedede ;
+		  color: rgba(0, 0, 0, 0.3);
 	}
 	 .submit-btn[loading][type='default']{
-		  background-color: #dedede !important;
+		  background-color: #dedede ;
 		  color: #999;
+		  
 	}
   //字体btn
   .edit-text-btn-style{

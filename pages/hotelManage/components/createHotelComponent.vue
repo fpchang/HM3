@@ -142,7 +142,7 @@
 			<uni-forms-item>
 				<view class="flex-end" >
 					<view style="width:130px">
-						<button v-if="type!=2" type="primary"  @click="submitForm()":disabled="submitDisabled" :loading="submitLoading">保存</button>
+						<button class="submit-btn" v-if="type!=2" type="primary"  @click="submitForm()":disabled="submitDisabled" :loading="submitLoading">保存</button>
 					</view> 
 					
 				</view>

@@ -24,7 +24,8 @@
       </uni-forms-item>
       <uni-forms-item label="房型房间" required>
         <!-- <uni-data-checkbox v-model="orderForm.roomTypeArray" mode="list"  multiple :localdata="roomTypeListFormat">1111</uni-data-checkbox> -->
-        <view class="uni-list">
+       {{console.log("11",remainRoomTypeList)  }}
+		<view class="uni-list">
           <checkbox-group @change="roomTypeCheckboxChange">
             <view
               class="disabled-style"
