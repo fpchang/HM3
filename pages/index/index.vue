@@ -45,28 +45,13 @@ export default {
     };
   },
   async onLoad(e) {
-    // const { proxy } = getCurrentInstance();
-    // await proxy.$onLaunched;
-    // uni.navigateTo({
-    // 	url:"/pages/tt/tt"
-    // })
-    // return;
-    // let userRole =uni.getStorageSync("userRole");
-    // if(!userRole){
-    // 	this.isLoading=false;
-    // 	return;
-    // }
-    // if(userRole=="hotel"){
-    // 	uni.switchTab({url:"/pages/home/home"});
-    // }else{
-    // 	uni.redirectTo({
-    // 	url:"/pages_client/client_index/client_index",
-    // });
-    //}
+      //#ifdef MP
+    uni.hideHomeButton();
+	//#endif
   },
   async created() {
 
-    await this.$store.dispatch("loginEvent");
+   // await this.$store.dispatch("loginEvent",null);
     this.initData();
   },
   onShow() {},

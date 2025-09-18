@@ -263,8 +263,8 @@ export default {
       this.$store.commit("setUser", userRes.result.data[0]);
       this.submitLoading=false;
      try {
-      const eventChannel = this.getOpenerEventChannel();
-      eventChannel.emit('loginSuccess');
+     // const eventChannel = this.getOpenerEventChannel();
+     // eventChannel.emit('loginSuccess');
      } catch (error) {
       
      }

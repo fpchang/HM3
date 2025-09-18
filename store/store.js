@@ -164,14 +164,26 @@ const store = createStore({
         }
       } catch (error) {}
     },
-    loginEvent(context, loginSuccess) {
+    /**
+     * 
+     * @param {*} context 
+     * @param {*} loginSuccess 未登录进入登录页面，登录成功后触发
+     * @param {*} noLoginEvent 未登录时直接触发
+     * @returns 
+     */
+    loginEvent(context, loginSuccess,noLoginEvent=null) {
       return new Promise(async (resolve, reject) => {
         if (!uni.getStorageSync("hm_token")) {
           //未登录
           context.dispatch("clearCache");
+          if(noLoginEvent){
+            console.log(3333)
+            noLoginEvent&&noLoginEvent();
+             reject("未登录");
+             return;
+          }
           await context.dispatch("navPageLogin",loginSuccess);
-          reject("未登录");
-          return; 
+                 
         };
         const res = await AccountService.validToken();
         if (res.result.code) {
@@ -253,7 +265,7 @@ const store = createStore({
       //console.log("退出登录");
       context.dispatch("clearCache");
       uni.reLaunch({
-        url: "/pages/index/index",
+        url: "/pages/indexAdvise/indexAdvise",
       });
     },
   },

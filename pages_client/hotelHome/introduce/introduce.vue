@@ -5,16 +5,6 @@
         <view class="share-area">
           <view class="container">
             <view class="icon-item">
-          
-              <!-- <uv-icon
-                :name="isCollect ? 'star-fill' : 'star'"
-                color="#fff"
-                labelColor="#fff"
-                size="24"
-                labelPos="bottom"
-                labelSize="12px"
-                @click="collectEvent"
-              ></uv-icon> -->
             </view>
             <!-- #ifdef MP -->
 
@@ -195,18 +185,7 @@ export default {
       const res = await HotelServiceClient.getCollectHotel(this.user.phone);
       this.collectList = res.result.data;
     },
-    async collectEvent() {
-      if (!this.user) {
-        await this.$store.dispatch("loginEvent");
-        return;
-      }
 
-      if (this.isCollect) {
-        this.cancelCollectHotel();
-        return;
-      }
-      this.addCollectHotel();
-    },
     async addCollectHotel() {
       const res = await HotelServiceClient.addCollectHotel(
         this.user.phone,

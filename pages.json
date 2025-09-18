@@ -1,5 +1,14 @@
 {
 	"pages": [
+		
+		{
+			"path" : "pages/indexAdvise/indexAdvise",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"navigationStyle": "custom"
+			}
+		},
 
 		{
 			"path": "pages/index/index",
