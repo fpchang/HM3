@@ -99,7 +99,9 @@ export default {
   methods: {
     async initData() {
       try {
-        await this.$store.dispatch("getHotelList");
+        console.log("加载数据")
+        const res =await this.$store.dispatch("getHotelList");
+        console.log("111111111111",res);
         this.$store.commit("setBaseDatahasLoad", true);
         this.isLoading=false;
         if (!this.hotelList || this.hotelList.length < 1) {
@@ -112,7 +114,7 @@ export default {
         });
         uni.hideLoading();
       } catch (error) {
-        //console.log("initData .....error,", error);
+        console.log("initData .....error,", error);
         uni.hideLoading();
       }
     },

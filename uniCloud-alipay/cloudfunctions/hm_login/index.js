@@ -8,9 +8,11 @@ exports.main = async (event, context) => {
 	const starttime = new Date().getTime();
 	let {
 		userForm,
-		hm_token
+		hm_token,
+		client,
 	} = event;
 	let {smsCode,phone,tk}=userForm;	
+	console.log("登录参数",event,client)
 	const secret = tokenEvent.getSecret();	
 	//const verifT = tokenEvent.verifyToken(newToken,secret);
 	////console.log("token----",verifT.exp);
@@ -19,7 +21,8 @@ exports.main = async (event, context) => {
 			event,
 			context
 		});
-		if(!isTestAccount(phone)){
+		//小程序或测试账号
+		if(!isTestAccount(phone)&&client!='MP'){
 			//检验短信正确性
 			const verifT = tokenEvent.verifyToken(tk,secret);
 			//console.log("aaa",verifT)
@@ -28,7 +31,7 @@ exports.main = async (event, context) => {
 				 return {code:4001,msg:"短信验证码不正确"};			
 			}
 		}
-	
+		
 		
 		try{
 			const userRes = await dbJQL.collection('hm-user').where(`phone=='${phone}'`).get();	

@@ -143,9 +143,9 @@ const store = createStore({
       return res;
     },
     async getHotelList(context) {
-      //console.log("服务端hotellist");
+      console.log("服务端hotellist");
       const res = await HotelService.getHotelList();
-      //console.log("酒店列表", res);
+      console.log("酒店列表", res);
       context.commit("updateHotelList", res.result);
       return res;
     },
@@ -187,6 +187,7 @@ const store = createStore({
         };
         const res = await AccountService.validToken();
         if (res.result.code) {
+			console.log('>_______________')
           res.result.msg &&
             uni.showToast({
               title: res.result.msg,
@@ -206,7 +207,9 @@ const store = createStore({
       });
     },
     async vaildToken(context) {
+     
       const res = await AccountService.validToken();
+       console.log(999999,res)
       if (res.result.code) {
         res.result.msg &&
           uni.showToast({
@@ -214,7 +217,8 @@ const store = createStore({
             duration: 2000,
             icon: "error",
           });
-        //this.$store.dispatch("loginOut");
+		   console.log("token校验不通过");
+        context.dispatch("loginOut");
         return Promise.reject;
       }
       //console.log("token验证通过");
@@ -238,7 +242,7 @@ const store = createStore({
       //if(userRole=='hotel'){
         //console.log("后端登录")
         uni.redirectTo({        
-          url: "/pages/login/login",
+          url: "/pages/indexAdvise/indexAdvise",
           events: {
             loginSuccess(){
               uni.reLaunch({url:"/pages/home/home"})
@@ -256,13 +260,14 @@ const store = createStore({
      
     },
     clearCache(context) {
+		console.log("---------------清除缓存")
       uni.removeStorageSync("hm_token");
       uni.removeStorageSync("user");
       context.commit("setUser",null);
       context.commit("setHotelId", "");
     },
     loginOut(context) {
-      //console.log("退出登录");
+      console.log("退出登录");
       context.dispatch("clearCache");
       uni.reLaunch({
         url: "/pages/indexAdvise/indexAdvise",

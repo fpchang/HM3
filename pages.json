@@ -6,7 +6,9 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
-				"navigationStyle": "custom"
+				"navigationStyle": "custom",
+				"disableScroll": true,
+				"enablePullDownRefresh": false
 			}
 		},
 

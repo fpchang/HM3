@@ -36,6 +36,13 @@ class AccountServiceClass{
   createRechargeOrder(rechargeConfig_id){
 	  return DB.callFunction("hm_createRechargeOrder",{rechargeConfig_id});
   }
+
+  getMpPhoneNumber(code){
+     return DB.callFunction("getMpPhoneNumber",{code});
+  }
+  loginMp(code){
+    return DB.callFunction("hm_loginMp",{code});
+  }
 }
 //module.exports =new AccountService();
 export var AccountService=new AccountServiceClass();

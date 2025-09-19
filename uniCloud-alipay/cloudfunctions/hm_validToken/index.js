@@ -3,7 +3,7 @@ const tokenEvent = require('tokenEvent');
 const errorEvent = require('errorEvent');
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
-	//console.log('event : ', event)
+	console.log('验证token : ', event)
 	const dbJQL = uniCloud.databaseForJQL({
 		event,context
 	});
@@ -20,7 +20,8 @@ exports.main = async (event, context) => {
 			return {code:9990,msg:"token已过有效期"}
 		}
 		const {phone} = verifT.value;
-		const userRes = await dbJQL.collection("hm-user").where({phone}).get();
+		const userRes = await dbJQL.collection("hm-user").where({phone:phone+""}).get();
+		
 		//console.log("userRes",userRes)
 		if(userRes.data.length<1){//无此账号
 			return {code:9992,msg:""}

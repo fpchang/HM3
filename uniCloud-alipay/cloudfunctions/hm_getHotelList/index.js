@@ -17,13 +17,13 @@ exports.main = async (event, context) => {
 		const verifyTokenObj =tokenEvent.verifyToken($token,"****");
 		 
 		 const {phone} = verifyTokenObj.value;
-		 //console.log(">>>",phone);
-		const emTemp = dbJQL.collection("hm-employee").where({phone}).getTemp();
+		 console.log("getHotelList",phone);
+		const emTemp = dbJQL.collection("hm-employee").where({phone:phone+""}).getTemp();
 		const hoTemp = dbJQL.collection("hm-hotel").where("dataStatus!=10").getTemp();
 		const res = await dbJQL.collection(emTemp,hoTemp).get();
-		// //console.log("aaaaaaaa",res)
+		console.log("aaaaaaaa",res)
 		// //console.log("11111111",formatHotelToArray(res.data))
-		return formatHotelToArray(res.data)
+		return formatHotelToArray(res.data);
 	}catch(e){
 		throw new Error(e)
 	}
