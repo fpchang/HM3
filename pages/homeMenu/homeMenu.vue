@@ -252,7 +252,7 @@ export default {
     /* justify-content: space-around;*/
     flex-wrap: wrap;
     gap: 10px;
-    padding: 0 30px;
+    padding: 0 15px;
 
     .item {
       width: 98px;

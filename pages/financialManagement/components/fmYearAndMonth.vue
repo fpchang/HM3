@@ -331,7 +331,7 @@ export default {
 
     .chart-item {
       min-height: 150px;
-      width: 160px;
+      width: 155px;
 
       border-radius: 8px;
       box-sizing: border-box;
