@@ -187,7 +187,7 @@ const store = createStore({
         };
         const res = await AccountService.validToken();
         if (res.result.code) {
-			console.log('>_______________')
+			console.log('>_______________',res)
           res.result.msg &&
             uni.showToast({
               title: res.result.msg,

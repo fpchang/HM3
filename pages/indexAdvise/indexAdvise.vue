@@ -106,20 +106,31 @@
       <view style="height: 120px"></view>
       <view class="control">
         <!-- #ifdef MP-->
-        <button
+        <!-- <button
           class="btn glass"
           open-type="getPhoneNumber"
           @getphonenumber="decryptPhoneNumber"
         >
           登录体验
-        </button>
+        </button> -->
 
         <!-- #endif-->
         <!-- #ifndef MP-->
-        <button class="btn glass" @click="toLogin()">登录体验</button>
+        
         <!-- #endif-->
+         <button class="btn glass" @click="toLoginEvent()">登录体验</button>
       </view>
     </scroll-view>
+      <uni-popup ref="popup_confirm" type="bottom" border-radius="10px 10px 0 0">
+        	<view class="popup-con">
+            <view class="tit">议宿申请</view>
+            <view class="txt-content">此系统需要使用手机号登录后才能使用全部功能，确认是否手机号登录</view>
+            <view class="control">
+              <view class="btn-style" @click="agreeGetPhoneEvent(false)">拒绝</view>
+              <view class="btn-style btn-confirm"  @click="agreeGetPhoneEvent(true)">允许</view>
+            </view>
+          </view>
+      </uni-popup>
   </view>
 </template>
 
@@ -138,18 +149,34 @@ const store = new useStore();
 let isReading = ref(false);
 let refresher_triggered = ref(false);
 let submitLoading=ref(false);
+let agreeGetPhone= ref(false);
 const accessin = () => {
   uni.redirectTo({
     url: "/pages/index/index",
   });
 };
+const popup_confirm=ref(null);
+const toLoginEvent=()=>{
+ //#ifdef MP
+   popup_confirm.value.open();
+   return;
+  //#endif
+  toLogin();
+}
 const toLogin = () => {
+
   uni.navigateTo({
     url: "/pages/login/login",
   });
 };
+const agreeGetPhoneEvent=(flag)=>{
+  if(flag){
+    toLogin();
+    return;
+  }
+  popup_confirm.value.close();
+}
 const getUserInfo = async (phone) => {
-  console.log("88888",phone)
   const db = uniCloud.database();
   const userRes = await db
     .collection("hm-user")
@@ -415,5 +442,46 @@ onMounted(() => {});
   border-radius: 2rem;
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
     inset 0 4px 20px rgba(255, 255, 255, 0.3);
+}
+.popup-con{
+  height: 150px;
+  padding:15px;
+  background:#fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 16px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  .tit{
+    font-weight: 400;
+     font-size: 18px;
+     color: #666;
+  }
+  .txt-content{
+    font-size: 16px;
+    text-indent: 16px;
+    color: #999;
+  }
+  .control{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    .btn-style{
+      background: #fff;
+      width: 100px;
+      height: 35px;
+      border:1px solid #eee;
+      text-align: center;
+      line-height: 35px;
+      border-radius: 5px;
+      color: #007aff;
+    }
+    .btn-confirm{
+      color: #fff;
+      background:#007aff
+    }
+  }
 }
 </style>

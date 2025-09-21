@@ -116,7 +116,7 @@ export default {
   mounted() {},
   methods: {
     async refrush() {
-      //console.log("ordercomponent refrush");
+      console.log("ordercomponent refrush");
       await this.$refs.orderChildListRef.refrush();
       return;
     },

@@ -27,9 +27,10 @@
 		}, {
 			"path": "pages/home/home",
 			"style": {
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
 				"navigationStyle": "custom",
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"disableScroll": true
 			}
 		}, {
 			"path": "pages/permission/setPermission/setPermission",
@@ -286,7 +287,8 @@
 								"navigationBarTitleText" : "订单房态",
 												"enablePullDownRefresh": true,
 												"navigationBarBackgroundColor": "#0765ae",
-												"navigationBarTextStyle": "white"
+												"navigationBarTextStyle": "white",
+												"disableScroll": true
 					}
 				},
 				{

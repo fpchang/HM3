@@ -259,19 +259,6 @@
 		},
 
 		mounted() {
-// uni.downloadFile({
-//   url: '../../../static/img/社交头像.pdf',
-//   success: function (res) {
-//     var filePath = res.tempFilePath;
-//     uni.openDocument({
-//       filePath: filePath,
-//       showMenu: true,
-//       success: function (res) {
-//         //console.log('打开文档成功');
-//       }
-//     });
-//   }
-// });
 
 			this.option = {
 				grid: {
@@ -304,7 +291,7 @@
 				this.GatgerTab_index = index;
 			},
 			async initData() {
-				//console.log("init data gather")
+				console.log("init data gather")
 				this.$store.dispatch("getGatherEvent", this.hotel_id);
 				this.$store.dispatch("getMenuEvent",this.hotel_id);
 			},

@@ -1,11 +1,17 @@
 <template>
   <view class="home">
-    <view class="top-container">
+      <scroll-view style="height:100vh" scroll-x="false" scroll-y="true" @refresherrefresh="refrush"
+            :refresher-enabled="true" refresher-default-style="white" :refresher-triggered="refresher_triggered">
+               <view class="top-container">
       <view class="scroll-content">
         <view class="logo-area" :style="{height: navTopHeight}">
-          <view class="logo"> 
-               <image  style="width: 188px; height: 94px; vertical-align: middle;transform:scale(0.8)"  src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.svg"></image>
-		
+          <view class="logo">
+            <image style="
+                width: 188px;
+                height: 94px;
+                vertical-align: middle;
+                transform: scale(0.8);
+              " src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.svg"></image>
           </view>
           <!-- <view><text>议宿管理系统</text></view> -->
         </view>
@@ -18,23 +24,22 @@
               <view>
                 <l-icon name="ic:sharp-expand-more" size="30px" color="#fff"></l-icon>
               </view>
-
             </view>
           </view>
-
         </view>
       </view>
     </view>
-    <gatherComponent ref="gather">
-    </gatherComponent>
+    <gatherComponent ref="gatherRef"> </gatherComponent> 
+          
+          </scroll-view>
+
     <uni-drawer ref="showLeft" mode="left" :width="drawerWidth">
       <view class="left-container">
         <view style="flex: 1; min-height: 330px">
-          <view  class="black-area">
+          <view class="black-area">
             <text>
-                <l-icon name="line-md:confirm-square-filled" size="35px" color="#1E88E5" />
+              <l-icon name="line-md:confirm-square-filled" size="35px" color="#1E88E5" />
             </text>
-           
           </view>
           <view class="title-area">
             <view class="title">
@@ -43,61 +48,45 @@
             <navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="none">
               <view class="btn"><text>管理</text></view>
             </navigator>
-            
-
           </view>
-          <scroll-view :style="{'height': scrollHeight}" scroll-x="false" scroll-y="true">
-
+          <scroll-view :style="{height: scrollHeight}" scroll-x="false" scroll-y="true"
+            :refresher-enabled="false">
             <view>
-              <view v-for="(item, index) of hotelList" style="padding:10px" @click="checkHotel(item._id)">
-                <view style="display:flex;" :class="['zcard', item._id==hotel_id? 'zcard-active':'']"
+              <view v-for="(item, index) of hotelList" style="padding: 10px" @click="checkHotel(item._id)">
+                <view style="display: flex" :class="['zcard', item._id==hotel_id? 'zcard-active':'']"
                   @click="openHotel(item)">
                   <view class="select">
                     <l-icon v-if="item._id==hotel_id" name="line-md:circle-filled-to-confirm-circle-filled-transition"
                       size="35px" color="#fff" />
                     <l-icon v-if="item._id!=hotel_id" name="line-md:confirm-circle-twotone-to-circle-transition"
                       size="35px" color="#eee" />
-
                   </view>
-                  <view style="width:80px;height:80px">
-
-                    <image v-if="item.firstImages" style="width:100%;height:100%" mode="aspectFill"
+                  <view style="width: 80px; height: 80px">
+                    <image v-if="item.firstImages" style="width: 100%; height: 100%" mode="aspectFill"
                       :src="item.firstImages" />
-                    <image v-if="!item.firstImages&&item._id!=hotel_id" style="width:100%;height:100%" mode="aspectFill"
-                      :src="item.firstImages||'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png'" />
-                    <image v-if="!item.firstImages&&item._id==hotel_id" style="width:100%;height:100%" mode="aspectFill"
-                      :src="item.firstImages||'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.jpg'" />
-
+                    <image v-if="!item.firstImages&&item._id!=hotel_id" style="width: 100%; height: 100%"
+                      mode="aspectFill" :src="item.firstImages||
+                        'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/app.png'
+                        " />
+                    <image v-if="!item.firstImages&&item._id==hotel_id" style="width: 100%; height: 100%"
+                      mode="aspectFill" :src="item.firstImages||
+                        'https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.jpg'
+                        " />
                   </view>
-                  <view style="padding:15px 10px" class="zcard-right">
-                    <view class="item"><view class="title">{{item.hotelName}}</view></view>
-                    <view class="item"><view class="subtitle">{{item.hotelAddress}}</view></view>
-
+                  <view style="padding: 15px 10px" class="zcard-right">
+                    <view class="item">
+                      <view class="title">{{item.hotelName}}</view>
+                    </view>
+                    <view class="item">
+                      <view class="subtitle">{{
+                        item.hotelAddress
+                      }}</view>
+                    </view>
                   </view>
                 </view>
               </view>
-
-
-
             </view>
-
           </scroll-view>
-          <!-- <view class="add-content-style">
-			<view class="control-panal">
-				<navigator url="/pages/hotelManage/hotelList/hotelList" hover-class="none">
-					<view class="control-item-group" @click="createOrderEvent">
-						<view><l-icon name="ri:hotel-fill" size="25px" color="#288fff" /></view>
-						<view><text style="color:#288fff">管理</text></view>
-					</view>
-				</navigator>
-        <navigator url="/pages/hotelManage/createHotel/createHotel" hover-class="none">
-					<view class="control-item-group" @click="createOrderEvent">
-						<view><l-icon name="solar:add-circle-bold" size="25px" color="#288fff" /></view>
-						<view><text style="color:#288fff">添加</text></view>
-					</view>
-				</navigator>
-			</view>
-		</view> -->
         </view>
       </view>
     </uni-drawer>
@@ -158,7 +147,8 @@ import feedback from "@/pages/mine/feedback/feedback";
 import recharge from "@/pages/mine/recharge/rechargeComponent";
 import intructions from "@/pages/mine/instructions/instructions";
 import { AccountService } from "@/services/AccountService";
-import {useStore} from 'vuex';
+import { useStore } from "vuex";
+import { ref ,getCurrentInstance } from "vue";
 export default {
   components: {
     gatherComponent,
@@ -173,18 +163,30 @@ export default {
     recharge,
     intructions,
   },
-  setup(){
-   
-	const store = useStore()
-	let config = store.state.config;
-	let imgUrl=`${config.cloudUrl}/HM/images/miniprogram/`;
-  return {
-    config
-  }
+  setup() {
+    const store = useStore();
+    const instance = getCurrentInstance();
+    let config = store.state.config;
+    let imgUrl = `${config.cloudUrl}/HM/images/miniprogram/`;
+    let refresher_triggered = ref(false);
+     //const gatherRef = instance.ctx.$refs.gatherRef;
+     const gatherRef = ref(null);
+    const refrush = async (e) => {
+      refresher_triggered.value = true;    
+      console.log("gatherRef",gatherRef) ;
+      await gatherRef.value.initData();
+      refresher_triggered.value = false;
+    };
+    return {
+      config,
+      refrush,
+      refresher_triggered,
+      gatherRef
+    };
   },
   data() {
     return {
-      isLoading:false,
+      isLoading: false,
       title: "Hello",
       isSticky: false,
       opacityVal: 1,
@@ -205,35 +207,33 @@ export default {
     };
   },
   onLoad(e) {
-	  //#ifdef MP
+    //#ifdef MP
     uni.hideHomeButton();
-	//#endif
+    //#endif
   },
   async created() {
     uni.$on("showPopupPivot", (popup, eventType) => {
       //popup开发枢纽，0 关闭，1打开
-     
+
       if (eventType == 1) {
         this.$refs[popup].open();
         return;
       }
       this.$refs[popup].close();
     });
- 
+
     await this.$store.dispatch("loginEvent");
     //this.initData();
-    
   },
   onShow() {
     //console.log("index onshow");
-    if (this.$store.state.isPcShow ||!this.$store.state.user) {
-     // uni.hideTabBar();
+    if (this.$store.state.isPcShow || !this.$store.state.user) {
+      // uni.hideTabBar();
     }
     //if(this.isPcShow){
     // #ifdef H5
     try {
-      
-     // document.getElementsByTagName("uni-page-head")[0].style.display = "none";
+      // document.getElementsByTagName("uni-page-head")[0].style.display = "none";
     } catch (error) {}
 
     // #endif
@@ -258,17 +258,19 @@ export default {
       //   path: `/pages/scenicSpot/showScenicSpot/showScenicSpot?hotel_id=${this.hotel_id}`,
       // };
       return {
-			title: "议宿",
-			imageUrl: `${this.$store.state.config.cloudUrl}/HM/images/sc.jpg`,
-			path: `/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}&&tabId=b4`,
-		};
+        title: "议宿",
+        imageUrl: `${this.$store.state.config.cloudUrl}/HM/images/sc.jpg`,
+        path: `/pages_client/hotelHome/hotelHome?hotel_id=${this.hotel._id}&&tabId=b4`,
+      };
     }
     if (this.currentTab_index == 3) {
       //点菜分享
       return {
         title: `【${this.hotel.hotelName}】订餐`,
         imageUrl: `${this.$store.state.config.cloudUrl}/HM/images/food.jpg`,
-        path: `/pages/catering/orderDishes/orderDishes?hotel=${encodeURIComponent(JSON.stringify(this.hotel))}`,
+        path: `/pages/catering/orderDishes/orderDishes?hotel=${encodeURIComponent(
+          JSON.stringify(this.hotel)
+        )}`,
       };
     }
   },
@@ -281,11 +283,10 @@ export default {
   mounted() {
     //console.log("index mounted....>>>", this.$store);
   },
-  async onPullDownRefresh() {
-    //console.log("index veu refrush");
-    await this.$refs.gather.initData();
-    uni.stopPullDownRefresh();
-  },
+  // async onPullDownRefresh() {
+  //   await this.$refs.gather.initData();
+  //   uni.stopPullDownRefresh();
+  // },
   computed: {
     isPcShow() {
       //console.log("index computed isPcshow....>>>");
@@ -301,7 +302,7 @@ export default {
         return false;
       }
     },
-    drawerWidth(){
+    drawerWidth() {
       return 340;
     },
     isBrowser() {},
@@ -319,9 +320,8 @@ export default {
       return !this.hotelList || this.hotelList.length < 1;
     },
     hotel() {
-        let h= this.hotelList.find((item) => item._id == this.hotel_id);
-        return h;
-      
+      let h = this.hotelList.find((item) => item._id == this.hotel_id);
+      return h;
     },
     permissionList() {
       return this.$store.state.permissionStore.permissionList;
@@ -354,25 +354,20 @@ export default {
     },
   },
   watch: {
-    async hotel_id(val,oldVal) {
+    async hotel_id(val, oldVal) {
       //console.log("index watch hotel_id", val);
-  
-	  if(val!=oldVal){
-		 // await this.$store.dispatch("getPermissionList", val);
 
-	  }
-    
+      if (val != oldVal) {
+        // await this.$store.dispatch("getPermissionList", val);
+      }
     },
- 
+
     permissionList() {
-    // this.initTabMenu();
+      // this.initTabMenu();
     },
-    user(val,oldVal){
-        //this.initData();
-     
-     
-    }
-  
+    user(val, oldVal) {
+      //this.initData();
+    },
   },
   methods: {
     switchEvent() {
@@ -403,7 +398,7 @@ export default {
         callback && callback();
       } catch (error) {}
     },
-  
+
     showCheckHotel() {
       this.showDrawerEvent();
     },
@@ -430,14 +425,12 @@ export default {
       this.showDrawer = false;
       this.$refs.showLeft.close();
     },
-    scrollRefrush(){
-      this.isLoading=true;
+    scrollRefrush() {
+      this.isLoading = true;
       setTimeout(() => {
-        this.isLoading=false;
+        this.isLoading = false;
       }, 1000);
-      this.clickTab({index:this.currentTab_index});
-   
-      
+      this.clickTab({ index: this.currentTab_index });
     },
     clickTab(e) {
       //console.log("clickTab",e)
@@ -448,12 +441,12 @@ export default {
           return;
         }
         uni.showLoading();
-        
+
         this.$store.commit(
           "setPartialRefreshComName",
           this.tabList[e.index].ComponentName
         );
-      
+
         return;
       }
       this.currentTab_index = e.index;
@@ -461,7 +454,7 @@ export default {
     scrollEvent(e) {
       let { scrollTop } = e.detail;
       //	this.opacityVal = 1 - (Math.min(scrollTop / 60, 1));
-      //	this.isSticky = (scrollTop >= 60 ? true : false);   
+      //	this.isSticky = (scrollTop >= 60 ? true : false);
     },
     swiperContentEvent(e) {
       this.currentTab_index = e.detail.current;
@@ -473,25 +466,25 @@ export default {
     },
     addNewHotel() {
       //if (!this.isPcShow) {
-        uni.navigateTo({
-          url: "/pages/hotelManage/createHotel/createHotel",
-        });
-        return;
-     // }
-     // this.$refs.popupHotelCreate.open();
+      uni.navigateTo({
+        url: "/pages/hotelManage/createHotel/createHotel",
+      });
+      return;
+      // }
+      // this.$refs.popupHotelCreate.open();
     },
     closePopup() {
       try {
-       // this.$refs.popupHotelCreate.close();
+        // this.$refs.popupHotelCreate.close();
         //  this.$refs.orderChildTableListRef.getOrderListByCondition();
         //  this.$refs.orderChildCalendarList.getOrderList();
         // this.$refs.orderChildListRef.getOrderList();
       } catch (e) {
         //TODO handle the exception
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -502,11 +495,11 @@ export default {
 
 .zcard {
   cursor: pointer;
-  padding:10px 0;
+  padding: 10px 0;
+
   &:hover {
     /*transform: scale(1.01);*/
     box-shadow: 2px 4px 12px #000;
-
   }
 
   background-color: #fffffe;
@@ -525,29 +518,29 @@ export default {
   .zcard-right {
     flex: 1;
     color: #fff;
-    font-size: $uni-font-size-sm ;
+    font-size: $uni-font-size-sm;
     display: flex;
     min-width: 0;
     flex-direction: column;
-    .item{
-        min-width: 0;
-    }
-    .title {
 
+    .item {
+      min-width: 0;
+    }
+
+    .title {
       color: #333333;
       font-weight: 400;
-      font-size: $uni-font-size-base ;
+      font-size: $uni-font-size-base;
       text-overflow: ellipsis;
       overflow: hidden;
-      white-space: nowrap
-
+      white-space: nowrap;
     }
 
     .subtitle {
       color: #666666;
-       text-overflow: ellipsis;
+      text-overflow: ellipsis;
       overflow: hidden;
-      white-space: nowrap
+      white-space: nowrap;
     }
 
     .item {
@@ -616,7 +609,7 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: $uni-font-size-lgs;
-   background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
+  background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
 }
 
 .more-menu-area {
@@ -638,12 +631,13 @@ export default {
   flex-direction: column;
 }
 
-.scroll-content .logo-area{
+.scroll-content .logo-area {
   display: flex;
   align-items: end;
   color: #fff;
-  .logo{
-        transform: translateX(-31px);
+
+  .logo {
+    transform: translateX(-31px);
   }
 }
 
@@ -651,7 +645,6 @@ export default {
   height: 90px;
   box-sizing: border-box;
   z-index: 999;
-
 
   .title-area {
     position: relative;
@@ -676,7 +669,6 @@ export default {
         text-overflow: ellipsis;
         overflow: hidden;
         color: #fff;
-
       }
 
       .check-panal {
@@ -731,15 +723,16 @@ export default {
   display: flex;
   flex-direction: column;
   background: #f4f5f9;
-.black-area{
-  height: 80px;
-   padding: 0 15px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-}
-  .title-area {
 
+  .black-area {
+    height: 80px;
+    padding: 0 15px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  .title-area {
     display: flex;
     display: flex;
     justify-content: space-between;
@@ -757,13 +750,12 @@ export default {
 
     .btn {
       font-size: 12px;
-      background-color: #1E88E5;
+      background-color: #1e88e5;
       color: #fff;
-      padding:2px 10px;
+      padding: 2px 10px;
       border-radius: 6px;
     }
   }
-
 }
 
 .right-container {
@@ -804,6 +796,4 @@ export default {
     background: #fff;
   }
 }
-
-
 </style>
