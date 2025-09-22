@@ -111,10 +111,8 @@ const store = createStore({
       store.commit("checkHotel", n_hotel_id);
      
     },
-    updateUser(state) {
-     
+    updateUser(state) {     
       const user = uni.getStorageSync("user");
-       console.warn("kkkkk",user)
       if (user) {
         store.commit("setUser", user);
       }
@@ -135,7 +133,6 @@ const store = createStore({
     },
     async getUser(context) {
       const res = await AccountService.getuserByToken();
-      //console.log("用户信息？？？？？",res)
       if (res.result.data[0]) {
         uni.setStorageSync("user", res.result.data[0]);
         context.commit("setUser", res.result.data[0]);
@@ -171,40 +168,25 @@ const store = createStore({
      * @param {*} noLoginEvent 未登录时直接触发
      * @returns 
      */
-    loginEvent(context, loginSuccess,noLoginEvent=null) {
-      return new Promise(async (resolve, reject) => {
+    async loginEvent(context, loginSuccess,noLoginEvent=null) {
         if (!uni.getStorageSync("hm_token")) {
           //未登录
-          context.dispatch("clearCache");
-          if(noLoginEvent){
-            console.log(3333)
-            noLoginEvent&&noLoginEvent();
-             reject("未登录");
-             return;
-          }
-          await context.dispatch("navPageLogin",loginSuccess);
-                 
+          context.dispatch("clearCache");      
+          return Promise.reject("未登录");                
         };
+       // await context.dispatch("navPageLogin",loginSuccess);
         const res = await AccountService.validToken();
         if (res.result.code) {
-			console.log('>_______________',res)
           res.result.msg &&
             uni.showToast({
               title: res.result.msg,
               duration: 2000,
               icon: "error",
             });
-          context.dispatch("clearCache");
-          context.dispatch("navPageLogin",loginSuccess);
-		      //console.log("token校验不通过");
-          reject("token校验不通过");
-          return;
+            context.dispatch("loginOut");
+          return Promise.reject("token验证失败");
         }
-        //console.log("token验证通过");
-        await context.dispatch("getUser");
-        resolve();
-        
-      });
+        return Promise.resolve('token验证通过')
     },
     async vaildToken(context) {
      
@@ -239,8 +221,6 @@ const store = createStore({
           resolve();
         },
       };
-      //if(userRole=='hotel'){
-        //console.log("后端登录")
         uni.redirectTo({        
           url: "/pages/indexAdvise/indexAdvise",
           events: {
@@ -250,17 +230,10 @@ const store = createStore({
           }
         });
         return;
-      //}
-      // //console.log("客户端登录")
-      // uni.navigateTo({
-      //   url: "/pages/login/login",
-      //   events: events
-      // });
      })
      
     },
     clearCache(context) {
-		console.log("---------------清除缓存")
       uni.removeStorageSync("hm_token");
       uni.removeStorageSync("user");
       context.commit("setUser",null);

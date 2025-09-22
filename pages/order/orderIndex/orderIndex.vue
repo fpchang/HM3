@@ -1,6 +1,6 @@
 <template>
   <view class="orderIndex">
-    <scroll-view
+    <!-- <scroll-view
       :scroll-x="false"
       :scroll-y="true"
       style="height: 100vh"
@@ -8,9 +8,9 @@
       :refresher-enabled="false"
       refresher-default-style="white"
       :refresher-triggered="refresher_triggered"
-    >
+    > -->
       <orderComponent :disHeightVal="disHeightVal" ref="orderRef"></orderComponent>
-    </scroll-view>
+    <!-- </scroll-view> -->
   
   </view>
 </template>
@@ -38,19 +38,28 @@ export default {
   },
   computed: {},
   async onPullDownRefresh() {
-    await this.$refs.order.refrush();
+    try {
+      await this.$refs.orderRef.refrush();
     uni.stopPullDownRefresh();
+    } catch (error) {
+      uni.showToast({
+        title: '请求失败',
+        icon: 'none'
+      });
+       uni.stopPullDownRefresh();
+    }
+    
   },
   onShow() {
     //this.$refs.order.refrush();
   },
   onReachBottom() {
-    this.$refs.order.loadMore();
+    this.$refs.orderRef.loadMore();
   },
   methods: {
     refrush() {
       //console.log("orderindex refrush")
-      this.$refs.order.refrush();
+      this.$refs.orderRef.refrush();
     },
   },
 };

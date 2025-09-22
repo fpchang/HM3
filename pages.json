@@ -8,7 +8,11 @@
 				"navigationBarTitleText" : "",
 				"navigationStyle": "custom",
 				"disableScroll": true,
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"backgroundColor":"#0765ae",
+				"app-plus":{
+					"bounce":"none"
+				}
 			}
 		},
 
@@ -27,10 +31,10 @@
 		}, {
 			"path": "pages/home/home",
 			"style": {
-				"enablePullDownRefresh": false,
+				"enablePullDownRefresh": true,
 				"navigationStyle": "custom",
-				"navigationBarTitleText": "",
-				"disableScroll": true
+				"navigationBarTitleText": ""
+				
 			}
 		}, {
 			"path": "pages/permission/setPermission/setPermission",
@@ -38,18 +42,7 @@
 				"navigationBarTitleText": ""
 			}
 		},
-		// {
-		// 	"path": "pages/scenicSpot/showScenicSpot/showScenicSpot",
-		// 	"style": {
-		// 		"navigationBarTitleText": "景点价格"
-		// 	}
-		// },
-		// {
-		// 	"path": "pages/catering/orderDishes/orderDishes",
-		// 	"style": {
-		// 		"navigationBarTitleText": "定餐服务"
-		// 	}
-		// },
+
 
 		{
 			"path": "pages/mine/mine",
@@ -85,36 +78,13 @@
 				"navigationBarTitleText": "添加员工"
 			}
 		},
-		// {
-		// 	"path": "pages/scenicSpot/addScenicSpot/addScenicSpot",
-		// 	"style": {
-		// 		"navigationBarTitleText": "新增景点"
-		// 	}
-		// },
-		// {
-		// 	"path": "pages/scenicSpot/addSencicSpotDetail/addSencicSpotDetail",
-		// 	"style": {
-		// 		"navigationBarTitleText": "新增景点价目"
-		// 	}
-		// },
+		
 		{
 			"path": "pages/hotelManage/createHotel/createHotel",
 			"style": {
 				"navigationBarTitleText": "新增酒店"
 			}
 		},
-		// {
-		// 	"path": "pages/catering/addMenuType/addMenuType",
-		// 	"style": {
-		// 		"navigationBarTitleText": "新增菜单分类"
-		// 	}
-		// },
-		// {
-		// 	"path": "pages/catering/addMenuDetail/addMenuDetail",
-		// 	"style": {
-		// 		"navigationBarTitleText": "新增菜单详情"
-		// 	}
-		// },
 
 		{
 			"path": "pages/common/success",
@@ -253,7 +223,10 @@
 						"enablePullDownRefresh": true,
 						"navigationBarBackgroundColor": "#0765ae",
 						"navigationBarTextStyle":"white",
-						"onReachBottomDistance":80
+						"onReachBottomDistance":80,
+						"app-plus":{
+							"bounce":"none"
+						}
 							
 					}
 				},
@@ -276,8 +249,15 @@
 					"style" : 
 					{
 						"navigationBarTitleText" : "财务管理",
+						
 						"navigationStyle": "custom",
-						"enablePullDownRefresh": true
+						"disableScroll":true,
+						"enablePullDownRefresh": true,
+						"bounce":"none",
+						"app-plus":{
+							"bounce":"none"
+							
+						}
 					}
 				},
 				{
@@ -287,8 +267,13 @@
 								"navigationBarTitleText" : "订单房态",
 												"enablePullDownRefresh": true,
 												"navigationBarBackgroundColor": "#0765ae",
+												"backgroundColor":"#fff",
 												"navigationBarTextStyle": "white",
-												"disableScroll": true
+												"app-plus":{
+													"bounce":"none",
+													"backgroundColor":"#fff"
+													
+												}
 					}
 				},
 				{
@@ -311,6 +296,13 @@
 					{
 						"navigationBarTitleText" : "新增房间"
 					}
+				},
+				{
+					"path" : "pages/homeN/homeN",
+					"style" : 
+					{
+						"navigationBarTitleText" : ""
+					}
 				}
 		
 
@@ -324,9 +316,7 @@
 					"style": {
 						"navigationBarTitleText": "",
 						"app-plus": {
-							// "titleNView": false,
-							// "scrollIndicator": "none",
-							// "softinputMode": "adjustResize"
+					
 						}
 					}
 				},
@@ -440,19 +430,17 @@
 	},
 	"globalStyle": {
 		"navigationBarTitleText": "",
-		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#0765ae",
+		"backgroundColor": "#F5F7FA",
 		"navigationBarBackgroundColor": "#0765ae",
 		"navigationBarTextStyle":"white",
+		
 		"pullToRefresh": {
 		             "support": true,
 		              "color": "#fff"
 								},
 		"backgroundColorTop":"#0765ae",
 		"app-plus": {
-			// "titleNView": false,
-			// "scrollIndicator": "none",
-			// "softinputMode": "adjustResize"
+
 		}
 	},
 	"uniIdRouter": {}

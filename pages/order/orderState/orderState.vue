@@ -1,6 +1,6 @@
 <template>
   <view class="order-component">
-	    <scroll-view
+	    <!-- <scroll-view
       :scroll-x="false"
       :scroll-y="true"
       style="height: 100vh"
@@ -8,7 +8,7 @@
       :refresher-enabled="false"
       refresher-default-style="white"
       :refresher-triggered="refresher_triggered"
-    >
+    > -->
 	    <view class="add-content-style">
       <view class="control-panal">
         <navigator url="/pages/order/orderIndex/orderIndex" hover-class="none">
@@ -29,7 +29,7 @@
       >
       </orderChildCalendarList>
     </view>
-</scroll-view>
+<!-- </scroll-view> -->
 
   </view>
 </template>

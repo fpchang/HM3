@@ -7,7 +7,7 @@
 
 
 			<view>
-				<xt-panal-list :count="5" bgColor="#063176">
+				<xt-panal-list :count="5" bgColor="#0765aec7">
 					<template v-slot:["card0"]>
 
 						<view class="label-area"><text>当月收入：</text><text
@@ -320,7 +320,7 @@
 .fmChartComponent{
 	height: 100%;
 	min-height: 100vh;
-	background: #0765ae;
+	
 }
 	.menu-list {
 		padding: 15px;
@@ -332,13 +332,15 @@
 
 	.label-area {
 		box-sizing: border-box;
-		padding: 10px;
+		padding: 20px 15px;
 		color: #fff;
-		font-size: 18px;
+		font-size: 20px;
 		font-weight: 400;
+		
 		.am-color {
-			color: $theam-main-color;
+			color: #fff;
 			padding: 0 4px;
+			font-weight: bold;
 		}
 	}
 </style>

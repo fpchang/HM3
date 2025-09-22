@@ -1,6 +1,6 @@
 <template>
   <view class="indexAdvise" v-if="isReading">
-    <scroll-view
+    <!-- <scroll-view
       :scroll-x="false"
       :scroll-y="true"
       style="height: 100vh"
@@ -8,7 +8,7 @@
       :refresher-enabled="false"
       refresher-default-style="white"
       :refresher-triggered="refresher_triggered"
-    >
+    > -->
       <view :style="{ height: navTopHeight }"></view>
       <view class="introduce">
         <view class="card glass">
@@ -20,13 +20,13 @@
         <view class="card glass">
           <view class="title">功能</view>
           <view class="content">
-            <view class="control-item-group" @click="createOrderEvent">
+            <view class="control-item-group" >
               <view
                 ><l-icon name="solar:reorder-bold" size="80px" color="#4f99fd"
               /></view>
               <view><text style="color: #fff">订单管理</text></view>
             </view>
-            <view class="control-item-group" @click="createOrderEvent">
+            <view class="control-item-group" >
               <view
                 ><l-icon
                   name="solar:calendar-date-bold-duotone"
@@ -35,7 +35,7 @@
               /></view>
               <view><text style="color: #fff">房态管理</text></view>
             </view>
-            <view class="control-item-group" @click="createOrderEvent">
+            <view class="control-item-group" >
               <view
                 ><l-icon
                   name="ic:sharp-maps-home-work"
@@ -44,7 +44,7 @@
               /></view>
               <view><text style="color: #fff">房型管理</text></view>
             </view>
-            <view class="control-item-group" @click="createOrderEvent">
+            <view class="control-item-group">
               <view
                 ><l-icon
                   name="material-symbols:bar-chart-4-bars"
@@ -53,7 +53,7 @@
               /></view>
               <view><text style="color: #fff">财务管理</text></view>
             </view>
-            <view class="control-item-group" @click="createOrderEvent">
+            <view class="control-item-group" >
               <view
                 ><l-icon
                   name="icon-park-solid:people-plus-one"
@@ -62,7 +62,7 @@
               /></view>
               <view><text style="color: #fff">员工账号</text></view>
             </view>
-            <view class="control-item-group" @click="createOrderEvent">
+            <view class="control-item-group" >
               <view
                 ><l-icon name="majesticons:monitor" size="80px" color="#fff"
               /></view>
@@ -99,7 +99,7 @@
                   </view>
                 </swiper-item>
               </swiper>
-            </view>
+            </view> 
           </view>
         </view>
       </view>
@@ -120,7 +120,7 @@
         <!-- #endif-->
          <button class="btn glass" @click="toLoginEvent()">登录体验</button>
       </view>
-    </scroll-view>
+    <!-- </scroll-view> -->
       <uni-popup ref="popup_confirm" type="bottom" border-radius="10px 10px 0 0">
         	<view class="popup-con">
             <view class="tit">议宿申请</view>
@@ -234,16 +234,17 @@ const decryptPhoneNumber = async (e) => {
   }
 };
 const start = (async () => {
-  if (!uni.getStorageSync("hm_token")) {
-    isReading.value = true;
-    return;
-  }
+  // if (!uni.getStorageSync("hm_token")) {
+  //   isReading.value = true;
+  //   return;
+  // }
   try {
     console.log("验证token")
-    const res = await store.dispatch("vaildToken");
+    const res = await store.dispatch("loginEvent");
     console.log("验证token结果",res);
     accessin();
   } catch (error) {
+    console.log("err",error)
     isReading.value = true;
   }
 })();
@@ -343,7 +344,7 @@ onMounted(() => {});
   background: url("https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/bg17.png");
   background-repeat: no-repeat;
   background-size: cover;
-
+  overflow:auto;
   .introduce {
     max-width: 800px;
     padding: 0 10px;
@@ -406,7 +407,7 @@ onMounted(() => {});
           width: calc(100vw - 50px);
           height: calc(1.5 * (100vw - 50px));
           max-width: 750px;
-          max-height: calc(1.5 * (750px));
+         /* max-height: calc(1.5 * (750px));*/
           border-radius: 12px;
           overflow: hidden;
         }

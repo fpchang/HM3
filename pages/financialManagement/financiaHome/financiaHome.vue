@@ -58,7 +58,7 @@ LIcon
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .financiaHome {
 
 	min-height: 100vh;

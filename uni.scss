@@ -192,7 +192,14 @@ $label-normal:#a1a1a1;
 	 
 
   }
-
+  //字体btn
+  .edit-text-btn-style{
+  	color: $font-color-control;
+  	font-size: $uni-font-size-base;
+  	cursor: pointer;
+  }
+  
+/* #ifndef APP-PLUS-NVUE */  
   .submit-btn,.submit-btn[type='default']{
 	  background-color: $font-color-control;
 	  color: #fff;
@@ -214,18 +221,15 @@ $label-normal:#a1a1a1;
 		  color: #999;
 		  
 	}
-  //字体btn
-  .edit-text-btn-style{
-	color: $font-color-control;
-	font-size: $uni-font-size-base;
-	cursor: pointer;
-  }
+
+
   button {
 	border: none !important;
 	}
   button::after{
 	border:none!important;
   }
+    /*#endif*/
 //初始化输入框
 .baseInput{
 	font-size: 12px;
@@ -258,7 +262,9 @@ $label-normal:#a1a1a1;
   .flex-page-bottom-shadow{
 	   box-shadow: 0 0 12px 0px #e8e8e8;;
   }
+  /* #ifndef APP-PLUS-NVUE */  
 page{
 	-webkit-user-select: text;
 	background-color: #F5F7FA;
 }
+/*#endif*/

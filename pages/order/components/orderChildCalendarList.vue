@@ -4,19 +4,12 @@
       <noData text_content="当前无订单数据"></noData>
     </block>
     <block v-if="!noData">
-     <!-- <view>{{JSON.stringify(checkInOrderListFormat)}}</view>  -->
       <view class="uni-container">
         <uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据">
           <uni-tr class="table-header">
-            <!-- <uni-th width="40" align="center">房型</uni-th> -->
             <uni-th width="60" align="center">
               <view>
                 房间
-                <!-- <view>
-                <l-icon name="material-symbols:calendar-today-rounded" size="40px" color="#42A5F5"/>
-               
-              </view>
-              <view> <text style="color:#42A5F5">{{new Date().Format("MM-dd")}}</text></view> -->
               </view>
             </uni-th>
             <uni-th align="center" v-for="item of orderDateRangeFormat">
@@ -24,14 +17,12 @@
                 <view>{{item.de}}</view>
                 <view>{{item.dy}}</view>
                 <view style="color: green">剩余（{{getRemainRoomCountByDate(item.name)}}）</view>
-                <!-- <view style="color:#bbb">(空4间)</view> -->
               </view>
             </uni-th>
           </uni-tr>
           <block v-for="(items, keys) of checkInOrderListFormat">
             <uni-tr v-for="(item, key) of items.resultRoomList" class="t-tr">
-              <!-- <uni-td :rowspan="items.roomCount"  :style="{'background':keys%2==0?'#f1f1f1':'#fff','display':key==0?'table-cell':'none'}"> <text style="font-weight:bold">{{items.name}}</text></uni-td> -->
-              <uni-td>
+             <uni-td>
                 <text style="font-weight: bold">{{
                   item.room_name
                 }}</text></uni-td>
@@ -398,6 +389,8 @@ export default {
 .uni-container {
   width: 100%;
   height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
 }
 
 .table-header {

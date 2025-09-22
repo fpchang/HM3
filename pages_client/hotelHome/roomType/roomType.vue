@@ -221,10 +221,7 @@ export default {
 				this.roomType = res.result.data;     
     },
     async reserve(item,priceField){
-      const f = ()=>{
-       
-      
-      }
+    return;
       if(!this.user){
          await this.$store.dispatch("loginEvent")
           uni.redirectTo({

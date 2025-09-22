@@ -10,6 +10,11 @@
         "usingComponents" : true,
         "nvueStyleCompiler" : "uni-app",
         "compilerVersion" : 3,
+		"safearea":{
+			"bottom":{
+				"offset":"none"//ios底部空白
+			}
+		},
         "splashscreen" : {
             "alwaysShowBeforeRender" : false,
             "waiting" : true,

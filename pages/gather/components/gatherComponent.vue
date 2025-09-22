@@ -30,7 +30,7 @@
 				</view>
 			</template>
 			 <template  v-slot:[`card1`]>
-				<orderChildList></orderChildList>
+				
 			</template> 
 		</xt-panal-list>
 		
@@ -38,8 +38,6 @@
 </template>
 
 <script>
-	import gatherCardComponent from './gatherCardComponent.vue';
-	import orderChildList from '../../order/components/orderChildList';
 	import {
 		OrderService
 	} from '../../../services/OrderService';
@@ -49,9 +47,7 @@
 	import XtSubsection from '../../../components/xt-subsection/xt-subsection.vue';
 	export default {
 		components: {
-			gatherCardComponent,
-			XtSubsection,
-			orderChildList
+			XtSubsection
 		},
 		props: {
 
@@ -359,6 +355,7 @@
 		display: flex;
 		justify-content: space-around;
 		flex-wrap: wrap;
+		flex-direction: row;
 		.grid-item{
 			width:33.3%;
 			height: 0;

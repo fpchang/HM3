@@ -79,11 +79,13 @@ export default {
 <style scoped lang="scss">
 .xt-sub-container{
   display: flex;
+     flex-direction: row;
   background-color: var(--bgColor,#eee);
   .sub-item{
     flex: 1;
     padding:10px 0;
     display: flex;
+ 
     justify-content: center;
     align-items: center;
     color:var(--fcolor,#a1a1a1);

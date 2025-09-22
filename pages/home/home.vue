@@ -1,8 +1,9 @@
 <template>
   <view class="home">
-      <scroll-view style="height:100vh" scroll-x="false" scroll-y="true" @refresherrefresh="refrush"
+      <!-- <scroll-view style="height:100vh" scroll-x="false" scroll-y="true" @refresherrefresh="refrush"
             :refresher-enabled="true" refresher-default-style="white" :refresher-triggered="refresher_triggered">
-               <view class="top-container">
+              -->
+             <view class="top-container"> 
       <view class="scroll-content">
         <view class="logo-area" :style="{height: navTopHeight}">
           <view class="logo">
@@ -31,7 +32,7 @@
     </view>
     <gatherComponent ref="gatherRef"> </gatherComponent> 
           
-          </scroll-view>
+          <!-- </scroll-view> -->
 
     <uni-drawer ref="showLeft" mode="left" :width="drawerWidth">
       <view class="left-container">
@@ -222,7 +223,7 @@ export default {
       this.$refs[popup].close();
     });
 
-    await this.$store.dispatch("loginEvent");
+    //await this.$store.dispatch("loginEvent");
     //this.initData();
   },
   onShow() {
@@ -283,10 +284,19 @@ export default {
   mounted() {
     //console.log("index mounted....>>>", this.$store);
   },
-  // async onPullDownRefresh() {
-  //   await this.$refs.gather.initData();
-  //   uni.stopPullDownRefresh();
-  // },
+  async onPullDownRefresh() {
+    try {
+      await this.$refs.gatherRef.initData();
+    uni.stopPullDownRefresh();
+    } catch (error) {
+       uni.showToast({
+        title: '请求失败',
+        icon: 'none'
+      });
+    uni.stopPullDownRefresh();
+    }
+    
+  },
   computed: {
     isPcShow() {
       //console.log("index computed isPcshow....>>>");
@@ -490,7 +500,7 @@ export default {
 <style lang="scss">
 .home {
   height: 100vh;
-  background: #fff;
+
 }
 
 .zcard {
@@ -633,6 +643,7 @@ export default {
 
 .scroll-content .logo-area {
   display: flex;
+  flex-direction:row;
   align-items: end;
   color: #fff;
 

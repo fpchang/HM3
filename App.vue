@@ -44,7 +44,7 @@
      this.$store.commit("setTopHeight","70px");
    // #endif
     // #ifndef MP
-	 //console.log("!!!MPPPPP")
+
      this.$store.commit("setTopHeight","60px");
    // #endif
 			this.getEnv();
