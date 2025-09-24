@@ -5,14 +5,7 @@
             <uni-forms-item label="房型名称" required name="name">
                 <uni-easyinput v-model="roomTypeForm.name" placeholder="请输入房型名称" />
             </uni-forms-item>
-            <uni-forms-item label="房型数量" name="count">
-                <view>
-                    <uv-number-box :min="1" integer v-model="roomTypeForm.count">
-                        <input slot="input" style="width: 100px;text-align: center;" class="input"
-                            v-model="roomTypeForm.count"></input>
-                    </uv-number-box>
-                </view>
-            </uni-forms-item>
+ 
 			<view>
 				<uni-forms-item label="封面图片" style="margin-bottom:0"></uni-forms-item>
 				<xt-file-picker ref="uploadImagesRef" :cloudPath="cloudPath" @success="uploadSuccessFirst" :imagesList="[roomTypeForm.imagesFirst]" :max="1"></xt-file-picker>

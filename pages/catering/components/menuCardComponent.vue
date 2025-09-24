@@ -8,46 +8,7 @@
         style="flex: 1; display: flex; justify-content: flex-end; gap: 15px"
       >
       
-        <!-- <uv-icon 
-          v-if="isEdit"
-          name="plus-circle-fill"
-          color="#000"
-          size="22"
-          label="增菜"
-          labelPos="bottom"
-          labelSize="12px"
-          @click="addMenuDetail"
-        ></uv-icon>
-        <uv-icon
-        v-if="isEdit"
-          name="trash-fill"
-          color="#000"
-          size="22"
-          label="删除"
-          labelPos="bottom"
-          labelSize="12px"
-          @click="deleteMenuType"
-        ></uv-icon>
-        <uv-icon
-        v-if="isEdit"
-          name="edit-pen-fill"
-          color="#000"
-          size="22"
-          label="编辑"
-          labelPos="bottom"
-          labelSize="12px"
-          @click="editMenuType"
-        ></uv-icon>
-        <uv-icon
-          name="grid-fill"
-          :color="isEdit?'#0765ae':'#000'"
-          size="22"
-          label="编辑模式"
-          :labelColor="isEdit?'#0765ae':'#000'"
-          labelPos="bottom"
-          labelSize="12px"
-          @click="moreControl"
-        ></uv-icon> -->
+     
       </view>
     </view>
     <!-- <uni-section class="mb-10" title="价目表" type="line"></uni-section> -->
@@ -59,24 +20,7 @@
           <text class="itx-p" :style="{'text-decoration':!item.isOffer? 'line-through':''}"><text>￥</text>{{item.price}}</text>
           
           <view class="icon-area">
-            <!-- <uv-icon
-            v-if="isEdit"
-              name="edit-pen-fill"
-              color="#000"
-              size="24"
-              labelPos="bottom"
-              labelSize="12px"
-              @click="editMenuDetail(item)"
-            ></uv-icon>
-            <uv-icon
-            v-if="isEdit"
-              name="trash-fill"
-              color="#000"
-              size="24"
-              labelPos="bottom"
-              labelSize="12px"
-              @click="deleteMenuDetail(item)"
-            ></uv-icon> -->
+           
             <text v-if="isEdit" class="edit-style" @click="editMenuDetail(item)">修改</text>
             <text v-if="isEdit" class="edit-style" @click="deleteMenuDetail(item)">删除</text>
           </view>

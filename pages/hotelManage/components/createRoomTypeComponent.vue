@@ -6,26 +6,20 @@
 			</uni-forms-item>
 			<!-- <uni-forms-item label="房间数量" name="count">
                 <view>
-                    <uv-number-box :min="1" integer v-model="roomTypeForm.count" :disabled="type==2">
-                        <input slot="input" style="width: 100px;text-align: center;" class="input"
-                            v-model="roomTypeForm.count"></input>
-                    </uv-number-box>
+                  
                 </view>
             </uni-forms-item> -->
 			<uni-forms-item label="面积" name="area">
 				<view style="display:flex;align-items:center">
-					<uv-number-box :min="1" integer v-model="roomTypeForm.area" :disabled="type==2">
-						<input slot="input" style="width: 100px;text-align: center;" class="input"
-							v-model="roomTypeForm.area"></input>
-					</uv-number-box><text style="padding-left:8px">㎡</text>
+					<uni-number-box v-model="roomTypeForm.area" :min="1" :max="200" :disabled="type==2">
+					</uni-number-box>
+					<text style="padding-left:8px">㎡</text>
 				</view>
 			</uni-forms-item>
 			<uni-forms-item label="入住人数" name="count">
 				<view>
-					<uv-number-box :min="1" integer v-model="roomTypeForm.guestNumber" :disabled="type==2">
-						<input slot="input" style="width: 100px;text-align: center;" class="input"
-							v-model="roomTypeForm.guestNumber"></input>
-					</uv-number-box>
+					<uni-number-box v-model="roomTypeForm.guestNumber" :min="1" :disabled="type==2">
+					</uni-number-box>
 				</view>
 			</uni-forms-item>
 			<uni-forms-item label="床位" required>
@@ -47,146 +41,11 @@
 			<uni-forms-item label="价格" required>
 				<view class="group">
 
-					<uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2"
-						inputWidth="60px">
-						<input slot="input" style="width: 200px;text-align: center;"
-							v-model="roomTypeForm.priceBase"></input>
-					</uv-number-box>
+					<uni-number-box :min="0" :max="9999" integer v-model="roomTypeForm.priceBase" :disabled="type==2"
+					>				
+					</uni-number-box>
 				</view>
-			</uni-forms-item>
-			<!-- <uni-forms-item label="是否有窗" name="isWindow">
-
-				 <view style="display:flex;align-items:center;height:100%"> 
-				  <radio-group @change="radioEvent('isWindow')">
-					<radio value="1" :checked="roomTypeForm.isWindow" /><text style="padding-right:10px">是</text>
-					<radio value="0" :checked="!roomTypeForm.isWindow" /><text style="padding-right:10px">否</text>
-				  </radio-group>
-				 </view>				
-			  </uni-forms-item> -->
-			<!-- <uni-forms-item label="有阳台" name="isBalcony">
-				 <view style="display:flex;align-items:center;height:100%"> 
-				  <radio-group @change="radioEvent('isBalcony')">
-					<radio value="1" :checked="roomTypeForm.isBalcony" :disabled="type==2"/><text style="padding-right:10px">是</text>
-					<radio value="0" :checked="!roomTypeForm.isBalcony" :disabled="type==2"/><text style="padding-right:10px">否</text>
-				  </radio-group>
-				 </view>				
-			  </uni-forms-item>
-			  <uni-forms-item label="有浴缸" name="isBathtub">
-				 <view style="display:flex;align-items:center;height:100%"> 
-				  <radio-group @change="radioEvent('isBathtub')">
-					<radio value="1" :checked="roomTypeForm.isBathtub" :disabled="type==2"/><text style="padding-right:10px">是</text>
-					<radio value="0" :checked="!roomTypeForm.isBathtub" :disabled="type==2"/><text style="padding-right:10px" >否</text>
-				  </radio-group>
-				 </view>				
-			  </uni-forms-item>
-			<uni-forms-item label="洗漱用品" name="isOffer">
-				 <view style="display:flex;align-items:center;height:100%"> 
-				  <radio-group @change="radioEvent('disposableToiletries')">
-					<radio value="1" :checked="roomTypeForm.disposableToiletries" :disabled="type==2"/><text style="padding-right:10px">是</text>
-					<radio value="0" :checked="!roomTypeForm.disposableToiletries" :disabled="type==2"/><text style="padding-right:10px">否</text>
-				  </radio-group>
-				 </view>				
-			  </uni-forms-item> -->
-			<!-- <view style="display:flex;flex-direction:column;gap:10px;font-size:13px;padding-bottom:15px">
-				<view>价格设置</view>
-				<view class="priceContainer">
-					<view class="price-list">
-						<view class="price-list-item">
-							<view class="group">
-								<text>名称：</text>
-								<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name" class="in"
-									type="textarea" :disabled="type==2"></input>
-							</view>
-							<view class="group">
-								<text>价格：</text>
-								<uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2"
-									inputWidth="60px">
-									<input slot="input" style="width: 200px;text-align: center;"
-										v-model="roomTypeForm.priceBase"></input>
-								</uv-number-box>
-							</view>
-
-						</view>
-					</view>
-				</view>
-
-				<view class="priceContainer">
-					<view class="price-list">
-						<view class="price-list-item">
-							<view class="group">
-								<text>名称：</text>
-								<input placeholder="套餐A" v-model="roomTypeForm.priceA_name" class="in" type="textarea"
-									:disabled="type==2"></input>
-							</view>
-							<view class="group">
-								<text>价格：</text>
-								<uv-number-box :min="0" integer v-model="roomTypeForm.priceA" :disabled="type==2"
-									inputWidth="60px">
-									<input slot="input" style="width: 200px;text-align: center;"
-										v-model="roomTypeForm.priceA"></input>
-								</uv-number-box>
-							</view>
-
-						</view>
-					</view>
-				</view>
-				<view class="priceContainer">
-					<view class="price-list">
-						<view class="price-list-item">
-							<view class="group">
-								<text>名称：</text>
-								<input placeholder="套餐B" v-model="roomTypeForm.priceB_name" class="in" type="textarea"
-									:disabled="type==2"></input>
-							</view>
-							<view class="group">
-								<text>价格：</text>
-								<uv-number-box :min="0" integer v-model="roomTypeForm.priceB" :disabled="type==2"
-									inputWidth="60px">
-									<input slot="input" style="width: 200px;text-align: center;"
-										v-model="roomTypeForm.priceB"></input>
-								</uv-number-box>
-							</view>
-
-						</view>
-					</view>
-				</view>
-				<view><text style="color:#a1a1a1;color:#0765ae">单个房型最多可设置3个价格，分别为基本价格，套餐价格，如 带早餐价格，与基本价格区分.<text
-							style="color:#ff0000">如要取消套餐，将价格设置为0</text></text></view>
-
-
-
-			</view> -->
-			<!-- <uni-forms-item label="标准价格" required>
-			<view style="display:flex;justify-content:space-between"> 
-				<view class="group flex-center">
-					<text>名称：</text> 
-					<input placeholder="基本价格" v-model="roomTypeForm.priceBase_name"  class="in" :disabled="type==2"></input> 
-				</view>
-				<view class="group flex-center">
-					<text>价格：</text> 
-					<uv-number-box :min="0" integer v-model="roomTypeForm.priceBase" :disabled="type==2" inputWidth="60px">
-						<input slot="input" style="width: 200px;text-align: center;" 
-							v-model="roomTypeForm.priceBase"></input>
-					</uv-number-box>
-				</view>
-			</view>
-			
-		</uni-forms-item>  -->
-			<!-- <uni-forms-item label="是否议价"> 
-				<radio-group @change="isBargainChange" >
-					<radio :disabled="type==2" :value="true" :checked="roomTypeForm.isBargain" /><text style="padding-right:10px">是</text>
-					<radio :disabled="type==2" :value="false" :checked="!roomTypeForm.isBargain" /><text style="padding-right:10px">否</text>
-				  </radio-group>
-			  </uni-forms-item>
-			  <uni-forms-item label="议价范围" v-if="roomTypeForm.isBargain"> 
-		
-				  <view class="flex-center">
-					<view style="flex:1"><slider :disabled="type==2" :value="roomTypeForm.bargainMinPercent" @change="bargainMinPercentChange" min="50" max="100" show-value /> </view><text>（最低{{roomTypeForm.bargainMinPercent}}%）</text>
-				</view>				
-			  </uni-forms-item> -->
-
-
-
+			</uni-forms-item>			
 			<uni-forms-item label="屋内设施" required>
 				<checkbox-group @change="facilityCheckboxChange">
 					<unicloud-db v-slot:default="{data, loading, error, options}" collection="hm-facilityConfig"
@@ -241,29 +100,7 @@ export default {
 			return {
 				submitLoading: false,
 				cloudPath:`/${this.$store.state.hotel_id}/roomType/`,
-				roomTypeForm: this.type!=0?{
-                    "count": this.rt.count,
-                    "name": this.rt.name,
-					"area":this.rt.area,
-					//"isBathtub":this.rt.isBathtub,
-					//"isBalcony":this.rt.isBalcony,
-					"isWindow":this.rt.isWindow,
-					"guestNumber":this.rt.guestNumber,
-					"firstImages":this.rt.firstImages||"",
-					"imagesList": this.rt.imagesList||[],
-					//"disposableToiletries":this.rt.disposableToiletries,
-					"bedList":this.rt.bedList,
-                    "roomList":this.rt.roomList,
-					"facility":this.rt.facility||[],
-					"priceBase_name":this.rt.priceBase_name,
-					"priceA_name":this.rt.priceA_name,
-					"priceB_name":this.rt.priceB_name,
-					"priceBase":this.rt.priceBase,
-					"priceA":this.rt.priceA,
-					"priceB":this.rt.priceB,
-					isBargain:this.rt.isBargain,
-					bargainMinPercent:this.rt.bargainMinPercent||80
-				}: {
+				roomTypeForm: {
                     "count": 1,
                     "name": "",
 					"area":15,
@@ -325,9 +162,32 @@ export default {
 			};
 		},
 		created() {
-			if(this.type!=0){
+			// this.type!=0?{
+			//     "count": this.rt.count,
+			//     "name": this.rt.name,
+			// 	"area":this.rt.area,
+			// 	//"isBathtub":this.rt.isBathtub,
+			// 	//"isBalcony":this.rt.isBalcony,
+			// 	"isWindow":this.rt.isWindow,
+			// 	"guestNumber":this.rt.guestNumber,
+			// 	"firstImages":this.rt.firstImages||"",
+			// 	"imagesList": this.rt.imagesList||[],
+			// 	//"disposableToiletries":this.rt.disposableToiletries,
+			// 	"bedList":this.rt.bedList,
+			//     "roomList":this.rt.roomList,
+			// 	"facility":this.rt.facility||[],
+			// 	"priceBase_name":this.rt.priceBase_name,
+			// 	"priceA_name":this.rt.priceA_name,
+			// 	"priceB_name":this.rt.priceB_name,
+			// 	"priceBase":this.rt.priceBase,
+			// 	"priceA":this.rt.priceA,
+			// 	"priceB":this.rt.priceB,
+			// 	isBargain:this.rt.isBargain,
+			// 	bargainMinPercent:this.rt.bargainMinPercent||80
+			// }:
+			if(this.type!=undefined&&this.type!=0){
 				let _id = this.rt._id;
-
+					this.roomTypeForm=JSON.parse(JSON.stringify(this.rt));
 			}
 		},
 		mounted(){

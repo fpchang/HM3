@@ -33,7 +33,7 @@
         <view class="item item_">
           <navigator :url="`/pages_client/hotelHome/hotelHome?hotel_id=${hotel_id}`" hover-class="none">
             <view>
-              <l-icon name="carbon:logo-linkedin" size="110px" color="#f64653" />
+              <l-icon name="carbon:logo-linkedin" size="80px" color="#f64653" />
               <view style="text-align: center">酒店展示</view>
             </view>
           </navigator>
@@ -213,9 +213,9 @@ export default {
 
   .item-list {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 20px;
 
     .item {
       /* width: 150px;

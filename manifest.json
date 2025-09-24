@@ -10,11 +10,11 @@
         "usingComponents" : true,
         "nvueStyleCompiler" : "uni-app",
         "compilerVersion" : 3,
-		"safearea":{
-			"bottom":{
-				"offset":"none"//ios底部空白
-			}
-		},
+        "safearea" : {
+            "bottom" : {
+                "offset" : "none" //ios底部空白
+            }
+        },
         "splashscreen" : {
             "alwaysShowBeforeRender" : false,
             "waiting" : true,
@@ -79,7 +79,7 @@
                 "maps" : {
                     "amap" : {
                         "name" : "amapAw5CiRY6N",
-                        "appkey_ios" : "fcda0c29e3679748e0f59ddb18b94960",
+                        "appkey_ios" : "dec5f0e878b1498301359f76d85dda03",
                         "appkey_android" : "fcda0c29e3679748e0f59ddb18b94960"
                     }
                 },

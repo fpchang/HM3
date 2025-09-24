@@ -839,7 +839,7 @@
 
 	.uni-calendar__box-bg-text {
 		font-size: 200px;
-		font-weight: 400;
+		font-weight: bold;
 		color: #999;
 		opacity: 0.1;
 		text-align: center;

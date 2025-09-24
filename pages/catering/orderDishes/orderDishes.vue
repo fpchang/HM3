@@ -58,10 +58,7 @@
 								</view>
 								
 
-								<!-- <uv-number-box v-if="i.checkCount" :min="0" integer v-model="i.checkCount">
-									<input slot="input" style="width: 40px;text-align: center;" class="input"
-										v-model="i.checkCount"></input>
-								</uv-number-box> -->
+						
 							</view>
 
 						</view>

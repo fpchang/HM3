@@ -2,7 +2,7 @@
 	<view class="xt-panal-list">
 		<view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
-				<view class="card" v-for="(item,index) in count" :style="{width: `${cardWidth}px`}">
+				<view class="card" v-for="(item,index) in count" :style="{width: `${cardWidth}px`,'max-width':maxWidth}">
 				
 					<view class="card-item" :style="{'background':bgColor,'box-shadow':isShadow?shadow:''}">
 						<!-- #ifdef MP -->
@@ -23,6 +23,10 @@
 	export default {
 		name: "xt-panal-list",
 		props: {
+			wrap:{
+				type:Boolean,
+				default:true
+			},
 			bgColor:{
 				type:String,
 				default:"#fff"
@@ -81,8 +85,17 @@
 				if (count == 0) {
 					return windowWidth;
 				}
+				if(!this.wrap){
+					return windowWidth;
+				}
 				let ys = windowWidth % 370;
 				return Math.min(370 + ys / count, 450);
+			},
+			maxWidth(){
+				if(this.wrap){
+					return '450px';
+				}
+				return 'none';
 			},
 			cardContainerWidth() {
 				let count = Math.max(Math.floor(this.viewWidth / this.cardWidth), 1);

@@ -9,7 +9,7 @@
       refresher-default-style="white"
       :refresher-triggered="refresher_triggered"
     > -->
-      <orderComponent :disHeightVal="disHeightVal" ref="orderRef"></orderComponent>
+      <orderComponent :disHeightVal="0" ref="orderRef"></orderComponent>
     <!-- </scroll-view> -->
   
   </view>
@@ -17,24 +17,28 @@
 
 <script>
 import orderComponent from "@/pages/order/components/orderComponent";
-import {ref} from "vue";
+import { ref, onMounted } from 'vue';
 export default {
   components: {
     orderComponent,
   },
   setup() {
-    let refresher_triggered = ref(false);
-       const orderRef = ref(null);
-    const refrush = async (e) => {
-      console.log("orderIndex refrush");
-      refresher_triggered.value = true;  
-      await orderRef.value.refrush();
-      refresher_triggered.value = false;
-    };
-    return {refrush,refresher_triggered}
+    // let refresher_triggered = ref(false);
+    //    const orderRef = ref(null);
+    // const refrush = async (e) => {
+    //   console.log("orderIndex refrush",orderRef,orderRef.value);
+    //   console.log("1111",this.$refs.orderRef)
+    //   refresher_triggered.value = true;  
+    //   await orderRef.refrush();
+    //   refresher_triggered.value = false;
+    // };
+    // return {refresher_triggered}
   },
   data() {
     return {};
+  },
+  mounted(){
+   
   },
   computed: {},
   async onPullDownRefresh() {
@@ -60,7 +64,7 @@ export default {
     refrush() {
       //console.log("orderindex refrush")
       this.$refs.orderRef.refrush();
-    },
+    }
   },
 };
 </script>

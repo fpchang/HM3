@@ -114,8 +114,11 @@
   
   <style scoped>
   .feedback{
-	max-width: 800px;
-	padding:15px;
-	margin:auto
+	max-width: 500px;
+	padding:15px 0;
+	margin:auto;
+	display: flex;
+	justify-content: center;
+	
   }
 	</style>

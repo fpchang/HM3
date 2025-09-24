@@ -1,6 +1,6 @@
 <template>
   <view class="indexAdvise" v-if="isReading">
-    <!-- <scroll-view
+    <scroll-view
       :scroll-x="false"
       :scroll-y="true"
       style="height: 100vh"
@@ -8,7 +8,7 @@
       :refresher-enabled="false"
       refresher-default-style="white"
       :refresher-triggered="refresher_triggered"
-    > -->
+    >
       <view :style="{ height: navTopHeight }"></view>
       <view class="introduce">
         <view class="card glass">
@@ -20,13 +20,13 @@
         <view class="card glass">
           <view class="title">功能</view>
           <view class="content">
-            <view class="control-item-group" >
+            <view class="control-item-group">
               <view
                 ><l-icon name="solar:reorder-bold" size="80px" color="#4f99fd"
               /></view>
               <view><text style="color: #fff">订单管理</text></view>
             </view>
-            <view class="control-item-group" >
+            <view class="control-item-group">
               <view
                 ><l-icon
                   name="solar:calendar-date-bold-duotone"
@@ -35,7 +35,7 @@
               /></view>
               <view><text style="color: #fff">房态管理</text></view>
             </view>
-            <view class="control-item-group" >
+            <view class="control-item-group">
               <view
                 ><l-icon
                   name="ic:sharp-maps-home-work"
@@ -53,7 +53,7 @@
               /></view>
               <view><text style="color: #fff">财务管理</text></view>
             </view>
-            <view class="control-item-group" >
+            <view class="control-item-group">
               <view
                 ><l-icon
                   name="icon-park-solid:people-plus-one"
@@ -62,7 +62,7 @@
               /></view>
               <view><text style="color: #fff">员工账号</text></view>
             </view>
-            <view class="control-item-group" >
+            <view class="control-item-group">
               <view
                 ><l-icon name="majesticons:monitor" size="80px" color="#fff"
               /></view>
@@ -76,7 +76,8 @@
         </view>
         <view class="card glass">
           <view class="title">界面</view>
-          <view class="content">
+          <!--#ifdef MP-->
+          <!-- <view class="content">
             <view class="barner">
               <swiper
                 :indicator-dots="true"
@@ -99,8 +100,32 @@
                   </view>
                 </swiper-item>
               </swiper>
-            </view> 
+            </view>
+          </view> -->
+          <!--#endif-->
+     
+          <view class="video-content">
+            <!--#ifndef APP-PLUS-->
+             <video id="myVideo" src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/advise.mp4"
+             :autoplay="true"
+             :muted="true"
+             object-fit="contain"
+             :vslide-gesture="true"
+             :show-mute-btn="true"
+               controls></video>
+             <!--#endif-->  
+             <!--#ifdef APP-PLUS--> 
+            <DomVideoPlayer
+              ref="domVideoPlayer"
+              src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/advise.mp4"
+              autoplay
+              loop
+              controls
+              muted
+            />
+            <!--#endif-->
           </view>
+          
         </view>
       </view>
       <view style="height: 120px"></view>
@@ -116,21 +141,30 @@
 
         <!-- #endif-->
         <!-- #ifndef MP-->
-        
+
         <!-- #endif-->
-         <button class="btn glass" @click="toLoginEvent()">登录体验</button>
+        <button class="btn glass" @click="toLoginEvent()">登录体验</button>
       </view>
-    <!-- </scroll-view> -->
-      <uni-popup ref="popup_confirm" type="bottom" border-radius="10px 10px 0 0">
-        	<view class="popup-con">
-            <view class="tit">议宿申请</view>
-            <view class="txt-content">此系统需要使用手机号登录后才能使用全部功能，确认是否手机号登录</view>
-            <view class="control">
-              <view class="btn-style" @click="agreeGetPhoneEvent(false)">拒绝</view>
-              <view class="btn-style btn-confirm"  @click="agreeGetPhoneEvent(true)">允许</view>
-            </view>
-          </view>
-      </uni-popup>
+    </scroll-view>
+    <uni-popup
+      ref="popup_confirm"
+      type="bottom"
+      :safe-area="false"
+      border-radius="10px 10px 0 0"
+    >
+      <view class="popup-con">
+        <view class="tit">议宿申请</view>
+        <view class="txt-content"
+          >此系统需要使用手机号登录后才能使用全部功能，确认是否手机号登录</view
+        >
+        <view class="control">
+          <view class="btn-style" @click="agreeGetPhoneEvent(false)">拒绝</view>
+          <view class="btn-style btn-confirm" @click="agreeGetPhoneEvent(true)"
+            >允许</view
+          >
+        </view>
+      </view>
+    </uni-popup>
   </view>
 </template>
 
@@ -148,34 +182,35 @@ import { AccountService } from "@/services/AccountService";
 const store = new useStore();
 let isReading = ref(false);
 let refresher_triggered = ref(false);
-let submitLoading=ref(false);
-let agreeGetPhone= ref(false);
+let submitLoading = ref(false);
+let agreeGetPhone = ref(false);
 const accessin = () => {
   uni.redirectTo({
     url: "/pages/index/index",
   });
 };
-const popup_confirm=ref(null);
-const toLoginEvent=()=>{
- //#ifdef MP
-   popup_confirm.value.open();
-   return;
+const popup_confirm = ref(null);
+const toLoginEvent = () => {
+  //#ifdef MP
+  popup_confirm.value.open();
+  return;
   //#endif
   toLogin();
-}
+};
 const toLogin = () => {
-
   uni.navigateTo({
     url: "/pages/login/login",
   });
 };
-const agreeGetPhoneEvent=(flag)=>{
-  if(flag){
+const agreeGetPhoneEvent = (flag) => {
+  if (flag) {
+    popup_confirm.value.close();
     toLogin();
+
     return;
   }
   popup_confirm.value.close();
-}
+};
 const getUserInfo = async (phone) => {
   const db = uniCloud.database();
   const userRes = await db
@@ -184,24 +219,23 @@ const getUserInfo = async (phone) => {
     .get();
   uni.setStorageSync("user", userRes.result.data[0]);
   store.commit("setUser", userRes.result.data[0]);
-   console.log("本地数据完成",userRes)
+  console.log("本地数据完成", userRes);
   return null;
 };
 const decryptPhoneNumber = async (e) => {
-    if(submitLoading.value){
+  if (submitLoading.value) {
     return;
-   }
-   submitLoading.value = true;
- 
-    uni.showLoading();
+  }
+  submitLoading.value = true;
+
+  uni.showLoading();
   let { code } = e.detail;
   if (!code) {
-     submitLoading.value = false;
-     uni.hideLoading();
+    submitLoading.value = false;
+    uni.hideLoading();
     return;
   }
   try {
-  
     const res = await AccountService.loginMp(code);
     if (res.result.code) {
       uni.showToast({
@@ -216,21 +250,21 @@ const decryptPhoneNumber = async (e) => {
     const { token, phone } = res.result.data;
     uni.setStorageSync("hm_token", token);
     uni.setStorageSync("phone", phone);
-   await  getUserInfo(phone);
-   console.log("登录完成")
-      uni.reLaunch({
-        url: "/pages/index/index",
-      });
-       submitLoading.value = false;
-       uni.hideLoading();
+    await getUserInfo(phone);
+    console.log("登录完成");
+    uni.reLaunch({
+      url: "/pages/index/index",
+    });
+    submitLoading.value = false;
+    uni.hideLoading();
   } catch (error) {
-    console.error(error)
+    console.error(error);
     uni.showToast({
       title: "登录失败",
       icon: "none",
     });
-     submitLoading.value = false;
-     uni.hideLoading();
+    submitLoading.value = false;
+    uni.hideLoading();
   }
 };
 const start = (async () => {
@@ -239,12 +273,12 @@ const start = (async () => {
   //   return;
   // }
   try {
-    console.log("验证token")
+    console.log("验证token");
     const res = await store.dispatch("loginEvent");
-    console.log("验证token结果",res);
+    console.log("验证token结果", res);
     accessin();
   } catch (error) {
-    console.log("err",error)
+    console.log("err", error);
     isReading.value = true;
   }
 })();
@@ -341,10 +375,10 @@ onMounted(() => {});
   min-height: 100vh;
   height: 100%;
   background: #0765ae;
-  background: url("https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/bg17.png");
+  background: url("https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/bg9.png");
   background-repeat: no-repeat;
   background-size: cover;
-  overflow:auto;
+  overflow: auto;
   .introduce {
     max-width: 800px;
     padding: 0 10px;
@@ -362,7 +396,8 @@ onMounted(() => {});
       padding: 0 15px 15px 15px;
       box-sizing: border-box;
       border-radius: 12px;
-
+      background: rgba(0, 0, 0, 0.48);
+      overflow: hidden;
       .title {
         font-weight: 400;
         font-size: 24px;
@@ -407,10 +442,14 @@ onMounted(() => {});
           width: calc(100vw - 50px);
           height: calc(1.5 * (100vw - 50px));
           max-width: 750px;
-         /* max-height: calc(1.5 * (750px));*/
+          /* max-height: calc(1.5 * (750px));*/
           border-radius: 12px;
           overflow: hidden;
         }
+      }
+      .video-content{
+        display: flex;
+        justify-content: center;
       }
     }
   }
@@ -430,7 +469,7 @@ onMounted(() => {});
       color: #fff;
       font-size: 16px;
       letter-spacing: 2px;
-      background-color: #007aff6e;
+      background-color: rgba(0, 0, 0, 0.48);
     }
   }
 }
@@ -444,44 +483,44 @@ onMounted(() => {});
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
     inset 0 4px 20px rgba(255, 255, 255, 0.3);
 }
-.popup-con{
+.popup-con {
   height: 150px;
-  padding:15px;
-  background:#fafafa;
+  padding: 15px;
+  background: #fafafa;
   display: flex;
   flex-direction: column;
   gap: 10px;
   font-size: 16px;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  .tit{
+  .tit {
     font-weight: 400;
-     font-size: 18px;
-     color: #666;
+    font-size: 18px;
+    color: #666;
   }
-  .txt-content{
+  .txt-content {
     font-size: 16px;
     text-indent: 16px;
     color: #999;
   }
-  .control{
+  .control {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
-    .btn-style{
+    .btn-style {
       background: #fff;
       width: 100px;
       height: 35px;
-      border:1px solid #eee;
+      border: 1px solid #eee;
       text-align: center;
       line-height: 35px;
       border-radius: 5px;
       color: #007aff;
     }
-    .btn-confirm{
+    .btn-confirm {
       color: #fff;
-      background:#007aff
+      background: #007aff;
     }
   }
 }

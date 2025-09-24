@@ -36,8 +36,9 @@
 			<uni-forms-item label="特点">
 				<view style="display:flex;align-items:flex-end;justify-content:start;gap:10px;flex-wrap:wrap">
 					<view v-for="(item,index) in hotelForm.feature">
-						<uv-tags :text="item" type="warning" :closable="type!=2" :show="close2"
-							@close="deleteFeature(index)"></uv-tags>
+						<!-- <uv-tags :text="item" type="warning" :closable="type!=2" :show="close2"
+							@close="deleteFeature(index)"></uv-tags> -->
+							<xt-tag :text="item" :closable="type!=2" @close="deleteFeature(index)"></xt-tag>
 					</view>
 					<view :class="['tag-xt',type==2?'tag-xt-disable':'']" @click="addFeature"><uni-icons type="plus"
 							size="22px" :color="type==2?'#eee':'#a1a1a1'"></uni-icons><text>添加</text></view>
@@ -178,24 +179,7 @@
 				showPopup: false,
 				cloudPath: `/${this.$store.state.hotel_id}/hotel/`,
 				tabval: "",
-				hotelForm: this.type != 0 ? {
-					belong: this.targetObj.belong,
-					hotelName: this.targetObj.hotelName,
-					hotelAddressCode: this.targetObj.hotelAddressCode,
-					hotelAddress: this.targetObj.hotelAddress,
-					hotelAddressArea: this.targetObj.hotelAddressArea,
-					hotelCoordinate: this.targetObj.hotelCoordinate,
-					hotelIntroduction: this.targetObj.hotelIntroduction,
-					"firstImages": this.targetObj.firstImages || "",
-					"imagesList": this.targetObj.imagesList || [],
-					"cateringServices": this.targetObj.cateringServices,
-					baseFacility:this.targetObj.baseFacility,
-					"recreationFacility": this.targetObj.recreationFacility,
-					"athleticFacility": this.targetObj.athleticFacility,
-					serviceTel: this.targetObj.serviceTel,
-					wechat: this.targetObj.wechat,
-					feature: this.targetObj.feature
-				} : {
+				hotelForm: {
 					belong: "",
 					hotelName: "",
 					hotelAddress: "",
@@ -261,7 +245,29 @@
 			};
 		},
 		created() {
-			//console.log("target", this.targetObj)
+			console.log("target", this.targetObj)
+			if(this.type!=undefined&&this.type != 0){
+				// let obj ={
+				// 	belong: this.targetObj.belong,
+				// 	hotelName: this.targetObj.hotelName,
+				// 	hotelAddressCode: this.targetObj.hotelAddressCode,
+				// 	hotelAddress: this.targetObj.hotelAddress,
+				// 	hotelAddressArea: this.targetObj.hotelAddressArea,
+				// 	hotelCoordinate: this.targetObj.hotelCoordinate,
+				// 	hotelIntroduction: this.targetObj.hotelIntroduction,
+				// 	"firstImages": this.targetObj.firstImages || "",
+				// 	"imagesList": this.targetObj.imagesList || [],
+				// 	"cateringServices": this.targetObj.cateringServices,
+				// 	baseFacility:this.targetObj.baseFacility,
+				// 	"recreationFacility": this.targetObj.recreationFacility,
+				// 	"athleticFacility": this.targetObj.athleticFacility,
+				// 	serviceTel: this.targetObj.serviceTel,
+				// 	wechat: this.targetObj.wechat,
+				// 	feature: this.targetObj.feature
+				// } 
+				this.hotelForm=JSON.parse(JSON.stringify(this.targetObj));
+			}
+			 
 		},
 		computed: {
 			user() {
@@ -362,14 +368,20 @@
 					//uni.showLoading();
 					this.submitLoading = true;
 					let addressStr = this.hotelForm.hotelAddressArea + this.hotelForm.hotelAddress
-					const location = await this.searchAddress(addressStr);
-					//console.log("获取的坐标", location);
+					try {
+							const location = await this.searchAddress(addressStr);
+					console.log("获取的坐标", location);
 					this.hotelForm.hotelCoordinate = location;
 					if (this.type == 1) {
 						this.updateHotel();
 						return;
 					}
 					this.addHotel();
+					} catch (error) {
+						console.log("eeeee",error)
+						uni.showToast({title:error,icon:"none"})
+					}
+				
 
 
 				});
@@ -427,16 +439,17 @@
 						amapPlugin.getInputtips({
 							keywords: keywords,
 							//location: location.toString(","),
-							success: function(data) {
-								//console.log("sssss", data)
+							success: (data)=> {
+								console.log("sssss", data);
 								if (data.tips.length < 1) {
 									uni.showToast({
 										title: '无法定位该地址',
 										icon: 'none'
 									})
+									reject("无法定位该地址")
 									return;
 								}
-								let location = data.tips[0].location;
+								let location = this.filterLocation(data.tips);
 								let loc = location.split(",").map(Number);
 								relolve(loc);
 
@@ -452,6 +465,14 @@
 
 				})
 
+			},
+			filterLocation(list=[]){
+				if(!list.length ){
+					return "";
+				}
+				let item = list.find(item=>item.location.length>0);
+				console.log("filterloaction return:",item)
+				return item?item.location:"";
 			}
 		},
 	};

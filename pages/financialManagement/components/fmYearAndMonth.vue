@@ -10,33 +10,16 @@
         <view class="item-title"><text>{{item.title}}</text></view>
         <view class="item-con"><text>￥{{item.value}}</text></view>
       </view>
-      <!-- <view class="chart-item" style="background:#3698fc">
-				<view class="more"><l-icon name="icon-park-solid:more-app" size="24px" color="#fff"></l-icon></view>				
-				<view class="item-title"><text>本月支出</text></view>
-				<view class="item-con"><text>￥{{currentMonthExpensesAmount}}</text></view>
-			</view>
-			<view class="chart-item" style="background:#3698fc">
-				<view class="more"><l-icon name="icon-park-solid:more-app" size="24px" color="#fff"></l-icon></view>				
-				<view class="item-title"><text>本年收入</text></view>
-				<view class="item-con"><text>￥{{currentYearIncome.total}}</text></view>
-			</view>
-			<view class="chart-item item-white" style="background:#ffffff">
-				<view class="more"><l-icon name="icon-park-solid:more-app" size="24px" color="#666"></l-icon></view>				
-				<view class="item-title"><text>本年支出</text></view>
-				<view class="item-con"><text>￥{{currentYearExpenses.total}}</text></view>
-			</view> -->
     </view>
 
     <view class="chart-view">
       <view class="chart-area">
         <view class="chart-title"><text>年度统计（{{new Date().getFullYear()}}）</text></view>
         <view class="chart">
-          <qiun-data-charts type="mix" :opts="mixConfig.opts" :chartData="currentYearGroup.data" />
+          <!-- <qiun-data-charts type="mix" :opts="mixConfig.opts" :chartData="currentYearGroup.data" />
+         -->
+          <e-chart ref="currentYearGroupRef" width="100%" />
         </view>
-        <!-- <view class="control">
-					<view class="btn">月</view>
-					<view class="btn">年</view>
-				</view> -->
       </view>
     </view>
   </view>
@@ -189,24 +172,10 @@ export default {
 	}
   },
   watch: {
-    async partialRefreshComName(val) {
-      //下拉刷新
-      if (val == "fm") {
-        //console.log("局部刷新 gather");
-        this.getIncomeMonth();
-        this.getExpensesMonth();
-        this.getIncomeCurrentYear();
-        this.getExpensesCurrentYear();
-        this.$store.commit("setPartialRefreshComName", "");
-        //console.log("局部刷新完成");
-        uni.hideLoading();
-        uni.stopPullDownRefresh();
-      }
-    },
     hotel_id() {
-      //this.refrushData();
+      this.refrushData();
 
-    },
+    }
   },
   methods: {
     async refrushData() {
@@ -287,7 +256,7 @@ export default {
       };
       return res;
     },
-    setCurrentYearGroup(xlabel=[],incomeValueArr=[],expensesValurArr=[]){
+    setCurrentYearGroup11(xlabel=[],incomeValueArr=[],expensesValurArr=[]){
       //console.log("arguments::",arguments)
        let chartObj={
         total: 0,
@@ -309,7 +278,59 @@ export default {
         },
       };
       this.currentYearGroup=JSON.parse(JSON.stringify(chartObj))
-    }
+    },
+    setCurrentYearGroup(xlable=[],incomeValueArr=[],expensesValurArr=[]) {
+				let option = {
+
+					title: {
+						// text: ``,
+						// left:'center',
+						// 	textStyle:{
+						// 	color:'#666'
+						// },
+            // // top:40,
+						// subtextStyle: {
+						// 	fontStyle: 'fontWeight',
+						// 	color: '#007aff',
+						// 	lineHeight: 26,
+						// }
+					},
+          grid:{bottom:60},
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'shadow'
+						}
+					},
+					legend: {
+						bottom: 0
+					},
+					xAxis: {
+            type: 'category',
+					  data: xlable,
+          },
+					yAxis: {},
+					series: [
+             {
+              name: "收入",
+			        type:"line",
+			         smooth: true,
+                symbolSize:0,
+              data: incomeValueArr
+            },
+            {
+              name: "支出",
+			        type:"bar",
+              data: expensesValurArr
+            }
+          ]
+
+
+				}
+        this.$refs.currentYearGroupRef.init(option);
+        console.log("opton",option)
+				return option;
+			},
   },
 };
 </script>
@@ -393,7 +414,8 @@ export default {
       }
 
       .chart {
-        min-height: 240px;
+        min-height: 400px;
+        width: 100%;
       }
 
       .control {

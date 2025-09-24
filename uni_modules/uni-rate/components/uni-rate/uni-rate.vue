@@ -217,7 +217,7 @@
 				if (!this.IsPC()) return
 				if (this.userRated) return
 				if (this.userMouseFristMove) {
-					//console.log('---mousemove----', this.valueSync);
+					console.log('---mousemove----', this.valueSync);
 					this.userLastRate = this.valueSync
 					this.userMouseFristMove = false
 				}

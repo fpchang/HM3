@@ -376,7 +376,7 @@ var calendar = {
       * @param m  solar month
       * @param d  solar day
       * @return JSON object
-      * @eg://console.log(calendar.solar2lunar(1987,11,01));
+      * @eg:console.log(calendar.solar2lunar(1987,11,01));
       */
   solar2lunar: function (y, m, d) { // 参数区间1900.1.31~2100.12.31
     // 年份限定、上限
@@ -495,7 +495,7 @@ var calendar = {
       * @param d  lunar day
       * @param isLeapMonth  lunar month is leap or not.[如果是农历闰月第四个参数赋值true即可]
       * @return JSON object
-      * @eg://console.log(calendar.lunar2solar(1987,9,10));
+      * @eg:console.log(calendar.lunar2solar(1987,9,10));
       */
   lunar2solar: function (y, m, d, isLeapMonth) { // 参数区间1900.1.31~2100.12.1
     var isLeapMonth = !!isLeapMonth

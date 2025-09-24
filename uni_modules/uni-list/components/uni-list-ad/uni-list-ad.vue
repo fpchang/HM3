@@ -60,7 +60,7 @@
 				return parent;
 			},
 			aderror(e) {
-				//console.log("aderror: " + JSON.stringify(e.detail));
+				console.log("aderror: " + JSON.stringify(e.detail));
 			},
 			closeAd(e) {
 				this.borderShow = false

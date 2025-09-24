@@ -199,7 +199,7 @@ $label-normal:#a1a1a1;
   	cursor: pointer;
   }
   
-/* #ifndef APP-PLUS-NVUE */  
+
   .submit-btn,.submit-btn[type='default']{
 	  background-color: $font-color-control;
 	  color: #fff;
@@ -229,7 +229,7 @@ $label-normal:#a1a1a1;
   button::after{
 	border:none!important;
   }
-    /*#endif*/
+    
 //初始化输入框
 .baseInput{
 	font-size: 12px;
@@ -262,9 +262,9 @@ $label-normal:#a1a1a1;
   .flex-page-bottom-shadow{
 	   box-shadow: 0 0 12px 0px #e8e8e8;;
   }
-  /* #ifndef APP-PLUS-NVUE */  
+
 page{
 	-webkit-user-select: text;
 	background-color: #F5F7FA;
 }
-/*#endif*/
+

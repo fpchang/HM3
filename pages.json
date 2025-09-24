@@ -251,7 +251,7 @@
 						"navigationBarTitleText" : "财务管理",
 						
 						"navigationStyle": "custom",
-						"disableScroll":true,
+						"disableScroll":false,
 						"enablePullDownRefresh": true,
 						"bounce":"none",
 						"app-plus":{

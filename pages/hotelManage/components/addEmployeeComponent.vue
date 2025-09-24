@@ -13,17 +13,6 @@
         />
       </uni-forms-item>
       <uni-forms-item required label="手机号(登录账号)" name="phone">
-        <!-- <uv-input
-          maxlength="11"
-          type="number"
-          placeholder="请输入手机号"
-          border="surround"
-          v-model="employeeForm.phone"
-          clearable
-          :disabled="isAdministrator"
-          class="inputStyle"
-        >
-        </uv-input> -->
         	<input class="uni-input" maxlength="11" v-model="employeeForm.phone"  :disabled="isAdministrator" type="number" placeholder="请输入手机号" />
       </uni-forms-item>
       <uni-forms-item label="角色" v-if="!isAdministrator">

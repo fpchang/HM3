@@ -8,7 +8,7 @@
 
 		<view>
 			<unicloud-db ref="udb" v-slot:default="{data, loading, pagination, hasMore, error, options}"
-				:where="where_str" collection="hm-order" orderby="createTime desc" :page-size="5" :getcount="true" :page-data="add">
+				:where="where_str" collection="hm-order" orderby="createTime desc" :page-size="5" :getcount="true" page-data="add">
 					<block v-if="!loading&&!data.length">
 						<view>
 							<noData></noData>
@@ -478,6 +478,9 @@ this.$refs.udb.refresh();
       return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24));
     },
     formatRoomName(room_id) {
+		if(!this.roomList){
+			return;
+		}
       const roomItem = this.roomList.find((item) => item._id == room_id);
       return roomItem?roomItem.room_name:'--';
     },

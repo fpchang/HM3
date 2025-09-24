@@ -140,7 +140,7 @@ export default {
     try {
       let phone = uni.getStorageSync("phone");
       if (phone) {
-        this.userForm.phone = phone;
+        this.userForm.phone = phone.toString();
       }
     } catch (error) {
       this.userForm.phone = "";
@@ -229,7 +229,7 @@ export default {
             }
             const { token } = res.result.data;
             uni.setStorageSync("hm_token", token);
-            uni.setStorageSync("phone", this.userForm.phone);
+            uni.setStorageSync("phone", this.userForm.phone.toString());
             this.getUserInfo();
           } catch (error) {
             //console.log("登录失败",error);

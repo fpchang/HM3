@@ -5,7 +5,7 @@
     </block>
     <block v-if="!noData">
       <view class="uni-container">
-        <uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据">
+        <uni-table ref="table" border stripe emptyText="暂无更多数据">
           <uni-tr class="table-header">
             <uni-th width="60" align="center">
               <view>

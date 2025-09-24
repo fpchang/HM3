@@ -1,16 +1,6 @@
 <template>
   <view class="success">
     <view class="icon-container"> 
-      <!-- <uv-icon
-      name="checkmark-circle-fill"
-      color="green"
-      size="45"
-      label="成功"
-      labelPos="bottom"
-      labelSize="24px"
-      labelColor="green"
-     
-    ></uv-icon> -->
     </view>
     <view class="content">
       <view class="item-style"><text>*订餐成功</text></view>  

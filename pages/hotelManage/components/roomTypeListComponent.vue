@@ -401,7 +401,7 @@ export default {
 		border-top-right-radius: 20px;
 		background: #e7eaef;
 		flex: 1;
-		padding: 15px;
+		
 		box-sizing: border-box;
 
 	}
