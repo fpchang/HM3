@@ -18,7 +18,8 @@
         <view class="chart">
           <!-- <qiun-data-charts type="mix" :opts="mixConfig.opts" :chartData="currentYearGroup.data" />
          -->
-          <e-chart ref="currentYearGroupRef" width="100%" />
+          <!-- <e-chart ref="currentYearGroupRef" width="100%" /> -->
+          <echartComponent  ref="currentYearGroupRef"></echartComponent>
         </view>
       </view>
     </view>
@@ -27,9 +28,10 @@
 
 <script>
 import { FMService } from "../../../services/FMService";
+import echartComponent from "../../../pages_charts/components/echartComponent";
 import lIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 export default {
-  components: { lIcon },
+  components: {echartComponent, lIcon },
   setup() {
     let monthFirst = new Date(
       new Date().getFullYear(),
@@ -309,7 +311,13 @@ export default {
             type: 'category',
 					  data: xlable,
           },
-					yAxis: {},
+					yAxis: {
+            axisLabel: {
+formatter: function (value) {
+return `${(value/1000)}w`;
+}
+}
+          },
 					series: [
              {
               name: "收入",
@@ -414,7 +422,7 @@ export default {
       }
 
       .chart {
-        min-height: 400px;
+        
         width: 100%;
       }
 

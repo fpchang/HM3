@@ -243,7 +243,8 @@
 					{
 						"navigationBarTitleText" : ""
 					}
-				},
+				},					
+				
 				{
 					"path" : "pages/financialManagement/financiaHome/financiaHome",
 					"style" : 
@@ -257,8 +258,17 @@
 						"app-plus":{
 							"bounce":"none"
 							
+						},
+						"usingComponents": {
+							//"fmYearAndMonth":"/pages/financialManagement/components/fmYearAndMonth",
+							"echart-component": "/pages_charts/components/echartComponent"
+						},		
+						"componentPlaceholder": {
+							//"fmYearAndMonth":"fmYearAndMonth",
+							"echart-component": "echartComponent"
 						}
 					}
+					
 				},
 				{
 					"path" : "pages/order/orderState/orderState",
@@ -276,13 +286,7 @@
 												}
 					}
 				},
-				{
-					"path" : "pages/financialManagement/fmChart/fmChart",
-					"style" : 
-					{
-						"navigationBarTitleText" : "财务统计"
-					}
-				},
+		
 				{
 					"path" : "pages/hotelManage/roomList/roomList",
 					"style" : 
@@ -384,8 +388,42 @@
 					}
 				}
 			]
+		},
+		{
+		"root": "pages_charts",	
+		"common": true,
+		"pages": [
+			{
+				"path" : "index/index",
+				"style" : 
+				{
+					"navigationBarTitleText" : "",
+					"usingComponents": {
+						"echartComponent": "/pages_charts/components/echartComponent"
+					},
+					  "componentPlaceholder": {
+					              "echartComponent": "view"
+					            }
+								
+				}
+			},
+			{
+				"path" : "fmChart/fmChart",
+				"style" : 
+				{
+					"navigationBarTitleText" : "财务统计"
+				}
+			}
+		]
 		}
 	],
+	"preloadRule":{
+		"pages/financialManagement/financiaHome/financiaHome":{
+			"network": "all",
+			"packages":["pages_charts"]
+			
+		}	
+	},
 	"tabBar": {
 		"color": "#1d1d1f",
 		"selectedColor": "#0765ae",
@@ -439,6 +477,9 @@
 		              "color": "#fff"
 								},
 		"backgroundColorTop":"#0765ae",
+		 "usingComponents": {
+		     
+		    },
 		"app-plus": {
 
 		}

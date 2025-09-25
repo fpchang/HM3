@@ -13,7 +13,7 @@
 							<view class="charts-box chart-area">
 								<!-- <qiun-data-charts type="pie" :opts="pieConfig.opts"
 									:chartData="currentMonthIncomeOption" /> -->
-								<e-chart ref="currentMonthIncomeOptionRef" width="100%"/>
+								<echartComponent ref="currentMonthIncomeOptionRef" width="100%"/>
 							</view>
 						</view>
 
@@ -25,7 +25,7 @@
 							<view class="charts-box chart-area">
 								<!-- <qiun-data-charts type="pie" :opts="pieConfig.opts" :chartData="currentMonthExpenses" />
 							 -->
-								<e-chart ref="currentMonthExpensesRef" width="100%"/>
+								<echartComponent ref="currentMonthExpensesRef" width="100%"/>
 							</view>
 						</view>
 
@@ -37,7 +37,7 @@
 							<view class="chart-area">
 								<!-- <qiun-data-charts type="bar" :opts="barCofig.opts"
 									:chartData="currentYearIncomeOption.data" /> -->
-								<e-chart ref="currentYearIncomeRef" width="100%" />
+								<echartComponent ref="currentYearIncomeRef" width="100%" />
 							</view>
 						</view>
 
@@ -50,7 +50,7 @@
 							<view class="chart-area">
 								<!-- <qiun-data-charts type="bar" :opts="barCofig.opts"
 									:chartData="currentYearExpensesOption.data" /> -->
-								<e-chart ref="currentYearExpensesRef" width="100%"/>
+								<echartComponent ref="currentYearExpensesRef" width="100%"/>
 
 
 							</view>
@@ -67,7 +67,11 @@
 	import {
 		FMService
 	} from "../../../services/FMService";
+	import echartComponent from "/pages_charts/components/echartComponent";
 	export default {
+		components:{
+			echartComponent
+		},
 		setup() {
 			let monthFirst = new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime();
 			let monthLast = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1).getTime() - 1;
@@ -163,9 +167,15 @@
 					name: new Date().Format("yyyy"),
 					type: 'bar',
 					data: res.xValue
-				}]
-
-				this.currentYearIncomeOption = this.setColumnIncomeCurrentYear(res.total, series, xAxis);
+				}];
+				const yAxis={
+					axisLabel: {
+						formatter: function (value) {
+						return `${(value/1000)}w`;
+						}
+					}
+				};
+				this.currentYearIncomeOption = this.setColumnIncomeCurrentYear(res.total, series, xAxis,yAxis);
 				this.$refs.currentYearIncomeRef.init(this.currentYearIncomeOption);
 				return res;
 			},
@@ -182,7 +192,14 @@
 					type: 'bar',
 					data: res.xValue
 				}];
-				this.currentYearExpensesOption = this.setColumnExpenseCurrentYear(res.total, series, xAxis);
+					const yAxis={
+					axisLabel: {
+						formatter: function (value) {
+						return `${(value/1000)}w`;
+						}
+					}
+				}
+				this.currentYearExpensesOption = this.setColumnExpenseCurrentYear(res.total, series, xAxis,yAxis);
 				this.$refs.currentYearExpensesRef.init(this.currentYearExpensesOption);
 				return res;
 
@@ -313,7 +330,12 @@
 							lineHeight: 26,
 						}
 					},
-					grid:{top:100},
+					grid: {
+					x: 40, // 左侧边距
+					y:100, // 上侧边距
+					x2: 0, // 右侧边距
+					y2: 60 // 下侧边距
+					},
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -346,7 +368,12 @@
 							lineHeight: 26,
 						}
 					},
-					grid:{top:100},
+					grid:{
+						x: 40, // 左侧边距
+											y:100, // 上侧边距
+											x2: 0, // 右侧边距
+											y2: 60 // 下侧边距
+					},
 					tooltip: {
 						trigger: 'axis',
 						axisPointer: {
@@ -387,7 +414,7 @@
 	.container-chart {
 
 		.chart-area {
-			min-height: 400px;
+			
 			width: 100%;
 			background: #fff;
 			padding: 20px;
