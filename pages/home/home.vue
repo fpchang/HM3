@@ -62,7 +62,7 @@
                     <l-icon v-if="item._id!=hotel_id" name="line-md:confirm-circle-twotone-to-circle-transition"
                       size="35px" color="#eee" />
                   </view>
-                  <view style="width: 80px; height: 80px">
+                  <view class="img-container">
                     <image v-if="item.firstImages" style="width: 100%; height: 100%" mode="aspectFill"
                       :src="item.firstImages" />
                     <image v-if="!item.firstImages&&item._id!=hotel_id" style="width: 100%; height: 100%"
@@ -88,15 +88,6 @@
               </view>
             </view>
           </scroll-view>
-        </view>
-      </view>
-    </uni-drawer>
-
-    <uni-drawer ref="showRight" mode="right" :width="475">
-      <view class="right-container">
-        <view style="box-sizing: border-box">
-          <!-- <view style="height:70px" v-if="!isPc"></view> -->
-          <mine></mine>
         </view>
       </view>
     </uni-drawer>
@@ -357,7 +348,7 @@ export default {
     },
 
     disHeightVal() {
-      return "20px";
+      return "0px";
     },
     scrollHeight() {
       return `calc(100vh - ${this.disHeightVal} - ${this.navTopHeight} )`;
@@ -524,7 +515,10 @@ export default {
     justify-content: center;
     padding: 0 8px;
   }
-
+.img-container{
+  width: 80px; height: 80px;border-radius:8px;
+  overflow: hidden;
+}
   .zcard-right {
     flex: 1;
     color: #fff;

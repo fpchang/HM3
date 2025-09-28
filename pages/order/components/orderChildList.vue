@@ -1,226 +1,228 @@
 <template>
 	<view>
-		 <view class="filter-area">
-        <view class="filter-item">
-          <uni-data-select v-model="orderStatus" :localdata="range" placeholder="选择订单状态" :clear="false"></uni-data-select>
-        </view>
-      </view>
+		<view class="filter-area">
+			<view class="filter-item">
+				<uni-data-select v-model="orderStatus" :localdata="range" placeholder="选择订单状态"
+					:clear="false"></uni-data-select>
+			</view>
+		</view>
 
 		<view>
 			<unicloud-db ref="udb" v-slot:default="{data, loading, pagination, hasMore, error, options}"
-				:where="where_str" collection="hm-order" orderby="createTime desc" :page-size="5" :getcount="true" page-data="add">
-					<block v-if="!loading&&!data.length">
-						<view>
-							<noData></noData>
-						</view>
-					</block>
-					<block v-if="data.length>0">
-						<xt-panal-list :count="data.length">
-							<!-- #ifdef MP -->
-							<view v-for="(item, index) of data" slot="card{{index}}">
-					<view class="p-card">
-									<view class="title">
-										<text>{{
-											item.orderType=="bargain"? "议价单":"普通订单"
+				:where="where_str" collection="hm-order" orderby="createTime desc" :page-size="5" :getcount="true"
+				page-data="add">
+				<block v-if="!loading&&!data.length">
+					<view>
+						<noData></noData>
+					</view>
+				</block>
+				<block v-if="data.length>0">
+					<xt-panal-list :count="data.length">
+						<!-- #ifdef MP -->
+						<view v-for="(item, index) of data" slot="card{{index}}">
+							<view class="p-card">
+								<view class="title">
+									<text>{{
+										item.orderType=="bargain"? "议价单":"普通订单"
+									}}</text>
+									<text class="st">{{
+										fromatOrderState(item.orderStatus)
+									}}</text>
+								</view>
+								<view class="header">
+									<view><text class="ti">住客：</text><text>{{item.userName}}</text></view>
+								</view>
+								<view class="info">
+									<text class="ti">时间：</text>
+									<text>{{formatDateLabel(item.checkInStartDate)}}至{{
+										formatDateLabel(item.checkInEndDate)
+									}}</text>
+									<text style="padding: 0 15px">{{getRoomNum(item)}}间{{
+										dayNum([
+											item.checkInStartDateTimeStamp,
+											item.checkInEndDateTimeStamp,
+										])
+									}}晚</text>
+								</view>
+								<view class="info">
+									<text class="ti">房型：</text>
+									<text>{{item.roomTypeArray[0].name}}</text>
+								</view>
+								<view class="info">
+									<text class="ti">房间：</text>
+									<text v-for="it of item.roomTypeArray">
+										<text style="padding-right: 8px" v-for="i of it.roomList">{{
+											formatRoomName(i)
 										}}</text>
-										<text class="st">{{
-											fromatOrderState(item.orderStatus)
-										}}</text>
-									</view>
-									<view class="header">
-										<view><text class="ti">住客：</text><text>{{item.userName}}</text></view>
-									</view>
+									</text>
+								</view>
 									<view class="info">
-										<text class="ti">时间：</text>
-										<text>{{formatDateLabel(item.checkInStartDate)}}至{{
-											formatDateLabel(item.checkInEndDate)
-										}}</text>
-										<text style="padding: 0 15px">{{getRoomNum(item)}}间{{
-											dayNum([
-												item.checkInStartDateTimeStamp,
-												item.checkInEndDateTimeStamp,
-											])
-										}}晚</text>
-									</view>
-									<view class="info">
-										<text class="ti">房型：</text>
-										<text>{{item.roomTypeArray[0].name}}</text>
-									</view>
-									<view class="info">
-										<text class="ti">房间：</text>
-										<text v-for="it of item.roomTypeArray">
-											<text style="padding-right: 8px" v-for="i of it.roomList">{{
-												formatRoomName(i) }}</text>
-										</text>
-									</view>
-									<view class="price">
-										<!-- <text v-if="item.payType=='online'">在线支付</text>
-									<text v-if="item.payType=='offline'">到店支付</text> -->
-										<text>￥{{item.totalAmount}}</text>
-									</view>
-									<view class="control-area">
-										<!--普通订单待办-->
-										<block v-if="
-											false&&
-											updateOrderPermission&&
-											item.orderType=='normal'&&
-											item.orderStatus==0
-										">
-											<view>
-												<button size="default" type="default" class="btn"
-													@click="receiveOrder(item)">
-													接受
-												</button>
-											</view>
-											<view>
-												<button size="default" type="default" class="btn btn-red"
-													@click="rejectOrder(item)">
-													拒绝
-												</button>
-											</view>
-										</block>
-										<!--普通订单待入住-->
-										<block v-if="
-											updateOrderPermission&&
-											item.orderType=='normal'&&
-											item.orderStatus==1
-										">
-											<!--可撤销后台下的单-->
-											<view>
-												<button v-if="!item.fromClient" size="default" type="default"
-													class="submit-btn" @click="deleteOrder(item)">
-													撤销
-												</button>
-											</view>
-										</block>
-										<block v-if="
-											updateOrderPermission&&
-											item.orderType=='bargain'&&
-											item.bargainStatus==0
-										">
-											<view>
-												<button size="default" type="default" class="btn btn-red"
-													@click="receiveBargainOrder(item)">
-													同意
-												</button>
-											</view>
-											<view>
-												<button size="default" type="default" class="btn btn-red"
-													@click="rejectBargainOrder(item)">
-													拒绝
-												</button>
-											</view>
-										</block>
-									</view>
+									<text class="ti">房价：</text>
+									<text class="priceNum">￥{{item.totalAmount}}</text>
+								</view>
+								<view class="control-area">
+									<!--普通订单待办-->
+									<block v-if="
+										false&&
+										updateOrderPermission&&
+										item.orderType=='normal'&&
+										item.orderStatus==0
+									">
+										<view>
+											<button size="default" type="default" class="btn"
+												@click="receiveOrder(item)">
+												接受
+											</button>
+										</view>
+										<view>
+											<button size="default" type="default" class="btn btn-red"
+												@click="rejectOrder(item)">
+												拒绝
+											</button>
+										</view>
+									</block>
+									<!--普通订单待入住-->
+									<block v-if="
+										updateOrderPermission&&
+										item.orderType=='normal'&&
+										item.orderStatus==1
+									">
+										<!--可撤销后台下的单-->
+										<view>
+											<button v-if="!item.fromClient" size="default" type="default"
+												class="submit-btn" @click="deleteOrder(item)">
+												撤销
+											</button>
+										</view>
+									</block>
+									<block v-if="
+										updateOrderPermission&&
+										item.orderType=='bargain'&&
+										item.bargainStatus==0
+									">
+										<view>
+											<button size="default" type="default" class="btn btn-red"
+												@click="receiveBargainOrder(item)">
+												同意
+											</button>
+										</view>
+										<view>
+											<button size="default" type="default" class="btn btn-red"
+												@click="rejectBargainOrder(item)">
+												拒绝
+											</button>
+										</view>
+									</block>
 								</view>
 							</view>
-							<!-- #endif -->
-							<!-- #ifdef H5 || APP-PLUS -->
-							 <template v-for="(item, index) in data" v-slot:[`card${index}`]>
-								<view class="p-card">
-									<view class="title">
-										<text>{{
-											item.orderType=="bargain"? "议价单":"普通订单"
-										}}</text>
-										<text class="st">{{
-											fromatOrderState(item.orderStatus)
-										}}</text>
-									</view>
-									<view class="header">
-										<view><text class="ti">住客：</text><text>{{item.userName}}</text></view>
-									</view>
-									<view class="info">
-										<text class="ti">时间：</text>
-										<text>{{formatDateLabel(item.checkInStartDate)}}至{{
-											formatDateLabel(item.checkInEndDate)
-										}}</text>
-										<text style="padding: 0 15px">{{getRoomNum(item)}}间{{
-											dayNum([
-												item.checkInStartDateTimeStamp,
-												item.checkInEndDateTimeStamp,
-											])
-										}}晚</text>
-									</view>
-									<view class="info">
-										<text class="ti">房型：</text>
-										<text>{{item.roomTypeArray[0].name}}</text>
-									</view>
-									<view class="info">
-										<text class="ti">房间：</text>
-										<text v-for="it of item.roomTypeArray">
-											<text style="padding-right: 8px" v-for="i of it.roomList">{{
-												formatRoomName(i) }}</text>
-										</text>
-									</view>
-									<view class="price">
-										<!-- <text v-if="item.payType=='online'">在线支付</text>
-									<text v-if="item.payType=='offline'">到店支付</text> -->
-										<text>￥{{item.totalAmount}}</text>
-									</view>
-									<view class="control-area">
-										<!--普通订单待办-->
-										<block v-if="
-											false&&
-											updateOrderPermission&&
-											item.orderType=='normal'&&
-											item.orderStatus==0
-										">
-											<view>
-												<button size="default" type="default" class="btn"
-													@click="receiveOrder(item)">
-													接受
-												</button>
-											</view>
-											<view>
-												<button size="default" type="default" class="btn btn-red"
-													@click="rejectOrder(item)">
-													拒绝
-												</button>
-											</view>
-										</block>
-										<!--普通订单待入住-->
-										<block v-if="
-											updateOrderPermission&&
-											item.orderType=='normal'&&
-											item.orderStatus==1
-										">
-											<!--可撤销后台下的单-->
-											<view>
-												<button v-if="!item.fromClient" size="default" type="default"
-													class="submit-btn" @click="deleteOrder(item)">
-													撤销
-												</button>
-											</view>
-										</block>
-										<block v-if="
-											updateOrderPermission&&
-											item.orderType=='bargain'&&
-											item.bargainStatus==0
-										">
-											<view>
-												<button size="default" type="default" class="btn btn-red"
-													@click="receiveBargainOrder(item)">
-													同意
-												</button>
-											</view>
-											<view>
-												<button size="default" type="default" class="btn btn-red"
-													@click="rejectBargainOrder(item)">
-													拒绝
-												</button>
-											</view>
-										</block>
-									</view>
+						</view>
+						<!-- #endif -->
+						<!-- #ifdef H5 || APP-PLUS -->
+						<template v-for="(item, index) in data" v-slot:[`card${index}`]>
+							<view class="p-card">
+								<view class="title">
+									<text>{{
+										item.orderType=="bargain"? "议价单":"普通订单"
+									}}</text>
+									<text class="st">{{
+										fromatOrderState(item.orderStatus)
+									}}</text>
 								</view>
-							</template>
-							<!-- #endif -->
-						</xt-panal-list>
-					</block>
-					<view>
-						<uni-load-more  @clickLoadMore="clickLoadMore" :status="loading?'loading':(hasMore? 'more':'noMore')"
-							:content-text="contentText"></uni-load-more>
-					</view>
-				
+								<view class="header">
+									<view><text class="ti">住客：</text><text>{{item.userName}}</text></view>
+								</view>
+								<view class="info">
+									<text class="ti">时间：</text>
+									<text>{{formatDateLabel(item.checkInStartDate)}}至{{
+										formatDateLabel(item.checkInEndDate)
+									}}</text>
+									<text style="padding: 0 15px">{{getRoomNum(item)}}间{{
+										dayNum([
+											item.checkInStartDateTimeStamp,
+											item.checkInEndDateTimeStamp,
+										])
+									}}晚</text>
+								</view>
+								<view class="info">
+									<text class="ti">房型：</text>
+									<text>{{item.roomTypeArray[0].name}}</text>
+								</view>
+								<view class="info">
+									<text class="ti">房间：</text>
+									<text v-for="it of item.roomTypeArray">
+										<text style="padding-right: 8px" v-for="i of it.roomList">{{
+											formatRoomName(i)
+										}}</text>
+									</text>
+								</view>
+								<view class="info">
+									<text class="ti">房价：</text>
+									<text class="priceNum">￥{{item.totalAmount}}</text>
+								</view>
+								<view class="control-area">
+									<!--普通订单待办-->
+									<block v-if="
+										false&&
+										updateOrderPermission&&
+										item.orderType=='normal'&&
+										item.orderStatus==0
+									">
+										<view>
+											<button size="default" type="default" class="btn"
+												@click="receiveOrder(item)">
+												接受
+											</button>
+										</view>
+										<view>
+											<button size="default" type="default" class="btn btn-red"
+												@click="rejectOrder(item)">
+												拒绝
+											</button>
+										</view>
+									</block>
+									<!--普通订单待入住-->
+									<block v-if="
+										updateOrderPermission&&
+										item.orderType=='normal'&&
+										item.orderStatus==1
+									">
+										<!--可撤销后台下的单-->
+										<view>
+											<button v-if="!item.fromClient" size="default" type="default"
+												class="submit-btn" @click="deleteOrder(item)">
+												撤销
+											</button>
+										</view>
+									</block>
+									<block v-if="
+										updateOrderPermission&&
+										item.orderType=='bargain'&&
+										item.bargainStatus==0
+									">
+										<view>
+											<button size="default" type="default" class="btn btn-red"
+												@click="receiveBargainOrder(item)">
+												同意
+											</button>
+										</view>
+										<view>
+											<button size="default" type="default" class="btn btn-red"
+												@click="rejectBargainOrder(item)">
+												拒绝
+											</button>
+										</view>
+									</block>
+								</view>
+							</view>
+						</template>
+						<!-- #endif -->
+					</xt-panal-list>
+				</block>
+				<view>
+					<uni-load-more @clickLoadMore="clickLoadMore"
+						:status="loading? 'loading':hasMore? 'more':'noMore'"
+						:content-text="contentText"></uni-load-more>
+				</view>
 			</unicloud-db>
 		</view>
 	</view>
@@ -230,37 +232,42 @@
 import { OrderService } from "../../../services/OrderService";
 import { alert } from "@/alert";
 import { HotelService } from "../../../services/HotelService";
-import {computed,ref} from "vue";
-import { useStore } from 'vuex';
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 export default {
-	setup(){
-		let store = new useStore();
-		const range=[{text:"全部",value:null},{text:"待入住",value:1},{text:"已完成",value:5},{text:"已撤销",value:10}];
-		let orderStatus=ref(1);
-		let hotel_id = computed(()=>{
-    		return store.state.hotel_id;
-    	})
-		let where_str=computed(()=>{
-			if(orderStatus.value==null){
-				return `hotel_id=='${hotel_id.value}'`;
-			}
-			return `hotel_id=='${hotel_id.value}'&&orderStatus==${orderStatus.value}`;
-		});
-		let   colList = computed(()=>{
-     			 const db = uniCloud.database();
-				return [
-					db.collection("hm-order").where({hotel_id:hotel_id.value}).getTemp(),
-					db.collection("hm-hotel").field("_id,hotelName,hotelAddress").getTemp(),
-				];
+  setup() {
+    let store = new useStore();
+    const range = [
+      { text: "全部", value: null },
+      { text: "待入住", value: 1 },
+      { text: "已完成", value: 5 },
+      { text: "已撤销", value: 10 },
+    ];
+    let orderStatus = ref(1);
+    let hotel_id = computed(() => {
+      return store.state.hotel_id;
     });
-		return {
-			range,
-			orderStatus,
-			hotel_id,
-			where_str,
-			colList
-		}
-	},
+    let where_str = computed(() => {
+      if (orderStatus.value == null) {
+        return `hotel_id=='${hotel_id.value}'`;
+      }
+      return `hotel_id=='${hotel_id.value}'&&orderStatus==${orderStatus.value}`;
+    });
+    let colList = computed(() => {
+      const db = uniCloud.database();
+      return [
+        db.collection("hm-order").where({ hotel_id: hotel_id.value }).getTemp(),
+        db.collection("hm-hotel").field("_id,hotelName,hotelAddress").getTemp(),
+      ];
+    });
+    return {
+      range,
+      orderStatus,
+      hotel_id,
+      where_str,
+      colList,
+    };
+  },
   data() {
     return {
       accordionVal: 1,
@@ -280,7 +287,6 @@ export default {
     this.getOrderList();
   },
   computed: {
-
     hotel() {
       return this.$store.state.hotel;
     },
@@ -325,10 +331,9 @@ export default {
   },
   methods: {
     refrush() {
-		if(this.$refs.udb){
-this.$refs.udb.refresh();
-		}
-      
+      if (this.$refs.udb) {
+        this.$refs.udb.refresh();
+      }
     },
 
     clickLoadMore() {
@@ -337,7 +342,7 @@ this.$refs.udb.refresh();
     getRoomNum(item) {
       let roomCount = 0;
       item.roomTypeArray.map((it) => {
-		let len = it['roomList']?it.roomList.length:it.count;
+        let len = it["roomList"] ? it.roomList.length : it.count;
         roomCount += len;
       });
       return roomCount;
@@ -478,11 +483,11 @@ this.$refs.udb.refresh();
       return Math.ceil((params[1] - params[0]) / (1000 * 60 * 60 * 24));
     },
     formatRoomName(room_id) {
-		if(!this.roomList){
-			return;
-		}
+      if (!this.roomList) {
+        return;
+      }
       const roomItem = this.roomList.find((item) => item._id == room_id);
-      return roomItem?roomItem.room_name:'--';
+      return roomItem ? roomItem.room_name : "--";
     },
     async getRoomList() {
       const res = await HotelService.getRoomListByHotelId(this.hotel_id);
@@ -562,19 +567,21 @@ this.$refs.udb.refresh();
 		}
 	}
 }
-.filter-area {
-			max-width: 600px;
-			display: flex;
-			align-items: center;
-			gap: 12px;
-			padding: 20px 15px;
 
-			.filter-item {
-				border-radius: 8px;
-				background: #fff;
-				flex: 1;
-			}
-		}
+.filter-area {
+	max-width: 600px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 20px 15px;
+
+	.filter-item {
+		border-radius: 8px;
+		background: #fff;
+		flex: 1;
+	}
+}
+
 .wrap {
 	padding: 12px;
 }
@@ -608,11 +615,17 @@ this.$refs.udb.refresh();
 	flex-direction: column;
 	gap: 8px;
 	color: #a1a1a1;
+	font-weight: normal;
+	font-size: 14px;
 
 	.ti {
 		font-weight: 400;
+		font-size: 16px;
 	}
-
+	.priceNum{
+		color: #0c37aa;
+		font-weight: bold;
+	}
 	.header {
 		display: flex;
 		align-items: center;

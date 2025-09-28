@@ -1,5 +1,6 @@
 <template>
 	<view class="xt-panal-list">
+		
 		<view style="display: flex; justify-content: center">
 			<view class="card-container" :style="{width: `${cardContainerWidth}px`}">
 				<view class="card" v-for="(item,index) in count" :style="{width: `${cardWidth}px`,'max-width':maxWidth}">
@@ -26,6 +27,10 @@
 			wrap:{
 				type:Boolean,
 				default:true
+			},
+			single_row:{//单列
+				type:Boolean,
+				default:false
 			},
 			bgColor:{
 				type:String,
@@ -81,19 +86,23 @@
 
 			cardWidth() {
 				let windowWidth = this.viewWidth; //-20 为pc端滚动条宽度
-				let count = Math.floor(windowWidth / 370);
+				let count = Math.floor(windowWidth / 410);
+				if(windowWidth<410){
+					return windowWidth;
+				}
+				if(this.single_row){
+					return windowWidth;
+				}
 				if (count == 0) {
 					return windowWidth;
 				}
-				if(!this.wrap){
-					return windowWidth;
-				}
-				let ys = windowWidth % 370;
-				return Math.min(370 + ys / count, 450);
+				
+				let ys = windowWidth % 410;
+				return Math.min(410 + ys / count, 800);
 			},
 			maxWidth(){
 				if(this.wrap){
-					return '450px';
+				//	return '450px';
 				}
 				return 'none';
 			},
@@ -108,11 +117,14 @@
 
 		// 组件周期函数--监听组件挂载完毕
 		mounted() {
-			if (window) {
-				window.onresize = () => {
-					this.widthTemp = Math.random(10);
-				};
-			}
+			// if (window) {
+			// 	window.onresize = () => {
+			// 		this.widthTemp = Math.random(10);
+			// 	};
+			// }
+			uni.onWindowResize(res=>{
+				this.widthTemp=res.size.windowWidth;
+			});
 		},
 		// 组件周期函数--监听组件数据更新之前
 		beforeUpdate() {},
@@ -139,7 +151,7 @@
 
 		.card {
 			min-width: 370px;
-			max-width: 450px;
+			max-width: 683px;
 			padding: 10px;
 			box-sizing: border-box;
 

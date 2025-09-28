@@ -14,7 +14,15 @@
 
 		<view class="chart-view">
 			<view class="chart-area">
-				<view class="chart-title"><text>年度统计（{{new Date().getFullYear()}}）</text></view>
+				<view class="chart-title">
+					<view><text>年度统计（{{new Date().getFullYear()}}）</text></view>
+				<view>
+				<navigator url="/pages_charts/fmChart/fmChart" hover-class="none">
+					<l-icon name="ri:more-line" size="35px" color="#007aff" />
+				</navigator>
+
+				</view>
+				</view>
 				<view class="chart">
 					<!-- <qiun-data-charts type="mix" :opts="mixConfig.opts" :chartData="currentYearGroup.data" />
          -->
@@ -29,9 +37,9 @@
 <script>
 	import {
 		FMService
-	} from "../../../services/FMService";
-	import echartComponent from "../../../pages_charts/components/echartComponent";
-	import lIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
+	} from "../../services/FMService";
+	import echartComponent from "./echartComponent";
+	import lIcon from '../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 	export default {
 		components: {
 			echartComponent,
@@ -176,8 +184,8 @@
 					this.getExpensesCurrentYear(),
 				];
 				const res = await Promise.all(task);
-				this.setCurrentYearGroup(res[2].simpleXLabel, res[2].xValue, res[3].xValue);
-				//console.log("res====",res);
+				this.setCurrentYearGroup(res[2].xlable, res[2].xValue, res[3].xValue);
+				console.log("res====",res);
 			},
 			//获取收入 月
 			async getIncomeMonth() {
@@ -251,7 +259,10 @@
 						// }
 					},
 					grid: {
-						bottom: 60
+							x: 50, // 左侧边距
+											y:60, // 上侧边距
+											x2: 30, // 右侧边距
+											y2: 60 // 下侧边距
 					},
 					tooltip: {
 						trigger: 'axis',
@@ -269,7 +280,7 @@
 					yAxis: {
 						axisLabel: {
 							formatter: function(value) {
-								return `${(value/1000)}w`;
+								return `${(value/100)}K`;
 							}
 						}
 					},
@@ -306,9 +317,9 @@
 		.chart-list {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: space-between;
+			justify-content: center;
 			align-items: center;
-			gap: 15px;
+			gap: 20px;
 			padding: 15px;
 			box-sizing: border-box;
 
@@ -316,7 +327,7 @@
 				min-height: 150px;
 				width: 155px;
 
-				border-radius: 8px;
+				border-radius: 20px;
 				box-sizing: border-box;
 				padding: 15px;
 				color: #fff;
@@ -373,6 +384,8 @@
 					color: #2c405a;
 					font-weight: 400;
 					padding: 15px;
+					display: flex;
+					justify-content: space-between;
 				}
 
 				.chart {

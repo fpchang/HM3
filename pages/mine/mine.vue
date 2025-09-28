@@ -102,7 +102,7 @@
 		<view class="flex-center"> </view>
 
 		<uni-popup ref="nameDialog" type="dialog">
-			<uni-popup-dialog ref="inputClose" before-close mode="input" title="更改名称" value="" placeholder="请输入名称"
+			<uni-popup-dialog v-if="showDialog" ref="inputClose" before-close mode="input" title="更改名称" value="" placeholder="请输入名称"
 				@close="closeNameUpdate" @confirm="submitNameUpdate"></uni-popup-dialog>
 		</uni-popup>
 		<!-- <uni-pay ref="pay"></uni-pay> -->
@@ -132,28 +132,16 @@ export default {
     return {
       avatar:
         "https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/unicloudlogo.png",
+		showDialog:false,
       menuList: [
-        // {
-        // 	key: "instructions",
-        // 	unicode: "\ue8cc",
-        // 	title: "使用说明",
-        // 	showArrow: true
-        // },
-
         {
           key: "feedback",
           unicode: "\ue6c0",
 		  imgName:"fluent:mail-32-filled",
           title: "意见反馈",
           showArrow: true,
-        },
-        // {
-        // 	key: "loginOut",
-        // 	unicode: "\ue625",
-        // 	title: "退出登录",
-        // 	showArrow: true
-        // }
-      ],
+        }
+      ]
     };
   },
   computed: {
@@ -203,9 +191,11 @@ export default {
       return new Date(Number(d)).Format("yyyy-MM-dd");
     },
     closeNameUpdate() {
+		this.showDialog=false;
       this.$refs.nameDialog.close();
     },
     openNameUpdate() {
+		this.showDialog=true;
       this.$refs.nameDialog.open();
     },
     async submitNameUpdate(val) {

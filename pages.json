@@ -260,12 +260,12 @@
 							
 						},
 						"usingComponents": {
-							//"fmYearAndMonth":"/pages/financialManagement/components/fmYearAndMonth",
-							"echart-component": "/pages_charts/components/echartComponent"
+							"fm-ym":"/pages_charts/components/fmYm"
+							//"echart-component": "/pages_charts/components/echartComponent"
 						},		
 						"componentPlaceholder": {
-							//"fmYearAndMonth":"fmYearAndMonth",
-							"echart-component": "echartComponent"
+							"fm-ym":"fmYm"
+							//"echart-component": "echart-component"
 						}
 					}
 					
@@ -480,6 +480,11 @@
 		 "usingComponents": {
 		     
 		    },
+			  "pageOrientation": "auto", //横屏配置，全局屏幕旋转设置(仅 APP/微信/QQ小程序)，支持 auto / portrait / landscape
+			    "rpxCalcMaxDeviceWidth": 1366,
+			    "rpxCalcBaseDeviceWidth": 1024,
+			    "rpxCalcIncludeWidth": 750,
+				 "resizable": true,
 		"app-plus": {
 
 		}

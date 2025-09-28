@@ -4,37 +4,19 @@
       <view class="introduce">
         <view class="share-area">
           <view class="container">
-            <view class="icon-item">
-            </view>
             <!-- #ifdef MP -->
 
             <view class="icon-item">
               <button class="clearBtn" :plain="true" open-type="share">
-                <uv-icon
-                  name="share"
-                  color="#fff"
-                  size="24"
-                  labelColor="#fff"
-                  labelPos="bottom"
-                  labelSize="12px"
-                  @click="shareHotel"
-                ></uv-icon>
+                <l-icon name="ri:share-forward-fill" color="#fff" size="24px"></l-icon>
               </button>
             </view>
             <!-- #endif -->
-            <!-- #ifdef APP -->
+            <!-- #ifndef MP -->
 
             <view class="icon-item">
               <button class="clearBtn" :plain="true" @click="shareWx()">
-                <uv-icon
-                  name="share"
-                  color="#fff"
-                  size="24"
-                  labelColor="#fff"
-                  labelPos="bottom"
-                  labelSize="12px"
-                  @click="shareHotel"
-                ></uv-icon>
+                <l-icon   name="ri:share-forward-fill" color="#fff" size="20px"></l-icon>
               </button>
             </view>
             <!-- #endif -->
@@ -86,11 +68,13 @@
 import information from "./components/information";
 import servicesFacilities from "./components/servicesFacilities";
 import { HotelServiceClient } from "@/services/HotelServiceClient";
+import LIcon from '../../../uni_modules/lime-icon/components/l-icon/l-icon.vue';
 export default {
   name: "introduce",
   components: {
     information,
     servicesFacilities,
+    LIcon
   },
   props: {
     hotel: {
@@ -254,6 +238,9 @@ $showWidth: 800px;
       cursor: pointer;
       background-color: rgba(0, 0, 0, 0.3);
       padding: 5px;
+      width: 30px;
+      height: 30px;
+      box-sizing: border-box;
       border-radius: 50%;
       display: flex;
       align-items: center;

@@ -101,7 +101,6 @@ export default {
       try {
         console.log("加载数据")
         const res =await this.$store.dispatch("getHotelList");
-        console.log("111111111111",res);
         this.$store.commit("setBaseDatahasLoad", true);
         this.isLoading=false;
         if (!this.hotelList || this.hotelList.length < 1) {

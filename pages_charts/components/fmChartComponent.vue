@@ -5,7 +5,7 @@
 		</block> -->
 		<block v-if="hotel_id">
 			<view>
-				<xt-panal-list :count="5" bgColor="#0765aec7">
+				<xt-panal-list :count="5" bgColor="#0765aec7" >
 					<template v-slot:["card0"]>
 						<view class="container-chart">
 							<view class="label-area" v-if="false"><text>当月收入：</text><text
@@ -13,7 +13,7 @@
 							<view class="charts-box chart-area">
 								<!-- <qiun-data-charts type="pie" :opts="pieConfig.opts"
 									:chartData="currentMonthIncomeOption" /> -->
-								<echartComponent ref="currentMonthIncomeOptionRef" width="100%"/>
+								<echartComponent ref="currentMonthIncomeOptionRef" width="100%" height="390px"/>
 							</view>
 						</view>
 
@@ -25,7 +25,7 @@
 							<view class="charts-box chart-area">
 								<!-- <qiun-data-charts type="pie" :opts="pieConfig.opts" :chartData="currentMonthExpenses" />
 							 -->
-								<echartComponent ref="currentMonthExpensesRef" width="100%"/>
+								<echartComponent ref="currentMonthExpensesRef" width="100%" height="390px"/>
 							</view>
 						</view>
 
@@ -37,7 +37,7 @@
 							<view class="chart-area">
 								<!-- <qiun-data-charts type="bar" :opts="barCofig.opts"
 									:chartData="currentYearIncomeOption.data" /> -->
-								<echartComponent ref="currentYearIncomeRef" width="100%" />
+								<echartComponent ref="currentYearIncomeRef" width="100%" height="390px"/>
 							</view>
 						</view>
 
@@ -50,7 +50,7 @@
 							<view class="chart-area">
 								<!-- <qiun-data-charts type="bar" :opts="barCofig.opts"
 									:chartData="currentYearExpensesOption.data" /> -->
-								<echartComponent ref="currentYearExpensesRef" width="100%"/>
+								<echartComponent ref="currentYearExpensesRef" width="100%" height="390px"/>
 
 
 							</view>
@@ -105,6 +105,11 @@
 			this.getIncomeCurrentYear();
 			this.getExpensesCurrentYear();
 
+		},
+		mounted(){
+			uni.onWindowResize(res=>{
+				this.refrushData();
+			});
 		},
 		computed: {
 			hotel_id() {
@@ -171,7 +176,7 @@
 				const yAxis={
 					axisLabel: {
 						formatter: function (value) {
-						return `${(value/1000)}w`;
+						return `${(value/100)}K`;
 						}
 					}
 				};
@@ -195,7 +200,7 @@
 					const yAxis={
 					axisLabel: {
 						formatter: function (value) {
-						return `${(value/1000)}w`;
+						return `${(value/100)}K`;
 						}
 					}
 				}
@@ -217,7 +222,7 @@
 
 					title: {
 						text: `当月收入`,
-						subtext: `￥${count}`,
+						subtext: `计：￥${count}`,
 							textStyle:{
 							color:'#666'
 						},
@@ -225,6 +230,7 @@
 							fontStyle: 'fontWeight',
 							color: '#007aff',
 							lineHeight: 26,
+							fontSize:'15px'
 						}
 						
 					},
@@ -233,7 +239,7 @@
 						trigger: 'item'
 					},
 					legend: {
-						orient: 'vertical',
+						orient: 'horizontal',
 						left: 'left',
 						bottom: 0
 					},
@@ -271,7 +277,7 @@
 
 					title: {
 						text: `当月支出`,
-						subtext: `￥${count}`,
+						subtext: `计：￥${count}`,
 						textStyle:{
 							color:'#666'
 						},
@@ -279,6 +285,7 @@
 							fontStyle: 'fontWeight',
 							color: '#007aff',
 							lineHeight: 26,
+							fontSize:'15px'
 						}
 					},
 					grid:{top:100},
@@ -286,7 +293,7 @@
 						trigger: 'item'
 					},
 					legend: {
-						orient: 'vertical',
+						orient: 'horizontal',
 						left: 'left',
 						bottom: 0
 					},
@@ -320,7 +327,7 @@
 
 					title: {
 						text: `当年收入`,
-						subtext: `￥${count}`,
+						subtext: `计：￥${count}`,
 							textStyle:{
 							color:'#666'
 						},
@@ -328,6 +335,7 @@
 							fontStyle: 'fontWeight',
 							color: '#007aff',
 							lineHeight: 26,
+							fontSize:'15px'
 						}
 					},
 					grid: {
@@ -343,6 +351,7 @@
 						}
 					},
 					legend: {
+						orient: 'horizontal',
 						bottom: 0
 					},
 					xAxis: xAxis,
@@ -358,7 +367,7 @@
 
 					title: {
 						text: `当年支出`,
-						subtext: `￥${count}`,
+						subtext: `计：￥${count}`,
 							textStyle:{
 							color:'#666'
 						},
@@ -366,6 +375,7 @@
 							fontStyle: 'fontWeight',
 							color: '#007aff',
 							lineHeight: 26,
+							fontSize:'15px'
 						}
 					},
 					grid:{
@@ -381,6 +391,7 @@
 						}
 					},
 					legend: {
+						orient: 'horizontal',
 						bottom: 0
 					},
 					xAxis: xAxis,
@@ -396,7 +407,7 @@
 	};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.fmChartComponent {
 		height: 100%;
 		min-height: 100vh;
@@ -416,6 +427,7 @@
 		.chart-area {
 			
 			width: 100%;
+			min-height: 480px;
 			background: #fff;
 			padding: 20px;
 			box-sizing: border-box;

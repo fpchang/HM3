@@ -26,6 +26,12 @@
         {
             "playground" : "standard",
             "type" : "uni-app:app-ios"
+        },
+        {
+            "customPlaygroundType" : "device",
+            "packageName" : "ys.hotelsys.fun",
+            "playground" : "standard",
+            "type" : "uni-app:app-android"
         }
     ]
 }

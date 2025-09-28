@@ -1,11 +1,11 @@
 <template>
-  <view class="content">
+  <view class="homeMenu">
     <!-- <scroll-view overflow-x="false" overflow-y="true" style="height:100vh"> -->
 
     <view class="menu-one">
       <view :style="{'height':topHeight}"></view>
       <view class="subtitle">店铺管理</view>
-      <view class="item-list">
+      <view class="menu-item-list">
         <view class="item">
           <navigator url="/pages/hotelManage/roomType/roomType" hover-class="none">
             <view>
@@ -42,7 +42,7 @@
     </view>
     <view class="menu-two" v-for="item of menuList">
       <view class="subtitle">{{item.title}}</view>
-      <view class="item-list">
+      <view class="menu-item-list">
         <view class="item" v-for="ite of item.list">
           <navigator :url="ite.href" hover-class="none">
             <view class="item-group">
@@ -131,7 +131,7 @@ export default {
             {
               title: "财务统计",
               icon: "material-symbols:bar-chart-4-bars-rounded",
-              href: "/pages/financialManagement/fmChart/fmChart",
+              href: "/pages_charts/fmChart/fmChart",
               iconColor: "#f64653",
             }
           ],
@@ -196,7 +196,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .homeMenu{
 .menu-one {
   /*background: linear-gradient(to bottom, #0765ae, #9ec3fa);*/
   background-image: linear-gradient(162deg, #0765ae, #0765ae, #0765ae7a);
@@ -206,12 +207,12 @@ export default {
 
   .subtitle {
     color: #fff;
-    padding: 25px;
     font-weight: 400;
     font-size: 24px;
+    padding: 0 18px 18px 18px;
   }
 
-  .item-list {
+  .menu-item-list {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -222,7 +223,7 @@ export default {
     height: 175px;*/
       padding: 20px 30px;
       background: #e1eafd;
-      border-radius: 25px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -247,7 +248,7 @@ export default {
     font-size: 22px;
   }
 
-  .item-list {
+  .menu-item-list {
     display: flex;
     /* justify-content: space-around;*/
     flex-wrap: wrap;
@@ -297,4 +298,5 @@ export default {
     }
   }
 }
+  }
 </style>

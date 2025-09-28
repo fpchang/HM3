@@ -1,6 +1,6 @@
 <template>
-	<view class="echartComponent"> 
-			 <e-chart ref="echartRef" width="100%"/> 
+	<view class="echartComponent" :style="{'width':width,'height':height}"> 
+			 <e-chart ref="echartRef" width="100%" height="100%"/> 
 	</view>
 </template>
 
@@ -17,29 +17,34 @@
 			},
 			height:{
 				type:String,
-				default:"100%"
+				default:"380px"
 			},
 			option:{
 				type:Object,
 				default:{}
 			}
 		},
-		data(){},
+		data(){
+			return {option:null}
+		},
 		mounted(){
-			//this.init();
+	
 		},
 		methods:{
 			init(option){
-				this.$refs.echartRef.init(option)
+				this.option=option;
+				this.$refs.echartRef.init(this.option);
+				
 			}
 		}
 		
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.echartComponent{
-		width: 100%;
-		height: 100%;
+		flex:1;
+		
+		
 	}
 </style>
