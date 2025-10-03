@@ -180,6 +180,22 @@ export default {
 				//orderSouce_Zn: "携程",
 				//orderStatus: 0,
 			},
+			orderFormRules: {
+					// 对name字段进行必填验证
+					userName : {
+						rules: [{
+								required: true,
+								errorMessage: '请输入房客名称',
+							}
+							
+						],
+					},
+					bedList:[{
+								required: true,
+								errorMessage: '请选择床位',
+							}],
+					roomList:[]
+				}
 		};
 	},
 	created() {
@@ -336,6 +352,9 @@ export default {
 		getValidOrder() {},
 		async submitForm() {
 			//uni.showLoading();
+			if(!this.orderForm.userName){
+				uni.showToast({title:"请输入客户名",icon:"none"})
+			}
 			this.submitLoading = true;
 			let dateRange = this.dateRangeArrayFormat;
 			let sourceObj = this.source.find(

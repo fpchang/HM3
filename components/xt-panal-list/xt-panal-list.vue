@@ -100,12 +100,6 @@
 				let ys = windowWidth % 410;
 				return Math.min(410 + ys / count, 800);
 			},
-			maxWidth(){
-				if(this.wrap){
-				//	return '450px';
-				}
-				return 'none';
-			},
 			cardContainerWidth() {
 				let count = Math.max(Math.floor(this.viewWidth / this.cardWidth), 1);
 				return this.cardWidth * count;
@@ -143,11 +137,15 @@
 :root{
 --cardItemBgColor:#fff;
 }
- 
+ .xt-panal-list{
+	 display: flex;
+	 justify-content: center;
+ }
 	.card-container {
 		display: flex;
 		flex-wrap: wrap;
 		min-width: 370px;
+		margin: auto;
 
 		.card {
 			min-width: 370px;

@@ -2,8 +2,8 @@
     "name" : "议宿",
     "appid" : "__UNI__FB469B7",
     "description" : "",
-    "versionName" : "2.0.9",
-    "versionCode" : 209,
+    "versionName" : "2.0.11",
+    "versionCode" : 211,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -55,14 +55,24 @@
             },
             /* ios打包配置 */
             "ios" : {
-                "dSYMs" : false
+                "dSYMs" : false,
+                "capabilities" : {
+                    "entitlements" : {
+                        "com.apple.developer.associated-domains" : [
+                            //把这里改成你配置的网址
+                            "applinks:www.hotelsys.fun"
+                        ]
+                    }
+                },
+                "urlschemewhitelist" : "alipays,alipay,safepay,weixin,wechat",
+                "idfa" : false
             },
             /* SDK配置 */
             "sdkConfigs" : {
                 "share" : {
                     "weixin" : {
                         "appid" : "wxb92dbe50c4655b46",
-                        "UniversalLinks" : ""
+                        "UniversalLinks" : "https://www.hotelsys.fun/apple-app-site-association/"
                     }
                 },
                 "payment" : {
@@ -71,9 +81,16 @@
                     },
                     "appleiap" : {},
                     "weixin" : {
-                        "__platform__" : [ "android" ],
+                        "__platform__" : [ "ios", "android" ],
                         "appid" : "wxb92dbe50c4655b46",
-                        "UniversalLinks" : ""
+                        "UniversalLinks" : "https://www.hotelsys.fun/apple-app-site-association/"
+                    }
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "wxb92dbe50c4655b46",
+                        "appsecret" : "58ddb3617f26ed6bdd4b4117046ae7a8",
+                        "UniversalLinks" : "https://www.hotelsys.fun/apple-app-site-association/"
                     }
                 },
                 "maps" : {
@@ -120,7 +137,8 @@
             "splashscreen" : {
                 "useOriginalMsgbox" : true
             }
-        }
+        },
+        "nvueLaunchMode" : ""
     },
     /* 快应用特有相关 */
     "quickapp" : {},
@@ -174,5 +192,6 @@
                 }
             }
         }
-    }
+    },
+    "locale" : "zh-Hans"
 }

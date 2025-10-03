@@ -248,6 +248,11 @@ $showWidth: 800px;
       &:hover {
         background-color: rgba(0, 0, 0, 0.5);
       }
+      .clearBtn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }

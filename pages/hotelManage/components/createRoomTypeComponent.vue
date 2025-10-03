@@ -138,11 +138,14 @@ export default {
 								errorMessage: '请输入房型名称',
 							},
 							{
-								validateFunction: (rule, value,data,callback)=> {									
-									let obj = this.roomType.find(item=>{ return item.name==value});
+								validateFunction: (rule, value,data,callback)=> {	
 									if(this.type==1){
-										 obj = this.roomType.find(item=>{ return item.name==value && item._id !=this.rt._id});
-									}
+										return true;
+									}								
+									let obj = this.roomType.find(item=>{ return item.name==value});
+									// if(this.type!=1){
+									// 	 obj = this.roomType.find(item=>{ return item.name==value && item._id !=this.rt._id});
+									// }
 									if(obj){
 										callback('已存在相同房型名称')
 									}
@@ -162,33 +165,35 @@ export default {
 			};
 		},
 		created() {
-			// this.type!=0?{
-			//     "count": this.rt.count,
-			//     "name": this.rt.name,
-			// 	"area":this.rt.area,
-			// 	//"isBathtub":this.rt.isBathtub,
-			// 	//"isBalcony":this.rt.isBalcony,
-			// 	"isWindow":this.rt.isWindow,
-			// 	"guestNumber":this.rt.guestNumber,
-			// 	"firstImages":this.rt.firstImages||"",
-			// 	"imagesList": this.rt.imagesList||[],
-			// 	//"disposableToiletries":this.rt.disposableToiletries,
-			// 	"bedList":this.rt.bedList,
-			//     "roomList":this.rt.roomList,
-			// 	"facility":this.rt.facility||[],
-			// 	"priceBase_name":this.rt.priceBase_name,
-			// 	"priceA_name":this.rt.priceA_name,
-			// 	"priceB_name":this.rt.priceB_name,
-			// 	"priceBase":this.rt.priceBase,
-			// 	"priceA":this.rt.priceA,
-			// 	"priceB":this.rt.priceB,
-			// 	isBargain:this.rt.isBargain,
-			// 	bargainMinPercent:this.rt.bargainMinPercent||80
-			// }:
-			if(this.type!=undefined&&this.type!=0){
-				let _id = this.rt._id;
-					this.roomTypeForm=JSON.parse(JSON.stringify(this.rt));
+			if(this.type==undefined||this.type==0){
+				return;
 			}
+			let obj = {
+			    "count": this.rt.count,
+			    "name": this.rt.name,
+				"area":this.rt.area,
+				//"isBathtub":this.rt.isBathtub,
+				//"isBalcony":this.rt.isBalcony,
+				"isWindow":this.rt.isWindow,
+				"guestNumber":this.rt.guestNumber,
+				"firstImages":this.rt.firstImages||"",
+				"imagesList": this.rt.imagesList||[],
+				//"disposableToiletries":this.rt.disposableToiletries,
+				"bedList":this.rt.bedList,
+			    "roomList":this.rt.roomList,
+				"facility":this.rt.facility||[],
+				"priceBase_name":this.rt.priceBase_name,
+				"priceA_name":this.rt.priceA_name,
+				"priceB_name":this.rt.priceB_name,
+				"priceBase":this.rt.priceBase,
+				"priceA":this.rt.priceA,
+				"priceB":this.rt.priceB,
+				isBargain:this.rt.isBargain,
+				bargainMinPercent:this.rt.bargainMinPercent
+			}
+			
+					this.roomTypeForm=JSON.parse(JSON.stringify(obj));
+			
 		},
 		mounted(){
 			//console.log(this.rt);
@@ -322,7 +327,7 @@ export default {
 			DB.callFunction(
 							"hm_updateRoomType",
 							{
-								_id:this.rt._id,
+								_id:this.rt._id._value,
                                 roomTypeObj:this.roomTypeForm
 							}
 						).then(async res=>{
@@ -332,7 +337,7 @@ export default {
 						uni.hideLoading();
 							
 				}).catch(er => {
-						//console.log("修改失败",er);
+						console.log("修改失败",er);
 						this.submitLoading = false;
 						uni.hideLoading();
 						uni.showModal({

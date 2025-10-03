@@ -247,25 +247,25 @@
 		created() {
 			console.log("target", this.targetObj)
 			if(this.type!=undefined&&this.type != 0){
-				// let obj ={
-				// 	belong: this.targetObj.belong,
-				// 	hotelName: this.targetObj.hotelName,
-				// 	hotelAddressCode: this.targetObj.hotelAddressCode,
-				// 	hotelAddress: this.targetObj.hotelAddress,
-				// 	hotelAddressArea: this.targetObj.hotelAddressArea,
-				// 	hotelCoordinate: this.targetObj.hotelCoordinate,
-				// 	hotelIntroduction: this.targetObj.hotelIntroduction,
-				// 	"firstImages": this.targetObj.firstImages || "",
-				// 	"imagesList": this.targetObj.imagesList || [],
-				// 	"cateringServices": this.targetObj.cateringServices,
-				// 	baseFacility:this.targetObj.baseFacility,
-				// 	"recreationFacility": this.targetObj.recreationFacility,
-				// 	"athleticFacility": this.targetObj.athleticFacility,
-				// 	serviceTel: this.targetObj.serviceTel,
-				// 	wechat: this.targetObj.wechat,
-				// 	feature: this.targetObj.feature
-				// } 
-				this.hotelForm=JSON.parse(JSON.stringify(this.targetObj));
+				let obj ={
+					belong: this.targetObj.belong,
+					hotelName: this.targetObj.hotelName,
+					hotelAddressCode: this.targetObj.hotelAddressCode,
+					hotelAddress: this.targetObj.hotelAddress,
+					hotelAddressArea: this.targetObj.hotelAddressArea,
+					hotelCoordinate: this.targetObj.hotelCoordinate,
+					hotelIntroduction: this.targetObj.hotelIntroduction,
+					"firstImages": this.targetObj.firstImages || "",
+					"imagesList": this.targetObj.imagesList || [],
+					"cateringServices": this.targetObj.cateringServices,
+					baseFacility:this.targetObj.baseFacility,
+					"recreationFacility": this.targetObj.recreationFacility,
+					"athleticFacility": this.targetObj.athleticFacility,
+					serviceTel: this.targetObj.serviceTel,
+					wechat: this.targetObj.wechat,
+					feature: this.targetObj.feature
+				} 
+				this.hotelForm=JSON.parse(JSON.stringify(obj));
 			}
 			 
 		},
