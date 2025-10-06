@@ -29,7 +29,7 @@
               <uni-td v-for="it of item.list" :style="{background: it.username? 'green':'#fff'}">
                 <view class="flex-center" :style="{
                   color: '#fff',
-                  'min-height': '60px',
+                  'min-height': '30px',
                   background: it.username? 'green':'#fff',
                 }">
                   <text>{{it.username}}</text>
@@ -388,9 +388,8 @@ export default {
 
 .uni-container {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 60px);
   max-width: 100vw;
-  overflow: hidden;
 }
 
 .table-header {
@@ -402,7 +401,7 @@ export default {
 }
 
 /*冻结表头第一列*/
-::v-deep .uni-table-tr .uni-table-td:first-child {
+::v-deep .uni-table-tr .uni-table-td:first-child,::v-deep .uni-table-tr .uni-table-th:first-child  {
   position: sticky;
   left: 0;
   top: 0;
@@ -414,15 +413,15 @@ export default {
   overflow: visible;
   background-color: #fff;
 }
-
-::v-deep .uni-table-tr .uni-table-th:first-child {
+/*
+::v-deep .uni-table-tr .uni-table-th{
   position: sticky;
   left: 0;
   top: 0;
   background-color: #fff;
   z-index: 1000;
 }
-
+*/
 .roomType-dev-style {
   background-color: #c6d0e1 !important;
   padding: 5px;
