@@ -66,7 +66,7 @@
               <view
                 ><l-icon name="majesticons:monitor" size="80px" color="#fff"
               /></view>
-              <view><text style="color: #fff">个性化展示</text></view>
+              <view><text style="color: #fff">店铺信息展示</text></view>
             </view>
             <view class="cs"></view>
             <view class="cs"></view>
@@ -279,6 +279,7 @@ const start = (async () => {
     accessin();
   } catch (error) {
     console.log("err", error);
+
     isReading.value = true;
   }
 })();
