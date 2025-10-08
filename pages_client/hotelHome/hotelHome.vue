@@ -36,7 +36,8 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 		// {id:"b4",label:"景点",icon:`${imgUrl}scenicSpot-black.png`,activeIcon:`${imgUrl}scenicSpot-blue.png`}
 		
       ]
-	 
+	
+	    
 	  return {
 		config,
 		tabbarList
@@ -70,7 +71,7 @@ import {HotelServiceClient} from "@/services/HotelServiceClient";
 		
 		computed:{
 			// hotel(){
-			// 	//console.log(this.$store.state)
+			// 	//console.log(store.state)
 			// 	return this.$store.state.hotelClientStore.hotel;
 			// },
 			searchCondition(){

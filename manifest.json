@@ -65,7 +65,13 @@
                     }
                 },
                 "urlschemewhitelist" : "alipays,alipay,safepay,weixin,wechat",
-                "idfa" : false
+                "idfa" : false,
+                "privacyDescription" : {
+                    "NSPhotoLibraryUsageDescription" : "该应用需要访问您的照片库，以便选择照片和视频",
+                    "NSPhotoLibraryAddUsageDescription" : "该应用需要存储照片到本地照片库",
+                    "NSLocationWhenInUseUsageDescription" : "该应用需要访问您的位置，以提供更好的服务",
+                    "NSLocalNetworkUsageDescription" : "该应用依赖网络获取数据，以便功能正常使用"
+                }
             },
             /* SDK配置 */
             "sdkConfigs" : {

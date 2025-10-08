@@ -21,7 +21,7 @@
     </view>
 
     <view class="text_box">
-      <view class="text">{{ distance }}</view>
+      <view class="text">{{ distanceStr }}</view>
       <view class="text">{{ cost }}</view>
       
       <view class="detail_button" @touchstart="goDetail">详情</view>
@@ -38,17 +38,51 @@ export default {
   setup() {
     const key = "a69cc73276ceb1a813f3be0d5d42c2aa";
     const store =  useStore();
-    let tab=ref("goToCar")
+    let tab=ref("");
+    console.log("key",key);
     let amapPlugin = new amap.AMapWX({ key });
     let polyline = ref([]);
-    let distance = ref(""),
-      cost = ref("");
+    let distance = ref(0);
+    let distanceStr=ref("");
+    let  cost = ref("");
+	  //获取当前定位
+	  const getLocation=()=> {
+	       // #ifdef H5
+	           let location=[119.872549,30.55434];	 				    
+	  				store.commit("setLocation", [119.872549,30.55434]);
+	       // #endif
+	  		// #ifndef H5
+      
+			 return new Promise((resolve, reject) => {
+				 amapPlugin.getRegeo({
+				          type: 'gcj02',
+				          success: (data) => {
+				            console.log(data);
+				            let location = [data[0].longitude, data[0].latitude];
+				            console.log("当前坐标",location)
+				            store.commit("setLocation",location);
+				            uni.hideLoading();
+							resolve();
+				          },
+				          fail: (e) => { 
+                    console.log("eee",e)
+				            this.isLoading = false;
+				            reject(e);
+				          },
+				        });
+			 });
+	  			
+	  			// #endif
+	  			
+	      	    
+	       }
       //驾车路线
     const getDrivingRouteFun = (origin,destination) => {
       if(!origin || !destination){
-        return;
+        return Promise.reject();
       }
-      // "116.481028,39.989643"
+      return new Promise((resolve,reject)=>{
+ // "116.481028,39.989643"
       amapPlugin.getDrivingRoute({
         origin: origin,
         destination: destination,
@@ -71,19 +105,24 @@ export default {
             {
               points: points,
               color: "#0091ff",
-              width: 6,
+              width: 16,
             },
           ];
-
           if (data.paths[0] && data.paths[0].distance) {
-            distance.value = data.paths[0].distance + "米";
+            distance.value = data.paths[0].distance ;
+            distanceStr.value=`驾车约 ${distance.value/1000} km`
           }
           if (data.taxi_cost) {
             cost.value = "打车约" + parseInt(data.taxi_cost) + "元";
           }
+          resolve();
         },
-        fail: function (info) {},
+        fail: function (info) {
+          reject()
+        },
       });
+      })
+     
     };
     //步行路线
     const getWalkingRouteFun= (origin,destination) =>{
@@ -91,6 +130,7 @@ export default {
         origin: origin,
         destination: destination,
       success: function(data){
+        console.log("11111",data);
         var points = [];
         if(data.paths && data.paths[0] && data.paths[0].steps){
           var steps = data.paths[0].steps;
@@ -108,14 +148,14 @@ export default {
           polyline.value=[{
             points: points,
             color: "#0091ff",
-            width: 6
+            width: 16
           }]
-        
+        console.log("步行：：",polyline);
         if(data.paths[0] && data.paths[0].distance){       
-            distance.value= data.paths[0].distance + '米'         
+            distanceStr.value= `步行约${data.paths[0].distance }米`;        
         }
         if(data.paths[0] && data.paths[0].duration){         
-            cost.value=parseInt(data.paths[0].duration/60) + '分钟'
+            cost.value=`需要${parseInt(data.paths[0].duration/60)}分钟`
          
         }
           
@@ -151,11 +191,14 @@ export default {
           height: 54,
         }
       ]
-    })
-
+    });
     return {
+      key,
+      tab,
+		getLocation,
       polyline,
       distance,
+      distanceStr,
       cost,
       hotel,
       location,
@@ -172,21 +215,59 @@ export default {
   onLoad() {
     
   },
-  created(){
-   this.checkLine("goToCar");
+  async created(){
+	  try {
+      uni.showLoading();
+	  	await this.getLocation();
+		  await this.checkLine("goToCar");
+      uni.hideLoading();
+	  } catch (error) {
+	  	console.log("error",error)
+	  }
+	  
+  
     
   },
   methods: {
-    checkLine(str){
-      this.tab=str;
+    async checkLine(str){
+      if(this.tab==str){
+        return Promise.resolve();
+      }
+      uni.showLoading();
       let ori = this.location.join(",");
       let dis = this.hotel.hotelCoordinate.join(",");
       switch(str){
         case "goToCar":
-        this.getDrivingRouteFun(ori,dis); 
+                this.tab=str;
+          try {
+             await  this.getDrivingRouteFun(ori,dis);
+             uni.hideLoading();
+            return Promise.resolve();
+          } catch (error) {
+             uni.hideLoading();
+            return Promise.reject({message:"规划路线失败"});
+          }
+        
         break;
         case "goToWalk": 
-        this.getWalkingRouteFun(ori,dis); 
+        if(this.distance>1000){
+          uni.showToast({
+            title: '距离过远',
+            icon: 'none'
+          });
+           uni.hideLoading();
+         return Promise.resolve();
+        }
+         this.tab=str;
+        try {
+           await this.getWalkingRouteFun(ori,dis); 
+            uni.hideLoading();
+           return Promise.resolve();
+        } catch (error) {
+           uni.hideLoading();
+          return Promise.reject({message:"获取步行路径失败"});
+        }
+       
         break;
       }
     }
