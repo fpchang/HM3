@@ -1,0 +1,29 @@
+<template>
+	<view class="video_menu">
+		<!-- 字体颜色nvue中无法继承，需要单独写一下 -->
+		<text class="video_text">hello video</text>
+		<button style="margin-top: 50rpx;" class="button">hi</button>
+	</view>
+</template>
+<script>
+	export default {
+		onReady() {
+			const subNVue = uni.getSubNVueById('video_subnvue');
+			subNVue.show('slide-in-left', 300, function(){  
+				// 可在打开后进行一些操作...  
+				//   
+			});  
+		}
+	}
+</script>
+<style>
+	.video_menu {
+		background-color: rgba(0, 0, 0, 0.5);
+		font-size: 32rpx;
+		font-weight: 600;
+		padding: 30rpx;
+	}
+	.video_text {
+		color: #ffffff;
+	}
+</style>

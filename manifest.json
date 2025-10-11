@@ -25,7 +25,8 @@
         "modules" : {
             "Payment" : {},
             "Maps" : {},
-            "Share" : {}
+            "Share" : {},
+            "VideoPlayer" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -189,6 +190,20 @@
     },
     "vueVersion" : "3",
     "h5" : {
+		
+		  "devServer": {
+		    "proxy": {
+		      "/api": {
+		        "target": "https://env-00jxhfhjd231.normal.cloudstatic.cn",
+		        "changeOrigin": true,
+		        "pathRewrite": {
+		          "^/api": ""
+		        }
+		      }
+		    }
+		  },
+		
+
         "sdkConfigs" : {
             "maps" : {
                 "amap" : {

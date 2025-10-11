@@ -1,0 +1,27 @@
+<template>
+	<view id="video_subnvue">
+		11111111111111111111111111
+	</view>
+</template>
+
+<script>
+	export default {
+		onReady() {
+
+		
+		},
+
+		data() {
+			return {
+				
+			}
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style>
+
+</style>

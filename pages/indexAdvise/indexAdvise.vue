@@ -9,8 +9,18 @@
       refresher-default-style="white"
       :refresher-triggered="refresher_triggered"
     >
-      <view :style="{ height: navTopHeight }"></view>
+		<view :style="{ height: navTopHeight }"></view>
+
+			
+	
+         
       <view class="introduce">
+		  <view class="card glass" style="padding:0">
+			  <view class="video-content"> 
+			  <xt-video bgColor="rgba(0, 0, 0, 0.6)" videoUrl="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/advise.mp4"></xt-video>             
+			  </view>
+		      		
+		   </view>
         <view class="card glass">
           <view class="title">简介</view>
           <view class="txt-content">
@@ -73,59 +83,6 @@
             <view class="cs"></view>
             <view class="cs"></view>
           </view>
-        </view>
-        <view class="card glass">
-          <view class="title">界面</view>
-          <!--#ifdef MP-->
-          <!-- <view class="content">
-            <view class="barner">
-              <swiper
-                :indicator-dots="true"
-                :autoplay="true"
-                :circular="true"
-                indicator-color="orange"
-                style="height: 100%; width: 100%"
-              >
-                <swiper-item v-for="item of list">
-                  <view
-                    style="height: 100%; display: flex; justify-content: center"
-                  >
-                    <image
-                      style="height: 100%; width: 100%"
-                      show-menu-by-longpress
-                      :src="item.img"
-                      class="barner-image"
-                      mode="widthFix"
-                    ></image>
-                  </view>
-                </swiper-item>
-              </swiper>
-            </view>
-          </view> -->
-          <!--#endif-->
-     
-          <view class="video-content">
-            <!--#ifndef APP-PLUS-->
-             <video id="myVideo" src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/advise.mp4"
-             :autoplay="true"
-             :muted="true"
-             object-fit="contain"
-             :vslide-gesture="true"
-             :show-mute-btn="true"
-               controls></video>
-             <!--#endif-->  
-             <!--#ifdef APP-PLUS--> 
-            <DomVideoPlayer
-              ref="domVideoPlayer"
-              src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/advise.mp4"
-              autoplay
-              loop
-              controls
-              muted
-            />
-            <!--#endif-->
-          </view>
-          
         </view>
       </view>
       <view style="height: 120px"></view>
@@ -351,7 +308,9 @@ const list = [
   },
 ];
 
-onLoad(() => {});
+onLoad(() => {
+
+});
 const navTopHeight = computed(() => {
   // #ifdef MP-WEIXIN
   return "100px";
@@ -380,7 +339,9 @@ onMounted(() => {});
   background-repeat: no-repeat;
   background-size: cover;
   overflow: auto;
+
   .introduce {
+	  margin-top: 10px;
     max-width: 800px;
     padding: 0 10px;
     margin: auto;
@@ -451,6 +412,9 @@ onMounted(() => {});
       .video-content{
         display: flex;
         justify-content: center;
+        position:relative;
+		height:75vw;
+		padding:0;
       }
     }
   }

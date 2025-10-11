@@ -10,9 +10,11 @@
 				"disableScroll": true,
 				"enablePullDownRefresh": false,
 				"backgroundColor":"#0765ae",
-				"app-plus":{
-					"bounce":"none"
-				}
+				 "app-plus": {  
+					 "bounce":"none"
+				         
+				        } 
+				
 			}
 		},
 
@@ -261,11 +263,9 @@
 						},
 						"usingComponents": {
 							"fm-ym":"/pages_charts/components/fmYm"
-							//"echart-component": "/pages_charts/components/echartComponent"
 						},		
 						"componentPlaceholder": {
 							"fm-ym":"fmYm"
-							//"echart-component": "echart-component"
 						}
 					}
 					
@@ -308,6 +308,7 @@
 						"navigationBarTitleText" : ""
 					}
 				}
+	
 		
 
 	],
@@ -371,7 +372,8 @@
 				{
 					"path": "map/pathPlaining/pathPlaining",
 					"style": {
-						"navigationBarTitleText": ""
+						"navigationBarTitleText": "",
+						"enablePullDownRefresh":false
 					}
 				},
 				{
