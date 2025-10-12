@@ -175,7 +175,7 @@ export default {
     const markers=computed(()=>{
       return [
         {
-          iconPath: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/miniprogram/icon-location-blue.png",
+          iconPath: "https://cdn.hotelsys.fun/HM/images/miniprogram/icon-location-blue.png",
           id: 0,
           latitude: hotel.value.hotelCoordinate[1],
           longitude: hotel.value.hotelCoordinate[0],
@@ -183,7 +183,7 @@ export default {
           height: 54,
         },
         {
-          iconPath: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/miniprogram/location.png",
+          iconPath: "https://cdn.hotelsys.fun/HM/images/miniprogram/location.png",
           id: 1,
           latitude: location.value[1],
           longitude: location.value[0],

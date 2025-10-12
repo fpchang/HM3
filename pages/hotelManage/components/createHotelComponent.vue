@@ -281,6 +281,12 @@
 			}
 		},
 		methods: {
+		    transformImageUrl(url=""){
+      if(!url){
+        return url;
+      }
+			 return url.replace("https://env-00jxhfhjd231.normal.cloudstatic.cn","https://cdn.hotelsys.fun");
+			},
 			onchange(e) {
 				//console.log("onchang", e)
 

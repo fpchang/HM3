@@ -33,7 +33,7 @@
             <swiper-item v-for="item of hotel.imagesList">
               <image
                 show-menu-by-longpress
-                :src="item"
+                :src="transformImageUrl(item)"
                 class="barner-image"
                 mode="aspectFill"
               ></image>
@@ -107,6 +107,12 @@ export default {
   },
   
   methods: {
+    transformImageUrl(url=""){
+      if(!url){
+        return url;
+      }
+			 return url.replace("https://env-00jxhfhjd231.normal.cloudstatic.cn","https://cdn.hotelsys.fun");
+			},
     getShareImgUrl(){
 		//console.log("开始下载。。。。。。")
 		// //console.log("111111",this.hotel.firstImages);

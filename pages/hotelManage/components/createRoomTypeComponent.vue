@@ -236,6 +236,9 @@ export default {
 			}
 		},
 		methods: {
+			transformImageUrl(url){
+					  return url.replace("https://env-00jxhfhjd231.normal.cloudstatic.cn","https://cdn.hotelsys.fun");
+			},
 			bargainMinPercentChange(e){
 				this.roomTypeForm.bargainMinPercent=e.detail.value
 			},

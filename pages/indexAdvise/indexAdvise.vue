@@ -17,7 +17,7 @@
       <view class="introduce">
 		  <view class="card glass" style="padding:0">
 			  <view class="video-content"> 
-			  <xt-video bgColor="rgba(0, 0, 0, 0.6)" videoUrl="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/advise.mp4"></xt-video>             
+			  <xt-video bgColor="rgba(0, 0, 0, 0.6)" videoUrl="https://cdn.hotelsys.fun/HM/images/advise/advise.mp4"></xt-video>             
 			  </view>
 		      		
 		   </view>
@@ -243,67 +243,67 @@ const start = (async () => {
 const list = [
   {
     title: "首页",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/1.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/1.png",
     info: "酒店管理",
   },
   {
     title: "房态",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/2.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/2.png",
     info: "酒店管理",
   },
   {
     title: "财务",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/3.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/3.png",
     info: "酒店管理",
   },
   {
     title: "功能",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/4.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/4.png",
     info: "酒店管理",
   },
   {
     title: "收入",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/5.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/5.png",
     info: "酒店管理",
   },
   {
     title: "房型",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/6.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/6.png",
     info: "酒店管理",
   },
   {
     title: "员工管理",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/7.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/7.png",
     info: "酒店管理",
   },
   {
     title: "房间管理",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/8.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/8.png",
     info: "酒店管理",
   },
   {
     title: "财务统计",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/9.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/9.png",
     info: "酒店管理",
   },
   {
     title: "收入管理",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/10.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/10.png",
     info: "酒店管理",
   },
   {
     title: "订单管理",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/11.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/11.png",
     info: "酒店管理",
   },
   {
     title: "店铺展示",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/12.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/12.png",
     info: "酒店管理",
   },
   {
     title: "房型展示",
-    img: "https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/13.png",
+    img: "https://cdn.hotelsys.fun/HM/images/advise/13.png",
     info: "酒店管理",
   },
 ];
@@ -335,7 +335,7 @@ onMounted(() => {});
   min-height: 100vh;
   height: 100%;
   background: #0765ae;
-  background: url("https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/advise/bg9.png");
+  background: url("https://cdn.hotelsys.fun/HM/images/advise/bg9.png");
   background-repeat: no-repeat;
   background-size: cover;
   overflow: auto;

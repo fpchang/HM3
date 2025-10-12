@@ -107,7 +107,26 @@
                         "appkey_android" : "fcda0c29e3679748e0f59ddb18b94960"
                     }
                 },
-                "ad" : {}
+                "ad" : {
+                    "gdt" : {},
+                    "ks" : {},
+                    "ks-content" : {},
+                    "sigmob" : {},
+                    "hw" : {},
+                    "zy" : {},
+                    "bd" : {},
+                    "bz" : {},
+                    "fl" : {},
+                    "jl" : {},
+                    "yt" : {},
+                    "gg" : {},
+                    "pg" : {},
+                    "unity" : {},
+                    "liftoff" : {},
+                    "inmobi" : {},
+                    "ironsource" : {},
+                    "mintegral" : {}
+                }
             },
             "icons" : {
                 "android" : {
@@ -190,20 +209,6 @@
     },
     "vueVersion" : "3",
     "h5" : {
-		
-		  "devServer": {
-		    "proxy": {
-		      "/api": {
-		        "target": "https://env-00jxhfhjd231.normal.cloudstatic.cn",
-		        "changeOrigin": true,
-		        "pathRewrite": {
-		          "^/api": ""
-		        }
-		      }
-		    }
-		  },
-		
-
         "sdkConfigs" : {
             "maps" : {
                 "amap" : {

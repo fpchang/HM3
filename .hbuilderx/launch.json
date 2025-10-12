@@ -32,6 +32,10 @@
             "packageName" : "ys.hotelsys.fun",
             "playground" : "standard",
             "type" : "uni-app:app-android"
+        },
+        {
+            "openVueDevtools" : false,
+            "type" : "uni-app:h5"
         }
     ]
 }

@@ -74,8 +74,10 @@
 			//uploadStatus 0 待上传，1已上传，2上传失败
 			if (this.imagesList && this.imagesList.length) {
 				this.selectImageList = this.imagesList.map(item => {
+					let url =item.toString() ||"";
+					let urlstr = url.replace("https://env-00jxhfhjd231.normal.cloudstatic.cn","https://cdn.hotelsys.fun");
 					return {
-						filePath: item,
+						filePath: urlstr,
 						fileName: "",
 						uploadStatus: 1,
 						percentCompleted: 100
@@ -109,11 +111,65 @@
 						}
 						if (this.autoUpload) {
 							//console.log("开始自动上传")
-							this.upload();
+							//this.upload();
+							this.uploadExtStorage();
 						}
 					}
 				});
 
+			},
+			async uploadExtStorage() {
+				let task = [];
+				const uniCloudStorageExtCo = uniCloud.importObject("ext_storage_co");
+				for (let i = 0; i < this.selectImageList.length; i++) {
+					const item = this.selectImageList[i];
+					if (item.uploadStatus == 1) {
+						continue;
+					}
+					task.push(new Promise(async (resolve, reject) => {
+				
+						let path = `HM/client${this.cloudPath}${Date.now()}_${item.fileName}`;
+						//七牛云扩展存储
+						 
+								const uploadFileOptionsRes = await uniCloudStorageExtCo.getUploadFileOptions({
+									cloudPath: path // 支持自定义目录
+								});
+								console.log("uploadFileOptionsRes",uploadFileOptionsRes);
+								const {fileURL,uploadFileOptions} =uploadFileOptionsRes;
+						uni.uploadFile({
+							filePath: item.filePath,
+							...uploadFileOptions,
+							//name: "file",
+						
+							success: async (e) => {
+								console.log("上传结果",e)
+								item.uploadStatus = 1;
+								item.filePath = fileURL;
+								item.percentCompleted=100;
+								resolve(e);
+							},
+							fail(f) {
+								console.log("上传fail", f);
+								item.uploadStatus = 2;
+								reject(f)
+							}
+						});
+					}))
+				}
+				try {
+					if (task.length < 1) {
+						//console.log("没有可以上传的内容");
+						return;
+					}
+					const res = await Promise.all(task);
+					this.uploadComplement = true;
+					//console.log("全部上传成功", res, this.selectImageList);
+					this.getReturnValueList();
+				} catch (error) {
+					//console.log("全部上传error", error);
+				}
+			
+			
 			},
 			async upload() {
 				let task = [];
@@ -122,9 +178,10 @@
 					if (item.uploadStatus == 1) {
 						continue;
 					}
-					task.push(new Promise((resolve, reject) => {
+					task.push(new Promise(async (resolve, reject) => {
 				
 						let path = `/HM/client${this.cloudPath}${Date.now()}_${item.fileName}`;
+				
 						uniCloud.uploadFile({
 							filePath: item.filePath,
 							cloudPath: path,
@@ -133,17 +190,19 @@
 								item.percentCompleted = Math.round(
 									(progressEvent.loaded * 100) / progressEvent.total
 								);
+								
 							},
 							success: async (e) => {
+								console.log("上传结果",e)
 								item.uploadStatus = 1;
 								//console.log("item", item)
 								const res = await uniCloud.getTempFileURL({ fileList: [e.fileID] });
-								//console.log("获取真实地址", res)
+								console.log("获取真实地址", res)
 								item.filePath = res.fileList[0].tempFileURL;
 								resolve(e);
 							},
 							fail(f) {
-								//console.log("上传fail", f);
+								console.log("上传fail", f);
 								item.uploadStatus = 2;
 								reject(f)
 							}

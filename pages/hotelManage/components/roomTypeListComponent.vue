@@ -40,7 +40,7 @@
 									</view>
 									<view class="avator">
 										<image style="width:100%;height:100%" mode="aspectFill"
-											:src="item.firstImages" />
+											:src="transformImageUrl(item.firstImages)" />
 									</view>
 
 
@@ -86,7 +86,7 @@
 									</view>
 									<view class="avator">
 										<image style="width:100%;height:100%" mode="aspectFill"
-											:src="item.firstImages" />
+											:src="transformImageUrl(item.firstImages)" />
 									</view>
 
 
@@ -241,6 +241,9 @@ export default {
   },
   
   methods: {
+	  transformImageUrl(url){
+		  return url.replace("https://env-00jxhfhjd231.normal.cloudstatic.cn","https://cdn.hotelsys.fun");
+	  },
     getSubtitle(item) {
       let bedList = item.bedList;
       let str = "";
