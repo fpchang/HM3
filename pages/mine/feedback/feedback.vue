@@ -3,10 +3,16 @@
 	  <uni-forms ref="feedbackRef" :modelValue="feedbackForm" :rules="feedbackRules" label-width="80px" >
   
 		<uni-forms-item label="标题"   required name="title" >
-		  <uni-easyinput  v-model="feedbackForm.title"  placeholder="请输入标题" />
+			<view style="width:260px"> 
+				 <uni-easyinput  v-model="feedbackForm.title"  placeholder="请输入标题" />
+			</view>
+		 
 		</uni-forms-item>
 		<uni-forms-item label="内容" name="content" required>
-		  <uni-easyinput  v-model="feedbackForm.content" type="textarea" placeholder="请输入反馈内容" />
+			<view style="width:260px"> 
+				<uni-easyinput  v-model="feedbackForm.content" type="textarea" placeholder="请输入反馈内容" />
+			</view>
+		  
 		</uni-forms-item> 
 
 		<uni-forms-item>

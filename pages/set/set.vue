@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<xt-panal-list :count="3" :single_row="true"> 
+		<xt-panal-list :count="3" :single_row="true" :isShadow="false"> 
 			<template v-slot:["card0"]>
 				<uni-list>
 					<!-- <uni-list-item title="意见反馈" link to="/pages/mine/feedback/feedback" ></uni-list-item> -->

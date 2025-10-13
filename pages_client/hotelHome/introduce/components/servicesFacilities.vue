@@ -15,10 +15,14 @@
      <block v-for="item of servicesFacilities_data">
       <view class="rec-item">
         <view class="rec-item-lab">
-          <image
-            :src="`https://env-00jxh1m2dpmq.normal.cloudstatic.cn/HM/images/miniprogram/${item.icon}`"
+         <image
+            :src="`https://cdn.hotelsys.fun/HM/images/miniprogram/${item.icon}`"
             style="width: 60px; height: 60px"
           ></image>
+		 <!-- <view> 
+		  <l-icon :name="item.liIcon" size="60px" color="#bbb"></l-icon>
+		  </view> -->
+		  
           <view>{{ item.name }}</view>
         </view>
         <view class="right-area">
@@ -62,7 +66,8 @@ export default {
     const hotel = computed(()=>{
       return store.state.hotelClientStore.hotel;
     });
-    return {hotel}
+	let servicesFacilities_data= ref(null);
+    return {hotel, servicesFacilities_data}
   },
   data() {
     return {
@@ -70,47 +75,12 @@ export default {
 
     };
   },
-  created(){
-    this.getRoomType();
+  async created(){
+    await this.getRoomType();
+	this.getServicesFacilities_data();
   },
   computed: {
-   servicesFacilities_data(){
-    let arr = [];
-    let roomTypeList = this.roomTypeList||[];
-      roomTypeList.map((item) => {
-        let facility = item["facility"] || [];
-        arr = arr.concat(facility);
-      });
-      arr = Array.from(new Set(arr));
-      //console.log("arr", arr);
-    return [
-        {
-        name: "房型设施",
-        icon: "home.svg",
-        type: "roomType",
-        support: Array.from(new Set(arr))
-      },
- 
-      {
-        name: "餐饮设施",
-        icon: "canying.svg",
-        type: "catering",
-        support: this.hotel.cateringServices,
-      },
-      {
-        name: "休闲设施",
-        icon: "yule.svg",
-        type: "recreation",
-        support: this.hotel.recreationFacility,
-      },
-      {
-        name: "运动",
-        icon: "sport.svg",
-        type: "athleticFacility",
-        support: this.hotel.athleticFacility,
-      },
-    ];
-   }
+  
   },
   methods: {
     async getRoomType(){
@@ -123,6 +93,47 @@ export default {
       let obj = data.find((item) => item._id == it) || {};
       return obj && obj["name"];
     },
+	getServicesFacilities_data(){
+	 let arr = [];
+	 let roomTypeList = this.roomTypeList||[];
+	   roomTypeList.map((item) => {
+	     let facility = item["facility"] || [];
+	     arr = arr.concat(facility);
+	   });
+	   arr = Array.from(new Set(arr));
+	   //console.log("arr", arr);
+	 this.servicesFacilities_data= [
+	     {
+	     name: "房型设施",
+	     icon: "home.svg",
+			liIcon:"ri:building-4-fill",
+	     type: "roomType",
+	     support: Array.from(new Set(arr))
+	   },
+	 
+	   {
+	     name: "餐饮设施",
+	     icon: "canying.svg",
+	     type: "catering",
+			liIcon:"emojione-monotone:fork-and-knife",
+	     support: this.hotel.cateringServices,
+	   },
+	   {
+	     name: "休闲设施",
+	     icon: "yule.svg",
+	     type: "recreation",
+			liIcon:"streamline-plump:card-game-diamond-solid",
+	     support: this.hotel.recreationFacility,
+	   },
+	   {
+	     name: "运动",
+	     icon: "sport.svg",
+	     type: "athleticFacility",
+			liIcon:"material-symbols:sports-volleyball",
+	     support: this.hotel.athleticFacility,
+	   },
+	 ];
+	}
   },
   watch: {},
 

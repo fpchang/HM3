@@ -341,7 +341,7 @@
 				{
 					"path": "roomDetail/roomDetail",
 					"style": {
-						"navigationBarTitleText": ""
+						"navigationBarTitleText": "房型详情"
 					}
 				},
 				{

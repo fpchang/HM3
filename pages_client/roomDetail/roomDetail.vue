@@ -59,7 +59,7 @@
 				<view class="room-info-list-item">
 				  <image :src="`${imgsrc}bed.svg`" style="width: 30px;height:30px;"></image>
 				  <view class="la">
-					  <view v-for="item of roomType.bedList">{{item.name}}*{{item.roomList.length}}</view>				  	
+					  <view v-for="item of roomType.bedList">{{item.name}}*{{item.count}}</view>				  	
 				  </view>
 				</view>
 				
@@ -145,7 +145,7 @@ import uniIcons from '@/uni_modules/uni-icons/components/uni-icons/uni-icons.vue
 		onShow(){
 			try {
 				if(this.isPcShow){
-					document.getElementsByTagName('uni-page-head')[0].style.display = 'none';	
+					//document.getElementsByTagName('uni-page-head')[0].style.display = 'none';	
 				}
 				
 			} catch (error) {
@@ -155,7 +155,7 @@ import uniIcons from '@/uni_modules/uni-icons/components/uni-icons/uni-icons.vue
 		onLoad(params){
 			//console.log("params",params);
 			this.roomType =JSON.parse(decodeURIComponent(params.roomType));
-			//console.log("roomType",this.roomType)
+			console.log("roomType",this.roomType)
 		}
 	}
 </script>

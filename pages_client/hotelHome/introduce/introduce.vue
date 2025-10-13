@@ -46,8 +46,8 @@
         <view class="dev-line"></view>
         <view class="panal">
           <view class="label-title">民宿介绍</view>
-          <view style="text-indent: 40rpx">
-            <text>
+          <view>
+            <text style="text-indent: 40rpx;text-align:justify">
               {{ hotel.hotelIntroduction }}
             </text>
           </view>
