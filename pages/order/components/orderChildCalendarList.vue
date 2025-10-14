@@ -59,95 +59,7 @@ export default {
   },
   data() {
     return {
-      roomType_roomList: null,
-      column: [
-        { name: "roomName", fixed: true, width: 90 },
-        {
-          name: "name",
-          label: "姓名",
-          fixed: false,
-          width: 80,
-          emptyString: "--",
-        },
-        { name: "age", label: "年纪", sorter: false, align: "right" },
-        { name: "sex", label: "性别", filters: { 0: "男", 1: "女" } },
-        { name: "img", label: "图片", type: "img" },
-        { name: "address", label: "地址" },
-        { name: "date", label: "日期", sorter: true },
-        { name: "province", label: "省份" },
-        { name: "city", label: "城市" },
-        { name: "zip", label: "邮编" },
-        {
-          name: "operation",
-          type: "operation",
-          label: "操作",
-          renders: [
-            {
-              name: "编辑",
-              func: "edit", // func 代表子元素点击的事件 父元素接收的事件 父元素 @edit
-            },
-            {
-              name: "删除",
-              type: "warn",
-              func: "dele",
-            },
-          ],
-        },
-      ],
-      data: [
-        {
-          roomName: "大床房",
-          date: "2016-05-02",
-          name: "王小虎1",
-          province: "上海",
-          sex: "男",
-          age: "18",
-          img: "https://img1.baidu.com/it/u=300787145,1214060415&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500",
-          city: "普陀区",
-          address: "上海市普",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎2",
-          province: "上海",
-          sex: "男",
-          age: "18",
-          city: "普陀区",
-          address: "上海市普",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎3",
-          province: "上海",
-          sex: "男",
-          age: "18",
-          city: "普陀区",
-          address: "上海市普",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎4",
-          province: "上海",
-          sex: "男",
-          age: "18",
-          city: "普陀区",
-          address: "上海市普",
-          zip: 200333,
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎5",
-          province: "上海",
-          sex: "男",
-          age: "18",
-          city: "普陀区",
-          address: "上海市普",
-          zip: 200333,
-        },
-      ],
+      roomType_roomList: null     
     };
   },
   async created() {
@@ -183,7 +95,9 @@ export default {
 
     orderDateRange() {
       let rangeDate = [];
+	  let startTime = new Date(new Date().Format("yyyy/MM/dd") +" 14:00:00").getTime();
       let minTime = Math.min(
+	  startTime,
         ...this.checkInOrderList.map((item) => item.checkInStartDateTimeStamp)
       );
       let maxTime = Math.max(

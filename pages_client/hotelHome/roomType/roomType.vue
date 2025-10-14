@@ -200,7 +200,6 @@ export default {
 				
     },
     roomDetail(item){
-    console.error("11111",item);
       uni.navigateTo({
           url: `/pages_client/roomDetail/roomDetail?roomType=${encodeURIComponent(JSON.stringify(item))}`,
         });
