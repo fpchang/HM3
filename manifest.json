@@ -26,7 +26,9 @@
             "Payment" : {},
             "Maps" : {},
             "Share" : {},
-            "VideoPlayer" : {}
+            "VideoPlayer" : {},
+            "Camera" : {},
+            "Geolocation" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -107,7 +109,15 @@
                         "appkey_android" : "fcda0c29e3679748e0f59ddb18b94960"
                     }
                 },
-                "ad" : {}
+                "ad" : {},
+                "geolocation" : {
+                    "amap" : {
+                        "name" : "amapAw5CiRY6N",
+                        "__platform__" : [ "ios", "android" ],
+                        "appkey_ios" : "dec5f0e878b1498301359f76d85dda03",
+                        "appkey_android" : "fcda0c29e3679748e0f59ddb18b94960"
+                    }
+                }
             },
             "icons" : {
                 "android" : {
