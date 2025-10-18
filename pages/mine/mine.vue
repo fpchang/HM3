@@ -68,7 +68,7 @@
 							<view class="flex-between">
 								<view>
 									<!-- <l-icon name="ri:hotel-fill" color="#000" size="22px"></l-icon> -->
-									<text style="padding-right: 20px">门店管理</text>
+									<text style="padding-right: 20px;font-size: 18px;">门店管理</text>
 								</view>
 								<view>
 									<l-icon name="material-symbols:arrow-forward-ios" size="22px" color="#fff"></l-icon>

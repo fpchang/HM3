@@ -10,41 +10,6 @@
         </view>
       </view>
     </view>
-    <view v-if="false && isPcShow">
-      <uni-table border stripe emptyText="暂无更多数据">
-        <!-- 表头行 -->
-        <uni-tr>
-          <uni-th align="center" width="120px">酒店名称</uni-th>
-          <uni-th align="center">地址</uni-th>
-          <uni-th align="center" width="120px">店主</uni-th>
-          <uni-th align="center" width="120px">角色</uni-th>
-          <uni-th align="center" width="180px">操作</uni-th>
-        </uni-tr>
-        <!-- 表格数据行 -->
-        <uni-tr v-for="item of hotelList">
-          <uni-td>{{ item.hotelName }}</uni-td>
-          <uni-td>{{ item.hotelAddress }}</uni-td>
-          <uni-td>{{ item.belong }}</uni-td>
-          <uni-td>{{ roleFormat(item.curRole) }}</uni-td>
-          <uni-td align="center">
-            <view class="uni-group" style="justify-content: space-around">
-              <text
-                v-if="item.curRole == 'administrator'"
-                class="edit-text-btn-style"
-                @click="editHotel(item)"
-                >修改</text
-              >
-              <text
-                v-if="item.curRole == 'administrator'"
-                class="edit-text-btn-style"
-                @click="deleteHotel(item)"
-                >删除</text
-              >
-            </view>
-          </uni-td>
-        </uni-tr>
-      </uni-table>
-    </view>
     <block v-if="noData">
       <noData
         text_content="您还没有酒店"
@@ -448,6 +413,7 @@ export default {
 
     .title {
       font-weight: 400;
+	  font-size: 18px;
     }
 
     .n {
