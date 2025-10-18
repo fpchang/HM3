@@ -8,32 +8,32 @@
       <view class="menu-item-list">
         <view class="item">
           <navigator url="/pages/hotelManage/roomType/roomType" hover-class="none">
-            <view>
-              <l-icon name="material-symbols:house-rounded" size="80px" color="#722ED1" />
-              <view style="text-align: center">房型管理</view>
+            <view class="item-group">
+              <view><l-icon name="material-symbols:house-rounded" size="80px" color="#722ED1" /></view>
+              <view class="m-txt" style="text-align: center">房型管理</view>
             </view>
           </navigator>
         </view>
          <view class="item">
           <navigator url="/pages/hotelManage/roomList/roomList" hover-class="none">
-            <view>
-              <l-icon name="icon-park-solid:adobe-lightroom" size="80px" color="#595959" />
-              <view style="text-align: center">房间管理</view>
+            <view class="item-group">
+              <view><l-icon name="icon-park-solid:adobe-lightroom" size="80px" color="#595959" /></view>
+              <view class="m-txt" style="text-align: center">房间管理</view>
             </view>
           </navigator>
         </view>
         <view class="item">
           <navigator url="/pages/hotelManage/employee/employee" hover-class="none">
-            <view>
-              <l-icon name="ic:baseline-man" size="80px" color="#00B42A" />
-              <view style="text-align: center">员工管理</view>
+            <view class="item-group">
+              <view><l-icon name="ic:baseline-man" size="80px" color="#00B42A" /></view>
+              <view class="m-txt" style="text-align: center">员工管理</view>
             </view>
           </navigator>
         </view>
         <view class="item item_">
           <navigator :url="`/pages_client/hotelHome/hotelHome?hotel_id=${hotel_id}`" hover-class="none">
-            <view>
-              <l-icon name="carbon:logo-linkedin" size="80px" color="#f64653" />
+            <view class="item-group">
+              <view><l-icon name="carbon:logo-linkedin" size="80px" color="#f64653" /></view>
               <view style="text-align: center">酒店展示</view>
             </view>
           </navigator>
@@ -47,7 +47,7 @@
           <navigator :url="ite.href" hover-class="none">
             <view class="item-group">
               <view><l-icon :name="ite.icon" size="50px" :color="ite.iconColor" /></view>
-              <view style="text-align: center">{{ite.title}}</view>
+              <view class="m-txt" style="text-align: center">{{ite.title}}</view>
             </view>
           </navigator>
 
@@ -66,7 +66,7 @@
   </view>
 </template>
 
-<script lang="ts">
+<script>
 import {ref, computed} from "vue";
 import {useStore} from "vuex";
 import lIcon from "../../uni_modules/lime-icon/components/l-icon/l-icon.vue";
@@ -229,11 +229,16 @@ export default {
       justify-content: center;
       color: #1d2129;
       font-weight: 500;
+	  .item-group {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	  		font-size: 18px;
+	  }
     }
 
     .item_ {
-      /*width: 205px;
-    height: 225px;*/
+  
     }
   }
 }
@@ -270,6 +275,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+		font-size: 18px;
       }
     }
   }

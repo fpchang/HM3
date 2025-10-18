@@ -81,6 +81,7 @@ export default {
   display: flex;
      flex-direction: row;
   background-color: var(--bgColor,#eee);
+  font-size: 18px;
   .sub-item{
     flex: 1;
     padding:10px 0;

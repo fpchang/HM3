@@ -362,6 +362,7 @@
 			padding-bottom: 33.3%;
 			position:relative;
 			.grid-item-c{
+				font-size: 18px;
 				position: absolute;
 				left: 50%;
 				top:50%;

@@ -23,7 +23,7 @@
           <block v-for="(items, keys) of checkInOrderListFormat">
             <uni-tr v-for="(item, key) of items.resultRoomList" class="t-tr">
              <uni-td>
-                <text style="font-weight: bold">{{
+                <text style="font-weight: bold;color:#909399">{{
                   item.room_name
                 }}</text></uni-td>
               <uni-td v-for="it of item.list" :style="{background: it.username? 'green':'#fff'}">
