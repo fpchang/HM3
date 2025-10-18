@@ -181,7 +181,7 @@ const store = createStore({
             uni.showToast({
               title: res.result.msg,
               duration: 2000,
-              icon: "error",
+              icon: "none",
             });
             context.dispatch("loginOut");
           return Promise.reject("token验证失败");
@@ -197,7 +197,7 @@ const store = createStore({
           uni.showToast({
             title: res.result.msg,
             duration: 2000,
-            icon: "error",
+            icon: "none",
           });
 		   console.log("token校验不通过");
         context.dispatch("loginOut");
