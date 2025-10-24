@@ -2,7 +2,7 @@
   <view class="top-banar">
     <view class="flex-center">
       <image style="width: 200px; height: 150px; vertical-align: middle"
-        src="https://env-00jxhfhjd231.normal.cloudstatic.cn/HM/images/blue-logo.svg"></image>
+        src="https://cdn.hotelsys.fun/HM/images/blue-logo.svg"></image>
     </view>
     <view class="subtitle flex-center">酒店助手<text style="padding: 0 4px">/</text><text>经营管理</text><text
         style="padding: 0 4px">/</text><text>宣传推广</text></view>

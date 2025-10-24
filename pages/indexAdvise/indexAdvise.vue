@@ -17,14 +17,14 @@
       <view class="introduce">
 		  <view class="card glass" style="padding:0">
 			  <view class="video-content"> 
-			  <xt-video bgColor="rgba(0, 0, 0, 0.6)" videoUrl="https://cdn.hotelsys.fun/HM/images/advise/advise.mp4"></xt-video>             
+			  <xt-video bgColor="rgba(0, 0, 0, 0.6)" videoUrl="https://cdn.hotelsys.fun/HM/images/advise/indexadvise.mp4"></xt-video>             
 			  </view>
 		      		
 		   </view>
         <view class="card glass">
           <view class="title">简介</view>
           <view class="txt-content">
-            议宿是一款基于酒店民宿日常事务管理开发的工具类软件，提供基础的房型房间管理，收入与支出的财务管理，财务统计图表。订单与房态管理，并自动生成店铺个性化信息展示，并且能分享给微信好友，方便快速预览。提供app与小程序支持，酒店管理员随身管理类必备工具。
+            议宿是一款基于酒店民宿日常事务管理开发的工具类软件，提供基础的房型房间管理，收入与支出的财务管理，财务统计图表。订单与房态管理，并自动生成店铺个性化信息展示，并且能分享给其它用户，方便快速预览。酒店管理员随身管理类必备工具。
           </view>
         </view>
         <view class="card glass">
