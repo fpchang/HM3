@@ -116,7 +116,7 @@
 			orderListToday() {
 				return this.$store.state.orderStore.orderListToday;
 			},
-			//今日住客订单
+			//明日住客订单
 			orderListTommorow() {
 				return this.$store.state.orderStore.orderListTommorow;
 			},
