@@ -19,7 +19,7 @@ module.exports = {
 			}
 		}
 		// 业务逻辑
-		//console.log("hm-getHotelObj>>>");
+		console.log("hm-getHotelObj>>>");
 		const dbJQL = uniCloud.databaseForJQL();
 		const hotelList  = await dbJQL.collection('hm-hotel').where(`blongUserId=='${mobile}'`).get();
 		return hotelList;

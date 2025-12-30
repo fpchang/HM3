@@ -11,7 +11,6 @@ exports.main = async (event, context) => {
 			data:{appid,secret,code}
 			
 		});
-		console.log("resPhone",resPhone);
 		const res = await uniCloud.callFunction({
 			name:"hm_login",
 			data:{
@@ -21,7 +20,7 @@ exports.main = async (event, context) => {
 		});
 		return  {code:0,msg:"",data:{phone:resPhone.result,token:res.result.data.token}};
 	} catch (error) {
-		throw new Error("登录异常",error)
+		throw new Error("登录异常")
 	}
 
 	//返回数据给客户端

@@ -4,7 +4,7 @@ exports.main = async (event, context) => {
 	let {
 		_id,
 	} = event;
-	//console.log("hm_deletMenuDetail", event);
+	console.log("hm_deletMenuDetail", event);
 	const db = uniCloud.database();
 	const result = await db.collection('hm-menuDetail').doc(_id).remove();
 	return result;

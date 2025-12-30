@@ -4,7 +4,7 @@ exports.main = async (event, context) => {
 	let {
 		_id,
 	} = event;
-	//console.log("hm_deleteScenicSpot", event);
+	console.log("hm_deleteScenicSpot", event);
 	const db = uniCloud.database();
 	const ta =await db.startTransaction();
 	

@@ -9,7 +9,7 @@ exports.main = async (event, context) => {
 	try {
 		const res = await uniCloud.request({url:url,method: 'POST',data:{code}});
 		const phone  =res.data.phone_info.phoneNumber;
-		console.log("获取的手机号信息",res);
+		//返回数据给客户端
 		return phone;
 	} catch (error) {
 		throw new  Error("getMpPhoneNumber Error");

@@ -2,7 +2,7 @@
 const tokenEvent = require('tokenEvent');
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
-	//console.log('event : ', event)
+	console.log('event : ', event)
 	const {hotel_id,$token}=event;
 	const dbJQL = uniCloud.databaseForJQL({
 			event,

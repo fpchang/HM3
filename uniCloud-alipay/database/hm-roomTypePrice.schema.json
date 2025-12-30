@@ -31,20 +31,11 @@
 		"endTime":{
 			"bsonType": "timestamp"
 		},
-		"priceBase":{
-					"description": "价格1",
-					"bsonType": "double",
-					"defaultValue":0
+		"price":{
+			"bsonType": "double"
 		},
-		"priceA":{
-					"description": "价格2",
-					"bsonType": "double",
-					"defaultValue":0
-		},
-		"priceB":{
-					"description": "价格3",
-					"bsonType": "double",
-					"defaultValue":0
+		"price_type":{
+			"bsonType": "string"
 		}
 		//new Date("2024-12-15 14:00:00").getTime(),hotel_id:"h01",roomType_id:"r01",startTime:new Date("2024-12-24 14:00:00").getTime(),endTime:new Date("2024-12-29 14:00:00").getTime(),price:380,price_title:"base"
 	}

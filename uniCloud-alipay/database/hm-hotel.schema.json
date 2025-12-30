@@ -53,7 +53,8 @@
 		},
 		"contactPhone":{
 			"description": "联系电话",
-			"bsonType": "string"
+			"bsonType": "string",
+			"defaultValue":""
 		},
 		"hotelIntroduction": {
 			"description": "酒店简介",

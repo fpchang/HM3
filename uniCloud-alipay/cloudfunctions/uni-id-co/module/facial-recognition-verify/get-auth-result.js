@@ -51,7 +51,7 @@ module.exports = async function (params) {
 
   // 如果出现错误，抛出未知错误并打印日志
   if (error) {
-    //console.log(ERROR.UNKNOWN_ERROR, 'error: ', error)
+    console.log(ERROR.UNKNOWN_ERROR, 'error: ', error)
     throw error
   }
 
@@ -70,7 +70,7 @@ module.exports = async function (params) {
       status: REAL_NAME_STATUS.CERTIFY_FAILED
     })
 
-    //console.log(ERROR.FRV_FAIL, 'error: ', res)
+    console.log(ERROR.FRV_FAIL, 'error: ', res)
     throw {
       errCode: ERROR.FRV_FAIL
     }
@@ -78,7 +78,7 @@ module.exports = async function (params) {
 
   // 如果认证状态不为“SUCCESS”，抛出未知错误并打印日志
   if (res.authState !== 'SUCCESS') {
-    //console.log(ERROR.UNKNOWN_ERROR, 'source res: ', res)
+    console.log(ERROR.UNKNOWN_ERROR, 'source res: ', res)
     throw {
       errCode: ERROR.UNKNOWN_ERROR
     }

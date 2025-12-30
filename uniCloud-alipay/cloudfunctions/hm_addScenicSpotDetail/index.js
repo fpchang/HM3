@@ -4,7 +4,7 @@ exports.main = async (event, context) => {
 	let {
 		scenicSpotDetailObj
 	} = event;
-	//console.log("hm-scenicSpotPriceDetail", event);
+	console.log("hm-scenicSpotPriceDetail", event);
 	const dbJQL = uniCloud.databaseForJQL({
 		event,
 		context

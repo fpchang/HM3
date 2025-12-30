@@ -64,7 +64,7 @@ module.exports = async function (params = {}) {
       scene: SMS_SCENE.LOGIN_BY_SMS
     })
   } catch (error) {
-    //console.log(error, {
+    console.log(error, {
       mobile,
       code,
       type: SMS_SCENE.LOGIN_BY_SMS

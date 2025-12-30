@@ -4,18 +4,13 @@ exports.main = async (event, context) => {
 	let {
 		roomList
 	} = event;
-	//console.log("hm_addRoom", event);
+	console.log("hm_addRoom", event);
 	const dbJQL = uniCloud.databaseForJQL({
 		event,
 		context
 	})
-	try {
-		const result = await dbJQL.collection('hm-room').add(roomList);
-		return result;
-	} catch (error) {
-		throw new Error(error);
-	}
-	
-	
-	
+	//const db = uniCloud.database();
+	//const dCmd = db.command;
+	const result = await dbJQL.collection('hm-room').add(roomList);
+	return result;
 };

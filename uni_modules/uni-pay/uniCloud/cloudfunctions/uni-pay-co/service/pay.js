@@ -43,7 +43,7 @@ class service {
 			cloudInfo,
 			isWxpayVirtual
 		} = data;
-		//console.log('httpInfo: ', httpInfo);
+		console.log('httpInfo: ', httpInfo);
 		let path = httpInfo.path;
 		let pay_type = path.substring(notifyPath.length);
 		let provider = pay_type.split("-")[0]; // 获取支付供应商
@@ -56,12 +56,12 @@ class service {
 		// 初始化uniPayInstance
 		let uniPayInstance = await this.initUniPayInstance({ provider, provider_pay_type });
 		let notifyType = await uniPayInstance.checkNotifyType(httpInfo);
-		//console.log('notifyType: ', notifyType)
+		console.log('notifyType: ', notifyType)
 		if (notifyType === "token") {
 			let verifyResult = await uniPayInstance.verifyTokenNotify(httpInfo);
-			//console.log('verifyResult: ', verifyResult)
+			console.log('verifyResult: ', verifyResult)
 			if (!verifyResult) {
-				//console.log('---------!签名验证未通过!---------');
+				console.log('---------!签名验证未通过!---------');
 				return;
 			}
 			// 校验token的测试接口，直接返回echostr
@@ -69,20 +69,20 @@ class service {
 		}
 		if (notifyType !== "payment") {
 			// 非支付通知直接返回成功
-			//console.log(`---------!非支付通知!---------`);
+			console.log(`---------!非支付通知!---------`);
 			return libs.common.returnNotifySUCCESS({ provider, provider_pay_type });
 		}
 		// 支付通知，验证签名
 		let verifyResult = await uniPayInstance.verifyPaymentNotify(httpInfo);
 		if (!verifyResult) {
-			//console.log('---------!签名验证未通过!---------');
-			//console.log('---------!签名验证未通过!---------');
-			//console.log('---------!签名验证未通过!---------');
+			console.log('---------!签名验证未通过!---------');
+			console.log('---------!签名验证未通过!---------');
+			console.log('---------!签名验证未通过!---------');
 			return {}
 		}
-		//console.log('---------!签名验证通过!---------');
+		console.log('---------!签名验证通过!---------');
 		verifyResult = JSON.parse(JSON.stringify(verifyResult)); // 这一句代码有用，请勿删除。
-		//console.log('verifyResult: ', verifyResult)
+		console.log('verifyResult: ', verifyResult)
 		let {
 			outTradeNo,
 			totalFee,
@@ -110,7 +110,7 @@ class service {
 					original_data: httpInfo, // http回调信息，便于丢单时手动触发回调
 				}
 			});
-			////console.log('payOrderInfo: ', payOrderInfo)
+			//console.log('payOrderInfo: ', payOrderInfo)
 			if (payOrderInfo) {
 				// 只有首次推送才执行用户自己的逻辑处理。
 				// 用户自己的逻辑处理 开始-----------------------------------------------------------
@@ -120,10 +120,10 @@ class service {
 					// 加载自定义异步回调函数
 					orderPaySuccess = require(`../notify/${payOrderInfo.type}`);
 				} catch (err) {
-					//console.log(err);
+					console.log(err);
 				}
 				if (typeof orderPaySuccess === "function") {
-					//console.log('用户自己的回调逻辑 - 开始执行');
+					console.log('用户自己的回调逻辑 - 开始执行');
 					try {
 						userOrderSuccess = await orderPaySuccess({
 							verifyResult,
@@ -131,13 +131,13 @@ class service {
 							clientInfo,
 							cloudInfo
 						});
-						//console.log('用户自己的回调逻辑 - 执行完成');
+						console.log('用户自己的回调逻辑 - 执行完成');
 					} catch(err){
 						userOrderSuccess = false;
-						//console.log('用户自己的回调逻辑 - 执行异常', err);
+						console.log('用户自己的回调逻辑 - 执行异常', err);
 					}
 				}
-				//console.log('userOrderSuccess', userOrderSuccess);
+				console.log('userOrderSuccess', userOrderSuccess);
 				// 用户自己的逻辑处理 结束-----------------------------------------------------------
 
 				await dao.uniPayOrders.updateAndReturn({
@@ -151,13 +151,13 @@ class service {
 				});
 
 			} else {
-				//console.log('---------！注意：本次回调非首次回调，已被插件拦截，插件不会执行你的回调函数！---------');
-				//console.log('---------！注意：本次回调非首次回调，已被插件拦截，插件不会执行你的回调函数！---------');
-				//console.log('---------！注意：本次回调非首次回调，已被插件拦截，插件不会执行你的回调函数！---------');
-				//console.log('verifyResult:', verifyResult);
+				console.log('---------！注意：本次回调非首次回调，已被插件拦截，插件不会执行你的回调函数！---------');
+				console.log('---------！注意：本次回调非首次回调，已被插件拦截，插件不会执行你的回调函数！---------');
+				console.log('---------！注意：本次回调非首次回调，已被插件拦截，插件不会执行你的回调函数！---------');
+				console.log('verifyResult:', verifyResult);
 			}
 		} else {
-			//console.log('verifyResult:', verifyResult);
+			console.log('verifyResult:', verifyResult);
 		}
 
 		return libs.common.returnNotifySUCCESS({ provider, provider_pay_type });
@@ -491,7 +491,7 @@ class service {
 		let queryRes;
 		if (typeof uniPayInstance.orderQuery === "function") {
 			queryRes = await uniPayInstance.orderQuery(orderQueryJson);
-			//console.log('queryRes: ', queryRes)
+			console.log('queryRes: ', queryRes)
 		} else {
 			// 无uniPayInstance.orderQuery函数时的兼容处理
 			if ([1, 2].indexOf(payOrderInfo.status) > -1) {
@@ -607,7 +607,7 @@ class service {
 			// });
 			// refundParams.leftFee = orderQueryRes.leftFee;
 		}
-		//console.log(`---- ${out_trade_no} -- ${outRefundNo} -- ${totalFee/100} -- ${refundFee/100}`)
+		console.log(`---- ${out_trade_no} -- ${outRefundNo} -- ${totalFee/100} -- ${refundFee/100}`)
 		// 退款操作
 		try {
 			res.result = await uniPayInstance.refund(refundParams);
@@ -661,7 +661,7 @@ class service {
 				console.error(err);
 			}
 		} else {
-			//console.log('res.result: ', res.result);
+			console.log('res.result: ', res.result);
 			throw { errCode: ERROR[53002] };
 		}
 		// 业务逻辑结束-----------------------------------------------------------
@@ -939,7 +939,7 @@ class service {
 			// 加载自定义异步回调函数
 			orderPaySuccess = require(`../notify/${payOrderInfo.type}`);
 		} catch (err) {
-			//console.log(err);
+			console.log(err);
 		}
 		if (typeof orderPaySuccess === "function") {
 			payOrderInfo = await dao.uniPayOrders.updateAndReturn({
@@ -955,12 +955,12 @@ class service {
 					original_data: verifyReceiptRes
 				}
 			});
-			//console.log('用户自己的回调逻辑 - 开始执行');
+			console.log('用户自己的回调逻辑 - 开始执行');
 			userOrderSuccess = await orderPaySuccess({
 				verifyResult: verifyReceiptRes,
 				data: payOrderInfo,
 			});
-			//console.log('用户自己的回调逻辑 - 执行完成');
+			console.log('用户自己的回调逻辑 - 执行完成');
 			payOrderInfo = await dao.uniPayOrders.updateAndReturn({
 				whereJson: {
 					status: 1,
@@ -975,10 +975,10 @@ class service {
 				out_trade_no,
 			});
 		}
-		//console.log('userOrderSuccess', userOrderSuccess);
+		console.log('userOrderSuccess', userOrderSuccess);
 		// 用户自己的逻辑处理 结束-----------------------------------------------------------
 
-		////console.log('verifyReceiptRes: ', verifyReceiptRes);
+		//console.log('verifyReceiptRes: ', verifyReceiptRes);
 		return {
 			errCode: 0,
 			errMsg: "ok",

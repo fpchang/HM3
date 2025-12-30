@@ -1,12 +1,12 @@
 'use strict';
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
-	//console.log('get config event : ', event);
+	console.log('get config event : ', event);
 	const {spaceId} =context.SPACEINFO;
 	//context.SPACEINFO.spaceId=="env-00jxh1m2dpmq";
 	
 	//返回数据给客户端
-	//console.log("环境配置文件", config[spaceId]);
+	console.log("环境配置文件", config[spaceId]);
 	return config[spaceId];
 };
  var config ={

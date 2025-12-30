@@ -342,7 +342,7 @@ onMounted(() => {});
 
   .introduce {
 	  margin-top: 10px;
-    max-width: 800px;
+    
     padding: 0 10px;
     margin: auto;
     display: flex;

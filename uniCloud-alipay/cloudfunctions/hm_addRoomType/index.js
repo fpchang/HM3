@@ -4,7 +4,7 @@ exports.main = async (event, context) => {
 	let {
 		roomTypeObj
 	} = event;
-	//console.log("hm_addRoomType", event);
+	console.log("hm_addRoomType", event);
 	const dbJQL = uniCloud.databaseForJQL({
 		event,
 		context

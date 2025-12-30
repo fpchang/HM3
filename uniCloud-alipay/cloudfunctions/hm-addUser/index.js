@@ -2,7 +2,7 @@
 //添加新用户到hm-user表
 exports.main = async (event, context) => {
 	let {userInfo} =event;
-	//console.log("hm-adduser",event);
+	console.log("hm-adduser",event);
 	const dbJQL = uniCloud.databaseForJQL({
 			event,
 			context
