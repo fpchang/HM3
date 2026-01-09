@@ -45,8 +45,7 @@ export default {
 					type:"",
 					ioeTime:"",
 					amount:"",
-					billType:"income",
-					
+					billType:"income",					
 					mark:""
 				},
 				incomeRules: {
